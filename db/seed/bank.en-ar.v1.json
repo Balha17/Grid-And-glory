@@ -4227,9 +4227,9 @@
       },
       "options": [
         {
-          "id": "opt_civ",
-          "en": "Ivory Coast",
-          "ar": "كوت ديفوار"
+          "id": "opt_ghana",
+          "en": "Ghana",
+          "ar": "غانا"
         },
         {
           "id": "opt_zambia",
@@ -4237,9 +4237,9 @@
           "ar": "زامبيا"
         },
         {
-          "id": "opt_ghana",
-          "en": "Ghana",
-          "ar": "غانا"
+          "id": "opt_civ",
+          "en": "Ivory Coast",
+          "ar": "كوت ديفوار"
         },
         {
           "id": "opt_mali",
@@ -4285,11 +4285,6 @@
       },
       "options": [
         {
-          "id": "opt_czech",
-          "en": "Czech Republic",
-          "ar": "التشيك"
-        },
-        {
           "id": "opt_netherlands",
           "en": "Netherlands",
           "ar": "هولندا"
@@ -4298,6 +4293,11 @@
           "id": "opt_greece",
           "en": "Greece",
           "ar": "اليونان"
+        },
+        {
+          "id": "opt_czech",
+          "en": "Czech Republic",
+          "ar": "التشيك"
         },
         {
           "id": "opt_spain",
@@ -4343,24 +4343,24 @@
       },
       "options": [
         {
-          "id": "opt_villa",
-          "en": "David Villa",
-          "ar": "دافيد فيا"
-        },
-        {
           "id": "opt_sneijder",
           "en": "Wesley Sneijder",
           "ar": "ويسلي شنايدر"
         },
         {
-          "id": "opt_forlan",
-          "en": "Diego Forlán",
-          "ar": "دييغو فورلان"
+          "id": "opt_villa",
+          "en": "David Villa",
+          "ar": "دافيد فيا"
         },
         {
           "id": "opt_muller",
           "en": "Thomas Müller",
           "ar": "توماس مولر"
+        },
+        {
+          "id": "opt_forlan",
+          "en": "Diego Forlán",
+          "ar": "دييغو فورلان"
         }
       ],
       "answerOptionId": "opt_muller",
@@ -4401,14 +4401,14 @@
       },
       "options": [
         {
-          "id": "opt_stoichkov",
-          "en": "Hristo Stoichkov",
-          "ar": "خريستو ستويتشكوف"
-        },
-        {
           "id": "opt_koeman",
           "en": "Ronald Koeman",
           "ar": "رونالد كومان"
+        },
+        {
+          "id": "opt_stoichkov",
+          "en": "Hristo Stoichkov",
+          "ar": "خريستو ستويتشكوف"
         },
         {
           "id": "opt_bakero",
@@ -4459,6 +4459,11 @@
       },
       "options": [
         {
+          "id": "opt_schurrle",
+          "en": "André Schürrle",
+          "ar": "أندريه شورله"
+        },
+        {
           "id": "opt_klose",
           "en": "Miroslav Klose",
           "ar": "ميروسلاف كلوزه"
@@ -4472,11 +4477,6 @@
           "id": "opt_gotze",
           "en": "Mario Götze",
           "ar": "ماريو غوتزه"
-        },
-        {
-          "id": "opt_schurrle",
-          "en": "André Schürrle",
-          "ar": "أندريه شورله"
         }
       ],
       "answerOptionId": "opt_gotze",
@@ -4517,11 +4517,6 @@
       },
       "options": [
         {
-          "id": "opt_egy_sud",
-          "en": "Egypt and Sudan",
-          "ar": "مصر والسودان"
-        },
-        {
           "id": "opt_sud_ethi",
           "en": "Sudan and Ethiopia",
           "ar": "السودان وإثيوبيا"
@@ -4535,6 +4530,11 @@
           "id": "opt_egy_ethi",
           "en": "Egypt and Ethiopia",
           "ar": "مصر وإثيوبيا"
+        },
+        {
+          "id": "opt_egy_sud",
+          "en": "Egypt and Sudan",
+          "ar": "مصر والسودان"
         }
       ],
       "answerOptionId": "opt_egy_ethi",
@@ -4575,11 +4575,6 @@
       },
       "options": [
         {
-          "id": "opt_spain",
-          "en": "Spain",
-          "ar": "إسبانيا"
-        },
-        {
           "id": "opt_portugal",
           "en": "Portugal",
           "ar": "البرتغال"
@@ -4588,6 +4583,11 @@
           "id": "opt_belgium",
           "en": "Belgium",
           "ar": "بلجيكا"
+        },
+        {
+          "id": "opt_spain",
+          "en": "Spain",
+          "ar": "إسبانيا"
         },
         {
           "id": "opt_france",
@@ -4638,6 +4638,11 @@
           "ar": "الأهلي"
         },
         {
+          "id": "opt_wydad",
+          "en": "Wydad AC",
+          "ar": "الوداد الرياضي"
+        },
+        {
           "id": "opt_tpmazembe",
           "en": "TP Mazembe",
           "ar": "تي بي مازيمبي"
@@ -4646,11 +4651,6 @@
           "id": "opt_esperance",
           "en": "Espérance de Tunis",
           "ar": "الترجي الرياضي التونسي"
-        },
-        {
-          "id": "opt_wydad",
-          "en": "Wydad AC",
-          "ar": "الوداد الرياضي"
         }
       ],
       "answerOptionId": "opt_esperance",
@@ -4691,11 +4691,6 @@
       },
       "options": [
         {
-          "id": "opt_liverpool",
-          "en": "Liverpool",
-          "ar": "ليفربول"
-        },
-        {
           "id": "opt_nottingham",
           "en": "Nottingham Forest",
           "ar": "نوتنغهام فورست"
@@ -4709,6 +4704,11 @@
           "id": "opt_manutd",
           "en": "Manchester United",
           "ar": "مانشستر يونايتد"
+        },
+        {
+          "id": "opt_liverpool",
+          "en": "Liverpool",
+          "ar": "ليفربول"
         }
       ],
       "answerOptionId": "opt_manutd",
@@ -4749,9 +4749,9 @@
       },
       "options": [
         {
-          "id": "opt_courtois",
-          "en": "Thibaut Courtois",
-          "ar": "تيبو كورتوا"
+          "id": "opt_turnbull",
+          "en": "Ross Turnbull",
+          "ar": "روس تيرنبول"
         },
         {
           "id": "opt_cech",
@@ -4759,14 +4759,14 @@
           "ar": "بيتر تشيك"
         },
         {
+          "id": "opt_courtois",
+          "en": "Thibaut Courtois",
+          "ar": "تيبو كورتوا"
+        },
+        {
           "id": "opt_hilario",
           "en": "Henrique Hilário",
           "ar": "هنريك هيلاريو"
-        },
-        {
-          "id": "opt_turnbull",
-          "en": "Ross Turnbull",
-          "ar": "روس تيرنبول"
         }
       ],
       "answerOptionId": "opt_cech",
@@ -4807,11 +4807,6 @@
       },
       "options": [
         {
-          "id": "opt_buffon",
-          "en": "Gianluigi Buffon",
-          "ar": "جانلويجي بوفون"
-        },
-        {
           "id": "opt_neuer",
           "en": "Manuel Neuer",
           "ar": "مانويل نوير"
@@ -4820,6 +4815,11 @@
           "id": "opt_yashin",
           "en": "Lev Yashin",
           "ar": "ليف ياشين"
+        },
+        {
+          "id": "opt_buffon",
+          "en": "Gianluigi Buffon",
+          "ar": "جانلويجي بوفون"
         },
         {
           "id": "opt_schmeichel",
@@ -4865,9 +4865,9 @@
       },
       "options": [
         {
-          "id": "opt_charlton",
-          "en": "Bobby Charlton",
-          "ar": "بوبي تشارلتون"
+          "id": "opt_eusebio",
+          "en": "Eusébio",
+          "ar": "أوزيبيو"
         },
         {
           "id": "opt_peters",
@@ -4875,9 +4875,9 @@
           "ar": "مارتن بيترز"
         },
         {
-          "id": "opt_eusebio",
-          "en": "Eusébio",
-          "ar": "أوزيبيو"
+          "id": "opt_charlton",
+          "en": "Bobby Charlton",
+          "ar": "بوبي تشارلتون"
         },
         {
           "id": "opt_hurst",
@@ -4923,11 +4923,6 @@
       },
       "options": [
         {
-          "id": "opt_zidane",
-          "en": "Zinedine Zidane",
-          "ar": "زين الدين زيدان"
-        },
-        {
           "id": "opt_trezeguet",
           "en": "David Trezeguet",
           "ar": "دافيد تريزيغيه"
@@ -4936,6 +4931,11 @@
           "id": "opt_wiltord",
           "en": "Sylvain Wiltord",
           "ar": "سيلفان ويلتورد"
+        },
+        {
+          "id": "opt_zidane",
+          "en": "Zinedine Zidane",
+          "ar": "زين الدين زيدان"
         },
         {
           "id": "opt_djorkaeff",
@@ -4991,14 +4991,14 @@
           "ar": "زبيغنيو بونييك"
         },
         {
-          "id": "opt_rossi",
-          "en": "Paolo Rossi",
-          "ar": "باولو روسي"
-        },
-        {
           "id": "opt_maradona",
           "en": "Diego Maradona",
           "ar": "دييغو مارادونا"
+        },
+        {
+          "id": "opt_rossi",
+          "en": "Paolo Rossi",
+          "ar": "باولو روسي"
         }
       ],
       "answerOptionId": "opt_rossi",
@@ -5039,9 +5039,9 @@
       },
       "options": [
         {
-          "id": "opt_milan",
-          "en": "AC Milan",
-          "ar": "ميلان"
+          "id": "opt_porto",
+          "en": "Porto",
+          "ar": "بورتو"
         },
         {
           "id": "opt_barcelona",
@@ -5049,14 +5049,14 @@
           "ar": "برشلونة"
         },
         {
-          "id": "opt_porto",
-          "en": "Porto",
-          "ar": "بورتو"
-        },
-        {
           "id": "opt_marseille",
           "en": "Marseille",
           "ar": "مارسيليا"
+        },
+        {
+          "id": "opt_milan",
+          "en": "AC Milan",
+          "ar": "ميلان"
         }
       ],
       "answerOptionId": "opt_marseille",
@@ -5097,14 +5097,14 @@
       },
       "options": [
         {
-          "id": "opt_tunisia",
-          "en": "Tunisia",
-          "ar": "تونس"
-        },
-        {
           "id": "opt_southafrica",
           "en": "South Africa",
           "ar": "جنوب أفريقيا"
+        },
+        {
+          "id": "opt_egypt",
+          "en": "Egypt",
+          "ar": "مصر"
         },
         {
           "id": "opt_ghana",
@@ -5112,9 +5112,9 @@
           "ar": "غانا"
         },
         {
-          "id": "opt_egypt",
-          "en": "Egypt",
-          "ar": "مصر"
+          "id": "opt_tunisia",
+          "en": "Tunisia",
+          "ar": "تونس"
         }
       ],
       "answerOptionId": "opt_southafrica",
@@ -5155,6 +5155,11 @@
       },
       "options": [
         {
+          "id": "opt_liverpool",
+          "en": "Liverpool",
+          "ar": "ليفربول"
+        },
+        {
           "id": "opt_manutd",
           "en": "Manchester United",
           "ar": "مانشستر يونايتد"
@@ -5163,11 +5168,6 @@
           "id": "opt_chelsea",
           "en": "Chelsea",
           "ar": "تشيلسي"
-        },
-        {
-          "id": "opt_liverpool",
-          "en": "Liverpool",
-          "ar": "ليفربول"
         },
         {
           "id": "opt_barcelona",
@@ -5213,6 +5213,11 @@
       },
       "options": [
         {
+          "id": "opt_italy",
+          "en": "Italy",
+          "ar": "إيطاليا"
+        },
+        {
           "id": "opt_brazil",
           "en": "Brazil",
           "ar": "البرازيل"
@@ -5226,11 +5231,6 @@
           "id": "opt_portugal",
           "en": "Portugal",
           "ar": "البرتغال"
-        },
-        {
-          "id": "opt_italy",
-          "en": "Italy",
-          "ar": "إيطاليا"
         }
       ],
       "answerOptionId": "opt_italy",
@@ -5276,6 +5276,11 @@
           "ar": "ليونيل ميسي"
         },
         {
+          "id": "opt_henry",
+          "en": "Thierry Henry",
+          "ar": "تييري هنري"
+        },
+        {
           "id": "opt_etoo",
           "en": "Samuel Eto'o",
           "ar": "صامويل إيتو"
@@ -5284,11 +5289,6 @@
           "id": "opt_xavi",
           "en": "Xavi",
           "ar": "تشافي"
-        },
-        {
-          "id": "opt_henry",
-          "en": "Thierry Henry",
-          "ar": "تييري هنري"
         }
       ],
       "answerOptionId": "opt_etoo",
@@ -5392,6 +5392,11 @@
           "ar": "بولندا"
         },
         {
+          "id": "opt_mexico",
+          "en": "Mexico",
+          "ar": "المكسيك"
+        },
+        {
           "id": "opt_westgermany",
           "en": "West Germany",
           "ar": "ألمانيا الغربية"
@@ -5400,11 +5405,6 @@
           "id": "opt_belgium",
           "en": "Belgium",
           "ar": "بلجيكا"
-        },
-        {
-          "id": "opt_mexico",
-          "en": "Mexico",
-          "ar": "المكسيك"
         }
       ],
       "answerOptionId": "opt_mexico",
@@ -5450,9 +5450,9 @@
           "ar": "أنجيلوس خاريستياس"
         },
         {
-          "id": "opt_euro2004final_1",
-          "en": "Theodoros Zagorakis",
-          "ar": "تيودوروس زاغوراكيس"
+          "id": "opt_euro2004final_3",
+          "en": "Zisis Vryzas",
+          "ar": "زيسيس فريزاس"
         },
         {
           "id": "opt_euro2004final_2",
@@ -5460,9 +5460,9 @@
           "ar": "جيورجوس كاراغونيس"
         },
         {
-          "id": "opt_euro2004final_3",
-          "en": "Zisis Vryzas",
-          "ar": "زيسيس فريزاس"
+          "id": "opt_euro2004final_1",
+          "en": "Theodoros Zagorakis",
+          "ar": "تيودوروس زاغوراكيس"
         }
       ],
       "answerOptionId": "opt_euro2004final_0",
@@ -5503,24 +5503,24 @@
       },
       "options": [
         {
-          "id": "opt_wc98golden_0",
-          "en": "Ronaldo Nazário",
-          "ar": "رونالدو نازاريو"
-        },
-        {
           "id": "opt_wc98golden_1",
           "en": "Davor Šuker",
           "ar": "دافور شوكر"
         },
         {
-          "id": "opt_wc98golden_2",
-          "en": "Gabriel Batistuta",
-          "ar": "غابرييل باتيستوتا"
+          "id": "opt_wc98golden_0",
+          "en": "Ronaldo Nazário",
+          "ar": "رونالدو نازاريو"
         },
         {
           "id": "opt_wc98golden_3",
           "en": "Christian Vieri",
           "ar": "كريستيان فييري"
+        },
+        {
+          "id": "opt_wc98golden_2",
+          "en": "Gabriel Batistuta",
+          "ar": "غابرييل باتيستوتا"
         }
       ],
       "answerOptionId": "opt_wc98golden_1",
@@ -5561,24 +5561,24 @@
       },
       "options": [
         {
-          "id": "opt_ucl2005captain_0",
-          "en": "Jamie Carragher",
-          "ar": "جيمي كاراغر"
-        },
-        {
           "id": "opt_ucl2005captain_1",
           "en": "Xabi Alonso",
           "ar": "تشابي ألونسو"
         },
         {
-          "id": "opt_ucl2005captain_2",
-          "en": "Steven Gerrard",
-          "ar": "ستيفن جيرارد"
+          "id": "opt_ucl2005captain_0",
+          "en": "Jamie Carragher",
+          "ar": "جيمي كاراغر"
         },
         {
           "id": "opt_ucl2005captain_3",
           "en": "Sami Hyypiä",
           "ar": "سامي هيبيا"
+        },
+        {
+          "id": "opt_ucl2005captain_2",
+          "en": "Steven Gerrard",
+          "ar": "ستيفن جيرارد"
         }
       ],
       "answerOptionId": "opt_ucl2005captain_2",
@@ -5624,9 +5624,9 @@
           "ar": "السودان"
         },
         {
-          "id": "opt_afcon1957extra_1",
-          "en": "Ethiopia",
-          "ar": "إثيوبيا"
+          "id": "opt_afcon1957extra_3",
+          "en": "Egypt",
+          "ar": "مصر"
         },
         {
           "id": "opt_afcon1957extra_2",
@@ -5634,9 +5634,9 @@
           "ar": "غانا"
         },
         {
-          "id": "opt_afcon1957extra_3",
-          "en": "Egypt",
-          "ar": "مصر"
+          "id": "opt_afcon1957extra_1",
+          "en": "Ethiopia",
+          "ar": "إثيوبيا"
         }
       ],
       "answerOptionId": "opt_afcon1957extra_3",
@@ -5677,14 +5677,14 @@
       },
       "options": [
         {
-          "id": "opt_wc2010finalextra_0",
-          "en": "David Villa",
-          "ar": "دافيد فيا"
-        },
-        {
           "id": "opt_wc2010finalextra_1",
           "en": "Andrés Iniesta",
           "ar": "أندريس إنييستا"
+        },
+        {
+          "id": "opt_wc2010finalextra_3",
+          "en": "Fernando Torres",
+          "ar": "فرناندو توريس"
         },
         {
           "id": "opt_wc2010finalextra_2",
@@ -5692,9 +5692,9 @@
           "ar": "تشافي"
         },
         {
-          "id": "opt_wc2010finalextra_3",
-          "en": "Fernando Torres",
-          "ar": "فرناندو توريس"
+          "id": "opt_wc2010finalextra_0",
+          "en": "David Villa",
+          "ar": "دافيد فيا"
         }
       ],
       "answerOptionId": "opt_wc2010finalextra_1",
@@ -5735,6 +5735,11 @@
       },
       "options": [
         {
+          "id": "opt_brazilgermany2014_3",
+          "en": "4–0",
+          "ar": "4-0"
+        },
+        {
           "id": "opt_brazilgermany2014_0",
           "en": "5–0",
           "ar": "5-0"
@@ -5748,11 +5753,6 @@
           "id": "opt_brazilgermany2014_2",
           "en": "7–1",
           "ar": "7-1"
-        },
-        {
-          "id": "opt_brazilgermany2014_3",
-          "en": "4–0",
-          "ar": "4-0"
         }
       ],
       "answerOptionId": "opt_brazilgermany2014_2",
@@ -5793,9 +5793,9 @@
       },
       "options": [
         {
-          "id": "opt_arsenalinvinciblesextra_0",
-          "en": "2001–02",
-          "ar": "2001-02"
+          "id": "opt_arsenalinvinciblesextra_3",
+          "en": "2003–04",
+          "ar": "2003-04"
         },
         {
           "id": "opt_arsenalinvinciblesextra_1",
@@ -5803,14 +5803,14 @@
           "ar": "2002-03"
         },
         {
+          "id": "opt_arsenalinvinciblesextra_0",
+          "en": "2001–02",
+          "ar": "2001-02"
+        },
+        {
           "id": "opt_arsenalinvinciblesextra_2",
           "en": "2004–05",
           "ar": "2004-05"
-        },
-        {
-          "id": "opt_arsenalinvinciblesextra_3",
-          "en": "2003–04",
-          "ar": "2003-04"
         }
       ],
       "answerOptionId": "opt_arsenalinvinciblesextra_3",
@@ -5851,6 +5851,11 @@
       },
       "options": [
         {
+          "id": "opt_intertrebleextra_2",
+          "en": "Rafael Benítez",
+          "ar": "رافاييل بينيتيز"
+        },
+        {
           "id": "opt_intertrebleextra_0",
           "en": "José Mourinho",
           "ar": "جوزيه مورينيو"
@@ -5859,11 +5864,6 @@
           "id": "opt_intertrebleextra_1",
           "en": "Carlo Ancelotti",
           "ar": "كارلو أنشيلوتي"
-        },
-        {
-          "id": "opt_intertrebleextra_2",
-          "en": "Rafael Benítez",
-          "ar": "رافاييل بينيتيز"
         },
         {
           "id": "opt_intertrebleextra_3",
@@ -5909,6 +5909,16 @@
       },
       "options": [
         {
+          "id": "opt_ucl2019finalextra_3",
+          "en": "Real Madrid",
+          "ar": "ريال مدريد"
+        },
+        {
+          "id": "opt_ucl2019finalextra_2",
+          "en": "Barcelona",
+          "ar": "برشلونة"
+        },
+        {
           "id": "opt_ucl2019finalextra_0",
           "en": "Ajax",
           "ar": "أياكس"
@@ -5917,16 +5927,6 @@
           "id": "opt_ucl2019finalextra_1",
           "en": "Tottenham Hotspur",
           "ar": "توتنهام هوتسبير"
-        },
-        {
-          "id": "opt_ucl2019finalextra_2",
-          "en": "Barcelona",
-          "ar": "برشلونة"
-        },
-        {
-          "id": "opt_ucl2019finalextra_3",
-          "en": "Real Madrid",
-          "ar": "ريال مدريد"
         }
       ],
       "answerOptionId": "opt_ucl2019finalextra_1",
@@ -5967,24 +5967,24 @@
       },
       "options": [
         {
-          "id": "opt_ucl1999comeback_0",
-          "en": "Giggs and Beckham",
-          "ar": "غيغز وبيكهام"
-        },
-        {
-          "id": "opt_ucl1999comeback_1",
-          "en": "Cole and Yorke",
-          "ar": "كول ويورك"
-        },
-        {
           "id": "opt_ucl1999comeback_2",
           "en": "Sheringham and Solskjær",
           "ar": "شيرينغهام وسولشاير"
         },
         {
+          "id": "opt_ucl1999comeback_0",
+          "en": "Giggs and Beckham",
+          "ar": "غيغز وبيكهام"
+        },
+        {
           "id": "opt_ucl1999comeback_3",
           "en": "Keane and Scholes",
           "ar": "كين وشولز"
+        },
+        {
+          "id": "opt_ucl1999comeback_1",
+          "en": "Cole and Yorke",
+          "ar": "كول ويورك"
         }
       ],
       "answerOptionId": "opt_ucl1999comeback_2",
@@ -6025,24 +6025,24 @@
       },
       "options": [
         {
-          "id": "opt_ucl2007finalextra_0",
-          "en": "Manchester United",
-          "ar": "مانشستر يونايتد"
-        },
-        {
-          "id": "opt_ucl2007finalextra_1",
-          "en": "Chelsea",
-          "ar": "تشيلسي"
-        },
-        {
           "id": "opt_ucl2007finalextra_2",
           "en": "Barcelona",
           "ar": "برشلونة"
         },
         {
+          "id": "opt_ucl2007finalextra_0",
+          "en": "Manchester United",
+          "ar": "مانشستر يونايتد"
+        },
+        {
           "id": "opt_ucl2007finalextra_3",
           "en": "Liverpool",
           "ar": "ليفربول"
+        },
+        {
+          "id": "opt_ucl2007finalextra_1",
+          "en": "Chelsea",
+          "ar": "تشيلسي"
         }
       ],
       "answerOptionId": "opt_ucl2007finalextra_3",
@@ -6083,14 +6083,14 @@
       },
       "options": [
         {
-          "id": "opt_ucl2014finalextra_0",
-          "en": "Atlético Madrid",
-          "ar": "أتلتيكو مدريد"
-        },
-        {
           "id": "opt_ucl2014finalextra_1",
           "en": "Juventus",
           "ar": "يوفنتوس"
+        },
+        {
+          "id": "opt_ucl2014finalextra_0",
+          "en": "Atlético Madrid",
+          "ar": "أتلتيكو مدريد"
         },
         {
           "id": "opt_ucl2014finalextra_2",
@@ -6141,6 +6141,11 @@
       },
       "options": [
         {
+          "id": "opt_morocco2022extra_2",
+          "en": "Fifth",
+          "ar": "الخامس"
+        },
+        {
           "id": "opt_morocco2022extra_0",
           "en": "Third",
           "ar": "الثالث"
@@ -6149,11 +6154,6 @@
           "id": "opt_morocco2022extra_1",
           "en": "Fourth",
           "ar": "الرابع"
-        },
-        {
-          "id": "opt_morocco2022extra_2",
-          "en": "Fifth",
-          "ar": "الخامس"
         },
         {
           "id": "opt_morocco2022extra_3",
@@ -6199,11 +6199,6 @@
       },
       "options": [
         {
-          "id": "opt_wc2006goldenball_0",
-          "en": "Fabio Cannavaro",
-          "ar": "فابيو كانافارو"
-        },
-        {
           "id": "opt_wc2006goldenball_1",
           "en": "Andrea Pirlo",
           "ar": "أندريا بيرلو"
@@ -6212,6 +6207,11 @@
           "id": "opt_wc2006goldenball_2",
           "en": "Zinedine Zidane",
           "ar": "زين الدين زيدان"
+        },
+        {
+          "id": "opt_wc2006goldenball_0",
+          "en": "Fabio Cannavaro",
+          "ar": "فابيو كانافارو"
         },
         {
           "id": "opt_wc2006goldenball_3",
@@ -6257,14 +6257,14 @@
       },
       "options": [
         {
+          "id": "opt_wc2018finalextra_3",
+          "en": "Croatia",
+          "ar": "كرواتيا"
+        },
+        {
           "id": "opt_wc2018finalextra_0",
           "en": "Belgium",
           "ar": "بلجيكا"
-        },
-        {
-          "id": "opt_wc2018finalextra_1",
-          "en": "England",
-          "ar": "إنجلترا"
         },
         {
           "id": "opt_wc2018finalextra_2",
@@ -6272,9 +6272,9 @@
           "ar": "البرازيل"
         },
         {
-          "id": "opt_wc2018finalextra_3",
-          "en": "Croatia",
-          "ar": "كرواتيا"
+          "id": "opt_wc2018finalextra_1",
+          "en": "England",
+          "ar": "إنجلترا"
         }
       ],
       "answerOptionId": "opt_wc2018finalextra_3",
@@ -6315,14 +6315,9 @@
       },
       "options": [
         {
-          "id": "opt_tunisiaafcon2004extra_0",
-          "en": "Morocco",
-          "ar": "المغرب"
-        },
-        {
-          "id": "opt_tunisiaafcon2004extra_1",
-          "en": "Nigeria",
-          "ar": "نيجيريا"
+          "id": "opt_tunisiaafcon2004extra_3",
+          "en": "Cameroon",
+          "ar": "الكاميرون"
         },
         {
           "id": "opt_tunisiaafcon2004extra_2",
@@ -6330,9 +6325,14 @@
           "ar": "السنغال"
         },
         {
-          "id": "opt_tunisiaafcon2004extra_3",
-          "en": "Cameroon",
-          "ar": "الكاميرون"
+          "id": "opt_tunisiaafcon2004extra_1",
+          "en": "Nigeria",
+          "ar": "نيجيريا"
+        },
+        {
+          "id": "opt_tunisiaafcon2004extra_0",
+          "en": "Morocco",
+          "ar": "المغرب"
         }
       ],
       "answerOptionId": "opt_tunisiaafcon2004extra_0",
@@ -6373,9 +6373,9 @@
       },
       "options": [
         {
-          "id": "opt_algeriaafcon2019extra_0",
-          "en": "Nigeria",
-          "ar": "نيجيريا"
+          "id": "opt_algeriaafcon2019extra_3",
+          "en": "Egypt",
+          "ar": "مصر"
         },
         {
           "id": "opt_algeriaafcon2019extra_1",
@@ -6388,9 +6388,9 @@
           "ar": "كوت ديفوار"
         },
         {
-          "id": "opt_algeriaafcon2019extra_3",
-          "en": "Egypt",
-          "ar": "مصر"
+          "id": "opt_algeriaafcon2019extra_0",
+          "en": "Nigeria",
+          "ar": "نيجيريا"
         }
       ],
       "answerOptionId": "opt_algeriaafcon2019extra_1",
@@ -6431,24 +6431,24 @@
       },
       "options": [
         {
-          "id": "opt_euro1992extra_0",
-          "en": "Sweden",
-          "ar": "السويد"
-        },
-        {
           "id": "opt_euro1992extra_1",
           "en": "Germany",
           "ar": "ألمانيا"
         },
         {
-          "id": "opt_euro1992extra_2",
-          "en": "Denmark",
-          "ar": "الدنمارك"
-        },
-        {
           "id": "opt_euro1992extra_3",
           "en": "Netherlands",
           "ar": "هولندا"
+        },
+        {
+          "id": "opt_euro1992extra_0",
+          "en": "Sweden",
+          "ar": "السويد"
+        },
+        {
+          "id": "opt_euro1992extra_2",
+          "en": "Denmark",
+          "ar": "الدنمارك"
         }
       ],
       "answerOptionId": "opt_euro1992extra_2",
@@ -6489,14 +6489,14 @@
       },
       "options": [
         {
-          "id": "opt_chelsea2012extra_0",
-          "en": "Barcelona",
-          "ar": "برشلونة"
-        },
-        {
           "id": "opt_chelsea2012extra_1",
           "en": "Real Madrid",
           "ar": "ريال مدريد"
+        },
+        {
+          "id": "opt_chelsea2012extra_0",
+          "en": "Barcelona",
+          "ar": "برشلونة"
         },
         {
           "id": "opt_chelsea2012extra_2",
@@ -6547,6 +6547,16 @@
       },
       "options": [
         {
+          "id": "opt_brazil2002final_3",
+          "en": "Argentina",
+          "ar": "الأرجنتين"
+        },
+        {
+          "id": "opt_brazil2002final_2",
+          "en": "Italy",
+          "ar": "إيطاليا"
+        },
+        {
           "id": "opt_brazil2002final_0",
           "en": "Germany",
           "ar": "ألمانيا"
@@ -6555,16 +6565,6 @@
           "id": "opt_brazil2002final_1",
           "en": "Turkey",
           "ar": "تركيا"
-        },
-        {
-          "id": "opt_brazil2002final_2",
-          "en": "Italy",
-          "ar": "إيطاليا"
-        },
-        {
-          "id": "opt_brazil2002final_3",
-          "en": "Argentina",
-          "ar": "الأرجنتين"
         }
       ],
       "answerOptionId": "opt_brazil2002final_0",
@@ -6610,11 +6610,6 @@
           "ar": "يوفنتوس"
         },
         {
-          "id": "opt_ucl1999winnerextra_1",
-          "en": "Manchester United",
-          "ar": "مانشستر يونايتد"
-        },
-        {
           "id": "opt_ucl1999winnerextra_2",
           "en": "Real Madrid",
           "ar": "ريال مدريد"
@@ -6623,6 +6618,11 @@
           "id": "opt_ucl1999winnerextra_3",
           "en": "Barcelona",
           "ar": "برشلونة"
+        },
+        {
+          "id": "opt_ucl1999winnerextra_1",
+          "en": "Manchester United",
+          "ar": "مانشستر يونايتد"
         }
       ],
       "answerOptionId": "opt_ucl1999winnerextra_1",
@@ -6668,11 +6668,6 @@
           "ar": "الأرجنتين"
         },
         {
-          "id": "opt_wc1994finalextra_1",
-          "en": "Germany",
-          "ar": "ألمانيا"
-        },
-        {
           "id": "opt_wc1994finalextra_2",
           "en": "Brazil",
           "ar": "البرازيل"
@@ -6681,6 +6676,11 @@
           "id": "opt_wc1994finalextra_3",
           "en": "Bulgaria",
           "ar": "بلغاريا"
+        },
+        {
+          "id": "opt_wc1994finalextra_1",
+          "en": "Germany",
+          "ar": "ألمانيا"
         }
       ],
       "answerOptionId": "opt_wc1994finalextra_2",
@@ -6726,14 +6726,14 @@
           "ar": "برشلونة"
         },
         {
-          "id": "opt_ucl2010finalextra_1",
-          "en": "Chelsea",
-          "ar": "تشيلسي"
-        },
-        {
           "id": "opt_ucl2010finalextra_2",
           "en": "Manchester United",
           "ar": "مانشستر يونايتد"
+        },
+        {
+          "id": "opt_ucl2010finalextra_1",
+          "en": "Chelsea",
+          "ar": "تشيلسي"
         },
         {
           "id": "opt_ucl2010finalextra_3",
@@ -6779,6 +6779,11 @@
       },
       "options": [
         {
+          "id": "opt_wc2014goldenbootextra_2",
+          "en": "Lionel Messi",
+          "ar": "ليونيل ميسي"
+        },
+        {
           "id": "opt_wc2014goldenbootextra_0",
           "en": "James Rodríguez",
           "ar": "خاميس رودريغيز"
@@ -6787,11 +6792,6 @@
           "id": "opt_wc2014goldenbootextra_1",
           "en": "Thomas Müller",
           "ar": "توماس مولر"
-        },
-        {
-          "id": "opt_wc2014goldenbootextra_2",
-          "en": "Lionel Messi",
-          "ar": "ليونيل ميسي"
         },
         {
           "id": "opt_wc2014goldenbootextra_3",
@@ -6838,16 +6838,6 @@
       },
       "options": [
         {
-          "id": "opt_ucl2004porto_0",
-          "en": "Monaco",
-          "ar": "Monaco"
-        },
-        {
-          "id": "opt_ucl2004porto_1",
-          "en": "Deportivo La Coruña",
-          "ar": "Deportivo La Coruña"
-        },
-        {
           "id": "opt_ucl2004porto_2",
           "en": "AC Milan",
           "ar": "AC Milan"
@@ -6856,6 +6846,16 @@
           "id": "opt_ucl2004porto_3",
           "en": "Chelsea",
           "ar": "Chelsea"
+        },
+        {
+          "id": "opt_ucl2004porto_0",
+          "en": "Monaco",
+          "ar": "Monaco"
+        },
+        {
+          "id": "opt_ucl2004porto_1",
+          "en": "Deportivo La Coruña",
+          "ar": "Deportivo La Coruña"
         }
       ],
       "answerOptionId": "opt_ucl2004porto_0",
@@ -6864,9 +6864,9 @@
         "ar": "فاز بورتو على موناكو 3-0 في غيلسنكيرشن."
       },
       "localization": {
-        "enChars": 67,
-        "arChars": 55,
-        "parityRatio": 0.821,
+        "enChars": 107,
+        "arChars": 95,
+        "parityRatio": 0.888,
         "verifiedBy": "auto-check-pending-editor"
       },
       "authoring": {
@@ -6902,6 +6902,11 @@
           "ar": "Chelsea"
         },
         {
+          "id": "opt_ucl2008pens_3",
+          "en": "Arsenal",
+          "ar": "Arsenal"
+        },
+        {
           "id": "opt_ucl2008pens_1",
           "en": "Barcelona",
           "ar": "Barcelona"
@@ -6910,11 +6915,6 @@
           "id": "opt_ucl2008pens_2",
           "en": "Liverpool",
           "ar": "Liverpool"
-        },
-        {
-          "id": "opt_ucl2008pens_3",
-          "en": "Arsenal",
-          "ar": "Arsenal"
         }
       ],
       "answerOptionId": "opt_ucl2008pens_0",
@@ -6923,9 +6923,9 @@
         "ar": "فاز يونايتد بركلات الترجيح 6-5 بعد التعادل 1-1 مع تشيلسي."
       },
       "localization": {
-        "enChars": 86,
-        "arChars": 76,
-        "parityRatio": 0.884,
+        "enChars": 118,
+        "arChars": 108,
+        "parityRatio": 0.915,
         "verifiedBy": "auto-check-pending-editor"
       },
       "authoring": {
@@ -6956,14 +6956,14 @@
       },
       "options": [
         {
-          "id": "opt_ucl2013robben_0",
-          "en": "Arjen Robben",
-          "ar": "Arjen Robben"
-        },
-        {
           "id": "opt_ucl2013robben_1",
           "en": "Franck Ribéry",
           "ar": "Franck Ribéry"
+        },
+        {
+          "id": "opt_ucl2013robben_3",
+          "en": "Thomas Müller",
+          "ar": "Thomas Müller"
         },
         {
           "id": "opt_ucl2013robben_2",
@@ -6971,9 +6971,9 @@
           "ar": "Mario Mandžukić"
         },
         {
-          "id": "opt_ucl2013robben_3",
-          "en": "Thomas Müller",
-          "ar": "Thomas Müller"
+          "id": "opt_ucl2013robben_0",
+          "en": "Arjen Robben",
+          "ar": "Arjen Robben"
         }
       ],
       "answerOptionId": "opt_ucl2013robben_0",
@@ -6982,9 +6982,9 @@
         "ar": "سجّل روبن في الدقيقة 89 أمام بوروسيا دورتموند."
       },
       "localization": {
-        "enChars": 75,
-        "arChars": 60,
-        "parityRatio": 0.8,
+        "enChars": 128,
+        "arChars": 113,
+        "parityRatio": 0.883,
         "verifiedBy": "auto-check-pending-editor"
       },
       "authoring": {
@@ -7041,9 +7041,9 @@
         "ar": "فاز ريال مدريد 4-1 في كارديف."
       },
       "localization": {
-        "enChars": 89,
-        "arChars": 73,
-        "parityRatio": 0.82,
+        "enChars": 101,
+        "arChars": 85,
+        "parityRatio": 0.842,
         "verifiedBy": "auto-check-pending-editor"
       },
       "authoring": {
@@ -7074,9 +7074,9 @@
       },
       "options": [
         {
-          "id": "opt_ucl2019goals_0",
-          "en": "Divock Origi",
-          "ar": "Divock Origi"
+          "id": "opt_ucl2019goals_3",
+          "en": "Jordan Henderson",
+          "ar": "Jordan Henderson"
         },
         {
           "id": "opt_ucl2019goals_1",
@@ -7089,9 +7089,9 @@
           "ar": "Roberto Firmino"
         },
         {
-          "id": "opt_ucl2019goals_3",
-          "en": "Jordan Henderson",
-          "ar": "Jordan Henderson"
+          "id": "opt_ucl2019goals_0",
+          "en": "Divock Origi",
+          "ar": "Divock Origi"
         }
       ],
       "answerOptionId": "opt_ucl2019goals_0",
@@ -7100,9 +7100,9 @@
         "ar": "حسم أوريغي الفوز 2-0 على توتنهام بهدف متأخر."
       },
       "localization": {
-        "enChars": 70,
-        "arChars": 59,
-        "parityRatio": 0.843,
+        "enChars": 123,
+        "arChars": 112,
+        "parityRatio": 0.911,
         "verifiedBy": "auto-check-pending-editor"
       },
       "authoring": {
@@ -7133,6 +7133,11 @@
       },
       "options": [
         {
+          "id": "opt_ucl2020goal_3",
+          "en": "Joshua Kimmich",
+          "ar": "Joshua Kimmich"
+        },
+        {
           "id": "opt_ucl2020goal_0",
           "en": "Kingsley Coman",
           "ar": "Kingsley Coman"
@@ -7146,11 +7151,6 @@
           "id": "opt_ucl2020goal_2",
           "en": "Serge Gnabry",
           "ar": "Serge Gnabry"
-        },
-        {
-          "id": "opt_ucl2020goal_3",
-          "en": "Joshua Kimmich",
-          "ar": "Joshua Kimmich"
         }
       ],
       "answerOptionId": "opt_ucl2020goal_0",
@@ -7159,9 +7159,9 @@
         "ar": "سجّل كومان هدف الفوز أمام باريس سان جيرمان."
       },
       "localization": {
-        "enChars": 72,
-        "arChars": 63,
-        "parityRatio": 0.875,
+        "enChars": 130,
+        "arChars": 121,
+        "parityRatio": 0.931,
         "verifiedBy": "auto-check-pending-editor"
       },
       "authoring": {
@@ -7192,6 +7192,11 @@
       },
       "options": [
         {
+          "id": "opt_ucl2021goal_3",
+          "en": "Timo Werner",
+          "ar": "Timo Werner"
+        },
+        {
           "id": "opt_ucl2021goal_0",
           "en": "Kai Havertz",
           "ar": "Kai Havertz"
@@ -7205,11 +7210,6 @@
           "id": "opt_ucl2021goal_2",
           "en": "Christian Pulisic",
           "ar": "Christian Pulisic"
-        },
-        {
-          "id": "opt_ucl2021goal_3",
-          "en": "Timo Werner",
-          "ar": "Timo Werner"
         }
       ],
       "answerOptionId": "opt_ucl2021goal_0",
@@ -7218,9 +7218,9 @@
         "ar": "سجّل هافيرتز الهدف الوحيد في بورتو."
       },
       "localization": {
-        "enChars": 93,
-        "arChars": 72,
-        "parityRatio": 0.774,
+        "enChars": 143,
+        "arChars": 122,
+        "parityRatio": 0.853,
         "verifiedBy": "auto-check-pending-editor"
       },
       "authoring": {
@@ -7261,14 +7261,14 @@
           "ar": "İlkay Gündoğan"
         },
         {
-          "id": "opt_ucl2023goal_2",
-          "en": "Erling Haaland",
-          "ar": "Erling Haaland"
-        },
-        {
           "id": "opt_ucl2023goal_3",
           "en": "Bernardo Silva",
           "ar": "Bernardo Silva"
+        },
+        {
+          "id": "opt_ucl2023goal_2",
+          "en": "Erling Haaland",
+          "ar": "Erling Haaland"
         }
       ],
       "answerOptionId": "opt_ucl2023goal_0",
@@ -7277,9 +7277,9 @@
         "ar": "سجّل رودري في الدقيقة 68 في إسطنبول."
       },
       "localization": {
-        "enChars": 94,
-        "arChars": 76,
-        "parityRatio": 0.809,
+        "enChars": 141,
+        "arChars": 123,
+        "parityRatio": 0.872,
         "verifiedBy": "auto-check-pending-editor"
       },
       "authoring": {
@@ -7310,6 +7310,16 @@
       },
       "options": [
         {
+          "id": "opt_ucl2024goals_3",
+          "en": "Joselu and Brahim Díaz",
+          "ar": "Joselu and Brahim Díaz"
+        },
+        {
+          "id": "opt_ucl2024goals_2",
+          "en": "Toni Kroos and Federico Valverde",
+          "ar": "Toni Kroos and Federico Valverde"
+        },
+        {
           "id": "opt_ucl2024goals_0",
           "en": "Dani Carvajal and Vinícius Júnior",
           "ar": "Dani Carvajal and Vinícius Júnior"
@@ -7318,16 +7328,6 @@
           "id": "opt_ucl2024goals_1",
           "en": "Jude Bellingham and Rodrygo",
           "ar": "Jude Bellingham and Rodrygo"
-        },
-        {
-          "id": "opt_ucl2024goals_2",
-          "en": "Toni Kroos and Federico Valverde",
-          "ar": "Toni Kroos and Federico Valverde"
-        },
-        {
-          "id": "opt_ucl2024goals_3",
-          "en": "Joselu and Brahim Díaz",
-          "ar": "Joselu and Brahim Díaz"
         }
       ],
       "answerOptionId": "opt_ucl2024goals_0",
@@ -7336,9 +7336,9 @@
         "ar": "افتتح كارفاخال التسجيل ثم أضاف فينيسيوس الهدف الثاني أمام دورتموند."
       },
       "localization": {
-        "enChars": 76,
-        "arChars": 69,
-        "parityRatio": 0.908,
+        "enChars": 190,
+        "arChars": 183,
+        "parityRatio": 0.963,
         "verifiedBy": "auto-check-pending-editor"
       },
       "authoring": {
@@ -7369,24 +7369,24 @@
       },
       "options": [
         {
-          "id": "opt_ucl2003pens_0",
-          "en": "Juventus",
-          "ar": "Juventus"
-        },
-        {
-          "id": "opt_ucl2003pens_1",
-          "en": "Real Madrid",
-          "ar": "Real Madrid"
-        },
-        {
           "id": "opt_ucl2003pens_2",
           "en": "Ajax",
           "ar": "Ajax"
         },
         {
+          "id": "opt_ucl2003pens_0",
+          "en": "Juventus",
+          "ar": "Juventus"
+        },
+        {
           "id": "opt_ucl2003pens_3",
           "en": "Valencia",
           "ar": "Valencia"
+        },
+        {
+          "id": "opt_ucl2003pens_1",
+          "en": "Real Madrid",
+          "ar": "Real Madrid"
         }
       ],
       "answerOptionId": "opt_ucl2003pens_0",
@@ -7395,9 +7395,9 @@
         "ar": "انتهى النهائي الإيطالي بالتعادل 0-0 قبل فوز ميلان بركلات الترجيح."
       },
       "localization": {
-        "enChars": 79,
-        "arChars": 66,
-        "parityRatio": 0.835,
+        "enChars": 110,
+        "arChars": 97,
+        "parityRatio": 0.882,
         "verifiedBy": "auto-check-pending-editor"
       },
       "authoring": {
@@ -7433,6 +7433,11 @@
           "ar": "Andrés Iniesta"
         },
         {
+          "id": "opt_wc2010goal_3",
+          "en": "Cesc Fàbregas",
+          "ar": "Cesc Fàbregas"
+        },
+        {
           "id": "opt_wc2010goal_1",
           "en": "David Villa",
           "ar": "David Villa"
@@ -7441,11 +7446,6 @@
           "id": "opt_wc2010goal_2",
           "en": "Fernando Torres",
           "ar": "Fernando Torres"
-        },
-        {
-          "id": "opt_wc2010goal_3",
-          "en": "Cesc Fàbregas",
-          "ar": "Cesc Fàbregas"
         }
       ],
       "answerOptionId": "opt_wc2010goal_0",
@@ -7454,9 +7454,9 @@
         "ar": "سجّل إنييستا في الوقت الإضافي أمام هولندا."
       },
       "localization": {
-        "enChars": 60,
-        "arChars": 49,
-        "parityRatio": 0.817,
+        "enChars": 113,
+        "arChars": 102,
+        "parityRatio": 0.903,
         "verifiedBy": "auto-check-pending-editor"
       },
       "authoring": {
@@ -7487,6 +7487,16 @@
       },
       "options": [
         {
+          "id": "opt_wc2014goal_3",
+          "en": "André Schürrle",
+          "ar": "André Schürrle"
+        },
+        {
+          "id": "opt_wc2014goal_2",
+          "en": "Miroslav Klose",
+          "ar": "Miroslav Klose"
+        },
+        {
           "id": "opt_wc2014goal_0",
           "en": "Mario Götze",
           "ar": "Mario Götze"
@@ -7495,16 +7505,6 @@
           "id": "opt_wc2014goal_1",
           "en": "Thomas Müller",
           "ar": "Thomas Müller"
-        },
-        {
-          "id": "opt_wc2014goal_2",
-          "en": "Miroslav Klose",
-          "ar": "Miroslav Klose"
-        },
-        {
-          "id": "opt_wc2014goal_3",
-          "en": "André Schürrle",
-          "ar": "André Schürrle"
         }
       ],
       "answerOptionId": "opt_wc2014goal_0",
@@ -7513,9 +7513,9 @@
         "ar": "سجّل غوتزه في الدقيقة 113 أمام الأرجنتين."
       },
       "localization": {
-        "enChars": 62,
-        "arChars": 49,
-        "parityRatio": 0.79,
+        "enChars": 114,
+        "arChars": 101,
+        "parityRatio": 0.886,
         "verifiedBy": "auto-check-pending-editor"
       },
       "authoring": {
@@ -7546,11 +7546,6 @@
       },
       "options": [
         {
-          "id": "opt_wc1990goal_0",
-          "en": "Andreas Brehme",
-          "ar": "Andreas Brehme"
-        },
-        {
           "id": "opt_wc1990goal_1",
           "en": "Lothar Matthäus",
           "ar": "Lothar Matthäus"
@@ -7564,6 +7559,11 @@
           "id": "opt_wc1990goal_3",
           "en": "Rudi Völler",
           "ar": "Rudi Völler"
+        },
+        {
+          "id": "opt_wc1990goal_0",
+          "en": "Andreas Brehme",
+          "ar": "Andreas Brehme"
         }
       ],
       "answerOptionId": "opt_wc1990goal_0",
@@ -7572,9 +7572,9 @@
         "ar": "سجّل بريمه ركلة جزاء متأخرة لألمانيا الغربية أمام الأرجنتين."
       },
       "localization": {
-        "enChars": 53,
-        "arChars": 46,
-        "parityRatio": 0.868,
+        "enChars": 109,
+        "arChars": 102,
+        "parityRatio": 0.936,
         "verifiedBy": "auto-check-pending-editor"
       },
       "authoring": {
@@ -7605,6 +7605,16 @@
       },
       "options": [
         {
+          "id": "opt_wc2018score_3",
+          "en": "4–1",
+          "ar": "4–1"
+        },
+        {
+          "id": "opt_wc2018score_2",
+          "en": "2–1",
+          "ar": "2–1"
+        },
+        {
           "id": "opt_wc2018score_0",
           "en": "4–2",
           "ar": "4–2"
@@ -7613,16 +7623,6 @@
           "id": "opt_wc2018score_1",
           "en": "3–1",
           "ar": "3–1"
-        },
-        {
-          "id": "opt_wc2018score_2",
-          "en": "2–1",
-          "ar": "2–1"
-        },
-        {
-          "id": "opt_wc2018score_3",
-          "en": "4–1",
-          "ar": "4–1"
         }
       ],
       "answerOptionId": "opt_wc2018score_0",
@@ -7631,9 +7631,9 @@
         "ar": "فازت فرنسا 4-2 في موسكو."
       },
       "localization": {
-        "enChars": 80,
-        "arChars": 55,
-        "parityRatio": 0.688,
+        "enChars": 92,
+        "arChars": 67,
+        "parityRatio": 0.728,
         "verifiedBy": "auto-check-pending-editor"
       },
       "authoring": {
@@ -7664,11 +7664,6 @@
       },
       "options": [
         {
-          "id": "opt_afcon2013goal_0",
-          "en": "Sunday Mba",
-          "ar": "Sunday Mba"
-        },
-        {
           "id": "opt_afcon2013goal_1",
           "en": "Emmanuel Emenike",
           "ar": "Emmanuel Emenike"
@@ -7682,6 +7677,11 @@
           "id": "opt_afcon2013goal_3",
           "en": "John Obi Mikel",
           "ar": "John Obi Mikel"
+        },
+        {
+          "id": "opt_afcon2013goal_0",
+          "en": "Sunday Mba",
+          "ar": "Sunday Mba"
         }
       ],
       "answerOptionId": "opt_afcon2013goal_0",
@@ -7690,9 +7690,9 @@
         "ar": "سجّل صنداي إمبا الهدف الوحيد أمام بوركينا فاسو."
       },
       "localization": {
-        "enChars": 74,
-        "arChars": 54,
-        "parityRatio": 0.73,
+        "enChars": 126,
+        "arChars": 106,
+        "parityRatio": 0.841,
         "verifiedBy": "auto-check-pending-editor"
       },
       "authoring": {
@@ -7723,16 +7723,6 @@
       },
       "options": [
         {
-          "id": "opt_afcon2015pens_0",
-          "en": "Ghana",
-          "ar": "Ghana"
-        },
-        {
-          "id": "opt_afcon2015pens_1",
-          "en": "Nigeria",
-          "ar": "Nigeria"
-        },
-        {
           "id": "opt_afcon2015pens_2",
           "en": "Algeria",
           "ar": "Algeria"
@@ -7741,6 +7731,16 @@
           "id": "opt_afcon2015pens_3",
           "en": "Cameroon",
           "ar": "Cameroon"
+        },
+        {
+          "id": "opt_afcon2015pens_1",
+          "en": "Nigeria",
+          "ar": "Nigeria"
+        },
+        {
+          "id": "opt_afcon2015pens_0",
+          "en": "Ghana",
+          "ar": "Ghana"
         }
       ],
       "answerOptionId": "opt_afcon2015pens_0",
@@ -7749,9 +7749,9 @@
         "ar": "انتهى النهائي 0-0 وفازت ساحل العاج بركلات الترجيح 9-8."
       },
       "localization": {
-        "enChars": 87,
-        "arChars": 71,
-        "parityRatio": 0.816,
+        "enChars": 114,
+        "arChars": 98,
+        "parityRatio": 0.86,
         "verifiedBy": "auto-check-pending-editor"
       },
       "authoring": {
@@ -7787,11 +7787,6 @@
           "ar": "Vincent Aboubakar"
         },
         {
-          "id": "opt_afcon2017goal_1",
-          "en": "Christian Bassogog",
-          "ar": "Christian Bassogog"
-        },
-        {
           "id": "opt_afcon2017goal_2",
           "en": "Benjamin Moukandjo",
           "ar": "Benjamin Moukandjo"
@@ -7800,6 +7795,11 @@
           "id": "opt_afcon2017goal_3",
           "en": "Nicolas Nkoulou",
           "ar": "Nicolas Nkoulou"
+        },
+        {
+          "id": "opt_afcon2017goal_1",
+          "en": "Christian Bassogog",
+          "ar": "Christian Bassogog"
         }
       ],
       "answerOptionId": "opt_afcon2017goal_0",
@@ -7808,9 +7808,9 @@
         "ar": "سجّل أبو بكر في الدقيقة 88 أمام مصر."
       },
       "localization": {
-        "enChars": 80,
-        "arChars": 64,
-        "parityRatio": 0.8,
+        "enChars": 148,
+        "arChars": 132,
+        "parityRatio": 0.892,
         "verifiedBy": "auto-check-pending-editor"
       },
       "authoring": {
@@ -7846,9 +7846,9 @@
           "ar": "Egypt"
         },
         {
-          "id": "opt_afcon2021pens_1",
-          "en": "Cameroon",
-          "ar": "Cameroon"
+          "id": "opt_afcon2021pens_3",
+          "en": "Burkina Faso",
+          "ar": "Burkina Faso"
         },
         {
           "id": "opt_afcon2021pens_2",
@@ -7856,9 +7856,9 @@
           "ar": "Morocco"
         },
         {
-          "id": "opt_afcon2021pens_3",
-          "en": "Burkina Faso",
-          "ar": "Burkina Faso"
+          "id": "opt_afcon2021pens_1",
+          "en": "Cameroon",
+          "ar": "Cameroon"
         }
       ],
       "answerOptionId": "opt_afcon2021pens_0",
@@ -7867,9 +7867,9 @@
         "ar": "فاز السنغال بركلات الترجيح 4-2 بعد نهائي دون أهداف."
       },
       "localization": {
-        "enChars": 81,
-        "arChars": 65,
-        "parityRatio": 0.802,
+        "enChars": 113,
+        "arChars": 97,
+        "parityRatio": 0.858,
         "verifiedBy": "auto-check-pending-editor"
       },
       "authoring": {
@@ -7900,6 +7900,16 @@
       },
       "options": [
         {
+          "id": "opt_afcon2023goal_3",
+          "en": "Simon Adingra",
+          "ar": "Simon Adingra"
+        },
+        {
+          "id": "opt_afcon2023goal_2",
+          "en": "Nicolas Pépé",
+          "ar": "Nicolas Pépé"
+        },
+        {
           "id": "opt_afcon2023goal_0",
           "en": "Sébastien Haller",
           "ar": "Sébastien Haller"
@@ -7908,16 +7918,6 @@
           "id": "opt_afcon2023goal_1",
           "en": "Franck Kessié",
           "ar": "Franck Kessié"
-        },
-        {
-          "id": "opt_afcon2023goal_2",
-          "en": "Nicolas Pépé",
-          "ar": "Nicolas Pépé"
-        },
-        {
-          "id": "opt_afcon2023goal_3",
-          "en": "Simon Adingra",
-          "ar": "Simon Adingra"
         }
       ],
       "answerOptionId": "opt_afcon2023goal_0",
@@ -7926,9 +7926,9 @@
         "ar": "سجّل هالر هدف الحسم في الفوز 2-1 بعد التأخر أمام نيجيريا."
       },
       "localization": {
-        "enChars": 78,
-        "arChars": 57,
-        "parityRatio": 0.731,
+        "enChars": 132,
+        "arChars": 111,
+        "parityRatio": 0.841,
         "verifiedBy": "auto-check-pending-editor"
       },
       "authoring": {
@@ -7959,6 +7959,11 @@
       },
       "options": [
         {
+          "id": "opt_euro2000goal_3",
+          "en": "Zinedine Zidane",
+          "ar": "Zinedine Zidane"
+        },
+        {
           "id": "opt_euro2000goal_0",
           "en": "David Trezeguet",
           "ar": "David Trezeguet"
@@ -7972,11 +7977,6 @@
           "id": "opt_euro2000goal_2",
           "en": "Sylvain Wiltord",
           "ar": "Sylvain Wiltord"
-        },
-        {
-          "id": "opt_euro2000goal_3",
-          "en": "Zinedine Zidane",
-          "ar": "Zinedine Zidane"
         }
       ],
       "answerOptionId": "opt_euro2000goal_0",
@@ -7985,9 +7985,9 @@
         "ar": "منحت تسديدة تريزيغيه الطائرة فرنسا الفوز 2-1 على إيطاليا في الوقت الإضافي."
       },
       "localization": {
-        "enChars": 55,
-        "arChars": 47,
-        "parityRatio": 0.855,
+        "enChars": 113,
+        "arChars": 105,
+        "parityRatio": 0.929,
         "verifiedBy": "auto-check-pending-editor"
       },
       "authoring": {
@@ -8018,9 +8018,9 @@
       },
       "options": [
         {
-          "id": "opt_euro2016goal_0",
-          "en": "Éder",
-          "ar": "Éder"
+          "id": "opt_euro2016goal_2",
+          "en": "Nani",
+          "ar": "Nani"
         },
         {
           "id": "opt_euro2016goal_1",
@@ -8028,9 +8028,9 @@
           "ar": "Cristiano Ronaldo"
         },
         {
-          "id": "opt_euro2016goal_2",
-          "en": "Nani",
-          "ar": "Nani"
+          "id": "opt_euro2016goal_0",
+          "en": "Éder",
+          "ar": "Éder"
         },
         {
           "id": "opt_euro2016goal_3",
@@ -8044,9 +8044,9 @@
         "ar": "سجّل إيدر الهدف الوحيد في الوقت الإضافي أمام فرنسا."
       },
       "localization": {
-        "enChars": 58,
-        "arChars": 44,
-        "parityRatio": 0.759,
+        "enChars": 97,
+        "arChars": 83,
+        "parityRatio": 0.856,
         "verifiedBy": "auto-check-pending-editor"
       },
       "authoring": {
@@ -8077,6 +8077,11 @@
       },
       "options": [
         {
+          "id": "opt_euro1996goal_2",
+          "en": "Matthias Sammer",
+          "ar": "Matthias Sammer"
+        },
+        {
           "id": "opt_euro1996goal_0",
           "en": "Oliver Bierhoff",
           "ar": "Oliver Bierhoff"
@@ -8085,11 +8090,6 @@
           "id": "opt_euro1996goal_1",
           "en": "Jürgen Klinsmann",
           "ar": "Jürgen Klinsmann"
-        },
-        {
-          "id": "opt_euro1996goal_2",
-          "en": "Matthias Sammer",
-          "ar": "Matthias Sammer"
         },
         {
           "id": "opt_euro1996goal_3",
@@ -8103,9 +8103,9 @@
         "ar": "سجّل بيرهوف هدفين، بينهما الهدف الذهبي أمام التشيك."
       },
       "localization": {
-        "enChars": 56,
-        "arChars": 49,
-        "parityRatio": 0.875,
+        "enChars": 116,
+        "arChars": 109,
+        "parityRatio": 0.94,
         "verifiedBy": "auto-check-pending-editor"
       },
       "authoring": {
@@ -8134,9 +8134,9 @@
       },
       "options": [
         {
-          "id": "q_hard_wc1966final_o1",
-          "en": "Geoff Hurst",
-          "ar": "جيف هيرست"
+          "id": "q_hard_wc1966final_o3",
+          "en": "Roger Hunt",
+          "ar": "روجر هانت"
         },
         {
           "id": "q_hard_wc1966final_o2",
@@ -8144,14 +8144,14 @@
           "ar": "بوبي تشارلتون"
         },
         {
-          "id": "q_hard_wc1966final_o3",
-          "en": "Roger Hunt",
-          "ar": "روجر هانت"
-        },
-        {
           "id": "q_hard_wc1966final_o4",
           "en": "Martin Peters",
           "ar": "مارتن بيترز"
+        },
+        {
+          "id": "q_hard_wc1966final_o1",
+          "en": "Geoff Hurst",
+          "ar": "جيف هيرست"
         }
       ],
       "answerOptionId": "q_hard_wc1966final_o1",
@@ -8160,9 +8160,9 @@
         "ar": "سجل جيف هيرست ثلاثة أهداف عندما فازت إنجلترا على ألمانيا الغربية 4-2 بعد التمديد."
       },
       "localization": {
-        "enChars": 60,
-        "arChars": 51,
-        "parityRatio": 0.85,
+        "enChars": 108,
+        "arChars": 93,
+        "parityRatio": 0.861,
         "verifiedBy": "auto-check-pending-editor"
       },
       "authoring": {
@@ -8197,9 +8197,9 @@
           "ar": "بولندا"
         },
         {
-          "id": "q_hard_wc1982semi_o2",
-          "en": "West Germany",
-          "ar": "ألمانيا الغربية"
+          "id": "q_hard_wc1982semi_o4",
+          "en": "Brazil",
+          "ar": "البرازيل"
         },
         {
           "id": "q_hard_wc1982semi_o3",
@@ -8207,9 +8207,9 @@
           "ar": "فرنسا"
         },
         {
-          "id": "q_hard_wc1982semi_o4",
-          "en": "Brazil",
-          "ar": "البرازيل"
+          "id": "q_hard_wc1982semi_o2",
+          "en": "West Germany",
+          "ar": "ألمانيا الغربية"
         }
       ],
       "answerOptionId": "q_hard_wc1982semi_o1",
@@ -8218,9 +8218,9 @@
         "ar": "فازت إيطاليا على بولندا 2-0 في نصف النهائي وسجل باولو روسي الهدفين."
       },
       "localization": {
-        "enChars": 67,
-        "arChars": 52,
-        "parityRatio": 0.776,
+        "enChars": 97,
+        "arChars": 86,
+        "parityRatio": 0.887,
         "verifiedBy": "auto-check-pending-editor"
       },
       "authoring": {
@@ -8250,6 +8250,16 @@
       },
       "options": [
         {
+          "id": "q_hard_wc1986hand_o4",
+          "en": "West Germany",
+          "ar": "ألمانيا الغربية"
+        },
+        {
+          "id": "q_hard_wc1986hand_o3",
+          "en": "Belgium",
+          "ar": "بلجيكا"
+        },
+        {
           "id": "q_hard_wc1986hand_o1",
           "en": "Argentina",
           "ar": "الأرجنتين"
@@ -8258,16 +8268,6 @@
           "id": "q_hard_wc1986hand_o2",
           "en": "Uruguay",
           "ar": "الأوروغواي"
-        },
-        {
-          "id": "q_hard_wc1986hand_o3",
-          "en": "Belgium",
-          "ar": "بلجيكا"
-        },
-        {
-          "id": "q_hard_wc1986hand_o4",
-          "en": "West Germany",
-          "ar": "ألمانيا الغربية"
         }
       ],
       "answerOptionId": "q_hard_wc1986hand_o1",
@@ -8276,9 +8276,9 @@
         "ar": "جاء هدف يد الله الشهير أمام إنجلترا في ربع نهائي 1986."
       },
       "localization": {
-        "enChars": 75,
-        "arChars": 58,
-        "parityRatio": 0.773,
+        "enChars": 110,
+        "arChars": 98,
+        "parityRatio": 0.891,
         "verifiedBy": "auto-check-pending-editor"
       },
       "authoring": {
@@ -8308,9 +8308,9 @@
       },
       "options": [
         {
-          "id": "q_hard_wc1990golden_o1",
-          "en": "Salvatore Schillaci",
-          "ar": "سلفاتوري سكيلاتشي"
+          "id": "q_hard_wc1990golden_o4",
+          "en": "Roger Milla",
+          "ar": "روجيه ميلا"
         },
         {
           "id": "q_hard_wc1990golden_o2",
@@ -8318,14 +8318,14 @@
           "ar": "غاري لينيكر"
         },
         {
+          "id": "q_hard_wc1990golden_o1",
+          "en": "Salvatore Schillaci",
+          "ar": "سلفاتوري سكيلاتشي"
+        },
+        {
           "id": "q_hard_wc1990golden_o3",
           "en": "Lothar Matthäus",
           "ar": "لوثار ماتيوس"
-        },
-        {
-          "id": "q_hard_wc1990golden_o4",
-          "en": "Roger Milla",
-          "ar": "روجيه ميلا"
         }
       ],
       "answerOptionId": "q_hard_wc1990golden_o1",
@@ -8334,9 +8334,9 @@
         "ar": "أنهى الإيطالي سلفاتوري سكيلاتشي البطولة هدافاً بستة أهداف."
       },
       "localization": {
-        "enChars": 51,
-        "arChars": 41,
-        "parityRatio": 0.804,
+        "enChars": 108,
+        "arChars": 91,
+        "parityRatio": 0.843,
         "verifiedBy": "auto-check-pending-editor"
       },
       "authoring": {
@@ -8366,11 +8366,6 @@
       },
       "options": [
         {
-          "id": "q_hard_wc1998headers_o1",
-          "en": "Two",
-          "ar": "هدفين"
-        },
-        {
           "id": "q_hard_wc1998headers_o2",
           "en": "One",
           "ar": "هدفاً واحداً"
@@ -8379,6 +8374,11 @@
           "id": "q_hard_wc1998headers_o3",
           "en": "Three",
           "ar": "ثلاثة أهداف"
+        },
+        {
+          "id": "q_hard_wc1998headers_o1",
+          "en": "Two",
+          "ar": "هدفين"
         },
         {
           "id": "q_hard_wc1998headers_o4",
@@ -8392,9 +8392,9 @@
         "ar": "سجل زيدان هدفين بالرأس في فوز فرنسا على البرازيل 3-0."
       },
       "localization": {
-        "enChars": 69,
-        "arChars": 54,
-        "parityRatio": 0.783,
+        "enChars": 84,
+        "arChars": 89,
+        "parityRatio": 1.06,
         "verifiedBy": "auto-check-pending-editor"
       },
       "authoring": {
@@ -8429,11 +8429,6 @@
           "ar": "ثمانية"
         },
         {
-          "id": "q_hard_wc2002golden_o2",
-          "en": "Six",
-          "ar": "ستة"
-        },
-        {
           "id": "q_hard_wc2002golden_o3",
           "en": "Seven",
           "ar": "سبعة"
@@ -8442,6 +8437,11 @@
           "id": "q_hard_wc2002golden_o4",
           "en": "Ten",
           "ar": "عشرة"
+        },
+        {
+          "id": "q_hard_wc2002golden_o2",
+          "en": "Six",
+          "ar": "ستة"
         }
       ],
       "answerOptionId": "q_hard_wc2002golden_o1",
@@ -8450,9 +8450,9 @@
         "ar": "سجل رونالدو البرازيلي ثمانية أهداف وفاز بالحذاء الذهبي."
       },
       "localization": {
-        "enChars": 55,
-        "arChars": 40,
-        "parityRatio": 0.727,
+        "enChars": 71,
+        "arChars": 57,
+        "parityRatio": 0.803,
         "verifiedBy": "auto-check-pending-editor"
       },
       "authoring": {
@@ -8487,9 +8487,9 @@
           "ar": "ماركو ماتيراتزي"
         },
         {
-          "id": "q_hard_wc2006equalizer_o2",
-          "en": "Luca Toni",
-          "ar": "لوكا توني"
+          "id": "q_hard_wc2006equalizer_o4",
+          "en": "Fabio Grosso",
+          "ar": "فابيو غروسو"
         },
         {
           "id": "q_hard_wc2006equalizer_o3",
@@ -8497,9 +8497,9 @@
           "ar": "أندريا بيرلو"
         },
         {
-          "id": "q_hard_wc2006equalizer_o4",
-          "en": "Fabio Grosso",
-          "ar": "فابيو غروسو"
+          "id": "q_hard_wc2006equalizer_o2",
+          "en": "Luca Toni",
+          "ar": "لوكا توني"
         }
       ],
       "answerOptionId": "q_hard_wc2006equalizer_o1",
@@ -8508,9 +8508,9 @@
         "ar": "سجل ماركو ماتيراتزي هدف التعادل لإيطاليا برأسية بعد ركلة جزاء زيدان."
       },
       "localization": {
-        "enChars": 58,
-        "arChars": 51,
-        "parityRatio": 0.879,
+        "enChars": 106,
+        "arChars": 98,
+        "parityRatio": 0.925,
         "verifiedBy": "auto-check-pending-editor"
       },
       "authoring": {
@@ -8540,9 +8540,9 @@
       },
       "options": [
         {
-          "id": "q_hard_ucl2008terry_o1",
-          "en": "John Terry",
-          "ar": "جون تيري"
+          "id": "q_hard_ucl2008terry_o3",
+          "en": "Didier Drogba",
+          "ar": "ديدييه دروغبا"
         },
         {
           "id": "q_hard_ucl2008terry_o2",
@@ -8550,9 +8550,9 @@
           "ar": "فرانك لامبارد"
         },
         {
-          "id": "q_hard_ucl2008terry_o3",
-          "en": "Didier Drogba",
-          "ar": "ديدييه دروغبا"
+          "id": "q_hard_ucl2008terry_o1",
+          "en": "John Terry",
+          "ar": "جون تيري"
         },
         {
           "id": "q_hard_ucl2008terry_o4",
@@ -8566,9 +8566,9 @@
         "ar": "انزلق جون تيري وسدد في القائم، ثم فاز مانشستر يونايتد بركلات الترجيح."
       },
       "localization": {
-        "enChars": 96,
-        "arChars": 74,
-        "parityRatio": 0.771,
+        "enChars": 147,
+        "arChars": 119,
+        "parityRatio": 0.81,
         "verifiedBy": "auto-check-pending-editor"
       },
       "authoring": {
@@ -8598,6 +8598,16 @@
       },
       "options": [
         {
+          "id": "q_hard_ucl2009goals_o4",
+          "en": "Eto'o and Henry",
+          "ar": "إيتو وهنري"
+        },
+        {
+          "id": "q_hard_ucl2009goals_o3",
+          "en": "Henry and Iniesta",
+          "ar": "هنري وإنييستا"
+        },
+        {
           "id": "q_hard_ucl2009goals_o1",
           "en": "Samuel Eto'o and Lionel Messi",
           "ar": "صامويل إيتو وليونيل ميسي"
@@ -8606,16 +8616,6 @@
           "id": "q_hard_ucl2009goals_o2",
           "en": "Messi and Xavi",
           "ar": "ميسي وتشافي"
-        },
-        {
-          "id": "q_hard_ucl2009goals_o3",
-          "en": "Henry and Iniesta",
-          "ar": "هنري وإنييستا"
-        },
-        {
-          "id": "q_hard_ucl2009goals_o4",
-          "en": "Eto'o and Henry",
-          "ar": "إيتو وهنري"
         }
       ],
       "answerOptionId": "q_hard_ucl2009goals_o1",
@@ -8624,9 +8624,9 @@
         "ar": "افتتح صامويل إيتو التسجيل ثم أضاف ليونيل ميسي الهدف الثاني أمام مانشستر يونايتد."
       },
       "localization": {
-        "enChars": 68,
-        "arChars": 52,
-        "parityRatio": 0.765,
+        "enChars": 143,
+        "arChars": 110,
+        "parityRatio": 0.769,
         "verifiedBy": "auto-check-pending-editor"
       },
       "authoring": {
@@ -8656,11 +8656,6 @@
       },
       "options": [
         {
-          "id": "q_hard_wc2010winner_o1",
-          "en": "Andrés Iniesta",
-          "ar": "أندريس إنييستا"
-        },
-        {
           "id": "q_hard_wc2010winner_o2",
           "en": "David Villa",
           "ar": "دافيد فيا"
@@ -8669,6 +8664,11 @@
           "id": "q_hard_wc2010winner_o3",
           "en": "Xavi",
           "ar": "تشافي"
+        },
+        {
+          "id": "q_hard_wc2010winner_o1",
+          "en": "Andrés Iniesta",
+          "ar": "أندريس إنييستا"
         },
         {
           "id": "q_hard_wc2010winner_o4",
@@ -8682,9 +8682,9 @@
         "ar": "سجل أندريس إنييستا في الوقت الإضافي ليمنح إسبانيا أول لقب عالمي للرجال."
       },
       "localization": {
-        "enChars": 56,
-        "arChars": 42,
-        "parityRatio": 0.75,
+        "enChars": 100,
+        "arChars": 83,
+        "parityRatio": 0.83,
         "verifiedBy": "auto-check-pending-editor"
       },
       "authoring": {
@@ -8714,9 +8714,9 @@
       },
       "options": [
         {
-          "id": "q_hard_ucl2013winner_o1",
-          "en": "Arjen Robben",
-          "ar": "آريين روبن"
+          "id": "q_hard_ucl2013winner_o3",
+          "en": "Mario Mandžukić",
+          "ar": "ماريو ماندجوكيتش"
         },
         {
           "id": "q_hard_ucl2013winner_o2",
@@ -8724,14 +8724,14 @@
           "ar": "فرانك ريبيري"
         },
         {
-          "id": "q_hard_ucl2013winner_o3",
-          "en": "Mario Mandžukić",
-          "ar": "ماريو ماندجوكيتش"
-        },
-        {
           "id": "q_hard_ucl2013winner_o4",
           "en": "Thomas Müller",
           "ar": "توماس مولر"
+        },
+        {
+          "id": "q_hard_ucl2013winner_o1",
+          "en": "Arjen Robben",
+          "ar": "آريين روبن"
         }
       ],
       "answerOptionId": "q_hard_ucl2013winner_o1",
@@ -8740,9 +8740,9 @@
         "ar": "سجل آريين روبن هدفاً متأخراً ليهزم بوروسيا دورتموند في ويمبلي."
       },
       "localization": {
-        "enChars": 75,
-        "arChars": 59,
-        "parityRatio": 0.787,
+        "enChars": 128,
+        "arChars": 107,
+        "parityRatio": 0.836,
         "verifiedBy": "auto-check-pending-editor"
       },
       "authoring": {
@@ -8777,11 +8777,6 @@
           "ar": "يوفنتوس"
         },
         {
-          "id": "q_hard_ucl2015opponent_o2",
-          "en": "Real Madrid",
-          "ar": "ريال مدريد"
-        },
-        {
           "id": "q_hard_ucl2015opponent_o3",
           "en": "Bayern Munich",
           "ar": "بايرن ميونخ"
@@ -8790,6 +8785,11 @@
           "id": "q_hard_ucl2015opponent_o4",
           "en": "Atlético Madrid",
           "ar": "أتلتيكو مدريد"
+        },
+        {
+          "id": "q_hard_ucl2015opponent_o2",
+          "en": "Real Madrid",
+          "ar": "ريال مدريد"
         }
       ],
       "answerOptionId": "q_hard_ucl2015opponent_o1",
@@ -8798,9 +8798,9 @@
         "ar": "فاز برشلونة على يوفنتوس 3-1 في برلين ليكمل الثلاثية."
       },
       "localization": {
-        "enChars": 67,
-        "arChars": 53,
-        "parityRatio": 0.791,
+        "enChars": 114,
+        "arChars": 94,
+        "parityRatio": 0.825,
         "verifiedBy": "auto-check-pending-editor"
       },
       "authoring": {
@@ -8840,14 +8840,14 @@
           "ar": "أتلتيكو مدريد"
         },
         {
-          "id": "q_hard_ucl2017opponent_o3",
-          "en": "Liverpool",
-          "ar": "ليفربول"
-        },
-        {
           "id": "q_hard_ucl2017opponent_o4",
           "en": "Bayern Munich",
           "ar": "بايرن ميونخ"
+        },
+        {
+          "id": "q_hard_ucl2017opponent_o3",
+          "en": "Liverpool",
+          "ar": "ليفربول"
         }
       ],
       "answerOptionId": "q_hard_ucl2017opponent_o1",
@@ -8856,9 +8856,9 @@
         "ar": "هزم ريال مدريد يوفنتوس 4-1 في كارديف."
       },
       "localization": {
-        "enChars": 67,
-        "arChars": 56,
-        "parityRatio": 0.836,
+        "enChars": 112,
+        "arChars": 94,
+        "parityRatio": 0.839,
         "verifiedBy": "auto-check-pending-editor"
       },
       "authoring": {
@@ -8888,6 +8888,16 @@
       },
       "options": [
         {
+          "id": "q_hard_ucl2018bale_o4",
+          "en": "Sadio Mané",
+          "ar": "ساديو ماني"
+        },
+        {
+          "id": "q_hard_ucl2018bale_o3",
+          "en": "Karim Benzema",
+          "ar": "كريم بنزيما"
+        },
+        {
           "id": "q_hard_ucl2018bale_o1",
           "en": "Gareth Bale",
           "ar": "غاريث بيل"
@@ -8896,16 +8906,6 @@
           "id": "q_hard_ucl2018bale_o2",
           "en": "Cristiano Ronaldo",
           "ar": "كريستيانو رونالدو"
-        },
-        {
-          "id": "q_hard_ucl2018bale_o3",
-          "en": "Karim Benzema",
-          "ar": "كريم بنزيما"
-        },
-        {
-          "id": "q_hard_ucl2018bale_o4",
-          "en": "Sadio Mané",
-          "ar": "ساديو ماني"
         }
       ],
       "answerOptionId": "q_hard_ucl2018bale_o1",
@@ -8914,9 +8914,9 @@
         "ar": "سجل غاريث بيل هدفين أمام ليفربول، من بينهما المقصية الشهيرة."
       },
       "localization": {
-        "enChars": 80,
-        "arChars": 59,
-        "parityRatio": 0.738,
+        "enChars": 131,
+        "arChars": 106,
+        "parityRatio": 0.809,
         "verifiedBy": "auto-check-pending-editor"
       },
       "authoring": {
@@ -8946,24 +8946,24 @@
       },
       "options": [
         {
-          "id": "q_hard_ucl2019penalty_o1",
-          "en": "Mohamed Salah",
-          "ar": "محمد صلاح"
-        },
-        {
-          "id": "q_hard_ucl2019penalty_o2",
-          "en": "Sadio Mané",
-          "ar": "ساديو ماني"
-        },
-        {
           "id": "q_hard_ucl2019penalty_o3",
           "en": "Roberto Firmino",
           "ar": "روبرتو فيرمينو"
         },
         {
+          "id": "q_hard_ucl2019penalty_o1",
+          "en": "Mohamed Salah",
+          "ar": "محمد صلاح"
+        },
+        {
           "id": "q_hard_ucl2019penalty_o4",
           "en": "Divock Origi",
           "ar": "ديفوك أوريغي"
+        },
+        {
+          "id": "q_hard_ucl2019penalty_o2",
+          "en": "Sadio Mané",
+          "ar": "ساديو ماني"
         }
       ],
       "answerOptionId": "q_hard_ucl2019penalty_o1",
@@ -8972,9 +8972,9 @@
         "ar": "سجل محمد صلاح من ركلة جزاء في الدقيقة الثانية أمام توتنهام."
       },
       "localization": {
-        "enChars": 75,
-        "arChars": 65,
-        "parityRatio": 0.867,
+        "enChars": 125,
+        "arChars": 110,
+        "parityRatio": 0.88,
         "verifiedBy": "auto-check-pending-editor"
       },
       "authoring": {
@@ -9009,11 +9009,6 @@
           "ar": "كينغسلي كومان"
         },
         {
-          "id": "q_hard_ucl2020goal_o2",
-          "en": "Robert Lewandowski",
-          "ar": "روبرت ليفاندوفسكي"
-        },
-        {
           "id": "q_hard_ucl2020goal_o3",
           "en": "Serge Gnabry",
           "ar": "سيرج غنابري"
@@ -9022,6 +9017,11 @@
           "id": "q_hard_ucl2020goal_o4",
           "en": "Joshua Kimmich",
           "ar": "جوشوا كيميش"
+        },
+        {
+          "id": "q_hard_ucl2020goal_o2",
+          "en": "Robert Lewandowski",
+          "ar": "روبرت ليفاندوفسكي"
         }
       ],
       "answerOptionId": "q_hard_ucl2020goal_o1",
@@ -9030,9 +9030,9 @@
         "ar": "سجل كينغسلي كومان برأسه الهدف الوحيد أمام باريس سان جيرمان."
       },
       "localization": {
-        "enChars": 75,
-        "arChars": 59,
-        "parityRatio": 0.787,
+        "enChars": 133,
+        "arChars": 111,
+        "parityRatio": 0.835,
         "verifiedBy": "auto-check-pending-editor"
       },
       "authoring": {
@@ -9062,6 +9062,11 @@
       },
       "options": [
         {
+          "id": "q_hard_ucl2021goal_o3",
+          "en": "Christian Pulisic",
+          "ar": "كريستيان بوليسيتش"
+        },
+        {
           "id": "q_hard_ucl2021goal_o1",
           "en": "Kai Havertz",
           "ar": "كاي هافيرتز"
@@ -9070,11 +9075,6 @@
           "id": "q_hard_ucl2021goal_o2",
           "en": "Mason Mount",
           "ar": "ماسون ماونت"
-        },
-        {
-          "id": "q_hard_ucl2021goal_o3",
-          "en": "Christian Pulisic",
-          "ar": "كريستيان بوليسيتش"
         },
         {
           "id": "q_hard_ucl2021goal_o4",
@@ -9088,9 +9088,9 @@
         "ar": "سجل كاي هافيرتز لتشيلسي أمام مانشستر سيتي في بورتو."
       },
       "localization": {
-        "enChars": 60,
-        "arChars": 52,
-        "parityRatio": 0.867,
+        "enChars": 110,
+        "arChars": 101,
+        "parityRatio": 0.918,
         "verifiedBy": "auto-check-pending-editor"
       },
       "authoring": {
@@ -9120,24 +9120,24 @@
       },
       "options": [
         {
-          "id": "q_hard_ucl2023goal_o1",
-          "en": "Rodri",
-          "ar": "رودري"
-        },
-        {
-          "id": "q_hard_ucl2023goal_o2",
-          "en": "Erling Haaland",
-          "ar": "إيرلينغ هالاند"
-        },
-        {
           "id": "q_hard_ucl2023goal_o3",
           "en": "Kevin De Bruyne",
           "ar": "كيفن دي بروين"
         },
         {
+          "id": "q_hard_ucl2023goal_o1",
+          "en": "Rodri",
+          "ar": "رودري"
+        },
+        {
           "id": "q_hard_ucl2023goal_o4",
           "en": "İlkay Gündoğan",
           "ar": "إلكاي غوندوغان"
+        },
+        {
+          "id": "q_hard_ucl2023goal_o2",
+          "en": "Erling Haaland",
+          "ar": "إيرلينغ هالاند"
         }
       ],
       "answerOptionId": "q_hard_ucl2023goal_o1",
@@ -9146,9 +9146,9 @@
         "ar": "سجل رودري الهدف الوحيد أمام إنتر في إسطنبول."
       },
       "localization": {
-        "enChars": 77,
-        "arChars": 60,
-        "parityRatio": 0.779,
+        "enChars": 125,
+        "arChars": 106,
+        "parityRatio": 0.848,
         "verifiedBy": "auto-check-pending-editor"
       },
       "authoring": {
@@ -9183,6 +9183,11 @@
           "ar": "فينيسيوس جونيور"
         },
         {
+          "id": "q_hard_ucl2024goal_o4",
+          "en": "Dani Carvajal",
+          "ar": "داني كارفاخال"
+        },
+        {
           "id": "q_hard_ucl2024goal_o2",
           "en": "Jude Bellingham",
           "ar": "جود بيلينغهام"
@@ -9191,11 +9196,6 @@
           "id": "q_hard_ucl2024goal_o3",
           "en": "Federico Valverde",
           "ar": "فيديريكو فالفيردي"
-        },
-        {
-          "id": "q_hard_ucl2024goal_o4",
-          "en": "Dani Carvajal",
-          "ar": "داني كارفاخال"
         }
       ],
       "answerOptionId": "q_hard_ucl2024goal_o1",
@@ -9204,9 +9204,9 @@
         "ar": "حسم فينيسيوس جونيور الفوز 2-0 على بوروسيا دورتموند في ويمبلي."
       },
       "localization": {
-        "enChars": 72,
-        "arChars": 64,
-        "parityRatio": 0.889,
+        "enChars": 132,
+        "arChars": 122,
+        "parityRatio": 0.924,
         "verifiedBy": "auto-check-pending-editor"
       },
       "authoring": {
@@ -9241,14 +9241,14 @@
           "ar": "بوركينا فاسو"
         },
         {
-          "id": "q_hard_afcon2013final_o2",
-          "en": "Mali",
-          "ar": "مالي"
-        },
-        {
           "id": "q_hard_afcon2013final_o3",
           "en": "Ghana",
           "ar": "غانا"
+        },
+        {
+          "id": "q_hard_afcon2013final_o2",
+          "en": "Mali",
+          "ar": "مالي"
         },
         {
           "id": "q_hard_afcon2013final_o4",
@@ -9262,9 +9262,9 @@
         "ar": "فازت نيجيريا 1-0 على بوركينا فاسو بهدف صنداي إمبا."
       },
       "localization": {
-        "enChars": 73,
-        "arChars": 57,
-        "parityRatio": 0.781,
+        "enChars": 105,
+        "arChars": 87,
+        "parityRatio": 0.829,
         "verifiedBy": "auto-check-pending-editor"
       },
       "authoring": {
@@ -9294,6 +9294,11 @@
       },
       "options": [
         {
+          "id": "q_hard_afcon2015winner_o4",
+          "en": "DR Congo",
+          "ar": "الكونغو الديمقراطية"
+        },
+        {
           "id": "q_hard_afcon2015winner_o1",
           "en": "Ivory Coast",
           "ar": "كوت ديفوار"
@@ -9307,11 +9312,6 @@
           "id": "q_hard_afcon2015winner_o3",
           "en": "Equatorial Guinea",
           "ar": "غينيا الاستوائية"
-        },
-        {
-          "id": "q_hard_afcon2015winner_o4",
-          "en": "DR Congo",
-          "ar": "الكونغو الديمقراطية"
         }
       ],
       "answerOptionId": "q_hard_afcon2015winner_o1",
@@ -9320,9 +9320,9 @@
         "ar": "فازت كوت ديفوار بركلات الترجيح 9-8 بعد تعادل سلبي."
       },
       "localization": {
-        "enChars": 87,
-        "arChars": 67,
-        "parityRatio": 0.77,
+        "enChars": 128,
+        "arChars": 116,
+        "parityRatio": 0.906,
         "verifiedBy": "auto-check-pending-editor"
       },
       "authoring": {
@@ -9352,9 +9352,9 @@
       },
       "options": [
         {
-          "id": "q_hard_afcon2017winner_o1",
-          "en": "Egypt",
-          "ar": "مصر"
+          "id": "q_hard_afcon2017winner_o4",
+          "en": "Senegal",
+          "ar": "السنغال"
         },
         {
           "id": "q_hard_afcon2017winner_o2",
@@ -9367,9 +9367,9 @@
           "ar": "بوركينا فاسو"
         },
         {
-          "id": "q_hard_afcon2017winner_o4",
-          "en": "Senegal",
-          "ar": "السنغال"
+          "id": "q_hard_afcon2017winner_o1",
+          "en": "Egypt",
+          "ar": "مصر"
         }
       ],
       "answerOptionId": "q_hard_afcon2017winner_o1",
@@ -9378,9 +9378,9 @@
         "ar": "قلبت الكاميرون تأخرها وفازت على مصر 2-1 في ليبرفيل."
       },
       "localization": {
-        "enChars": 74,
-        "arChars": 59,
-        "parityRatio": 0.797,
+        "enChars": 103,
+        "arChars": 85,
+        "parityRatio": 0.825,
         "verifiedBy": "auto-check-pending-editor"
       },
       "authoring": {
@@ -9410,9 +9410,9 @@
       },
       "options": [
         {
-          "id": "q_hard_afcon2019winner_o1",
-          "en": "Baghdad Bounedjah",
-          "ar": "بغداد بونجاح"
+          "id": "q_hard_afcon2019winner_o4",
+          "en": "Islam Slimani",
+          "ar": "إسلام سليماني"
         },
         {
           "id": "q_hard_afcon2019winner_o2",
@@ -9425,9 +9425,9 @@
           "ar": "يوسف بلايلي"
         },
         {
-          "id": "q_hard_afcon2019winner_o4",
-          "en": "Islam Slimani",
-          "ar": "إسلام سليماني"
+          "id": "q_hard_afcon2019winner_o1",
+          "en": "Baghdad Bounedjah",
+          "ar": "بغداد بونجاح"
         }
       ],
       "answerOptionId": "q_hard_afcon2019winner_o1",
@@ -9436,9 +9436,9 @@
         "ar": "حسمت تسديدة بغداد بونجاح المبكرة والمنحرفة النهائي أمام السنغال."
       },
       "localization": {
-        "enChars": 74,
-        "arChars": 57,
-        "parityRatio": 0.77,
+        "enChars": 130,
+        "arChars": 102,
+        "parityRatio": 0.785,
         "verifiedBy": "auto-check-pending-editor"
       },
       "authoring": {
@@ -9473,9 +9473,9 @@
           "ar": "دافيد تريزيغيه"
         },
         {
-          "id": "q_hard_euro2000golden_o2",
-          "en": "Thierry Henry",
-          "ar": "تييري هنري"
+          "id": "q_hard_euro2000golden_o4",
+          "en": "Zinedine Zidane",
+          "ar": "زين الدين زيدان"
         },
         {
           "id": "q_hard_euro2000golden_o3",
@@ -9483,9 +9483,9 @@
           "ar": "سيلفان ويلتورد"
         },
         {
-          "id": "q_hard_euro2000golden_o4",
-          "en": "Zinedine Zidane",
-          "ar": "زين الدين زيدان"
+          "id": "q_hard_euro2000golden_o2",
+          "en": "Thierry Henry",
+          "ar": "تييري هنري"
         }
       ],
       "answerOptionId": "q_hard_euro2000golden_o1",
@@ -9494,9 +9494,9 @@
         "ar": "سجل دافيد تريزيغيه الهدف الذهبي ليهزم إيطاليا 2-1."
       },
       "localization": {
-        "enChars": 55,
-        "arChars": 46,
-        "parityRatio": 0.836,
+        "enChars": 113,
+        "arChars": 99,
+        "parityRatio": 0.876,
         "verifiedBy": "auto-check-pending-editor"
       },
       "authoring": {
@@ -9526,9 +9526,9 @@
       },
       "options": [
         {
-          "id": "q_hard_euro2008goal_o1",
-          "en": "Fernando Torres",
-          "ar": "فرناندو توريس"
+          "id": "q_hard_euro2008goal_o3",
+          "en": "Cesc Fàbregas",
+          "ar": "سيسك فابريغاس"
         },
         {
           "id": "q_hard_euro2008goal_o2",
@@ -9536,9 +9536,9 @@
           "ar": "دافيد فيا"
         },
         {
-          "id": "q_hard_euro2008goal_o3",
-          "en": "Cesc Fàbregas",
-          "ar": "سيسك فابريغاس"
+          "id": "q_hard_euro2008goal_o1",
+          "en": "Fernando Torres",
+          "ar": "فرناندو توريس"
         },
         {
           "id": "q_hard_euro2008goal_o4",
@@ -9552,9 +9552,9 @@
         "ar": "سجل فرناندو توريس الهدف الوحيد أمام ألمانيا في فيينا."
       },
       "localization": {
-        "enChars": 55,
-        "arChars": 42,
-        "parityRatio": 0.764,
+        "enChars": 98,
+        "arChars": 82,
+        "parityRatio": 0.837,
         "verifiedBy": "auto-check-pending-editor"
       },
       "authoring": {
@@ -9584,9 +9584,9 @@
       },
       "options": [
         {
-          "id": "q_hard_euro2012final_o1",
-          "en": "4–0",
-          "ar": "4-0"
+          "id": "q_hard_euro2012final_o4",
+          "en": "4–1",
+          "ar": "4-1"
         },
         {
           "id": "q_hard_euro2012final_o2",
@@ -9599,9 +9599,9 @@
           "ar": "2-0"
         },
         {
-          "id": "q_hard_euro2012final_o4",
-          "en": "4–1",
-          "ar": "4-1"
+          "id": "q_hard_euro2012final_o1",
+          "en": "4–0",
+          "ar": "4-0"
         }
       ],
       "answerOptionId": "q_hard_euro2012final_o1",
@@ -9610,9 +9610,9 @@
         "ar": "فازت إسبانيا 4-0 وأصبحت أول منتخب يحتفظ بلقب البطولة الأوروبية في العصر الحديث."
       },
       "localization": {
-        "enChars": 68,
-        "arChars": 52,
-        "parityRatio": 0.765,
+        "enChars": 80,
+        "arChars": 64,
+        "parityRatio": 0.8,
         "verifiedBy": "auto-check-pending-editor"
       },
       "authoring": {
@@ -9644,16 +9644,6 @@
       },
       "options": [
         {
-          "id": "opt_wc1982brazilitaly_0",
-          "en": "Paolo Rossi",
-          "ar": "باولو روسي"
-        },
-        {
-          "id": "opt_wc1982brazilitaly_1",
-          "en": "Marco Tardelli",
-          "ar": "ماركو تارديلي"
-        },
-        {
           "id": "opt_wc1982brazilitaly_2",
           "en": "Antonio Cabrini",
           "ar": "أنطونيو كابريني"
@@ -9662,6 +9652,16 @@
           "id": "opt_wc1982brazilitaly_3",
           "en": "Bruno Conti",
           "ar": "برونو كونتي"
+        },
+        {
+          "id": "opt_wc1982brazilitaly_0",
+          "en": "Paolo Rossi",
+          "ar": "باولو روسي"
+        },
+        {
+          "id": "opt_wc1982brazilitaly_1",
+          "en": "Marco Tardelli",
+          "ar": "ماركو تارديلي"
         }
       ],
       "answerOptionId": "opt_wc1982brazilitaly_0",
@@ -9670,9 +9670,9 @@
         "ar": "سجّل روسي الأهداف الثلاثة في فوز إيطاليا الشهير 3-2."
       },
       "localization": {
-        "enChars": 83,
-        "arChars": 74,
-        "parityRatio": 0.892,
+        "enChars": 134,
+        "arChars": 123,
+        "parityRatio": 0.918,
         "verifiedBy": "auto-check-pending-editor"
       },
       "authoring": {
@@ -9703,24 +9703,24 @@
       },
       "options": [
         {
-          "id": "opt_wc1978goldenboot_0",
-          "en": "Rob Rensenbrink",
-          "ar": "روب رينسنبرينك"
-        },
-        {
-          "id": "opt_wc1978goldenboot_1",
-          "en": "Mario Kempes",
-          "ar": "ماريو كيمبس"
-        },
-        {
           "id": "opt_wc1978goldenboot_2",
           "en": "Teófilo Cubillas",
           "ar": "تيوفيلو كوبياس"
         },
         {
+          "id": "opt_wc1978goldenboot_0",
+          "en": "Rob Rensenbrink",
+          "ar": "روب رينسنبرينك"
+        },
+        {
           "id": "opt_wc1978goldenboot_3",
           "en": "Grzegorz Lato",
           "ar": "غريغورز لاتو"
+        },
+        {
+          "id": "opt_wc1978goldenboot_1",
+          "en": "Mario Kempes",
+          "ar": "ماريو كيمبس"
         }
       ],
       "answerOptionId": "opt_wc1978goldenboot_1",
@@ -9729,9 +9729,9 @@
         "ar": "سجّل كيمبس ستة أهداف وأنهى البطولة هدافاً."
       },
       "localization": {
-        "enChars": 51,
-        "arChars": 41,
-        "parityRatio": 0.804,
+        "enChars": 107,
+        "arChars": 92,
+        "parityRatio": 0.86,
         "verifiedBy": "auto-check-pending-editor"
       },
       "authoring": {
@@ -9762,9 +9762,9 @@
       },
       "options": [
         {
-          "id": "opt_wc1990goldenboot_0",
-          "en": "Roberto Baggio",
-          "ar": "روبرتو باجيو"
+          "id": "opt_wc1990goldenboot_2",
+          "en": "Salvatore Schillaci",
+          "ar": "سلفاتوري سكيلاتشي"
         },
         {
           "id": "opt_wc1990goldenboot_1",
@@ -9772,14 +9772,14 @@
           "ar": "جيانلوكا فيالي"
         },
         {
-          "id": "opt_wc1990goldenboot_2",
-          "en": "Salvatore Schillaci",
-          "ar": "سلفاتوري سكيلاتشي"
-        },
-        {
           "id": "opt_wc1990goldenboot_3",
           "en": "Giuseppe Giannini",
           "ar": "جوزيبي جيانيني"
+        },
+        {
+          "id": "opt_wc1990goldenboot_0",
+          "en": "Roberto Baggio",
+          "ar": "روبرتو باجيو"
         }
       ],
       "answerOptionId": "opt_wc1990goldenboot_2",
@@ -9788,9 +9788,9 @@
         "ar": "سجّل سكيلاتشي ستة أهداف في مونديال إيطاليا 1990."
       },
       "localization": {
-        "enChars": 56,
-        "arChars": 53,
-        "parityRatio": 0.946,
+        "enChars": 121,
+        "arChars": 110,
+        "parityRatio": 0.909,
         "verifiedBy": "auto-check-pending-editor"
       },
       "authoring": {
@@ -9831,14 +9831,14 @@
           "ar": "خريستو ستويتشكوف وأوليغ سالينكو"
         },
         {
-          "id": "opt_wc1994jointboot_2",
-          "en": "Roberto Baggio and Dennis Bergkamp",
-          "ar": "روبرتو باجيو ودينيس بيركامب"
-        },
-        {
           "id": "opt_wc1994jointboot_3",
           "en": "Jürgen Klinsmann and Gheorghe Hagi",
           "ar": "يورغن كلينسمان وغيورغي هاجي"
+        },
+        {
+          "id": "opt_wc1994jointboot_2",
+          "en": "Roberto Baggio and Dennis Bergkamp",
+          "ar": "روبرتو باجيو ودينيس بيركامب"
         }
       ],
       "answerOptionId": "opt_wc1994jointboot_1",
@@ -9847,9 +9847,9 @@
         "ar": "سجّل ستويتشكوف وسالينكو ستة أهداف لكل منهما."
       },
       "localization": {
-        "enChars": 56,
-        "arChars": 59,
-        "parityRatio": 1.054,
+        "enChars": 175,
+        "arChars": 159,
+        "parityRatio": 0.909,
         "verifiedBy": "auto-check-pending-editor"
       },
       "authoring": {
@@ -9880,24 +9880,24 @@
       },
       "options": [
         {
-          "id": "opt_wc1998goldenboot_0",
-          "en": "Ronaldo",
-          "ar": "رونالدو"
-        },
-        {
           "id": "opt_wc1998goldenboot_1",
           "en": "Gabriel Batistuta",
           "ar": "غابرييل باتيستوتا"
         },
         {
-          "id": "opt_wc1998goldenboot_2",
-          "en": "Davor Šuker",
-          "ar": "دافور شوكر"
+          "id": "opt_wc1998goldenboot_0",
+          "en": "Ronaldo",
+          "ar": "رونالدو"
         },
         {
           "id": "opt_wc1998goldenboot_3",
           "en": "Christian Vieri",
           "ar": "كريستيان فييري"
+        },
+        {
+          "id": "opt_wc1998goldenboot_2",
+          "en": "Davor Šuker",
+          "ar": "دافور شوكر"
         }
       ],
       "answerOptionId": "opt_wc1998goldenboot_2",
@@ -9906,9 +9906,9 @@
         "ar": "سجّل شوكر الكرواتي ستة أهداف وفاز بالحذاء الذهبي."
       },
       "localization": {
-        "enChars": 53,
-        "arChars": 39,
-        "parityRatio": 0.736,
+        "enChars": 103,
+        "arChars": 87,
+        "parityRatio": 0.845,
         "verifiedBy": "auto-check-pending-editor"
       },
       "authoring": {
@@ -9939,11 +9939,6 @@
       },
       "options": [
         {
-          "id": "opt_wc2006goldenball_0",
-          "en": "Fabio Cannavaro",
-          "ar": "فابيو كانافارو"
-        },
-        {
           "id": "opt_wc2006goldenball_1",
           "en": "Zinedine Zidane",
           "ar": "زين الدين زيدان"
@@ -9952,6 +9947,11 @@
           "id": "opt_wc2006goldenball_2",
           "en": "Andrea Pirlo",
           "ar": "أندريا بيرلو"
+        },
+        {
+          "id": "opt_wc2006goldenball_0",
+          "en": "Fabio Cannavaro",
+          "ar": "فابيو كانافارو"
         },
         {
           "id": "opt_wc2006goldenball_3",
@@ -9965,9 +9965,9 @@
         "ar": "فاز زيدان بالكرة الذهبية رغم طرده في المباراة النهائية."
       },
       "localization": {
-        "enChars": 51,
-        "arChars": 52,
-        "parityRatio": 1.02,
+        "enChars": 107,
+        "arChars": 107,
+        "parityRatio": 1,
         "verifiedBy": "auto-check-pending-editor"
       },
       "authoring": {
@@ -9998,16 +9998,6 @@
       },
       "options": [
         {
-          "id": "opt_wc2010goldenboot_0",
-          "en": "David Villa",
-          "ar": "دافيد فيا"
-        },
-        {
-          "id": "opt_wc2010goldenboot_1",
-          "en": "Wesley Sneijder",
-          "ar": "ويسلي شنايدر"
-        },
-        {
           "id": "opt_wc2010goldenboot_2",
           "en": "Thomas Müller",
           "ar": "توماس مولر"
@@ -10016,6 +10006,16 @@
           "id": "opt_wc2010goldenboot_3",
           "en": "Diego Forlán",
           "ar": "دييغو فورلان"
+        },
+        {
+          "id": "opt_wc2010goldenboot_0",
+          "en": "David Villa",
+          "ar": "دافيد فيا"
+        },
+        {
+          "id": "opt_wc2010goldenboot_1",
+          "en": "Wesley Sneijder",
+          "ar": "ويسلي شنايدر"
         }
       ],
       "answerOptionId": "opt_wc2010goldenboot_2",
@@ -10024,9 +10024,9 @@
         "ar": "فاز مولر بالجائزة بخمسة أهداف وتفوّق في معايير التمريرات الحاسمة والدقائق."
       },
       "localization": {
-        "enChars": 78,
-        "arChars": 64,
-        "parityRatio": 0.821,
+        "enChars": 129,
+        "arChars": 107,
+        "parityRatio": 0.829,
         "verifiedBy": "auto-check-pending-editor"
       },
       "authoring": {
@@ -10057,24 +10057,24 @@
       },
       "options": [
         {
-          "id": "opt_wc2018goldenball_0",
-          "en": "Antoine Griezmann",
-          "ar": "أنطوان غريزمان"
-        },
-        {
-          "id": "opt_wc2018goldenball_1",
-          "en": "Kylian Mbappé",
-          "ar": "كيليان مبابي"
-        },
-        {
           "id": "opt_wc2018goldenball_2",
           "en": "Eden Hazard",
           "ar": "إيدين هازارد"
         },
         {
+          "id": "opt_wc2018goldenball_0",
+          "en": "Antoine Griezmann",
+          "ar": "أنطوان غريزمان"
+        },
+        {
           "id": "opt_wc2018goldenball_3",
           "en": "Luka Modrić",
           "ar": "لوكا مودريتش"
+        },
+        {
+          "id": "opt_wc2018goldenball_1",
+          "en": "Kylian Mbappé",
+          "ar": "كيليان مبابي"
         }
       ],
       "answerOptionId": "opt_wc2018goldenball_3",
@@ -10083,9 +10083,9 @@
         "ar": "فاز مودريتش بالجائزة بعدما قاد كرواتيا إلى النهائي."
       },
       "localization": {
-        "enChars": 54,
-        "arChars": 52,
-        "parityRatio": 0.963,
+        "enChars": 106,
+        "arChars": 102,
+        "parityRatio": 0.962,
         "verifiedBy": "auto-check-pending-editor"
       },
       "authoring": {
@@ -10116,24 +10116,24 @@
       },
       "options": [
         {
-          "id": "opt_wc1954miracle_0",
-          "en": "Austria",
-          "ar": "النمسا"
-        },
-        {
           "id": "opt_wc1954miracle_1",
           "en": "Hungary",
           "ar": "المجر"
         },
         {
-          "id": "opt_wc1954miracle_2",
-          "en": "Brazil",
-          "ar": "البرازيل"
-        },
-        {
           "id": "opt_wc1954miracle_3",
           "en": "Uruguay",
           "ar": "الأوروغواي"
+        },
+        {
+          "id": "opt_wc1954miracle_0",
+          "en": "Austria",
+          "ar": "النمسا"
+        },
+        {
+          "id": "opt_wc1954miracle_2",
+          "en": "Brazil",
+          "ar": "البرازيل"
         }
       ],
       "answerOptionId": "opt_wc1954miracle_1",
@@ -10142,9 +10142,9 @@
         "ar": "قلبت ألمانيا الغربية تأخرها وفازت على المجر 3-2."
       },
       "localization": {
-        "enChars": 92,
-        "arChars": 75,
-        "parityRatio": 0.815,
+        "enChars": 119,
+        "arChars": 104,
+        "parityRatio": 0.874,
         "verifiedBy": "auto-check-pending-editor"
       },
       "authoring": {
@@ -10175,6 +10175,11 @@
       },
       "options": [
         {
+          "id": "opt_wc1966hattrick_3",
+          "en": "Eusébio",
+          "ar": "أوزيبيو"
+        },
+        {
           "id": "opt_wc1966hattrick_0",
           "en": "Pelé",
           "ar": "بيليه"
@@ -10188,11 +10193,6 @@
           "id": "opt_wc1966hattrick_2",
           "en": "Gerd Müller",
           "ar": "غيرد مولر"
-        },
-        {
-          "id": "opt_wc1966hattrick_3",
-          "en": "Eusébio",
-          "ar": "أوزيبيو"
         }
       ],
       "answerOptionId": "opt_wc1966hattrick_1",
@@ -10201,9 +10201,9 @@
         "ar": "سجّل هيرست ثلاثة أهداف لإنجلترا أمام ألمانيا الغربية عام 1966."
       },
       "localization": {
-        "enChars": 76,
-        "arChars": 61,
-        "parityRatio": 0.803,
+        "enChars": 109,
+        "arChars": 91,
+        "parityRatio": 0.835,
         "verifiedBy": "auto-check-pending-editor"
       },
       "authoring": {
@@ -10260,9 +10260,9 @@
         "ar": "أنهى القائد كارلوس ألبرتو الهجمة الجماعية الشهيرة مسجلاً الهدف الرابع في الفوز 4-1."
       },
       "localization": {
-        "enChars": 74,
-        "arChars": 69,
-        "parityRatio": 0.932,
+        "enChars": 111,
+        "arChars": 106,
+        "parityRatio": 0.955,
         "verifiedBy": "auto-check-pending-editor"
       },
       "authoring": {
@@ -10293,14 +10293,14 @@
       },
       "options": [
         {
-          "id": "opt_wc1974finalwinner_0",
-          "en": "Paul Breitner",
-          "ar": "باول برايتنر"
-        },
-        {
           "id": "opt_wc1974finalwinner_1",
           "en": "Gerd Müller",
           "ar": "غيرد مولر"
+        },
+        {
+          "id": "opt_wc1974finalwinner_3",
+          "en": "Uli Hoeneß",
+          "ar": "أولي هونيس"
         },
         {
           "id": "opt_wc1974finalwinner_2",
@@ -10308,9 +10308,9 @@
           "ar": "فرانتس بيكنباور"
         },
         {
-          "id": "opt_wc1974finalwinner_3",
-          "en": "Uli Hoeneß",
-          "ar": "أولي هونيس"
+          "id": "opt_wc1974finalwinner_0",
+          "en": "Paul Breitner",
+          "ar": "باول برايتنر"
         }
       ],
       "answerOptionId": "opt_wc1974finalwinner_1",
@@ -10319,9 +10319,9 @@
         "ar": "سجّل مولر هدف الفوز 2-1 أمام هولندا."
       },
       "localization": {
-        "enChars": 67,
-        "arChars": 57,
-        "parityRatio": 0.851,
+        "enChars": 118,
+        "arChars": 103,
+        "parityRatio": 0.873,
         "verifiedBy": "auto-check-pending-editor"
       },
       "authoring": {
@@ -10352,9 +10352,9 @@
       },
       "options": [
         {
-          "id": "opt_wc1986finalopponent_0",
-          "en": "Belgium",
-          "ar": "بلجيكا"
+          "id": "opt_wc1986finalopponent_3",
+          "en": "France",
+          "ar": "فرنسا"
         },
         {
           "id": "opt_wc1986finalopponent_1",
@@ -10367,9 +10367,9 @@
           "ar": "ألمانيا الغربية"
         },
         {
-          "id": "opt_wc1986finalopponent_3",
-          "en": "France",
-          "ar": "فرنسا"
+          "id": "opt_wc1986finalopponent_0",
+          "en": "Belgium",
+          "ar": "بلجيكا"
         }
       ],
       "answerOptionId": "opt_wc1986finalopponent_2",
@@ -10378,9 +10378,9 @@
         "ar": "فازت الأرجنتين على ألمانيا الغربية 3-2 في ملعب أزتيكا."
       },
       "localization": {
-        "enChars": 60,
-        "arChars": 50,
-        "parityRatio": 0.833,
+        "enChars": 92,
+        "arChars": 83,
+        "parityRatio": 0.902,
         "verifiedBy": "auto-check-pending-editor"
       },
       "authoring": {
@@ -10411,24 +10411,24 @@
       },
       "options": [
         {
-          "id": "opt_euro1988volley_0",
-          "en": "Ruud Gullit",
-          "ar": "رود خوليت"
-        },
-        {
           "id": "opt_euro1988volley_1",
           "en": "Frank Rijkaard",
           "ar": "فرانك ريكارد"
         },
         {
-          "id": "opt_euro1988volley_2",
-          "en": "Marco van Basten",
-          "ar": "ماركو فان باستن"
+          "id": "opt_euro1988volley_0",
+          "en": "Ruud Gullit",
+          "ar": "رود خوليت"
         },
         {
           "id": "opt_euro1988volley_3",
           "en": "Ronald Koeman",
           "ar": "رونالد كومان"
+        },
+        {
+          "id": "opt_euro1988volley_2",
+          "en": "Marco van Basten",
+          "ar": "ماركو فان باستن"
         }
       ],
       "answerOptionId": "opt_euro1988volley_2",
@@ -10437,9 +10437,9 @@
         "ar": "حسمت تسديدة فان باستن الطائرة الفوز 2-0 أمام الاتحاد السوفيتي."
       },
       "localization": {
-        "enChars": 72,
-        "arChars": 60,
-        "parityRatio": 0.833,
+        "enChars": 126,
+        "arChars": 108,
+        "parityRatio": 0.857,
         "verifiedBy": "auto-check-pending-editor"
       },
       "authoring": {
@@ -10470,16 +10470,6 @@
       },
       "options": [
         {
-          "id": "opt_euro2000goldengoal_0",
-          "en": "Thierry Henry",
-          "ar": "تييري هنري"
-        },
-        {
-          "id": "opt_euro2000goldengoal_1",
-          "en": "David Trezeguet",
-          "ar": "دافيد تريزيغيه"
-        },
-        {
           "id": "opt_euro2000goldengoal_2",
           "en": "Sylvain Wiltord",
           "ar": "سيلفان ويلتورد"
@@ -10488,6 +10478,16 @@
           "id": "opt_euro2000goldengoal_3",
           "en": "Youri Djorkaeff",
           "ar": "يوري دجوركاييف"
+        },
+        {
+          "id": "opt_euro2000goldengoal_0",
+          "en": "Thierry Henry",
+          "ar": "تييري هنري"
+        },
+        {
+          "id": "opt_euro2000goldengoal_1",
+          "en": "David Trezeguet",
+          "ar": "دافيد تريزيغيه"
         }
       ],
       "answerOptionId": "opt_euro2000goldengoal_1",
@@ -10496,9 +10496,9 @@
         "ar": "أنهى تريزيغيه صمود إيطاليا بهدف في الوقت الإضافي."
       },
       "localization": {
-        "enChars": 55,
-        "arChars": 47,
-        "parityRatio": 0.855,
+        "enChars": 113,
+        "arChars": 99,
+        "parityRatio": 0.876,
         "verifiedBy": "auto-check-pending-editor"
       },
       "authoring": {
@@ -10529,9 +10529,9 @@
       },
       "options": [
         {
-          "id": "opt_euro2008goldenboot_0",
-          "en": "Fernando Torres",
-          "ar": "فرناندو توريس"
+          "id": "opt_euro2008goldenboot_2",
+          "en": "Xavi",
+          "ar": "تشافي"
         },
         {
           "id": "opt_euro2008goldenboot_1",
@@ -10539,9 +10539,9 @@
           "ar": "دافيد فيا"
         },
         {
-          "id": "opt_euro2008goldenboot_2",
-          "en": "Xavi",
-          "ar": "تشافي"
+          "id": "opt_euro2008goldenboot_0",
+          "en": "Fernando Torres",
+          "ar": "فرناندو توريس"
         },
         {
           "id": "opt_euro2008goldenboot_3",
@@ -10555,9 +10555,9 @@
         "ar": "سجّل فيا أربعة أهداف مع إسبانيا المتوجة باللقب."
       },
       "localization": {
-        "enChars": 45,
-        "arChars": 39,
-        "parityRatio": 0.867,
+        "enChars": 89,
+        "arChars": 80,
+        "parityRatio": 0.899,
         "verifiedBy": "auto-check-pending-editor"
       },
       "authoring": {
@@ -10614,9 +10614,9 @@
         "ar": "احتفظت إسبانيا بالكأس بعد فوزها على إيطاليا 4-0 في النهائي."
       },
       "localization": {
-        "enChars": 80,
-        "arChars": 58,
-        "parityRatio": 0.725,
+        "enChars": 103,
+        "arChars": 84,
+        "parityRatio": 0.816,
         "verifiedBy": "auto-check-pending-editor"
       },
       "authoring": {
@@ -10652,11 +10652,6 @@
           "ar": "ناني"
         },
         {
-          "id": "opt_euro2016finalgoal_1",
-          "en": "Éder",
-          "ar": "إيدر"
-        },
-        {
           "id": "opt_euro2016finalgoal_2",
           "en": "Cristiano Ronaldo",
           "ar": "كريستيانو رونالدو"
@@ -10665,6 +10660,11 @@
           "id": "opt_euro2016finalgoal_3",
           "en": "João Moutinho",
           "ar": "جواو موتينيو"
+        },
+        {
+          "id": "opt_euro2016finalgoal_1",
+          "en": "Éder",
+          "ar": "إيدر"
         }
       ],
       "answerOptionId": "opt_euro2016finalgoal_1",
@@ -10673,9 +10673,9 @@
         "ar": "سجّل إيدر الهدف الوحيد أمام فرنسا في الوقت الإضافي."
       },
       "localization": {
-        "enChars": 58,
-        "arChars": 44,
-        "parityRatio": 0.759,
+        "enChars": 96,
+        "arChars": 81,
+        "parityRatio": 0.844,
         "verifiedBy": "auto-check-pending-editor"
       },
       "authoring": {
@@ -10706,14 +10706,9 @@
       },
       "options": [
         {
-          "id": "opt_euro2020finalshootout_0",
-          "en": "England",
-          "ar": "إنجلترا"
-        },
-        {
-          "id": "opt_euro2020finalshootout_1",
-          "en": "Italy",
-          "ar": "إيطاليا"
+          "id": "opt_euro2020finalshootout_3",
+          "en": "Denmark",
+          "ar": "الدنمارك"
         },
         {
           "id": "opt_euro2020finalshootout_2",
@@ -10721,9 +10716,14 @@
           "ar": "إسبانيا"
         },
         {
-          "id": "opt_euro2020finalshootout_3",
-          "en": "Denmark",
-          "ar": "الدنمارك"
+          "id": "opt_euro2020finalshootout_1",
+          "en": "Italy",
+          "ar": "إيطاليا"
+        },
+        {
+          "id": "opt_euro2020finalshootout_0",
+          "en": "England",
+          "ar": "إنجلترا"
         }
       ],
       "answerOptionId": "opt_euro2020finalshootout_1",
@@ -10732,9 +10732,9 @@
         "ar": "فازت إيطاليا 3-2 بركلات الترجيح بعد التعادل 1-1."
       },
       "localization": {
-        "enChars": 55,
-        "arChars": 63,
-        "parityRatio": 1.145,
+        "enChars": 79,
+        "arChars": 92,
+        "parityRatio": 1.165,
         "verifiedBy": "auto-check-pending-editor"
       },
       "authoring": {
@@ -10765,24 +10765,24 @@
       },
       "options": [
         {
-          "id": "opt_ucl1997final_0",
-          "en": "Borussia Dortmund",
-          "ar": "بوروسيا دورتموند"
-        },
-        {
           "id": "opt_ucl1997final_1",
           "en": "Ajax",
           "ar": "أياكس"
         },
         {
-          "id": "opt_ucl1997final_2",
-          "en": "Real Madrid",
-          "ar": "ريال مدريد"
-        },
-        {
           "id": "opt_ucl1997final_3",
           "en": "Manchester United",
           "ar": "مانشستر يونايتد"
+        },
+        {
+          "id": "opt_ucl1997final_0",
+          "en": "Borussia Dortmund",
+          "ar": "بوروسيا دورتموند"
+        },
+        {
+          "id": "opt_ucl1997final_2",
+          "en": "Real Madrid",
+          "ar": "ريال مدريد"
         }
       ],
       "answerOptionId": "opt_ucl1997final_0",
@@ -10791,9 +10791,9 @@
         "ar": "فاز دورتموند 3-1 وسجّل كارل هاينز ريدله هدفين."
       },
       "localization": {
-        "enChars": 64,
-        "arChars": 52,
-        "parityRatio": 0.813,
+        "enChars": 113,
+        "arChars": 98,
+        "parityRatio": 0.867,
         "verifiedBy": "auto-check-pending-editor"
       },
       "authoring": {
@@ -10824,9 +10824,9 @@
       },
       "options": [
         {
-          "id": "opt_ucl2004final_0",
-          "en": "Chelsea",
-          "ar": "تشيلسي"
+          "id": "opt_ucl2004final_2",
+          "en": "Inter Milan",
+          "ar": "إنتر ميلان"
         },
         {
           "id": "opt_ucl2004final_1",
@@ -10834,9 +10834,9 @@
           "ar": "بورتو"
         },
         {
-          "id": "opt_ucl2004final_2",
-          "en": "Inter Milan",
-          "ar": "إنتر ميلان"
+          "id": "opt_ucl2004final_0",
+          "en": "Chelsea",
+          "ar": "تشيلسي"
         },
         {
           "id": "opt_ucl2004final_3",
@@ -10850,8 +10850,8 @@
         "ar": "فاز بورتو على موناكو 3-0 في النهائي بمدينة غيلزنكيرشن."
       },
       "localization": {
-        "enChars": 69,
-        "arChars": 62,
+        "enChars": 99,
+        "arChars": 89,
         "parityRatio": 0.899,
         "verifiedBy": "auto-check-pending-editor"
       },
@@ -10888,11 +10888,6 @@
           "ar": "ماريو ماندجوكيتش"
         },
         {
-          "id": "opt_ucl2013winner_1",
-          "en": "Franck Ribéry",
-          "ar": "فرانك ريبيري"
-        },
-        {
           "id": "opt_ucl2013winner_2",
           "en": "Arjen Robben",
           "ar": "آريين روبن"
@@ -10901,6 +10896,11 @@
           "id": "opt_ucl2013winner_3",
           "en": "Thomas Müller",
           "ar": "توماس مولر"
+        },
+        {
+          "id": "opt_ucl2013winner_1",
+          "en": "Franck Ribéry",
+          "ar": "فرانك ريبيري"
         }
       ],
       "answerOptionId": "opt_ucl2013winner_2",
@@ -10909,9 +10909,9 @@
         "ar": "سجّل روبن هدفاً متأخراً ليهزم بوروسيا دورتموند 2-1 في ويمبلي."
       },
       "localization": {
-        "enChars": 75,
-        "arChars": 60,
-        "parityRatio": 0.8,
+        "enChars": 128,
+        "arChars": 108,
+        "parityRatio": 0.844,
         "verifiedBy": "auto-check-pending-editor"
       },
       "authoring": {
@@ -10942,16 +10942,6 @@
       },
       "options": [
         {
-          "id": "opt_ucl2016missedpenalty_0",
-          "en": "Antoine Griezmann",
-          "ar": "أنطوان غريزمان"
-        },
-        {
-          "id": "opt_ucl2016missedpenalty_1",
-          "en": "Gabi",
-          "ar": "غابي"
-        },
-        {
           "id": "opt_ucl2016missedpenalty_2",
           "en": "Juanfran",
           "ar": "خوانفران"
@@ -10960,6 +10950,16 @@
           "id": "opt_ucl2016missedpenalty_3",
           "en": "Koke",
           "ar": "كوكي"
+        },
+        {
+          "id": "opt_ucl2016missedpenalty_1",
+          "en": "Gabi",
+          "ar": "غابي"
+        },
+        {
+          "id": "opt_ucl2016missedpenalty_0",
+          "en": "Antoine Griezmann",
+          "ar": "أنطوان غريزمان"
         }
       ],
       "answerOptionId": "opt_ucl2016missedpenalty_2",
@@ -10968,9 +10968,9 @@
         "ar": "اصطدمت تسديدة خوانفران بالقائم قبل أن يحسم كريستيانو رونالدو فوز ريال مدريد."
       },
       "localization": {
-        "enChars": 90,
-        "arChars": 74,
-        "parityRatio": 0.822,
+        "enChars": 123,
+        "arChars": 104,
+        "parityRatio": 0.846,
         "verifiedBy": "auto-check-pending-editor"
       },
       "authoring": {
@@ -11001,24 +11001,24 @@
       },
       "options": [
         {
-          "id": "opt_ucl2023goal_0",
-          "en": "Kevin De Bruyne",
-          "ar": "كيفن دي بروين"
-        },
-        {
           "id": "opt_ucl2023goal_1",
           "en": "Erling Haaland",
           "ar": "إيرلينغ هالاند"
         },
         {
-          "id": "opt_ucl2023goal_2",
-          "en": "İlkay Gündoğan",
-          "ar": "إلكاي غوندوغان"
+          "id": "opt_ucl2023goal_0",
+          "en": "Kevin De Bruyne",
+          "ar": "كيفن دي بروين"
         },
         {
           "id": "opt_ucl2023goal_3",
           "en": "Rodri",
           "ar": "رودري"
+        },
+        {
+          "id": "opt_ucl2023goal_2",
+          "en": "İlkay Gündoğan",
+          "ar": "إلكاي غوندوغان"
         }
       ],
       "answerOptionId": "opt_ucl2023goal_3",
@@ -11027,9 +11027,9 @@
         "ar": "سجّل رودري الهدف الوحيد أمام إنتر في إسطنبول."
       },
       "localization": {
-        "enChars": 77,
-        "arChars": 61,
-        "parityRatio": 0.792,
+        "enChars": 125,
+        "arChars": 107,
+        "parityRatio": 0.856,
         "verifiedBy": "auto-check-pending-editor"
       },
       "authoring": {
