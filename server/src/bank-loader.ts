@@ -44,10 +44,17 @@ export const loadBank = async (path = DEFAULT_BANK): Promise<LoadedBank> => {
     competitions: toMap(raw.catalogs.competitions),
   };
 
+  // Never publish a visual clue unless its real image is hosted and available.
+  // The current bank still contains placeholder asset:// references, so exclude
+  // every media-dependent question from live matches and Shooting Chances.
+  const playableQuestions = raw.questions.filter(
+    (q) => q.format !== "blur_reveal" && !(q.media?.length),
+  );
+
   return {
     catalog,
-    questions: raw.questions,
-    shotQuestions: raw.questions.filter((q) => q.difficulty >= 4),
+    questions: playableQuestions,
+    shotQuestions: playableQuestions.filter((q) => q.difficulty >= 4),
   };
 };
 
