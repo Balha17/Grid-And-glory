@@ -116,13 +116,13 @@ mipmap_v26.mkdir(parents=True, exist_ok=True)
 )
 colors = res_dir / "values" / "colors.xml"
 color_xml = colors.read_text(encoding="utf-8") if colors.exists() else (
-    '<?xml version="1.0" encoding="utf-8"?>\\n<resources>\\n</resources>\\n'
+    '<?xml version="1.0" encoding="utf-8"?>\n<resources>\n</resources>\n'
 )
 for name, value in [("gg_icon_background", "#10233A"), ("gg_splash_background", "#0B1220")]:
     if f'name="{name}"' not in color_xml:
         color_xml = color_xml.replace(
             "</resources>",
-            f'    <color name="{name}">{value}</color>\\n</resources>',
+            f'    <color name="{name}">{value}</color>\n</resources>',
         )
 colors.write_text(color_xml, encoding="utf-8")
 
