@@ -289,7 +289,13 @@ const buildRoom = (seed: number): MatchRoom =>
   });
 
 test("both submitted answers resolve immediately and the following round opens normally", () => {
-  const room = buildRoom(20261111);
+  const room = new MatchRoom({
+    matchId: 'm_fast_answers',
+    players: [ALICE, BOB],
+    pool: drawPool(bank.questions, 18, 20261111),
+    shotPool: bank.shotQuestions,
+    catalog: bank.catalog,
+  });
   let now = 9_500_000;
   const start = room.start(now);
   assert.ok(start.some((e) => e.type === "round.intro"));
