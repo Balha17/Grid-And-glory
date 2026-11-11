@@ -99,10 +99,10 @@ func _process(_delta: float) -> void:
 			_show_matchmaking(false)
 			home_primary_button.disabled = false
 			home_secondary_button.disabled = false
-			menu_subtitle.text = "CONNECTION FAILED • TAP TO RETRY"
+			menu_subtitle.text = _tr("CONNECTION FAILED • TAP TO RETRY", "فشل الاتصال • اضغط لإعادة المحاولة")
 	if phase == "connecting" and connection_deadline > 0:
 		var wait_left := maxi(0, int(ceil(float(connection_deadline - Time.get_ticks_msec()) / 1000.0)))
-		matchmaking_label.text = "CONNECTING TO MATCH SERVER…\n" + str(wait_left) + "s"
+		matchmaking_label.text = _tr("CONNECTING TO MATCH SERVER…\n", "جارٍ الاتصال بالخادم…\n") + str(wait_left) + "s"
 	if countdown_deadline > 0 and phase in ["question_open", "shooting_chance"]:
 		var now_ms := Time.get_ticks_msec()
 		var left := maxi(0, int(ceil(float(countdown_deadline - now_ms) / 1000.0)))
@@ -124,7 +124,7 @@ func _process(_delta: float) -> void:
 		_show_matchmaking(false)
 		home_primary_button.disabled = false
 		home_secondary_button.disabled = false
-		menu_subtitle.text = "SERVER TIMEOUT • CHECK INTERNET AND RETRY"
+		menu_subtitle.text = _tr("SERVER TIMEOUT • CHECK INTERNET AND RETRY", "انتهت مهلة الاتصال • تحقق من الإنترنت وحاول مجدداً")
 	if stadium_root.visible:
 		_update_pitch_state()
 
@@ -597,7 +597,7 @@ func _build_hud() -> void:
 	matchmaking_box.add_theme_constant_override("separation", 10)
 	matchmaking_panel.add_child(matchmaking_box)
 	matchmaking_label = Label.new()
-	matchmaking_label.text = "CONNECTING TO MATCH SERVER…"
+	matchmaking_label.text = _tr("CONNECTING TO MATCH SERVER…", "جارٍ الاتصال بخادم المباراة…")
 	matchmaking_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	matchmaking_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	matchmaking_label.add_theme_font_size_override("font_size", 20)
@@ -693,8 +693,8 @@ func _show_result() -> void:
 	home_layer.visible = true
 	menu_title.text = _tr("FULL TIME", "نهاية المباراة")
 	menu_subtitle.text = _tr("FINAL SCORE  •  ", "النتيجة النهائية  •  ") + str(my_goals) + " — " + str(rival_goals)
-	home_primary_button.text = "PLAY AGAIN • VS AI"
-	home_secondary_button.text = "RETURN TO MENU"
+	home_primary_button.text = _tr("PLAY AGAIN • VS AI", "العب مجدداً ضد الذكاء الاصطناعي")
+	home_secondary_button.text = _tr("RETURN TO MENU", "العودة إلى القائمة")
 
 func _on_menu_primary() -> void:
 	if phase == "ended":
@@ -724,6 +724,14 @@ func _start_connection(vs_ai: bool) -> void:
 	_show_matchmaking(true)
 	matchmaking_label.text = "CONNECTING TO MATCH SERVER…"
 	# A closed WebSocketPeer cannot be reused for a new connection attempt.
+	my_goals = 0
+	rival_goals = 0
+	my_zone = 0
+	rival_zone = 0
+	match_id = ""
+	current_token = ""
+	selected_option_id = ""
+	selected = false
 	var socket_state := socket.get_ready_state()
 	if socket_state != WebSocketPeer.STATE_OPEN:
 		if socket_state != WebSocketPeer.STATE_CLOSED:
@@ -743,7 +751,7 @@ func _start_connection(vs_ai: bool) -> void:
 		_show_matchmaking(false)
 		home_primary_button.disabled = false
 		home_secondary_button.disabled = false
-		menu_subtitle.text = "CONNECTION FAILED • TAP TO RETRY"
+		menu_subtitle.text = _tr("CONNECTION FAILED • TAP TO RETRY", "فشل الاتصال • اضغط لإعادة المحاولة")
 		return
 
 func _show_matchmaking(show: bool) -> void:
@@ -752,10 +760,10 @@ func _show_matchmaking(show: bool) -> void:
 
 func _send_join_request() -> void:
 	if join_mode_ai:
-		matchmaking_label.text = "CREATING YOUR AI MATCH…"
+		matchmaking_label.text = _tr("CREATING YOUR AI MATCH…", "جارٍ تجهيز مباراة الذكاء الاصطناعي…")
 		_send("bot.join", {})
 	else:
-		matchmaking_label.text = "SEARCHING FOR AN OPPONENT…"
+		matchmaking_label.text = _tr("SEARCHING FOR AN OPPONENT…", "جارٍ البحث عن منافس…")
 		_send("queue.join", {})
 
 func _cancel_matchmaking() -> void:
@@ -776,7 +784,11 @@ func _cancel_matchmaking() -> void:
 
 func _handle_frame(frame: Dictionary) -> void:
 	var type := str(frame.get("type", ""))
-	var p: Dictionary = frame.get("payload", {})
+	var payload_value = frame.get("payload", {})
+	if not payload_value is Dictionary:
+		push_warning("Ignored server frame with a non-object payload.")
+		return
+	var p: Dictionary = payload_value
 	match type:
 		"welcome":
 			_send("hello", {"deviceId": OS.get_unique_id(), "locale": locale, "region": "MENA", "displayName": display_name})
@@ -785,14 +797,14 @@ func _handle_frame(frame: Dictionary) -> void:
 			session_token = str(p.get("sessionToken", ""))
 			_send_join_request()
 		"queue.joined":
-			matchmaking_label.text = "SEARCHING FOR A PLAYER…\nAI BACKUP IN 15 SECONDS"
-			question_label.text = "Searching for an opponent…"
-			status_label.text = "MATCHMAKING • AI BACKUP AVAILABLE"
+			matchmaking_label.text = _tr("SEARCHING FOR A PLAYER…\nAI BACKUP IN 15 SECONDS", "نبحث عن لاعب…\nالذكاء الاصطناعي بعد 15 ثانية")
+			question_label.text = _tr("Searching for an opponent…", "جارٍ البحث عن منافس…")
+			status_label.text = _tr("MATCHMAKING • AI BACKUP AVAILABLE", "بحث عن منافس • بديل الذكاء الاصطناعي متاح")
 		"match.found":
 			match_id = str(p.get("matchId", ""))
-			matchmaking_label.text = "OPPONENT FOUND • PREPARING KICK-OFF"
+			matchmaking_label.text = _tr("OPPONENT FOUND • PREPARING KICK-OFF", "تم العثور على منافس • نستعد للبداية")
 			_show_matchmaking(false)
-			question_label.text = "OPPONENT FOUND"
+			question_label.text = _tr("OPPONENT FOUND", "تم العثور على منافس")
 			status_label.text = _tr("KICK-OFF INCOMING", "المباراة على وشك الانطلاق")
 		"match.start", "match.second_half":
 			_show_match()
@@ -830,7 +842,7 @@ func _handle_frame(frame: Dictionary) -> void:
 			countdown_deadline = 0
 			_read_scores(p)
 			var outcome := str(p.get("outcome", ""))
-			status_label.text = "CORRECT!" if outcome == "correct" else "WRONG!"
+			status_label.text = _tr("CORRECT!", "إجابة صحيحة!") if outcome == "correct" else _tr("WRONG!", "إجابة خاطئة!")
 			status_label.add_theme_color_override("font_color", Color(0.20, 0.95, 0.43) if outcome == "correct" else Color(1.0, 0.25, 0.22))
 			_show_answer_feedback(str(p.get("correctOptionId", "")), outcome == "correct")
 			animate_reveal(outcome == "correct")
@@ -838,7 +850,7 @@ func _handle_frame(frame: Dictionary) -> void:
 			phase = "shot_reveal"
 			_read_scores(p)
 			var scored := bool(p.get("scored", false))
-			status_label.text = "GOOOOOAL!" if scored else "SAVED!"
+			status_label.text = _tr("GOOOOOAL!", "هــــدف!") if scored else _tr("SAVED!", "تصدى لها الحارس!")
 			status_label.add_theme_color_override("font_color", Color(0.20, 0.95, 0.43) if scored else Color(1.0, 0.25, 0.22))
 			var correct_shot_id := str(p.get("correctOptionId", ""))
 			_show_answer_feedback(correct_shot_id, not correct_shot_id.is_empty() and selected_option_id == correct_shot_id, false)
@@ -847,8 +859,8 @@ func _handle_frame(frame: Dictionary) -> void:
 		"match.half":
 			phase = "half_time"
 			_read_scores(p)
-			status_label.text = "HALF TIME"
-			question_label.text = "Take a breath. Second half soon."
+			status_label.text = _tr("HALF TIME", "استراحة بين الشوطين")
+			question_label.text = _tr("Take a breath. Second half soon.", "استعد للشوط الثاني")
 		"match.end":
 			phase = "ended"
 			_read_scores(p)
@@ -859,19 +871,19 @@ func _handle_frame(frame: Dictionary) -> void:
 			_clear_options()
 			_show_result()
 		"state.sync":
-			status_label.text = "MATCH RECONNECTED"
+			status_label.text = _tr("MATCH RECONNECTED", "تمت استعادة الاتصال بالمباراة")
 			_read_scores(p)
 		"opponent.connection":
-			status_label.text = "RIVAL DISCONNECTED" if not bool(p.get("connected", true)) else "RIVAL BACK ONLINE"
+			status_label.text = _tr("RIVAL DISCONNECTED", "انقطع اتصال المنافس") if not bool(p.get("connected", true)) else _tr("RIVAL BACK ONLINE", "عاد المنافس إلى الاتصال")
 		"error":
 			connection_deadline = 0
 			phase = "home"
 			_show_matchmaking(false)
 			home_primary_button.disabled = false
 			home_secondary_button.disabled = false
-			menu_subtitle.text = "SERVER ERROR • " + str(p.get("code", "ERROR"))
-			question_label.text = "Server: " + str(p.get("code", "ERROR"))
-			status_label.text = "PLEASE TRY AGAIN"
+			menu_subtitle.text = _tr("SERVER ERROR • ", "خطأ في الخادم • ") + str(p.get("code", "ERROR"))
+			question_label.text = _tr("Server: ", "الخادم: ") + str(p.get("code", "ERROR"))
+			status_label.text = _tr("PLEASE TRY AGAIN", "يرجى المحاولة مجدداً")
 
 func _send(kind: String, payload: Dictionary) -> void:
 	if socket.get_ready_state() != WebSocketPeer.STATE_OPEN:
@@ -890,7 +902,7 @@ func _show_question(view: Dictionary) -> void:
 		return
 	for option in incoming_options:
 		if not (option is Dictionary) or str(option.get("id", "")).is_empty() or str(option.get("text", "")).strip_edges().is_empty():
-			question_label.text = "Question unavailable. Waiting for the next round…"
+			question_label.text = _tr("Question unavailable. Waiting for the next round…", "السؤال غير متاح. ننتظر الجولة التالية…")
 			_clear_options()
 			action_box.visible = false
 			push_warning("Rejected question with an incomplete answer option.")
@@ -925,7 +937,15 @@ func _show_question(view: Dictionary) -> void:
 	if expects_image:
 		question_image_placeholder.visible = true
 		question_image_placeholder.text = _tr("LOADING IMAGE…", "جارٍ تحميل الصورة…")
-		if image_path.begins_with("res://") or image_path.begins_with("user://"):
+		if image_path.begins_with("user://"):
+			var local_image := Image.new()
+			if local_image.load(image_path) == OK:
+				question_image.texture = ImageTexture.create_from_image(local_image)
+				question_image.visible = true
+				question_image_placeholder.visible = false
+			else:
+				question_image_placeholder.text = _tr("IMAGE NOT FOUND", "لم يتم العثور على الصورة")
+		elif image_path.begins_with("res://"):
 			if ResourceLoader.exists(image_path):
 				var local_texture := load(image_path) as Texture2D
 				if local_texture:
@@ -948,6 +968,8 @@ func _show_question(view: Dictionary) -> void:
 				question_image_placeholder.text = _tr("IMAGE UNAVAILABLE", "الصورة غير متاحة")
 		else:
 			question_image_placeholder.text = _tr("INVALID IMAGE PATH", "مسار الصورة غير صالح")
+	if expects_image and image_path.is_empty():
+		question_image_placeholder.text = _tr("IMAGE NOT CONFIGURED", "لم يتم إعداد صورة لهذا السؤال")
 	# Render format-specific clues: the old client showed only the prompt and
 	# answer buttons, silently dropping emoji, career-path and statistics data.
 	var format_data: Dictionary = view.get("formatData", {})
@@ -1021,7 +1043,7 @@ func _apply_locale() -> void:
 	if is_instance_valid(locale_button):
 		locale_button.text = "English" if locale == "ar" else "العربية"
 	if is_instance_valid(menu_title):
-		menu_title.text = "شبكة ومجد" if locale == "ar" else "GRID & GLORY"
+		menu_title.text = "GRID & GLORY"
 	if is_instance_valid(menu_subtitle) and phase == "home":
 		menu_subtitle.text = "معركة معلومات كرة القدم" if locale == "ar" else "THE ULTIMATE FOOTBALL QUIZ BATTLE"
 	if is_instance_valid(home_primary_button) and phase != "ended":
