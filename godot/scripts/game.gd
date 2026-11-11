@@ -403,15 +403,6 @@ func _build_hud() -> void:
 	question_meta_label.add_theme_color_override("font_color", Color(1.0,0.76,0.28))
 	question_meta_label.add_theme_font_size_override("font_size", 12)
 	content.add_child(question_meta_label)
-	clue_label = Label.new()
-	clue_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	clue_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-	clue_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	clue_label.custom_minimum_size = Vector2(0, 46)
-	clue_label.add_theme_color_override("font_color", Color(1.0,0.82,0.35))
-	clue_label.add_theme_font_size_override("font_size", 19)
-	clue_label.visible = false
-	content.add_child(clue_label)
 	question_label = Label.new()
 	question_label.text = "Get ready for the next challenge"
 	question_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
@@ -422,6 +413,15 @@ func _build_hud() -> void:
 	question_label.add_theme_color_override("font_color", Color(0.98,0.98,1.0))
 	question_label.add_theme_font_size_override("font_size", 20)
 	content.add_child(question_label)
+	clue_label = Label.new()
+	clue_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	clue_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	clue_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	clue_label.custom_minimum_size = Vector2(0, 46)
+	clue_label.add_theme_color_override("font_color", Color(1.0,0.82,0.35))
+	clue_label.add_theme_font_size_override("font_size", 19)
+	clue_label.visible = false
+	content.add_child(clue_label)
 	question_image = TextureRect.new()
 	question_image.custom_minimum_size = Vector2(0, 112)
 	question_image.expand_mode = TextureRect.EXPAND_FIT_WIDTH_PROPORTIONAL
@@ -838,6 +838,7 @@ func _show_question(view: Dictionary) -> void:
 	question_label.text = prompt
 	question_label.text_direction = Control.TEXT_DIRECTION_AUTO
 	question_label.layout_direction = Control.LAYOUT_DIRECTION_RTL if locale == "ar" else Control.LAYOUT_DIRECTION_LTR
+	options_box.columns = 2 if incoming_options.size() >= 4 else 1
 	options_box.layout_direction = Control.LAYOUT_DIRECTION_RTL if locale == "ar" else Control.LAYOUT_DIRECTION_LTR
 	clue_label.layout_direction = Control.LAYOUT_DIRECTION_RTL if locale == "ar" else Control.LAYOUT_DIRECTION_LTR
 	selected_option_id = ""
