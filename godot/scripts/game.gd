@@ -84,6 +84,8 @@ var locale_button: Button
 var pitch_status: Label
 var countdown_deadline := 0
 var countdown_duration := 0
+var countdown_style_initialized := false
+var last_countdown_urgent := false
 var connection_deadline := 0
 var reconnect_until := 0
 var reconnect_next_attempt := 0
@@ -222,8 +224,12 @@ func _process(_delta: float) -> void:
 		var total_ms := maxi(1, countdown_deadline - countdown_started)
 		countdown_bar.value = clampf(float(countdown_deadline - now_ms) / float(total_ms) * 100.0, 0.0, 100.0)
 		var urgent := left <= 3
-		timer_label.add_theme_color_override("font_color", Color(1.0,0.28,0.22) if urgent else Color(1.0,0.78,0.25))
-		countdown_bar.add_theme_stylebox_override("fill", _panel_style(Color(0.88,0.16,0.15) if urgent else Color(0.96,0.65,0.16), Color(1.0,0.78,0.28), 0))
+		# Avoid allocating a new StyleBox every frame during the countdown.
+		if not countdown_style_initialized or urgent != last_countdown_urgent:
+			last_countdown_urgent = urgent
+			countdown_style_initialized = true
+			timer_label.add_theme_color_override("font_color", Color(1.0,0.28,0.22) if urgent else Color(1.0,0.78,0.25))
+			countdown_bar.add_theme_stylebox_override("fill", _panel_style(Color(0.88,0.16,0.15) if urgent else Color(0.96,0.65,0.16), Color(1.0,0.78,0.28), 0))
 	else:
 		timer_label.text = ""
 		if is_instance_valid(countdown_bar):
