@@ -284,7 +284,7 @@ class _LobbyView extends StatelessWidget {
   }
 }
 
-class _ResultView extends StatelessWidget {
+class _ResultView extends StatefulWidget {
   const _ResultView({
     required this.state,
     required this.locale,
@@ -300,7 +300,34 @@ class _ResultView extends StatelessWidget {
   final VoidCallback onHome;
 
   @override
+  State<_ResultView> createState() => _ResultViewState();
+}
+
+class _ResultViewState extends State<_ResultView>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController _celebration = AnimationController(
+    vsync: this,
+    duration: const Duration(milliseconds: 2800),
+  );
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.state.finalOutcome == 'win') _celebration.forward();
+  }
+
+  @override
+  void dispose() {
+    _celebration.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final state = widget.state;
+    final locale = widget.locale;
+    final l10n = widget.l10n;
+    final won = state.finalOutcome == 'win';
     final title = switch (state.finalOutcome) {
       'win' => l10n.youWin,
       'loss' => l10n.youLose,
@@ -314,74 +341,250 @@ class _ResultView extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: AppColors.bgBase,
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsetsDirectional.all(AppSpacing.xl),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(title, style: AppType.display(locale).copyWith(color: accent)),
-              if (state.decidedBy == 'void') ...[
-                const SizedBox(height: AppSpacing.md),
-                Text(
-                  l10n.matchVoided,
-                  style: AppType.body(locale),
-                  textAlign: TextAlign.center,
-                ),
-              ],
-              const SizedBox(height: AppSpacing.lg),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text('${state.yourGoals}',
-                      style: AppType.numeric(locale, size: 56)),
-                  Padding(
-                    padding: const EdgeInsetsDirectional.symmetric(
-                        horizontal: AppSpacing.lg),
-                    child: Text('–', style: AppType.numeric(locale, size: 40)),
+      body: Stack(
+        fit: StackFit.expand,
+        children: [
+          DecoratedBox(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [
+                  won ? const Color(0xFF183B36) : const Color(0xFF17263A),
+                  AppColors.bgBase,
+                  AppColors.bgBase,
+                ],
+                stops: const [0, 0.48, 1],
+              ),
+            ),
+          ),
+          if (won)
+            Positioned.fill(
+              child: IgnorePointer(
+                child: AnimatedBuilder(
+                  animation: _celebration,
+                  builder: (context, _) => CustomPaint(
+                    painter: _WinnerConfettiPainter(_celebration.value),
                   ),
-                  Text('${state.opponentGoals}',
-                      style: AppType.numeric(locale, size: 56)),
+                ),
+              ),
+            ),
+          SafeArea(
+            child: Padding(
+              padding: const EdgeInsetsDirectional.fromSTEB(
+                AppSpacing.xl, AppSpacing.lg, AppSpacing.xl, AppSpacing.lg,
+              ),
+              child: Column(
+                children: [
+                  const Spacer(),
+                  AnimatedScale(
+                    scale: won ? 1 : 0.88,
+                    duration: const Duration(milliseconds: 500),
+                    curve: Curves.elasticOut,
+                    child: Container(
+                      width: 112,
+                      height: 112,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        gradient: LinearGradient(
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                          colors: won
+                              ? const [Color(0xFFFFE5A0), Color(0xFFD18B2E)]
+                              : [AppColors.bgRaised, AppColors.bgSunken],
+                        ),
+                        border: Border.all(
+                          color: won ? const Color(0xFFFFD978) : AppColors.border,
+                          width: 2,
+                        ),
+                        boxShadow: [
+                          BoxShadow(
+                            color: accent.withValues(alpha: won ? 0.30 : 0.12),
+                            blurRadius: 32,
+                            spreadRadius: 2,
+                          ),
+                        ],
+                      ),
+                      child: Icon(
+                        won ? Icons.emoji_events_rounded
+                            : state.finalOutcome == 'draw'
+                                ? Icons.handshake_rounded
+                                : Icons.sports_soccer_rounded,
+                        size: 58,
+                        color: won ? const Color(0xFF59380D) : accent,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: AppSpacing.lg),
+                  if (won)
+                    Text(
+                      locale.languageCode == 'ar' ? 'بطل المباراة' : 'MATCH CHAMPION',
+                      style: AppType.label(locale).copyWith(
+                        color: const Color(0xFFFFD978),
+                        fontWeight: FontWeight.w900,
+                        letterSpacing: locale.languageCode == 'ar' ? 0 : 2.2,
+                      ),
+                    ),
+                  const SizedBox(height: AppSpacing.sm),
+                  Text(
+                    title,
+                    textAlign: TextAlign.center,
+                    style: AppType.display(locale).copyWith(
+                      color: accent,
+                      fontWeight: FontWeight.w900,
+                      shadows: won
+                          ? [Shadow(color: accent.withValues(alpha: 0.35), blurRadius: 24)]
+                          : const [],
+                    ),
+                  ),
+                  if (state.decidedBy == 'void') ...[
+                    const SizedBox(height: AppSpacing.md),
+                    Text(
+                      l10n.matchVoided,
+                      style: AppType.body(locale),
+                      textAlign: TextAlign.center,
+                    ),
+                  ],
+                  const SizedBox(height: AppSpacing.xl),
+                  Container(
+                    width: double.infinity,
+                    padding: const EdgeInsetsDirectional.symmetric(
+                      horizontal: AppSpacing.lg, vertical: AppSpacing.lg,
+                    ),
+                    decoration: BoxDecoration(
+                      color: AppColors.bgRaised.withValues(alpha: 0.88),
+                      borderRadius: const BorderRadius.all(AppRadii.lg),
+                      border: Border.all(
+                        color: won ? const Color(0x66FFD978) : AppColors.border,
+                      ),
+                    ),
+                    child: Column(
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text('${state.yourGoals}',
+                                style: AppType.numeric(locale, size: 58, weight: FontWeight.w900)
+                                    .copyWith(color: won ? AppColors.correct : AppColors.textPrimary)),
+                            Padding(
+                              padding: const EdgeInsetsDirectional.symmetric(
+                                  horizontal: AppSpacing.xl),
+                              child: Text('–', style: AppType.numeric(locale, size: 38)),
+                            ),
+                            Text('${state.opponentGoals}',
+                                style: AppType.numeric(locale, size: 58, weight: FontWeight.w900)),
+                          ],
+                        ),
+                        const SizedBox(height: AppSpacing.xs),
+                        Text(l10n.fullTime, style: AppType.label(locale)),
+                        if (_decidedLabel(state.decidedBy, l10n) case final String decided) ...[
+                          const SizedBox(height: AppSpacing.xs),
+                          Text(decided, style: AppType.label(locale)),
+                        ],
+                        if (state.accuracy case final double accuracy) ...[
+                          const SizedBox(height: AppSpacing.sm),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const Icon(Icons.track_changes_rounded,
+                                  size: 17, color: AppColors.accent),
+                              const SizedBox(width: AppSpacing.xs),
+                              Text(
+                                '${l10n.accuracy}: ${isoNum('${(accuracy * 100).round()}%')}',
+                                style: AppType.label(locale).copyWith(
+                                  color: AppColors.accent,
+                                  fontWeight: FontWeight.w800,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ],
+                    ),
+                  ),
+                  const Spacer(),
+                  SizedBox(
+                    width: double.infinity,
+                    height: 60,
+                    child: FilledButton.icon(
+                      onPressed: widget.onRematch,
+                      icon: const Icon(Icons.replay_rounded),
+                      style: FilledButton.styleFrom(
+                        backgroundColor: AppColors.accent,
+                        foregroundColor: AppColors.bgBase,
+                        shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(AppRadii.md),
+                        ),
+                      ),
+                      label: Text(l10n.rematch, style: AppType.title(locale)),
+                    ),
+                  ),
+                  const SizedBox(height: AppSpacing.sm),
+                  SizedBox(
+                    width: double.infinity,
+                    height: 48,
+                    child: TextButton.icon(
+                      onPressed: widget.onHome,
+                      icon: const Icon(Icons.home_rounded),
+                      label: Text(l10n.homeAction, style: AppType.body(locale)),
+                    ),
+                  ),
                 ],
               ),
-              const SizedBox(height: AppSpacing.xl),
-              Text(l10n.fullTime, style: AppType.label(locale)),
-              if (_decidedLabel(state.decidedBy, l10n) case final String decided) ...[
-                const SizedBox(height: AppSpacing.xs),
-                Text(decided, style: AppType.label(locale)),
-              ],
-              if (state.accuracy case final double accuracy) ...[
-                const SizedBox(height: AppSpacing.xs),
-                Text(
-                  // The number is isolated so it cannot reorder inside an Arabic line.
-                  '${l10n.accuracy}: ${isoNum('${(accuracy * 100).round()}%')}',
-                  style: AppType.label(locale),
-                ),
-              ],
-              const Spacer(),
-              SizedBox(
-                width: double.infinity,
-                height: 60,
-                child: FilledButton(
-                  onPressed: onRematch,
-                  style: FilledButton.styleFrom(
-                    backgroundColor: AppColors.accent,
-                    foregroundColor: AppColors.bgBase,
-                  ),
-                  child: Text(l10n.rematch, style: AppType.title(locale)),
-                ),
-              ),
-              const SizedBox(height: AppSpacing.md),
-              TextButton(
-                onPressed: onHome,
-                child: Text(l10n.homeAction, style: AppType.body(locale)),
-              ),
-            ],
+            ),
           ),
-        ),
+        ],
       ),
     );
   }
+}
+
+class _WinnerConfettiPainter extends CustomPainter {
+  _WinnerConfettiPainter(this.progress);
+
+  final double progress;
+  static const _colors = [
+    Color(0xFFFFD978), Color(0xFF55D6A2), Color(0xFF62B7FF),
+    Color(0xFFFF8D72), Color(0xFFF4F0D8),
+  ];
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final random = math.Random(1701);
+    for (var i = 0; i < 64; i++) {
+      final startX = random.nextDouble() * size.width;
+      final delay = random.nextDouble() * 0.42;
+      final local = ((progress - delay) / (1 - delay)).clamp(0.0, 1.0);
+      if (local <= 0) continue;
+      final fall = local * size.height * 0.92;
+      final drift = math.sin(local * 8 + i) * 22;
+      final x = startX + drift;
+      final y = -18 + fall;
+      final paint = Paint()
+        ..color = _colors[i % _colors.length].withValues(
+          alpha: (1 - local * 0.65).clamp(0.0, 1.0),
+        );
+      canvas.save();
+      canvas.translate(x, y);
+      canvas.rotate(local * (i.isEven ? 7 : -7));
+      canvas.drawRRect(
+        RRect.fromRectAndRadius(
+          Rect.fromCenter(
+            center: Offset.zero,
+            width: i.isEven ? 7 : 4,
+            height: i.isEven ? 12 : 7,
+          ),
+          const Radius.circular(2),
+        ),
+        paint,
+      );
+      canvas.restore();
+    }
+  }
+
+  @override
+  bool shouldRepaint(_WinnerConfettiPainter oldDelegate) =>
+      oldDelegate.progress != progress;
 }
 
 /// Why the match was decided, when the answer is one of the two cases worth naming.
