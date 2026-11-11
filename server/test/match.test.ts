@@ -310,7 +310,7 @@ test("disconnect past the grace period forfeits the match", () => {
 test("a player who lets the question timer expire receives a wrong verdict", () => {
   const room = buildRoom(71);
   let now = 5_500_000;
-  const opening = room.start(now);
+  room.start(now);
   now += 1_100;
   const questionFrames = room.advance(now);
   const question = questionFrames.find((e) => e.type === "round.question" && e.to === ALICE.playerId);
