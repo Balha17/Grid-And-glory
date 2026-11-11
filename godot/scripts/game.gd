@@ -49,9 +49,14 @@ var title_label: Label
 var status_label: Label
 var question_label: Label
 var clue_label: Label
+var question_meta_label: Label
+var question_image: TextureRect
+var question_image_request: HTTPRequest
 var score_label: Label
 var timer_label: Label
-var options_box: VBoxContainer
+var countdown_bar: ProgressBar
+var countdown_started := 0
+var options_box: GridContainer
 var action_box: HBoxContainer
 var connect_button: Button
 var locale_button: Button
@@ -97,12 +102,18 @@ func _process(_delta: float) -> void:
 		var wait_left := maxi(0, int(ceil(float(connection_deadline - Time.get_ticks_msec()) / 1000.0)))
 		matchmaking_label.text = "CONNECTING TO MATCH SERVER…\n" + str(wait_left) + "s"
 	if countdown_deadline > 0 and phase in ["question_open", "shooting_chance"]:
-		var left := maxi(0, int(ceil(float(countdown_deadline - Time.get_ticks_msec()) / 1000.0)))
-		timer_label.text = str(left)
-		if left == 0:
-			timer_label.modulate = Color(1.0, 0.3, 0.25)
+		var now_ms := Time.get_ticks_msec()
+		var left := maxi(0, int(ceil(float(countdown_deadline - now_ms) / 1000.0)))
+		timer_label.text = str(left) + "s"
+		var total_ms := maxi(1, countdown_deadline - countdown_started)
+		countdown_bar.value = clampf(float(countdown_deadline - now_ms) / float(total_ms) * 100.0, 0.0, 100.0)
+		var urgent := left <= 3
+		timer_label.add_theme_color_override("font_color", Color(1.0,0.28,0.22) if urgent else Color(1.0,0.78,0.25))
+		countdown_bar.add_theme_stylebox_override("fill", _panel_style(Color(0.88,0.16,0.15) if urgent else Color(0.96,0.65,0.16), Color(1.0,0.78,0.28), 0))
 	else:
 		timer_label.text = ""
+		if is_instance_valid(countdown_bar):
+			countdown_bar.value = 0
 	if phase == "connecting" and connection_deadline > 0 and Time.get_ticks_msec() >= connection_deadline:
 		connection_deadline = 0
 		socket.close()
@@ -329,7 +340,7 @@ func _build_hud() -> void:
 	top.anchor_left = 0.025
 	top.anchor_right = 0.975
 	top.anchor_top = 0.012
-	top.anchor_bottom = 0.125
+	top.anchor_bottom = 0.115
 	top.offset_left = 0
 	top.offset_right = 0
 	top.offset_top = 0
@@ -357,14 +368,14 @@ func _build_hud() -> void:
 	status_label.add_theme_font_size_override("font_size", 14)
 	status_label.add_theme_color_override("font_color", Color(0.65,0.82,1.0))
 	topbox.add_child(status_label)
-	match_sound_button = _make_button("SOUND ON  ♪", Color(0.08,0.20,0.36), Color(0.30,0.63,0.92), 40)
+	match_sound_button = _make_button("SOUND ON  ♪", Color(0.08,0.20,0.36), Color(0.30,0.63,0.92), 32)
 	match_sound_button.pressed.connect(_toggle_sound)
 	topbox.add_child(match_sound_button)
 
 	var bottom := PanelContainer.new()
 	bottom.anchor_left = 0.025
 	bottom.anchor_right = 0.975
-	bottom.anchor_top = 0.675
+	bottom.anchor_top = 0.585
 	bottom.anchor_bottom = 0.992
 	bottom.offset_left = 0
 	bottom.offset_right = 0
@@ -373,26 +384,32 @@ func _build_hud() -> void:
 	bottom.add_theme_stylebox_override("panel", _panel_style(Color(0.012,0.035,0.085,0.98), Color(0.20,0.57,0.94), 3))
 	match_layer.add_child(bottom)
 	var margin := MarginContainer.new()
-	margin.add_theme_constant_override("margin_left", 18)
-	margin.add_theme_constant_override("margin_right", 18)
+	margin.add_theme_constant_override("margin_left", 14)
+	margin.add_theme_constant_override("margin_right", 14)
 	margin.add_theme_constant_override("margin_top", 8)
 	margin.add_theme_constant_override("margin_bottom", 8)
 	bottom.add_child(margin)
 	var content := VBoxContainer.new()
-	content.add_theme_constant_override("separation", 4)
+	content.add_theme_constant_override("separation", 6)
 	margin.add_child(content)
 	pitch_status = Label.new()
 	pitch_status.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	pitch_status.add_theme_color_override("font_color", Color(0.48,0.85,1.0))
-	pitch_status.add_theme_font_size_override("font_size", 15)
+	pitch_status.add_theme_font_size_override("font_size", 12)
+	pitch_status.add_theme_color_override("font_color", Color(0.55,0.75,0.92))
 	content.add_child(pitch_status)
+	question_meta_label = Label.new()
+	question_meta_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	question_meta_label.add_theme_color_override("font_color", Color(1.0,0.76,0.28))
+	question_meta_label.add_theme_font_size_override("font_size", 12)
+	content.add_child(question_meta_label)
 	clue_label = Label.new()
 	clue_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	clue_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 	clue_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	clue_label.custom_minimum_size = Vector2(0, 58)
+	clue_label.custom_minimum_size = Vector2(0, 46)
 	clue_label.add_theme_color_override("font_color", Color(1.0,0.82,0.35))
-	clue_label.add_theme_font_size_override("font_size", 22)
+	clue_label.add_theme_font_size_override("font_size", 19)
 	clue_label.visible = false
 	content.add_child(clue_label)
 	question_label = Label.new()
@@ -400,18 +417,35 @@ func _build_hud() -> void:
 	question_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	question_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	question_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-	question_label.size_flags_vertical = Control.SIZE_EXPAND_FILL
-	question_label.custom_minimum_size = Vector2(0, 54)
+	question_label.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+	question_label.custom_minimum_size = Vector2(0, 64)
 	question_label.add_theme_color_override("font_color", Color(0.98,0.98,1.0))
-	question_label.add_theme_font_size_override("font_size", 19)
+	question_label.add_theme_font_size_override("font_size", 20)
 	content.add_child(question_label)
+	question_image = TextureRect.new()
+	question_image.custom_minimum_size = Vector2(0, 112)
+	question_image.expand_mode = TextureRect.EXPAND_FIT_WIDTH_PROPORTIONAL
+	question_image.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	question_image.visible = false
+	content.add_child(question_image)
 	timer_label = Label.new()
 	timer_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	timer_label.add_theme_color_override("font_color", Color(1.0,0.78,0.25))
-	timer_label.add_theme_font_size_override("font_size", 22)
+	timer_label.add_theme_font_size_override("font_size", 18)
 	content.add_child(timer_label)
-	options_box = VBoxContainer.new()
-	options_box.add_theme_constant_override("separation", 5)
+	countdown_bar = ProgressBar.new()
+	countdown_bar.custom_minimum_size = Vector2(0, 7)
+	countdown_bar.show_percentage = false
+	countdown_bar.min_value = 0
+	countdown_bar.max_value = 100
+	countdown_bar.value = 100
+	countdown_bar.add_theme_stylebox_override("background", _panel_style(Color(0.08,0.13,0.20), Color(0.13,0.22,0.34), 0))
+	countdown_bar.add_theme_stylebox_override("fill", _panel_style(Color(0.96,0.65,0.16), Color(1.0,0.78,0.28), 0))
+	content.add_child(countdown_bar)
+	options_box = GridContainer.new()
+	options_box.columns = 2
+	options_box.add_theme_constant_override("h_separation", 8)
+	options_box.add_theme_constant_override("v_separation", 7)
 	content.add_child(options_box)
 	action_box = HBoxContainer.new()
 	action_box.alignment = BoxContainer.ALIGNMENT_CENTER
@@ -601,8 +635,8 @@ func _show_result() -> void:
 	stadium_root.visible = false
 	match_layer.visible = false
 	home_layer.visible = true
-	menu_title.text = "FULL TIME"
-	menu_subtitle.text = "FINAL SCORE  •  " + str(my_goals) + " — " + str(rival_goals)
+	menu_title.text = _tr("FULL TIME", "نهاية المباراة")
+	menu_subtitle.text = _tr("FINAL SCORE  •  ", "النتيجة النهائية  •  ") + str(my_goals) + " — " + str(rival_goals)
 	home_primary_button.text = "PLAY AGAIN • VS AI"
 	home_secondary_button.text = "RETURN TO MENU"
 
@@ -723,7 +757,8 @@ func _handle_frame(frame: Dictionary) -> void:
 			var server_now := int(p.get("serverNow", Time.get_ticks_msec()))
 			var end_at := int(p.get("windowEndsAt", server_now + 9000))
 			countdown_duration = end_at - server_now
-			countdown_deadline = Time.get_ticks_msec() + countdown_duration
+			countdown_started = Time.get_ticks_msec()
+			countdown_deadline = countdown_started + countdown_duration
 			status_label.text = "SHOOTING CHANCE!" if phase == "shooting_chance" else "ANSWER FAST TO WIN THE BALL"
 			animate_attack(you_are_shooting)
 			_play_sfx("kick")
@@ -738,8 +773,7 @@ func _handle_frame(frame: Dictionary) -> void:
 			var outcome := str(p.get("outcome", ""))
 			status_label.text = "CORRECT!" if outcome == "correct" else "WRONG!"
 			status_label.add_theme_color_override("font_color", Color(0.20, 0.95, 0.43) if outcome == "correct" else Color(1.0, 0.25, 0.22))
-			question_label.text = ""
-			_show_answer_feedback(str(p.get("correctOptionText", "")), outcome == "correct")
+			_show_answer_feedback(str(p.get("correctOptionId", "")), outcome == "correct")
 			animate_reveal(outcome == "correct")
 		"shoot.reveal":
 			phase = "shot_reveal"
@@ -747,8 +781,7 @@ func _handle_frame(frame: Dictionary) -> void:
 			var scored := bool(p.get("scored", false))
 			status_label.text = "GOOOOOAL!" if scored else "SAVED!"
 			status_label.add_theme_color_override("font_color", Color(0.20, 0.95, 0.43) if scored else Color(1.0, 0.25, 0.22))
-			question_label.text = ""
-			_show_answer_feedback("", scored)
+			_show_answer_feedback(str(p.get("correctOptionId", "")), scored)
 			animate_shot(scored)
 			_play_sfx("cheer" if scored else "kick")
 		"match.half":
@@ -804,8 +837,29 @@ func _show_question(view: Dictionary) -> void:
 			return
 	question_label.text = prompt
 	question_label.text_direction = Control.TEXT_DIRECTION_AUTO
+	question_label.layout_direction = Control.LAYOUT_DIRECTION_RTL if locale == "ar" else Control.LAYOUT_DIRECTION_LTR
 	selected_option_id = ""
 	status_label.add_theme_color_override("font_color", Color(0.65,0.82,1.0))
+	var difficulty := int(view.get("difficulty", 1))
+	var difficulty_stars := "★".repeat(clampi(difficulty, 1, 5))
+	question_meta_label.text = _tr("FOOTBALL CHALLENGE", "تحدي كرة القدم") + "   •   " + difficulty_stars
+	question_image.visible = false
+	question_image.texture = null
+	if is_instance_valid(question_image_request):
+		question_image_request.cancel_request()
+		question_image_request.queue_free()
+		question_image_request = null
+	var media_items: Array = view.get("media", [])
+	if not media_items.is_empty() and media_items[0] is Dictionary:
+		var media_url := str(media_items[0].get("url", ""))
+		if media_url.begins_with("https://") or media_url.begins_with("http://"):
+			question_image_request = HTTPRequest.new()
+			question_image_request.timeout = 12.0
+			add_child(question_image_request)
+			question_image_request.request_completed.connect(_on_question_image_loaded)
+			if question_image_request.request(media_url) != OK:
+				question_image_request.queue_free()
+				question_image_request = null
 	# Render format-specific clues: the old client showed only the prompt and
 	# answer buttons, silently dropping emoji, career-path and statistics data.
 	var format_data: Dictionary = view.get("formatData", {})
@@ -836,8 +890,11 @@ func _show_question(view: Dictionary) -> void:
 	current_options = incoming_options
 	for index in range(current_options.size()):
 		var option: Dictionary = current_options[index]
-		var b := _make_button(str(option.get("text", "")), Color(0.035,0.12,0.24), Color(0.18,0.43,0.68), 44)
+		var letter := char(65 + index)
+		var b := _make_button(letter + "   " + str(option.get("text", "")), Color(0.035,0.12,0.24), Color(0.18,0.43,0.68), 58)
 		b.add_theme_font_size_override("font_size", 16)
+		b.text_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		b.clip_text = true
 		b.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		b.text_direction = Control.TEXT_DIRECTION_AUTO
 		var option_id := str(option.get("id", ""))
@@ -846,6 +903,27 @@ func _show_question(view: Dictionary) -> void:
 		options_box.add_child(b)
 		option_buttons[option_id] = b
 	action_box.visible = false
+
+func _on_question_image_loaded(result: int, response_code: int, _headers: PackedStringArray, body: PackedByteArray) -> void:
+	if is_instance_valid(question_image_request):
+		question_image_request.queue_free()
+		question_image_request = null
+	if result != HTTPRequest.RESULT_SUCCESS or response_code != 200 or body.is_empty():
+		return
+	var image := Image.new()
+	var error := image.load_webp_from_buffer(body)
+	if error != OK:
+		error = image.load_png_from_buffer(body)
+	if error != OK:
+		error = image.load_jpg_from_buffer(body)
+	if error != OK:
+		push_warning("Question media could not be decoded.")
+		return
+	question_image.texture = ImageTexture.create_from_image(image)
+	question_image.visible = true
+
+func _tr(en: String, ar: String) -> String:
+	return ar if locale == "ar" else en
 
 func _submit_answer(option_id: String) -> void:
 	if selected or current_token.is_empty():
@@ -858,7 +936,7 @@ func _submit_answer(option_id: String) -> void:
 			child.disabled = true
 	status_label.text = "ANSWER SENT • WAITING FOR RESULT"
 
-func _show_answer_feedback(correct_text: String, was_correct: bool) -> void:
+func _show_answer_feedback(correct_id: String, was_correct: bool) -> void:
 	for option in current_options:
 		if not (option is Dictionary):
 			continue
@@ -866,19 +944,16 @@ func _show_answer_feedback(correct_text: String, was_correct: bool) -> void:
 		var button: Button = option_buttons.get(oid)
 		if not is_instance_valid(button):
 			continue
-		var option_text := str(option.get("text", ""))
-		var is_right := option_text == correct_text
+		var is_right := not correct_id.is_empty() and oid == correct_id
 		var is_selected := oid == selected_option_id
 		if is_right:
-			button.add_theme_stylebox_override("normal", _panel_style(Color(0.035,0.42,0.19), Color(0.22,1.0,0.48), 3))
+			button.add_theme_stylebox_override("normal", _panel_style(Color(0.025,0.38,0.16), Color(0.18,0.95,0.40), 2))
 			button.add_theme_color_override("font_color", Color.WHITE)
-		elif is_selected:
-			button.add_theme_stylebox_override("normal", _panel_style(Color(0.48,0.055,0.07), Color(1.0,0.28,0.25), 3))
+		elif is_selected and not was_correct:
+			button.add_theme_stylebox_override("normal", _panel_style(Color(0.40,0.045,0.06), Color(1.0,0.22,0.20), 2))
 			button.add_theme_color_override("font_color", Color.WHITE)
 		button.disabled = true
-	status_label.text = "CORRECT" if was_correct else "WRONG"
-	if not correct_text.is_empty():
-		question_label.text = "✓  " + correct_text if was_correct else "✕  CORRECT: " + correct_text
+	status_label.text = _tr("CORRECT", "إجابة صحيحة") if was_correct else _tr("WRONG", "إجابة خاطئة")
 
 func _paint_answer_result(correct_id: String) -> void:
 	for child in options_box.get_children():
@@ -906,7 +981,7 @@ func _read_scores(p: Dictionary) -> void:
 		for key in goals:
 			if str(key) != player_id:
 				rival_goals = int(goals[key])
-	score_label.text = "YOU  " + str(my_goals) + "  —  " + str(rival_goals) + "  RIVAL"
+	score_label.text = _tr("YOU  ", "أنت  ") + str(my_goals) + "  —  " + str(rival_goals) + _tr("  RIVAL", "  الخصم")
 
 func _clear_options() -> void:
 	for child in options_box.get_children():
@@ -979,7 +1054,7 @@ func _update_pitch_state() -> void:
 		var target: Vector3 = away_base[i] + Vector3(0,0,away_shift)
 		away_team[i].position = away_team[i].position.lerp(target, 0.025)
 		_animate_player(away_team[i], -gait + float(i)*0.55)
-	pitch_status.text = "ATTACKING • ZONE " + str(my_zone) if my_zone > rival_zone else "DEFENDING • WIN THE BALL"
+	pitch_status.text = _tr("ATTACKING • ZONE ", "هجوم • المنطقة ") + str(my_zone) if my_zone > rival_zone else _tr("DEFENDING • WIN THE BALL", "دفاع • استعد الكرة")
 
 func animate_kickoff() -> void:
 	var tween := create_tween()
