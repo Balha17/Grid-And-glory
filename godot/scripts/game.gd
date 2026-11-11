@@ -900,6 +900,7 @@ func _show_match() -> void:
 	stadium_root.visible = true
 
 func _show_result() -> void:
+	_close_navigation()
 	stadium_root.visible = false
 	match_layer.visible = false
 	home_layer.visible = true
