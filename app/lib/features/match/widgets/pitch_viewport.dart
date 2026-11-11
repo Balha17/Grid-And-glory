@@ -125,7 +125,7 @@ class _PitchPainter extends CustomPainter {
       final r=Rect.fromLTWH(f.center.dx-w/2,top?f.top-7:f.bottom,w,7);
       c.drawRect(r,Paint()..color=Colors.white.withValues(alpha:.10));
       for(var x=r.left+5;x<r.right;x+=6){
-        c.drawLine(Offset(x,r.top),Offset(x,r.bottom),Paint()..color=Colors.white.withValues(alpha:.20)..strokeWidth:.6);
+        c.drawLine(Offset(x,r.top),Offset(x,r.bottom),Paint()..color=Colors.white.withValues(alpha:.20)..strokeWidth = .6);
       }
       c.drawRect(r,Paint()..style=PaintingStyle.stroke..strokeWidth=2.4..color=Colors.white.withValues(alpha:.9));
     }
