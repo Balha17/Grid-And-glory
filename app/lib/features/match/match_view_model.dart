@@ -78,7 +78,7 @@ class MatchUiState {
   /// The shooter must be able to answer a Shooting Chance; the defender must not.
   bool get answersEnabled =>
       (phase == 'open' || (phase == 'shoot' && youAreShooting == true)) &&
-      selectedOptionId == null;
+      (selectedOptionId == null || selectedOptionId!.isEmpty);
 
   MatchUiState copyWith({
     String? phase,
