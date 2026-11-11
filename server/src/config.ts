@@ -91,5 +91,5 @@ export const MATCH_LIMITS = {
 } as const;
 
 /** Difficulty curve. Index = round number (1-based); last value caps all later rounds. */
-export const DIFFICULTY_CURVE = [0, 2, 2, 2, 3, 3, 3, 3, 3, 4] as const;
+export const DIFFICULTY_CURVE = [0, 2, 2, 3, 3, 3, 4, 4, 5, 5] as const;
 export const DIFFICULTY_FOR_SHOT = [4, 5] as const;
