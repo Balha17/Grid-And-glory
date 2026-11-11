@@ -26,6 +26,8 @@ var camera: Camera3D
 var ball: MeshInstance3D
 var home_player: Node3D
 var away_player: Node3D
+var home_team: Array[Node3D] = []
+var away_team: Array[Node3D] = []
 var hud: CanvasLayer
 var title_label: Label
 var status_label: Label
@@ -105,16 +107,28 @@ func _build_stadium() -> void:
 	_circle("CenterSpot", Vector3(0, 0.18, 0), 0.22, 0.16, Color.WHITE)
 	for zsign in [-1, 1]:
 		var z := float(zsign) * (FIELD_LENGTH/2.0 - 6.0)
-		_box("PenaltyArea", Vector3(0, 0.15, z), Vector3(15, 0.035, 9), Color(0.86, 0.94, 0.87), true)
-		_box("GoalArea", Vector3(0, 0.17, z - float(zsign)*2.5), Vector3(7, 0.04, 4), Color(0.86, 0.94, 0.87), true)
+		var box_z := z - float(zsign)*2.0
+		for x in [-7.5, 7.5]:
+			_line("PenaltySide", Vector3(x,0.17,box_z), Vector3(0.07,0.035,9), Color.WHITE)
+		_line("PenaltyFront", Vector3(0,0.17,z-float(zsign)*4.5), Vector3(15,0.035,0.07), Color.WHITE)
+		for x in [-3.5, 3.5]:
+			_line("GoalAreaSide", Vector3(x,0.18,z-float(zsign)*1.0), Vector3(0.07,0.035,4), Color.WHITE)
+		_line("GoalAreaFront", Vector3(0,0.18,z-float(zsign)*3.0), Vector3(7,0.035,0.07), Color.WHITE)
 		_circle("PenaltySpot", Vector3(0, 0.19, z - float(zsign)*4.0), 0.2, 0.12, Color.WHITE)
 		_build_goal(zsign)
-	home_player = _make_player("HOME_PLAYER", Color(0.12, 0.58, 1.0))
-	home_player.position = Vector3(-3.5, 0, 9)
-	add_child(home_player)
-	away_player = _make_player("AWAY_PLAYER", Color(1.0, 0.34, 0.19))
-	away_player.position = Vector3(3.5, 0, -9)
-	add_child(away_player)
+	var home_positions := [Vector3(0,0,21), Vector3(-10,0,14), Vector3(-3.3,0,15), Vector3(3.3,0,15), Vector3(10,0,14), Vector3(-7,0,5), Vector3(0,0,7), Vector3(7,0,5), Vector3(-8,0,-6), Vector3(0,0,-8), Vector3(8,0,-6)]
+	var away_positions := [Vector3(0,0,-21), Vector3(10,0,-14), Vector3(3.3,0,-15), Vector3(-3.3,0,-15), Vector3(-10,0,-14), Vector3(7,0,-5), Vector3(0,0,-7), Vector3(-7,0,-5), Vector3(8,0,6), Vector3(0,0,8), Vector3(-8,0,6)]
+	for i in range(11):
+		var h := _make_player("HOME_" + str(i+1), Color(0.12, 0.58, 1.0))
+		h.position = home_positions[i]
+		add_child(h)
+		home_team.append(h)
+		var a := _make_player("AWAY_" + str(i+1), Color(1.0, 0.34, 0.19))
+		a.position = away_positions[i]
+		add_child(a)
+		away_team.append(a)
+	home_player = home_team[9]
+	away_player = away_team[9]
 	ball = MeshInstance3D.new()
 	var ball_mesh := SphereMesh.new()
 	ball_mesh.radius = 0.42
@@ -480,12 +494,16 @@ func _toggle_locale() -> void:
 func _update_pitch_state() -> void:
 	if not is_instance_valid(home_player) or not is_instance_valid(away_player):
 		return
-	var target_home := Vector3(-4.0 + float(my_zone)*1.35, 0, 10.0 - float(my_zone)*3.1)
-	var target_away := Vector3(4.0 - float(rival_zone)*1.35, 0, -10.0 + float(rival_zone)*3.1)
-	if home_player.position.distance_to(target_home) > 1.2:
-		home_player.position = home_player.position.lerp(target_home, 0.035)
-	if away_player.position.distance_to(target_away) > 1.2:
-		away_player.position = away_player.position.lerp(target_away, 0.035)
+	var home_shift := float(my_zone) * 2.1
+	var away_shift := float(rival_zone) * 2.1
+	var home_base := [Vector3(0,0,21),Vector3(-10,0,14),Vector3(-3.3,0,15),Vector3(3.3,0,15),Vector3(10,0,14),Vector3(-7,0,5),Vector3(0,0,7),Vector3(7,0,5),Vector3(-8,0,-6),Vector3(0,0,-8),Vector3(8,0,-6)]
+	var away_base := [Vector3(0,0,-21),Vector3(10,0,-14),Vector3(3.3,0,-15),Vector3(-3.3,0,-15),Vector3(-10,0,-14),Vector3(7,0,-5),Vector3(0,0,-7),Vector3(-7,0,-5),Vector3(8,0,6),Vector3(0,0,8),Vector3(-8,0,6)]
+	for i in range(home_team.size()):
+		var target: Vector3 = home_base[i] + Vector3(0,0,-home_shift)
+		home_team[i].position = home_team[i].position.lerp(target, 0.025)
+	for i in range(away_team.size()):
+		var target: Vector3 = away_base[i] + Vector3(0,0,away_shift)
+		away_team[i].position = away_team[i].position.lerp(target, 0.025)
 	pitch_status.text = "ATTACKING • ZONE " + str(my_zone) if my_zone > rival_zone else "DEFENDING • WIN THE BALL"
 
 func animate_kickoff() -> void:
