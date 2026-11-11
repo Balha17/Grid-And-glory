@@ -20,7 +20,9 @@ import 'match_view_model.dart';
 /// One widget on purpose. Pushing a new route per phase is how you end up with a match
 /// screen that reconnects itself or a socket that outlives the screen that owns it.
 class MatchFlowScreen extends ConsumerStatefulWidget {
-  const MatchFlowScreen({super.key});
+  const MatchFlowScreen({super.key, this.playVsAi = false});
+
+  final bool playVsAi;
 
   @override
   ConsumerState<MatchFlowScreen> createState() => _MatchFlowScreenState();
@@ -83,6 +85,10 @@ class _MatchFlowScreenState extends ConsumerState<MatchFlowScreen> {
   /// Region is a *latency* hint only. It is never used to pick an opponent's language.
   String _regionFor(String languageCode) => languageCode == 'ar' ? 'MENA' : 'EU';
 
+  void _joinMatch() {
+    _socket.send(widget.playVsAi ? 'bot.join' : 'queue.join', const {});
+  }
+
   void _onFrame(Map<String, dynamic> frame) {
     final type = frame['type'] as String?;
     final payload = (frame['payload'] as Map?)?.cast<String, dynamic>() ?? const {};
@@ -101,7 +107,7 @@ class _MatchFlowScreenState extends ConsumerState<MatchFlowScreen> {
             if (next.phase == 'ended') _stage = _Stage.finished;
           });
         });
-        _socket.send('queue.join', const {});
+        _joinMatch();
         if (mounted) setState(() => _stage = _Stage.searching);
 
       case 'match.found':
@@ -132,7 +138,7 @@ class _MatchFlowScreenState extends ConsumerState<MatchFlowScreen> {
     await _transport?.dispose();
     _transport = null;
     _state = const MatchUiState();
-    _socket.send('queue.join', const {});
+    _joinMatch();
     setState(() => _stage = _Stage.searching);
   }
 
