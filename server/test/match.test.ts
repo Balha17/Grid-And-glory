@@ -187,6 +187,30 @@ const simulate = (options: SimOptions): SimResult => {
 
 const strongVsWeak = simulate({ aliceAccuracy: 0.92, bobAccuracy: 0.35, seed: 20_261_110 });
 
+test("both answers resolve immediately without waiting for the question deadline", () => {
+  const room = buildRoom(20261111);
+  const start = 9_500_000;
+  const intro = room.start(start);
+  const opened = room.advance(start + 1_100);
+  const aQuestion = opened.find((e) => e.type === "round.question" && e.to === ALICE.playerId);
+  const bQuestion = opened.find((e) => e.type === "round.question" && e.to === BOB.playerId);
+  assert.ok(aQuestion && bQuestion, "both players receive the same live round");
+  const aToken = (aQuestion!.payload as { token: string }).token;
+  const bToken = (bQuestion!.payload as { token: string }).token;
+  const deadline = (aQuestion!.payload as { windowEndsAt: number }).windowEndsAt;
+
+  const first = room.submitAnswer(ALICE.playerId, { token: aToken, optionId: room.audit!.answerOptionId }, start + 1_250);
+  assert.equal(first.some((e) => e.type === "round.reveal"), false, "one answer must not reveal the result");
+  const second = room.submitAnswer(BOB.playerId, { token: bToken, optionId: room.audit!.answerOptionId }, start + 1_500);
+  assert.equal(second.filter((e) => e.type === "round.reveal").length, 2, "both players receive the reveal as soon as the second answer lands");
+  assert.equal(room.phaseName, "round_reveal", "the server leaves question_open immediately");
+  assert.ok(start + 1_500 < deadline, "the second answer arrived well before the deadline");
+
+  const next = room.advance(start + 1_500 + 900);
+  assert.equal(next.filter((e) => e.type === "round.intro").length, 2, "the next round starts after the short reveal");
+  assert.equal(room.phaseName, "round_intro");
+});
+
 test("a full match reaches full time on its own", () => {
   assert.equal(strongVsWeak.room.isFinished, true, "match must terminate without external intervention");
   assert.equal(strongVsWeak.counts["match.end"], 2, "both players receive match.end");
