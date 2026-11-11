@@ -44,8 +44,9 @@ const build = (): Harness => {
     locale: "en" | "ar",
     region = "EU",
     deviceId = conn.id,
+    displayName?: string,
   ): void => {
-    gateway.handleFrame(conn, frame("hello", { deviceId, locale, region }));
+    gateway.handleFrame(conn, frame("hello", { deviceId, locale, region, displayName }));
     const ack = conn.last("hello.ack");
     assert.ok(ack, `hello.ack missing for ${conn.id}`);
     sessions.set(conn, (ack!.payload as { playerId: string }).playerId);
@@ -90,6 +91,13 @@ test("hello issues a pseudonym, a locale-correct direction and a session token",
   assert.equal(ack.resumed, false);
 });
 
+test("custom player names are sanitized and returned in the hello acknowledgement", () => {
+  const h = build();
+  const a = h.connect("name");
+  h.hello(a, "ar", "MENA", "device-name", "  بطل\nالكرة  ");
+  assert.equal((a.last("hello.ack")!.payload as { displayName: string }).displayName, "بطل الكرة");
+});
+
 test("the same device id always resolves to the same player", () => {
   const h = build();
   const a = h.connect("c1");
@@ -126,7 +134,13 @@ test("an English player and an Arabic player are matched and told about each oth
   const foundB = b.last("match.found");
   assert.ok(foundA && foundB, "both players are notified");
 
-  const opponentOfA = (foundA!.payload as { opponent: { locale: string; dir: string } }).opponent;
+  const payloadA = foundA!.payload as { opponent: { locale: string; dir: string }; youColor: string; opponentColor: string };
+  const payloadB = foundB!.payload as { youColor: string; opponentColor: string };
+  const opponentOfA = payloadA.opponent;
+  assert.equal(payloadA.youColor, "blue");
+  assert.equal(payloadA.opponentColor, "red");
+  assert.equal(payloadB.youColor, "red");
+  assert.equal(payloadB.opponentColor, "blue");
   assert.equal(opponentOfA.locale, "ar", "the English player is told they face an Arabic speaker");
   assert.equal(opponentOfA.dir, "rtl");
 
@@ -135,6 +149,25 @@ test("an English player and an Arabic player are matched and told about each oth
   assert.equal(matchA, matchB, "both are in the same match");
   assert.equal(a.has("match.start"), true);
   assert.equal(b.has("match.start"), true);
+});
+
+test("voluntary leaving immediately awards the opponent a forfeit win", () => {
+  const h = build();
+  const a = h.connect("forfeit-a");
+  const b = h.connect("forfeit-b");
+  h.hello(a, "en", "EU", "forfeit-device-a");
+  h.hello(b, "ar", "EU", "forfeit-device-b");
+  h.join(a);
+  h.join(b);
+  h.clock.now += 300;
+  h.gateway.tick(h.clock.now);
+  h.gateway.handleFrame(a, frame("match.forfeit", {}));
+  assert.equal(a.has("match.end"), true);
+  assert.equal(b.has("match.end"), true);
+  assert.equal((a.last("match.end")!.payload as { outcome: string; decidedBy: string }).outcome, "loss");
+  assert.equal((b.last("match.end")!.payload as { outcome: string; decidedBy: string }).outcome, "win");
+  assert.equal((b.last("match.end")!.payload as { decidedBy: string }).decidedBy, "forfeit");
+  assert.equal(h.gateway.stats().liveMatches, 0);
 });
 
 test("an unmatched online player receives an AI opponent after 15 seconds", () => {
