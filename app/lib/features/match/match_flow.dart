@@ -44,6 +44,9 @@ class _MatchFlowScreenState extends ConsumerState<MatchFlowScreen> {
   _Stage _stage = _Stage.connecting;
   MatchUiState _state = const MatchUiState();
   String? _playerId;
+  String? _myName;
+  String _myColor = 'blue';
+  String _opponentColor = 'red';
   String? _opponentName;
   String? _opponentLocale;
   String _failure = '';
@@ -64,6 +67,7 @@ class _MatchFlowScreenState extends ConsumerState<MatchFlowScreen> {
         deviceId: _deviceId(prefs),
         locale: locale.languageCode,
         region: _regionFor(locale.languageCode),
+        displayName: prefs.getString('player_nickname'),
       );
     } catch (_) {
       if (mounted) setState(() => _stage = _Stage.failed);
@@ -98,6 +102,7 @@ class _MatchFlowScreenState extends ConsumerState<MatchFlowScreen> {
         final playerId = payload['playerId'] as String?;
         if (playerId == null) return;
         _playerId = playerId;
+        _myName = payload['displayName'] as String? ?? 'Player';
         _attachTransport();
         _joinMatch();
         if (mounted) setState(() => _stage = _Stage.searching);
@@ -108,10 +113,14 @@ class _MatchFlowScreenState extends ConsumerState<MatchFlowScreen> {
         setState(() {
           _opponentName = opponent?['displayName'] as String?;
           _opponentLocale = opponent?['locale'] as String?;
+          _myColor = payload['youColor'] as String? ?? 'blue';
+          _opponentColor = payload['opponentColor'] as String? ?? 'red';
           _stage = _Stage.found;
         });
         // Let the player read who they are facing; it is the only social beat in the game.
-        Timer(const Duration(milliseconds: 1400), () {
+        SystemSound.play(SystemSoundType.alert);
+        HapticFeedback.mediumImpact();
+        Timer(const Duration(milliseconds: 2300), () {
           if (mounted) setState(() => _stage = _Stage.playing);
         });
 
@@ -132,6 +141,14 @@ class _MatchFlowScreenState extends ConsumerState<MatchFlowScreen> {
     _transport = transport;
     _stateSub = transport.states.listen((next) {
       if (!mounted) return;
+      if (next.phase == 'reveal' && _state.phase != 'reveal') {
+        SystemSound.play(next.goalFlash ? SystemSoundType.alert : SystemSoundType.click);
+        if (next.goalFlash) HapticFeedback.heavyImpact();
+      }
+      if (next.phase == 'ended' && _state.phase != 'ended') {
+        SystemSound.play(SystemSoundType.alert);
+        HapticFeedback.heavyImpact();
+      }
       setState(() {
         _state = next;
         if (next.phase == 'ended') _stage = _Stage.finished;
@@ -150,6 +167,36 @@ class _MatchFlowScreenState extends ConsumerState<MatchFlowScreen> {
     if (mounted) setState(() => _stage = _Stage.searching);
   }
 
+  Future<void> _confirmForfeit() async {
+    if (_stage != _Stage.playing) return;
+    final locale = ref.read(localeControllerProvider);
+    final isArabic = locale.languageCode == 'ar';
+    final leave = await showDialog<bool>(
+      context: context,
+      builder: (dialogContext) => AlertDialog(
+        backgroundColor: AppColors.bgRaised,
+        title: Text(isArabic ? 'الانسحاب من المباراة؟' : 'Forfeit this match?',
+            style: AppType.title(locale).copyWith(color: AppColors.textPrimary)),
+        content: Text(
+          isArabic
+              ? 'سيُسجّل الانسحاب هزيمة فورية وتُمنح المباراة للمنافس.'
+              : 'Leaving now counts as a loss and awards the match to your opponent.',
+          style: AppType.body(locale).copyWith(color: AppColors.textSecondary),
+        ),
+        actions: [
+          TextButton(onPressed: () => Navigator.pop(dialogContext, false),
+              child: Text(isArabic ? 'متابعة اللعب' : 'Keep playing')),
+          FilledButton(
+            style: FilledButton.styleFrom(backgroundColor: AppColors.wrong),
+            onPressed: () => Navigator.pop(dialogContext, true),
+            child: Text(isArabic ? 'انسحاب' : 'Forfeit'),
+          ),
+        ],
+      ),
+    );
+    if (leave == true && mounted) _socket.send('match.forfeit', const {});
+  }
+
   @override
   void dispose() {
     _stateSub?.cancel();
@@ -165,10 +212,14 @@ class _MatchFlowScreenState extends ConsumerState<MatchFlowScreen> {
 
     switch (_stage) {
       case _Stage.playing:
-        return MatchScreen(
-          state: _state,
-          locale: locale,
-          onAnswer: (optionId) => _transport?.answer(optionId),
+        return WillPopScope(
+          onWillPop: () async { await _confirmForfeit(); return false; },
+          child: MatchScreen(
+            state: _state,
+            locale: locale,
+            onAnswer: (optionId) => _transport?.answer(optionId),
+            onForfeit: _confirmForfeit,
+          ),
         );
       case _Stage.finished:
         return _ResultView(
@@ -187,6 +238,9 @@ class _MatchFlowScreenState extends ConsumerState<MatchFlowScreen> {
           searching: _stage != _Stage.found,
           opponentName: _opponentName,
           opponentLocale: _opponentLocale,
+          myName: _myName ?? 'Player',
+          myColor: _myColor,
+          opponentColor: _opponentColor,
           onCancel: () => Navigator.of(context).pop(),
         );
       case _Stage.failed:
@@ -202,6 +256,9 @@ class _LobbyView extends StatefulWidget {
     required this.searching,
     required this.opponentName,
     required this.opponentLocale,
+    required this.myName,
+    required this.myColor,
+    required this.opponentColor,
     required this.onCancel,
   });
 
@@ -210,6 +267,9 @@ class _LobbyView extends StatefulWidget {
   final bool searching;
   final String? opponentName;
   final String? opponentLocale;
+  final String myName;
+  final String myColor;
+  final String opponentColor;
   final VoidCallback onCancel;
 
   @override
@@ -236,6 +296,9 @@ class _LobbyViewState extends State<_LobbyView>
     final searching = widget.searching;
     final opponentName = widget.opponentName;
     final opponentLocale = widget.opponentLocale;
+    final myName = widget.myName;
+    final myColor = widget.myColor;
+    final opponentColor = widget.opponentColor;
     final onCancel = widget.onCancel;
     return Scaffold(
       backgroundColor: AppColors.bgBase,
@@ -306,38 +369,30 @@ class _LobbyViewState extends State<_LobbyView>
               ),
               if (opponentName != null) ...[
                 const SizedBox(height: AppSpacing.xl),
-                Container(
-                  padding: const EdgeInsetsDirectional.symmetric(
-                    horizontal: AppSpacing.lg,
-                    vertical: AppSpacing.md,
-                  ),
-                  decoration: BoxDecoration(
-                    color: AppColors.bgRaised,
-                    borderRadius: const BorderRadius.all(AppRadii.md),
-                    border: Border.all(color: AppColors.border),
-                  ),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Text(opponentName!, style: AppType.body(locale)),
-                      const SizedBox(width: AppSpacing.sm),
-                      // Showing the opponent's language is the product promise made visible.
-                      Container(
-                        padding: const EdgeInsetsDirectional.symmetric(
-                          horizontal: AppSpacing.sm,
-                          vertical: 2,
-                        ),
-                        decoration: BoxDecoration(
-                          color: AppColors.you.withValues(alpha: 0.15),
-                          borderRadius: const BorderRadius.all(AppRadii.pill),
-                        ),
-                        child: Text(
-                          opponentLocale == 'ar' ? 'ع' : 'EN',
-                          style: AppType.label(locale).copyWith(color: AppColors.you),
-                        ),
-                      ),
-                    ],
-                  ),
+                Row(
+                  children: [
+                    Expanded(child: _DuelPlayerCard(
+                      name: myName,
+                      color: _duelColor(myColor),
+                      colorLabel: _duelColorName(myColor, locale),
+                      isArabic: locale.languageCode == 'ar',
+                      locale: locale,
+                      language: locale.languageCode == 'ar' ? 'AR' : 'EN',
+                    )),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: AppSpacing.sm),
+                      child: Text('VS', style: AppType.display(locale).copyWith(
+                        color: AppColors.accent, fontWeight: FontWeight.w900, fontSize: 24)),
+                    ),
+                    Expanded(child: _DuelPlayerCard(
+                      name: opponentName!,
+                      color: _duelColor(opponentColor),
+                      colorLabel: _duelColorName(opponentColor, locale),
+                      isArabic: locale.languageCode == 'ar',
+                      locale: locale,
+                      language: opponentLocale == 'ar' ? 'AR' : 'EN',
+                    )),
+                  ],
                 ),
               ],
               const Spacer(),
@@ -351,6 +406,58 @@ class _LobbyViewState extends State<_LobbyView>
       ),
     );
   }
+}
+
+Color _duelColor(String color) => color == 'red' ? AppColors.opponent : AppColors.you;
+
+String _duelColorName(String color, Locale locale) {
+  final red = color == 'red';
+  if (locale.languageCode == 'ar') return red ? 'الأحمر' : 'الأزرق';
+  return red ? 'RED' : 'BLUE';
+}
+
+class _DuelPlayerCard extends StatelessWidget {
+  const _DuelPlayerCard({
+    required this.name,
+    required this.color,
+    required this.colorLabel,
+    required this.isArabic,
+    required this.locale,
+    required this.language,
+  });
+
+  final String name;
+  final Color color;
+  final String colorLabel;
+  final bool isArabic;
+  final Locale locale;
+  final String language;
+
+  @override
+  Widget build(BuildContext context) => Container(
+    constraints: const BoxConstraints(minHeight: 112),
+    padding: const EdgeInsetsDirectional.all(AppSpacing.md),
+    decoration: BoxDecoration(
+      color: color.withValues(alpha: 0.12),
+      borderRadius: const BorderRadius.all(AppRadii.md),
+      border: Border.all(color: color, width: 2),
+      boxShadow: [BoxShadow(color: color.withValues(alpha: 0.16), blurRadius: 18)],
+    ),
+    child: Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Icon(Icons.person_rounded, color: color, size: 30),
+        const SizedBox(height: 5),
+        Text(name, maxLines: 2, overflow: TextOverflow.ellipsis,
+          textAlign: TextAlign.center,
+          style: AppType.label(locale).copyWith(color: AppColors.textPrimary, fontWeight: FontWeight.w900)),
+        const SizedBox(height: 4),
+        Text('$colorLabel  •  $language',
+          textAlign: TextAlign.center,
+          style: AppType.label(locale).copyWith(color: color, fontSize: 10, fontWeight: FontWeight.w800)),
+      ],
+    ),
+  );
 }
 
 class _ResultView extends StatefulWidget {
