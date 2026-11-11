@@ -13,7 +13,8 @@ window/size/viewport_height=1280
 window/size/window_width_override=450
 window/size/window_height_override=800
 window/stretch/mode="canvas_items"
-window/handheld/orientation=0
+window/stretch/aspect="expand"
+window/handheld/orientation=1
 
 [rendering]
 textures/vram_compression/import_etc2_astc=true
