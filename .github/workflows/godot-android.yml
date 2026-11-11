@@ -6,6 +6,7 @@ on:
     branches: [main]
     paths:
       - "godot/**"
+      - "db/seed/bank.en-ar.v1.json"
       - ".github/workflows/godot-android.yml"
 
 permissions:
@@ -56,6 +57,28 @@ jobs:
         run: |
           godot --version
           godot --headless --editor --path godot --quit
+
+      - name: Validate bilingual question bank
+        run: |
+          node <<'NODE'
+          const fs = require('fs');
+          const bank = JSON.parse(fs.readFileSync('db/seed/bank.en-ar.v1.json', 'utf8'));
+          const catalogs = bank.catalogs || {};
+          const ids = key => new Set((catalogs[key] || []).map(item => item.id));
+          const clubs = ids('clubs'), people = ids('people'), nations = ids('nations'), assets = ids('assets');
+          const errors = [];
+          for (const q of bank.questions || []) {
+            if (!q.prompt?.en?.trim() || !q.prompt?.ar?.trim()) errors.push(q.id + ': missing bilingual prompt');
+            if (!q.explainer?.en?.trim() || !q.explainer?.ar?.trim()) errors.push(q.id + ': missing bilingual explanation');
+            if (!Array.isArray(q.options) || q.options.length < 2 || q.options.some(o => !o.id || !o.en?.trim() || !o.ar?.trim()) || !q.options.some(o => o.id === q.answerOptionId)) errors.push(q.id + ': incomplete options or invalid answer');
+            for (const media of q.media || []) if (!assets.has(media.assetId)) errors.push(q.id + ': missing media asset ' + media.assetId);
+            if (q.format === 'blur_reveal' && !(q.media || []).length) errors.push(q.id + ': image question has no media');
+            if (q.format === 'career_path') for (const id of q.formatData?.clubIds || []) if (!clubs.has(id)) errors.push(q.id + ': unknown club ' + id);
+            if (q.format === 'stat_highlow') for (const id of [q.formatData?.entityA, q.formatData?.entityB]) if (!(clubs.has(id) || people.has(id) || nations.has(id))) errors.push(q.id + ': unknown statistic entity ' + id);
+          }
+          if (errors.length) { console.error(errors.join('\\n')); process.exit(1); }
+          console.log('Validated ' + bank.questions.length + ' complete bilingual questions.');
+          NODE
 
       - name: Generate temporary CI debug keystore
         run: |
