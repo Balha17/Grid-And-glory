@@ -4256,13 +4256,12 @@
         "enChars": 119,
         "arChars": 94,
         "parityRatio": 0.79,
-        "verifiedBy": "content-01"
+        "verifiedBy": "auto-check-pending-editor"
       },
       "authoring": {
-        "status": "published",
+        "status": "draft",
         "version": 1,
-        "author": "content-02",
-        "reviewedBy": "editor-02",
+        "author": "assistant-generated",
         "updatedAt": "2026-11-11T15:05:00.000Z"
       }
     },
@@ -4315,13 +4314,12 @@
         "enChars": 96,
         "arChars": 77,
         "parityRatio": 0.802,
-        "verifiedBy": "content-01"
+        "verifiedBy": "auto-check-pending-editor"
       },
       "authoring": {
-        "status": "published",
+        "status": "draft",
         "version": 1,
-        "author": "content-02",
-        "reviewedBy": "editor-02",
+        "author": "assistant-generated",
         "updatedAt": "2026-11-11T15:05:00.000Z"
       }
     },
@@ -4374,13 +4372,12 @@
         "enChars": 102,
         "arChars": 84,
         "parityRatio": 0.824,
-        "verifiedBy": "content-01"
+        "verifiedBy": "auto-check-pending-editor"
       },
       "authoring": {
-        "status": "published",
+        "status": "draft",
         "version": 1,
-        "author": "content-02",
-        "reviewedBy": "editor-02",
+        "author": "assistant-generated",
         "updatedAt": "2026-11-11T15:05:00.000Z"
       }
     },
@@ -4433,13 +4430,12 @@
         "enChars": 127,
         "arChars": 107,
         "parityRatio": 0.843,
-        "verifiedBy": "content-01"
+        "verifiedBy": "auto-check-pending-editor"
       },
       "authoring": {
-        "status": "published",
+        "status": "draft",
         "version": 1,
-        "author": "content-02",
-        "reviewedBy": "editor-02",
+        "author": "assistant-generated",
         "updatedAt": "2026-11-11T15:05:00.000Z"
       }
     },
@@ -4492,13 +4488,12 @@
         "enChars": 110,
         "arChars": 93,
         "parityRatio": 0.845,
-        "verifiedBy": "content-01"
+        "verifiedBy": "auto-check-pending-editor"
       },
       "authoring": {
-        "status": "published",
+        "status": "draft",
         "version": 1,
-        "author": "content-02",
-        "reviewedBy": "editor-02",
+        "author": "assistant-generated",
         "updatedAt": "2026-11-11T15:05:00.000Z"
       }
     },
@@ -4551,13 +4546,12 @@
         "enChars": 138,
         "arChars": 121,
         "parityRatio": 0.877,
-        "verifiedBy": "content-01"
+        "verifiedBy": "auto-check-pending-editor"
       },
       "authoring": {
-        "status": "published",
+        "status": "draft",
         "version": 1,
-        "author": "content-02",
-        "reviewedBy": "editor-02",
+        "author": "assistant-generated",
         "updatedAt": "2026-11-11T15:05:00.000Z"
       }
     },
@@ -4610,13 +4604,12 @@
         "enChars": 95,
         "arChars": 77,
         "parityRatio": 0.811,
-        "verifiedBy": "content-01"
+        "verifiedBy": "auto-check-pending-editor"
       },
       "authoring": {
-        "status": "published",
+        "status": "draft",
         "version": 1,
-        "author": "content-02",
-        "reviewedBy": "editor-02",
+        "author": "assistant-generated",
         "updatedAt": "2026-11-11T15:05:00.000Z"
       }
     },
@@ -4669,13 +4662,12 @@
         "enChars": 88,
         "arChars": 96,
         "parityRatio": 1.091,
-        "verifiedBy": "content-01"
+        "verifiedBy": "auto-check-pending-editor"
       },
       "authoring": {
-        "status": "published",
+        "status": "draft",
         "version": 1,
-        "author": "content-02",
-        "reviewedBy": "editor-02",
+        "author": "assistant-generated",
         "updatedAt": "2026-11-11T15:05:00.000Z"
       }
     },
@@ -4728,13 +4720,12 @@
         "enChars": 158,
         "arChars": 127,
         "parityRatio": 0.804,
-        "verifiedBy": "content-01"
+        "verifiedBy": "auto-check-pending-editor"
       },
       "authoring": {
-        "status": "published",
+        "status": "draft",
         "version": 1,
-        "author": "content-02",
-        "reviewedBy": "editor-02",
+        "author": "assistant-generated",
         "updatedAt": "2026-11-11T15:05:00.000Z"
       }
     },
@@ -4787,13 +4778,12 @@
         "enChars": 154,
         "arChars": 114,
         "parityRatio": 0.74,
-        "verifiedBy": "content-01"
+        "verifiedBy": "auto-check-pending-editor"
       },
       "authoring": {
-        "status": "published",
+        "status": "draft",
         "version": 1,
-        "author": "content-02",
-        "reviewedBy": "editor-02",
+        "author": "assistant-generated",
         "updatedAt": "2026-11-11T15:05:00.000Z"
       }
     },
@@ -4846,13 +4836,12 @@
         "enChars": 120,
         "arChars": 106,
         "parityRatio": 0.883,
-        "verifiedBy": "content-01"
+        "verifiedBy": "auto-check-pending-editor"
       },
       "authoring": {
-        "status": "published",
+        "status": "draft",
         "version": 1,
-        "author": "content-02",
-        "reviewedBy": "editor-02",
+        "author": "assistant-generated",
         "updatedAt": "2026-11-11T15:05:00.000Z"
       }
     },
@@ -4905,13 +4894,12 @@
         "enChars": 96,
         "arChars": 80,
         "parityRatio": 0.833,
-        "verifiedBy": "content-01"
+        "verifiedBy": "auto-check-pending-editor"
       },
       "authoring": {
-        "status": "published",
+        "status": "draft",
         "version": 1,
-        "author": "content-02",
-        "reviewedBy": "editor-02",
+        "author": "assistant-generated",
         "updatedAt": "2026-11-11T15:05:00.000Z"
       }
     },
@@ -4964,13 +4952,12 @@
         "enChars": 122,
         "arChars": 107,
         "parityRatio": 0.877,
-        "verifiedBy": "content-01"
+        "verifiedBy": "auto-check-pending-editor"
       },
       "authoring": {
-        "status": "published",
+        "status": "draft",
         "version": 1,
-        "author": "content-02",
-        "reviewedBy": "editor-02",
+        "author": "assistant-generated",
         "updatedAt": "2026-11-11T15:05:00.000Z"
       }
     },
@@ -5023,13 +5010,12 @@
         "enChars": 119,
         "arChars": 97,
         "parityRatio": 0.815,
-        "verifiedBy": "content-01"
+        "verifiedBy": "auto-check-pending-editor"
       },
       "authoring": {
-        "status": "published",
+        "status": "draft",
         "version": 1,
-        "author": "content-02",
-        "reviewedBy": "editor-02",
+        "author": "assistant-generated",
         "updatedAt": "2026-11-11T15:05:00.000Z"
       }
     },
@@ -5082,13 +5068,12 @@
         "enChars": 107,
         "arChars": 84,
         "parityRatio": 0.785,
-        "verifiedBy": "content-01"
+        "verifiedBy": "auto-check-pending-editor"
       },
       "authoring": {
-        "status": "published",
+        "status": "draft",
         "version": 1,
-        "author": "content-02",
-        "reviewedBy": "editor-02",
+        "author": "assistant-generated",
         "updatedAt": "2026-11-11T15:05:00.000Z"
       }
     },
@@ -5141,13 +5126,12 @@
         "enChars": 135,
         "arChars": 108,
         "parityRatio": 0.8,
-        "verifiedBy": "content-01"
+        "verifiedBy": "auto-check-pending-editor"
       },
       "authoring": {
-        "status": "published",
+        "status": "draft",
         "version": 1,
-        "author": "content-02",
-        "reviewedBy": "editor-02",
+        "author": "assistant-generated",
         "updatedAt": "2026-11-11T15:05:00.000Z"
       }
     },
@@ -5200,13 +5184,12 @@
         "enChars": 108,
         "arChars": 86,
         "parityRatio": 0.796,
-        "verifiedBy": "content-01"
+        "verifiedBy": "auto-check-pending-editor"
       },
       "authoring": {
-        "status": "published",
+        "status": "draft",
         "version": 1,
-        "author": "content-02",
-        "reviewedBy": "editor-02",
+        "author": "assistant-generated",
         "updatedAt": "2026-11-11T15:05:00.000Z"
       }
     },
@@ -5259,13 +5242,12 @@
         "enChars": 117,
         "arChars": 106,
         "parityRatio": 0.906,
-        "verifiedBy": "content-01"
+        "verifiedBy": "auto-check-pending-editor"
       },
       "authoring": {
-        "status": "published",
+        "status": "draft",
         "version": 1,
-        "author": "content-02",
-        "reviewedBy": "editor-02",
+        "author": "assistant-generated",
         "updatedAt": "2026-11-11T15:05:00.000Z"
       }
     },
@@ -5318,13 +5300,12 @@
         "enChars": 138,
         "arChars": 111,
         "parityRatio": 0.804,
-        "verifiedBy": "content-01"
+        "verifiedBy": "auto-check-pending-editor"
       },
       "authoring": {
-        "status": "published",
+        "status": "draft",
         "version": 1,
-        "author": "content-02",
-        "reviewedBy": "editor-02",
+        "author": "assistant-generated",
         "updatedAt": "2026-11-11T15:05:00.000Z"
       }
     },
@@ -5377,13 +5358,12 @@
         "enChars": 149,
         "arChars": 119,
         "parityRatio": 0.799,
-        "verifiedBy": "content-01"
+        "verifiedBy": "auto-check-pending-editor"
       },
       "authoring": {
-        "status": "published",
+        "status": "draft",
         "version": 1,
-        "author": "content-02",
-        "reviewedBy": "editor-02",
+        "author": "assistant-generated",
         "updatedAt": "2026-11-11T15:05:00.000Z"
       }
     },
@@ -5436,13 +5416,12 @@
         "enChars": 106,
         "arChars": 99,
         "parityRatio": 0.934,
-        "verifiedBy": "content-01"
+        "verifiedBy": "auto-check-pending-editor"
       },
       "authoring": {
-        "status": "published",
+        "status": "draft",
         "version": 1,
-        "author": "content-02",
-        "reviewedBy": "editor-02",
+        "author": "assistant-generated",
         "updatedAt": "2026-11-11T15:05:00.000Z"
       }
     }
