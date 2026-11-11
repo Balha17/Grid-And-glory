@@ -121,7 +121,7 @@ class _MatchFlowScreenState extends ConsumerState<MatchFlowScreen> {
         // Let the player read who they are facing; it is the only social beat in the game.
         SystemSound.play(SystemSoundType.alert);
         HapticFeedback.mediumImpact();
-        Timer(const Duration(milliseconds: 2300), () {
+        Timer(const Duration(milliseconds: 850), () {
           if (mounted) setState(() => _stage = _Stage.playing);
         });
 
@@ -379,7 +379,6 @@ class _LobbyViewState extends State<_LobbyView>
                       name: myName,
                       color: _duelColor(myColor),
                       colorLabel: _duelColorName(myColor, locale),
-                      isArabic: locale.languageCode == 'ar',
                       locale: locale,
                       language: locale.languageCode == 'ar' ? 'AR' : 'EN',
                     )),
@@ -392,7 +391,6 @@ class _LobbyViewState extends State<_LobbyView>
                       name: opponentName!,
                       color: _duelColor(opponentColor),
                       colorLabel: _duelColorName(opponentColor, locale),
-                      isArabic: locale.languageCode == 'ar',
                       locale: locale,
                       language: opponentLocale == 'ar' ? 'AR' : 'EN',
                     )),
@@ -425,7 +423,6 @@ class _DuelPlayerCard extends StatelessWidget {
     required this.name,
     required this.color,
     required this.colorLabel,
-    required this.isArabic,
     required this.locale,
     required this.language,
   });
@@ -433,7 +430,6 @@ class _DuelPlayerCard extends StatelessWidget {
   final String name;
   final Color color;
   final String colorLabel;
-  final bool isArabic;
   final Locale locale;
   final String language;
 
