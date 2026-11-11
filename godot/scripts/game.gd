@@ -21,6 +21,8 @@ var my_goals := 0
 var rival_goals := 0
 var you_are_shooting := false
 var selected := false
+var selected_option_id := ""
+var option_buttons: Dictionary = {}
 
 var stadium_root: Node3D
 var camera: Camera3D
@@ -110,8 +112,8 @@ func _build_stadium() -> void:
 	stadium_root.add_child(world)
 
 	camera = Camera3D.new()
-	camera.position = Vector3(0, 34, 38)
-	camera.rotation_degrees = Vector3(-41, 0, 0)
+	camera.position = Vector3(0, 42, 44)
+	camera.rotation_degrees = Vector3(-48, 0, 0)
 	camera.fov = 54
 	stadium_root.add_child(camera)
 	camera.current = true
@@ -312,7 +314,7 @@ func _build_hud() -> void:
 	top.anchor_left = 0.025
 	top.anchor_right = 0.975
 	top.anchor_top = 0.012
-	top.anchor_bottom = 0.155
+	top.anchor_bottom = 0.125
 	top.offset_left = 0
 	top.offset_right = 0
 	top.offset_top = 0
@@ -347,8 +349,8 @@ func _build_hud() -> void:
 	var bottom := PanelContainer.new()
 	bottom.anchor_left = 0.025
 	bottom.anchor_right = 0.975
-	bottom.anchor_top = 0.535
-	bottom.anchor_bottom = 0.985
+	bottom.anchor_top = 0.675
+	bottom.anchor_bottom = 0.992
 	bottom.offset_left = 0
 	bottom.offset_right = 0
 	bottom.offset_top = 0
@@ -358,11 +360,11 @@ func _build_hud() -> void:
 	var margin := MarginContainer.new()
 	margin.add_theme_constant_override("margin_left", 18)
 	margin.add_theme_constant_override("margin_right", 18)
-	margin.add_theme_constant_override("margin_top", 14)
-	margin.add_theme_constant_override("margin_bottom", 12)
+	margin.add_theme_constant_override("margin_top", 8)
+	margin.add_theme_constant_override("margin_bottom", 8)
 	bottom.add_child(margin)
 	var content := VBoxContainer.new()
-	content.add_theme_constant_override("separation", 8)
+	content.add_theme_constant_override("separation", 4)
 	margin.add_child(content)
 	pitch_status = Label.new()
 	pitch_status.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
@@ -373,9 +375,9 @@ func _build_hud() -> void:
 	clue_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	clue_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 	clue_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	clue_label.custom_minimum_size = Vector2(0, 76)
+	clue_label.custom_minimum_size = Vector2(0, 58)
 	clue_label.add_theme_color_override("font_color", Color(1.0,0.82,0.35))
-	clue_label.add_theme_font_size_override("font_size", 34)
+	clue_label.add_theme_font_size_override("font_size", 22)
 	clue_label.visible = false
 	content.add_child(clue_label)
 	question_label = Label.new()
@@ -384,17 +386,17 @@ func _build_hud() -> void:
 	question_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	question_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 	question_label.size_flags_vertical = Control.SIZE_EXPAND_FILL
-	question_label.custom_minimum_size = Vector2(0, 92)
+	question_label.custom_minimum_size = Vector2(0, 54)
 	question_label.add_theme_color_override("font_color", Color(0.98,0.98,1.0))
-	question_label.add_theme_font_size_override("font_size", 23)
+	question_label.add_theme_font_size_override("font_size", 19)
 	content.add_child(question_label)
 	timer_label = Label.new()
 	timer_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	timer_label.add_theme_color_override("font_color", Color(1.0,0.78,0.25))
-	timer_label.add_theme_font_size_override("font_size", 29)
+	timer_label.add_theme_font_size_override("font_size", 22)
 	content.add_child(timer_label)
 	options_box = VBoxContainer.new()
-	options_box.add_theme_constant_override("separation", 8)
+	options_box.add_theme_constant_override("separation", 5)
 	content.add_child(options_box)
 	action_box = HBoxContainer.new()
 	action_box.alignment = BoxContainer.ALIGNMENT_CENTER
@@ -663,16 +665,16 @@ func _handle_frame(frame: Dictionary) -> void:
 			_read_scores(p)
 			var outcome := str(p.get("outcome", ""))
 			status_label.text = "CORRECT!" if outcome == "correct" else "NOT THIS TIME"
-			question_label.text = str(p.get("correctOptionText", "")) + "\n" + str(p.get("explainer", ""))
-			_clear_options()
+			question_label.text = ""
+			_show_answer_feedback(str(p.get("correctOptionText", "")), outcome == "correct")
 			animate_reveal(outcome == "correct")
 		"shoot.reveal":
 			phase = "shot_reveal"
 			_read_scores(p)
 			var scored := bool(p.get("scored", false))
 			status_label.text = "GOOOOOAL!" if scored else "SAVED!"
-			question_label.text = str(p.get("explainer", ""))
-			_clear_options()
+			question_label.text = ""
+			_show_answer_feedback("", scored)
 			animate_shot(scored)
 			_play_sfx("cheer" if scored else "kick")
 		"match.half":
@@ -734,8 +736,8 @@ func _show_question(view: Dictionary) -> void:
 	clue_label.text = ""
 	clue_label.visible = false
 	if format_type == "emoji_story":
-		clue_label.text = str(format_data.get("emoji", ""))
-		clue_label.add_theme_font_size_override("font_size", 48)
+		clue_label.text = str(format_data.get("emoji", "")).replace("⁦", "").replace("⁩", "")
+		clue_label.add_theme_font_size_override("font_size", 42)
 		clue_label.visible = not clue_label.text.strip_edges().is_empty()
 	elif format_type == "career_path":
 		var career_clubs: Array = format_data.get("clubs", [])
@@ -743,14 +745,17 @@ func _show_question(view: Dictionary) -> void:
 		for club in career_clubs:
 			if club is Dictionary and not str(club.get("name", "")).is_empty():
 				club_names.append(str(club.get("name", "")))
-		clue_label.text = "  →  ".join(club_names)
-		clue_label.add_theme_font_size_override("font_size", 22)
+		clue_label.text = "   ›   ".join(club_names)
+		clue_label.add_theme_font_size_override("font_size", 16)
+		clue_label.add_theme_color_override("font_color", Color(1.0, 0.84, 0.40))
 		clue_label.visible = not club_names.is_empty()
 	elif format_type == "stat_highlow":
 		clue_label.text = str(format_data.get("statLabel", ""))
 		clue_label.add_theme_font_size_override("font_size", 24)
 		clue_label.visible = not clue_label.text.is_empty()
 	_clear_options()
+	selected_option_id = ""
+	option_buttons.clear()
 	current_options = incoming_options
 	for index in range(current_options.size()):
 		var option: Dictionary = current_options[index]
@@ -761,17 +766,41 @@ func _show_question(view: Dictionary) -> void:
 		var option_id := str(option.get("id", ""))
 		b.pressed.connect(func(): _submit_answer(option_id))
 		options_box.add_child(b)
+		option_buttons[option_id] = b
 	action_box.visible = false
 
 func _submit_answer(option_id: String) -> void:
 	if selected or current_token.is_empty():
 		return
 	selected = true
+	selected_option_id = option_id
 	_send("round.answer", {"token": current_token, "optionId": option_id, "clientMs": Time.get_ticks_msec()})
 	for child in options_box.get_children():
 		if child is Button:
 			child.disabled = true
 	status_label.text = "ANSWER SENT • WAITING FOR RESULT"
+
+func _show_answer_feedback(correct_text: String, was_correct: bool) -> void:
+	for option in current_options:
+		if not (option is Dictionary):
+			continue
+		var oid := str(option.get("id", ""))
+		var button: Button = option_buttons.get(oid)
+		if not is_instance_valid(button):
+			continue
+		var option_text := str(option.get("text", ""))
+		var is_right := option_text == correct_text
+		var is_selected := oid == selected_option_id
+		if is_right:
+			button.add_theme_stylebox_override("normal", _panel_style(Color(0.035,0.42,0.19), Color(0.22,1.0,0.48), 3))
+			button.add_theme_color_override("font_color", Color.WHITE)
+		elif is_selected:
+			button.add_theme_stylebox_override("normal", _panel_style(Color(0.48,0.055,0.07), Color(1.0,0.28,0.25), 3))
+			button.add_theme_color_override("font_color", Color.WHITE)
+		button.disabled = true
+	status_label.text = "CORRECT" if was_correct else "WRONG"
+	if not correct_text.is_empty():
+		question_label.text = "✓  " + correct_text if was_correct else "✕  CORRECT: " + correct_text
 
 func _read_scores(p: Dictionary) -> void:
 	var zones: Dictionary = p.get("zones", {})
