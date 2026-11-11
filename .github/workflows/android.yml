@@ -10,7 +10,7 @@ on:
       ws_url:
         description: "WebSocket URL baked into the build"
         required: false
-        default: "wss://ws.gridandglory.gg/ws"
+        default: "wss://grid-and-glory.onrender.com/ws"
   push:
     branches: [main]
     paths:
@@ -69,7 +69,7 @@ jobs:
       - name: Build release APK
         working-directory: app
         env:
-          WS_URL: ${{ github.event.inputs.ws_url || 'wss://ws.gridandglory.gg/ws' }}
+          WS_URL: ${{ github.event.inputs.ws_url || 'wss://grid-and-glory.onrender.com/ws' }}
         run: >
           flutter build apk --release
           --dart-define=WS_URL="$WS_URL"
@@ -79,7 +79,7 @@ jobs:
       - name: Build debug APK (installable without a signing key)
         working-directory: app
         env:
-          WS_URL: ${{ github.event.inputs.ws_url || 'wss://ws.gridandglory.gg/ws' }}
+          WS_URL: ${{ github.event.inputs.ws_url || 'wss://grid-and-glory.onrender.com/ws' }}
         run: >
           flutter build apk --debug
           --dart-define=WS_URL="$WS_URL"
