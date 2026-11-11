@@ -117,7 +117,34 @@ for gradle in list(app_dir.glob("android/app/build.gradle*")):
 
     gradle.write_text(s)
 
-# --- 5. Cleartext is allowed in DEBUG ONLY ----------------------------------------
+# --- 5. Keep the Android launcher class package aligned with namespace/applicationId --
+# flutter create derives MainActivity's Kotlin package from ORG + PROJECT. The
+# applicationId above is intentionally different, so rewrite the package declaration
+# and place the source under the matching Kotlin directory. Otherwise Android can try
+# to launch gg.gridandglory.app.MainActivity while the APK contains a different class,
+# causing an immediate crash before Flutter/Dart starts.
+main_activity = next((app_dir / "android" / "app" / "src" / "main" / "kotlin").rglob("MainActivity.kt"), None)
+if main_activity is None:
+    raise SystemExit("error: flutter create did not generate MainActivity.kt")
+source = main_activity.read_text(encoding="utf-8")
+source, replacements = re.subn(
+    r"(?m)^package\\s+[A-Za-z_][A-Za-z0-9_.]*",
+    f"package {app_id}",
+    source,
+    count=1,
+)
+if replacements != 1:
+    raise SystemExit("error: could not find MainActivity Kotlin package declaration")
+main_activity.write_text(source, encoding="utf-8")
+expected_dir = app_dir / "android" / "app" / "src" / "main" / "kotlin" / pathlib.Path(*app_id.split("."))
+expected_dir.mkdir(parents=True, exist_ok=True)
+expected_file = expected_dir / "MainActivity.kt"
+if main_activity != expected_file:
+    expected_file.write_text(source, encoding="utf-8")
+    main_activity.unlink()
+
+# --- 6. Cleartext is allowed in DEBUG ONLY ----------------------------------------
+
 debug_manifest = app_dir / "android" / "app" / "src" / "debug" / "AndroidManifest.xml"
 debug_manifest.parent.mkdir(parents=True, exist_ok=True)
 if not debug_manifest.exists() or "usesCleartextTraffic" not in debug_manifest.read_text():
