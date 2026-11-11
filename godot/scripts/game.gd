@@ -971,6 +971,9 @@ func _submit_answer(option_id: String) -> void:
 	for child in options_box.get_children():
 		if child is Button:
 			child.disabled = true
+			if str(child.get_meta("option_id", "")) == option_id:
+				child.add_theme_stylebox_override("normal", _panel_style(Color(0.34,0.22,0.055), Color(1.0,0.72,0.18), 2))
+				child.add_theme_color_override("font_color", Color.WHITE)
 	status_label.text = _tr("ANSWER SENT • WAITING FOR RESULT", "تم إرسال الإجابة • ننتظر النتيجة")
 
 func _show_answer_feedback(correct_id: String, was_correct: bool, update_status := true) -> void:
