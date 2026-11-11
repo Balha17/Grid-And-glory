@@ -42,7 +42,7 @@ var sound_muted := false
 var title_label: Label
 var status_label: Label
 var question_label: Label
-	var clue_label: Label
+var clue_label: Label
 var score_label: Label
 var timer_label: Label
 var options_box: VBoxContainer
