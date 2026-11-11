@@ -816,7 +816,7 @@ func _handle_frame(frame: Dictionary) -> void:
 			status_label.text = "GOOOOOAL!" if scored else "SAVED!"
 			status_label.add_theme_color_override("font_color", Color(0.20, 0.95, 0.43) if scored else Color(1.0, 0.25, 0.22))
 			var correct_shot_id := str(p.get("correctOptionId", ""))
-			_show_answer_feedback(correct_shot_id, not correct_shot_id.is_empty() and selected_option_id == correct_shot_id)
+			_show_answer_feedback(correct_shot_id, not correct_shot_id.is_empty() and selected_option_id == correct_shot_id, false)
 			animate_shot(scored)
 			_play_sfx("cheer" if scored else "kick")
 		"match.half":
@@ -973,7 +973,7 @@ func _submit_answer(option_id: String) -> void:
 			child.disabled = true
 	status_label.text = _tr("ANSWER SENT • WAITING FOR RESULT", "تم إرسال الإجابة • ننتظر النتيجة")
 
-func _show_answer_feedback(correct_id: String, was_correct: bool) -> void:
+func _show_answer_feedback(correct_id: String, was_correct: bool, update_status := true) -> void:
 	for option in current_options:
 		if not (option is Dictionary):
 			continue
@@ -990,7 +990,8 @@ func _show_answer_feedback(correct_id: String, was_correct: bool) -> void:
 			button.add_theme_stylebox_override("normal", _panel_style(Color(0.40,0.045,0.06), Color(1.0,0.22,0.20), 2))
 			button.add_theme_color_override("font_color", Color.WHITE)
 		button.disabled = true
-	status_label.text = _tr("CORRECT", "إجابة صحيحة") if was_correct else _tr("WRONG", "إجابة خاطئة")
+	if update_status:
+		status_label.text = _tr("CORRECT", "إجابة صحيحة") if was_correct else _tr("WRONG", "إجابة خاطئة")
 
 func _paint_answer_result(correct_id: String) -> void:
 	for child in options_box.get_children():
