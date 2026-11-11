@@ -204,7 +204,7 @@ class _MatchHud extends StatelessWidget {
 /// The ring always sweeps clockwise. A counter-clockwise clock is a different
 /// metaphor, not a translated one — see docs/04-ui-ux-spec.md §5.2.
 class _TimerChip extends StatefulWidget {
-  const _TimerChip({required this.seconds, required this.locale});
+  const _TimerChip({super.key, required this.seconds, required this.locale});
 
   final int seconds;
   final Locale locale;
