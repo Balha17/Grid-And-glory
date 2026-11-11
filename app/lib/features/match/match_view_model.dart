@@ -227,6 +227,7 @@ MatchUiState reduce(MatchUiState state, Map<String, dynamic> event) {
         outcome: '',
         opponentAnswered: false,
         youAreShooting: null,
+        goalFlash: false,
       );
 
     case 'round.answer_ack':
