@@ -12,6 +12,7 @@ namespace GridGlory.Editor
         {
             const string output = "Build/GridAndGlory.apk";
             Directory.CreateDirectory("Build");
+            Directory.CreateDirectory("Assets/Scenes");
             EditorUserBuildSettings.buildAppBundle = false;
             EditorUserBuildSettings.androidBuildType = AndroidBuildType.Debug;
             PlayerSettings.productName = "Grid & Glory";
