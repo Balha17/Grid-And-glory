@@ -98,15 +98,8 @@ class _MatchFlowScreenState extends ConsumerState<MatchFlowScreen> {
         final playerId = payload['playerId'] as String?;
         if (playerId == null) return;
         _playerId = playerId;
-        final transport = MatchTransport(socket: _socket, playerId: playerId);
-        _transport = transport;
-        _stateSub = transport.states.listen((next) {
-          if (!mounted) return;
-          setState(() {
-            _state = next;
-            if (next.phase == 'ended') _stage = _Stage.finished;
-          });
-        });
+        _playerId = playerId;
+        _attachTransport();
         _joinMatch();
         if (mounted) setState(() => _stage = _Stage.searching);
 
@@ -133,13 +126,29 @@ class _MatchFlowScreenState extends ConsumerState<MatchFlowScreen> {
     }
   }
 
+  void _attachTransport() {
+    final playerId = _playerId;
+    if (playerId == null) return;
+    final transport = MatchTransport(socket: _socket, playerId: playerId);
+    _transport = transport;
+    _stateSub = transport.states.listen((next) {
+      if (!mounted) return;
+      setState(() {
+        _state = next;
+        if (next.phase == 'ended') _stage = _Stage.finished;
+      });
+    });
+  }
+
   Future<void> _rematch() async {
     await _stateSub?.cancel();
     await _transport?.dispose();
+    _stateSub = null;
     _transport = null;
     _state = const MatchUiState();
+    _attachTransport();
     _joinMatch();
-    setState(() => _stage = _Stage.searching);
+    if (mounted) setState(() => _stage = _Stage.searching);
   }
 
   @override
