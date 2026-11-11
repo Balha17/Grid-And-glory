@@ -5,7 +5,7 @@ Arabic speaker are matched against each other and asked **the same question at t
 each in their own language.
 
 This repository is the complete core technical specification plus a working match engine, a
-validated bilingual question bank, and the Flutter component layer.
+validated bilingual question bank, and the Godot 4 3D game client (with the previous Flutter client retained during migration).
 
 ---
 
@@ -24,7 +24,8 @@ validated bilingual question bank, and the Flutter component layer.
 | **Runnable server + smoke client** | [`server/src/server.ts`](server/src/server.ts) · [`server/src/smoke.ts`](server/src/smoke.ts) | `npm run serve` / `npm run smoke` |
 | **UI/UX spec** | [`docs/04-ui-ux-spec.md`](docs/04-ui-ux-spec.md) | 40/60 layout, LTR↔RTL rule matrix, tokens, a11y |
 | **Layout proof (visual)** | [`design/match-screen.html`](design/match-screen.html) | EN + AR match screen rendered from the spec's own numbers |
-| **Flutter app shell** | [`docs/05-frontend-components.md`](docs/05-frontend-components.md) · [`app/`](app) | Locale plumbing, pitch painter, reducer, socket transport, screens |
+| **Godot 4 game client** | [`godot/`](godot) | Perspective 3D stadium, 22-player formations, match UI and WebSocket client |
+| **Legacy Flutter client** | [`app/`](app) | Retained as a fallback while the Godot client is validated |
 | **4-week MVP roadmap** | [`docs/06-mvp-roadmap.md`](docs/06-mvp-roadmap.md) | Day-by-day plan + Play Store checklist |
 | **Release runbook** | [`RELEASE.md`](RELEASE.md) | Keystore → APK/AAB → Play Console → 14-day test → rollout |
 
@@ -100,7 +101,7 @@ npm run demo
 ## Architecture at a glance
 
 ```
-Flutter (portrait, 1 thumb)
+Godot 4 (Android, 3D pitch + UI)
    │  wss  JSON envelope
    ▼
 Edge gateway ──authn, rate limit, shard = hash(matchId) % N
