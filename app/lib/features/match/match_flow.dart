@@ -524,7 +524,10 @@ class _ResultViewState extends State<_ResultView>
                           borderRadius: BorderRadius.all(AppRadii.md),
                         ),
                       ),
-                      label: Text(l10n.rematch, style: AppType.title(locale)),
+                      label: Text(
+                        locale.languageCode == 'ar' ? 'العب مجدداً' : 'PLAY AGAIN',
+                        style: AppType.title(locale),
+                      ),
                     ),
                   ),
                   const SizedBox(height: AppSpacing.sm),
