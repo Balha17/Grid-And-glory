@@ -6890,22 +6890,22 @@
         {
           "id": "opt_ucl2004porto_2",
           "en": "AC Milan",
-          "ar": "AC Milan"
+          "ar": "ميلان"
         },
         {
           "id": "opt_ucl2004porto_3",
           "en": "Chelsea",
-          "ar": "Chelsea"
+          "ar": "تشيلسي"
         },
         {
           "id": "opt_ucl2004porto_0",
           "en": "Monaco",
-          "ar": "Monaco"
+          "ar": "موناكو"
         },
         {
           "id": "opt_ucl2004porto_1",
           "en": "Deportivo La Coruña",
-          "ar": "Deportivo La Coruña"
+          "ar": "ديبورتيفو لاكورونيا"
         }
       ],
       "answerOptionId": "opt_ucl2004porto_0",
@@ -6915,8 +6915,8 @@
       },
       "localization": {
         "enChars": 107,
-        "arChars": 95,
-        "parityRatio": 0.888,
+        "arChars": 91,
+        "parityRatio": 0.85,
         "verifiedBy": "auto-check-pending-editor"
       },
       "authoring": {
@@ -6950,22 +6950,22 @@
         {
           "id": "opt_ucl2008pens_0",
           "en": "Chelsea",
-          "ar": "Chelsea"
+          "ar": "تشيلسي"
         },
         {
           "id": "opt_ucl2008pens_3",
           "en": "Arsenal",
-          "ar": "Arsenal"
+          "ar": "أرسنال"
         },
         {
           "id": "opt_ucl2008pens_1",
           "en": "Barcelona",
-          "ar": "Barcelona"
+          "ar": "برشلونة"
         },
         {
           "id": "opt_ucl2008pens_2",
           "en": "Liverpool",
-          "ar": "Liverpool"
+          "ar": "ليفربول"
         }
       ],
       "answerOptionId": "opt_ucl2008pens_0",
@@ -6975,8 +6975,8 @@
       },
       "localization": {
         "enChars": 118,
-        "arChars": 108,
-        "parityRatio": 0.915,
+        "arChars": 102,
+        "parityRatio": 0.864,
         "verifiedBy": "auto-check-pending-editor"
       },
       "authoring": {
@@ -7010,22 +7010,22 @@
         {
           "id": "opt_ucl2013robben_1",
           "en": "Franck Ribéry",
-          "ar": "Franck Ribéry"
+          "ar": "فرانك ريبيري"
         },
         {
           "id": "opt_ucl2013robben_3",
           "en": "Thomas Müller",
-          "ar": "Thomas Müller"
+          "ar": "توماس مولر"
         },
         {
           "id": "opt_ucl2013robben_2",
           "en": "Mario Mandžukić",
-          "ar": "Mario Mandžukić"
+          "ar": "ماريو ماندجوكيتش"
         },
         {
           "id": "opt_ucl2013robben_0",
           "en": "Arjen Robben",
-          "ar": "Arjen Robben"
+          "ar": "آريين روبن"
         }
       ],
       "answerOptionId": "opt_ucl2013robben_0",
@@ -7035,8 +7035,8 @@
       },
       "localization": {
         "enChars": 128,
-        "arChars": 113,
-        "parityRatio": 0.883,
+        "arChars": 108,
+        "parityRatio": 0.844,
         "verifiedBy": "auto-check-pending-editor"
       },
       "authoring": {
@@ -7130,22 +7130,22 @@
         {
           "id": "opt_ucl2019goals_3",
           "en": "Jordan Henderson",
-          "ar": "Jordan Henderson"
+          "ar": "جوردان هندرسون"
         },
         {
           "id": "opt_ucl2019goals_1",
           "en": "Sadio Mané",
-          "ar": "Sadio Mané"
+          "ar": "ساديو ماني"
         },
         {
           "id": "opt_ucl2019goals_2",
           "en": "Roberto Firmino",
-          "ar": "Roberto Firmino"
+          "ar": "روبرتو فيرمينو"
         },
         {
           "id": "opt_ucl2019goals_0",
           "en": "Divock Origi",
-          "ar": "Divock Origi"
+          "ar": "ديفوك أوريغي"
         }
       ],
       "answerOptionId": "opt_ucl2019goals_0",
@@ -7155,8 +7155,8 @@
       },
       "localization": {
         "enChars": 123,
-        "arChars": 112,
-        "parityRatio": 0.911,
+        "arChars": 109,
+        "parityRatio": 0.886,
         "verifiedBy": "auto-check-pending-editor"
       },
       "authoring": {
@@ -7190,22 +7190,22 @@
         {
           "id": "opt_ucl2020goal_3",
           "en": "Joshua Kimmich",
-          "ar": "Joshua Kimmich"
+          "ar": "يوشوا كيميش"
         },
         {
           "id": "opt_ucl2020goal_0",
           "en": "Kingsley Coman",
-          "ar": "Kingsley Coman"
+          "ar": "كينغسلي كومان"
         },
         {
           "id": "opt_ucl2020goal_1",
           "en": "Robert Lewandowski",
-          "ar": "Robert Lewandowski"
+          "ar": "روبرت ليفاندوفسكي"
         },
         {
           "id": "opt_ucl2020goal_2",
           "en": "Serge Gnabry",
-          "ar": "Serge Gnabry"
+          "ar": "سيرج غنابري"
         }
       ],
       "answerOptionId": "opt_ucl2020goal_0",
@@ -7215,8 +7215,8 @@
       },
       "localization": {
         "enChars": 130,
-        "arChars": 121,
-        "parityRatio": 0.931,
+        "arChars": 115,
+        "parityRatio": 0.885,
         "verifiedBy": "auto-check-pending-editor"
       },
       "authoring": {
@@ -7250,22 +7250,22 @@
         {
           "id": "opt_ucl2021goal_3",
           "en": "Timo Werner",
-          "ar": "Timo Werner"
+          "ar": "تيمو فيرنر"
         },
         {
           "id": "opt_ucl2021goal_0",
           "en": "Kai Havertz",
-          "ar": "Kai Havertz"
+          "ar": "كاي هافيرتز"
         },
         {
           "id": "opt_ucl2021goal_1",
           "en": "Mason Mount",
-          "ar": "Mason Mount"
+          "ar": "ماسون ماونت"
         },
         {
           "id": "opt_ucl2021goal_2",
           "en": "Christian Pulisic",
-          "ar": "Christian Pulisic"
+          "ar": "كريستيان بوليسيتش"
         }
       ],
       "answerOptionId": "opt_ucl2021goal_0",
@@ -7275,8 +7275,8 @@
       },
       "localization": {
         "enChars": 143,
-        "arChars": 122,
-        "parityRatio": 0.853,
+        "arChars": 121,
+        "parityRatio": 0.846,
         "verifiedBy": "auto-check-pending-editor"
       },
       "authoring": {
@@ -7310,22 +7310,22 @@
         {
           "id": "opt_ucl2023goal_0",
           "en": "Rodri",
-          "ar": "Rodri"
+          "ar": "رودري"
         },
         {
           "id": "opt_ucl2023goal_1",
           "en": "İlkay Gündoğan",
-          "ar": "İlkay Gündoğan"
+          "ar": "إيلكاي غوندوغان"
         },
         {
           "id": "opt_ucl2023goal_3",
           "en": "Bernardo Silva",
-          "ar": "Bernardo Silva"
+          "ar": "برناردو سيلفا"
         },
         {
           "id": "opt_ucl2023goal_2",
           "en": "Erling Haaland",
-          "ar": "Erling Haaland"
+          "ar": "إيرلينغ هالاند"
         }
       ],
       "answerOptionId": "opt_ucl2023goal_0",
@@ -7370,22 +7370,22 @@
         {
           "id": "opt_ucl2024goals_3",
           "en": "Joselu and Brahim Díaz",
-          "ar": "Joselu and Brahim Díaz"
+          "ar": "خوسيلو وبراهيم دياز"
         },
         {
           "id": "opt_ucl2024goals_2",
           "en": "Toni Kroos and Federico Valverde",
-          "ar": "Toni Kroos and Federico Valverde"
+          "ar": "توني كروس وفيديريكو فالفيردي"
         },
         {
           "id": "opt_ucl2024goals_0",
           "en": "Dani Carvajal and Vinícius Júnior",
-          "ar": "Dani Carvajal and Vinícius Júnior"
+          "ar": "داني كارفاخال وفينيسيوس جونيور"
         },
         {
           "id": "opt_ucl2024goals_1",
           "en": "Jude Bellingham and Rodrygo",
-          "ar": "Jude Bellingham and Rodrygo"
+          "ar": "جود بيلينغهام ورودريغو"
         }
       ],
       "answerOptionId": "opt_ucl2024goals_0",
@@ -7395,8 +7395,8 @@
       },
       "localization": {
         "enChars": 190,
-        "arChars": 183,
-        "parityRatio": 0.963,
+        "arChars": 168,
+        "parityRatio": 0.884,
         "verifiedBy": "auto-check-pending-editor"
       },
       "authoring": {
@@ -7430,22 +7430,22 @@
         {
           "id": "opt_ucl2003pens_2",
           "en": "Ajax",
-          "ar": "Ajax"
+          "ar": "أياكس"
         },
         {
           "id": "opt_ucl2003pens_0",
           "en": "Juventus",
-          "ar": "Juventus"
+          "ar": "يوفنتوس"
         },
         {
           "id": "opt_ucl2003pens_3",
           "en": "Valencia",
-          "ar": "Valencia"
+          "ar": "فالنسيا"
         },
         {
           "id": "opt_ucl2003pens_1",
           "en": "Real Madrid",
-          "ar": "Real Madrid"
+          "ar": "ريال مدريد"
         }
       ],
       "answerOptionId": "opt_ucl2003pens_0",
@@ -7455,8 +7455,8 @@
       },
       "localization": {
         "enChars": 110,
-        "arChars": 97,
-        "parityRatio": 0.882,
+        "arChars": 95,
+        "parityRatio": 0.864,
         "verifiedBy": "auto-check-pending-editor"
       },
       "authoring": {
@@ -7490,22 +7490,22 @@
         {
           "id": "opt_wc2010goal_0",
           "en": "Andrés Iniesta",
-          "ar": "Andrés Iniesta"
+          "ar": "أندريس إنييستا"
         },
         {
           "id": "opt_wc2010goal_3",
           "en": "Cesc Fàbregas",
-          "ar": "Cesc Fàbregas"
+          "ar": "سيسك فابريغاس"
         },
         {
           "id": "opt_wc2010goal_1",
           "en": "David Villa",
-          "ar": "David Villa"
+          "ar": "دافيد فيا"
         },
         {
           "id": "opt_wc2010goal_2",
           "en": "Fernando Torres",
-          "ar": "Fernando Torres"
+          "ar": "فرناندو توريس"
         }
       ],
       "answerOptionId": "opt_wc2010goal_0",
@@ -7515,8 +7515,8 @@
       },
       "localization": {
         "enChars": 113,
-        "arChars": 102,
-        "parityRatio": 0.903,
+        "arChars": 98,
+        "parityRatio": 0.867,
         "verifiedBy": "auto-check-pending-editor"
       },
       "authoring": {
@@ -7550,22 +7550,22 @@
         {
           "id": "opt_wc2014goal_3",
           "en": "André Schürrle",
-          "ar": "André Schürrle"
+          "ar": "أندريه شورله"
         },
         {
           "id": "opt_wc2014goal_2",
           "en": "Miroslav Klose",
-          "ar": "Miroslav Klose"
+          "ar": "ميروسلاف كلوزه"
         },
         {
           "id": "opt_wc2014goal_0",
           "en": "Mario Götze",
-          "ar": "Mario Götze"
+          "ar": "ماريو غوتزه"
         },
         {
           "id": "opt_wc2014goal_1",
           "en": "Thomas Müller",
-          "ar": "Thomas Müller"
+          "ar": "توماس مولر"
         }
       ],
       "answerOptionId": "opt_wc2014goal_0",
@@ -7575,8 +7575,8 @@
       },
       "localization": {
         "enChars": 114,
-        "arChars": 101,
-        "parityRatio": 0.886,
+        "arChars": 96,
+        "parityRatio": 0.842,
         "verifiedBy": "auto-check-pending-editor"
       },
       "authoring": {
@@ -7610,22 +7610,22 @@
         {
           "id": "opt_wc1990goal_1",
           "en": "Lothar Matthäus",
-          "ar": "Lothar Matthäus"
+          "ar": "لوثار ماتيوس"
         },
         {
           "id": "opt_wc1990goal_2",
           "en": "Jürgen Klinsmann",
-          "ar": "Jürgen Klinsmann"
+          "ar": "يورغن كلينسمان"
         },
         {
           "id": "opt_wc1990goal_3",
           "en": "Rudi Völler",
-          "ar": "Rudi Völler"
+          "ar": "رودي فولر"
         },
         {
           "id": "opt_wc1990goal_0",
           "en": "Andreas Brehme",
-          "ar": "Andreas Brehme"
+          "ar": "أندرياس بريمه"
         }
       ],
       "answerOptionId": "opt_wc1990goal_0",
@@ -7635,8 +7635,8 @@
       },
       "localization": {
         "enChars": 109,
-        "arChars": 102,
-        "parityRatio": 0.936,
+        "arChars": 94,
+        "parityRatio": 0.862,
         "verifiedBy": "auto-check-pending-editor"
       },
       "authoring": {
@@ -7730,22 +7730,22 @@
         {
           "id": "opt_afcon2013goal_1",
           "en": "Emmanuel Emenike",
-          "ar": "Emmanuel Emenike"
+          "ar": "إيمانويل إيمينيكي"
         },
         {
           "id": "opt_afcon2013goal_2",
           "en": "Victor Moses",
-          "ar": "Victor Moses"
+          "ar": "فيكتور موزيس"
         },
         {
           "id": "opt_afcon2013goal_3",
           "en": "John Obi Mikel",
-          "ar": "John Obi Mikel"
+          "ar": "جون أوبي ميكيل"
         },
         {
           "id": "opt_afcon2013goal_0",
           "en": "Sunday Mba",
-          "ar": "Sunday Mba"
+          "ar": "صنداي إمبا"
         }
       ],
       "answerOptionId": "opt_afcon2013goal_0",
@@ -7755,8 +7755,8 @@
       },
       "localization": {
         "enChars": 126,
-        "arChars": 106,
-        "parityRatio": 0.841,
+        "arChars": 107,
+        "parityRatio": 0.849,
         "verifiedBy": "auto-check-pending-editor"
       },
       "authoring": {
@@ -7790,22 +7790,22 @@
         {
           "id": "opt_afcon2015pens_2",
           "en": "Algeria",
-          "ar": "Algeria"
+          "ar": "الجزائر"
         },
         {
           "id": "opt_afcon2015pens_3",
           "en": "Cameroon",
-          "ar": "Cameroon"
+          "ar": "الكاميرون"
         },
         {
           "id": "opt_afcon2015pens_1",
           "en": "Nigeria",
-          "ar": "Nigeria"
+          "ar": "نيجيريا"
         },
         {
           "id": "opt_afcon2015pens_0",
           "en": "Ghana",
-          "ar": "Ghana"
+          "ar": "غانا"
         }
       ],
       "answerOptionId": "opt_afcon2015pens_0",
@@ -7850,22 +7850,22 @@
         {
           "id": "opt_afcon2017goal_0",
           "en": "Vincent Aboubakar",
-          "ar": "Vincent Aboubakar"
+          "ar": "فينسنت أبو بكر"
         },
         {
           "id": "opt_afcon2017goal_2",
           "en": "Benjamin Moukandjo",
-          "ar": "Benjamin Moukandjo"
+          "ar": "بنجامين موكاندجو"
         },
         {
           "id": "opt_afcon2017goal_3",
           "en": "Nicolas Nkoulou",
-          "ar": "Nicolas Nkoulou"
+          "ar": "نيكولاس نكولو"
         },
         {
           "id": "opt_afcon2017goal_1",
           "en": "Christian Bassogog",
-          "ar": "Christian Bassogog"
+          "ar": "كريستيان باسوجوغ"
         }
       ],
       "answerOptionId": "opt_afcon2017goal_0",
@@ -7875,8 +7875,8 @@
       },
       "localization": {
         "enChars": 148,
-        "arChars": 132,
-        "parityRatio": 0.892,
+        "arChars": 123,
+        "parityRatio": 0.831,
         "verifiedBy": "auto-check-pending-editor"
       },
       "authoring": {
@@ -7910,22 +7910,22 @@
         {
           "id": "opt_afcon2021pens_0",
           "en": "Egypt",
-          "ar": "Egypt"
+          "ar": "مصر"
         },
         {
           "id": "opt_afcon2021pens_3",
           "en": "Burkina Faso",
-          "ar": "Burkina Faso"
+          "ar": "بوركينا فاسو"
         },
         {
           "id": "opt_afcon2021pens_2",
           "en": "Morocco",
-          "ar": "Morocco"
+          "ar": "المغرب"
         },
         {
           "id": "opt_afcon2021pens_1",
           "en": "Cameroon",
-          "ar": "Cameroon"
+          "ar": "الكاميرون"
         }
       ],
       "answerOptionId": "opt_afcon2021pens_0",
@@ -7935,8 +7935,8 @@
       },
       "localization": {
         "enChars": 113,
-        "arChars": 97,
-        "parityRatio": 0.858,
+        "arChars": 95,
+        "parityRatio": 0.841,
         "verifiedBy": "auto-check-pending-editor"
       },
       "authoring": {
@@ -7970,22 +7970,22 @@
         {
           "id": "opt_afcon2023goal_3",
           "en": "Simon Adingra",
-          "ar": "Simon Adingra"
+          "ar": "سيمون أدينغرا"
         },
         {
           "id": "opt_afcon2023goal_2",
           "en": "Nicolas Pépé",
-          "ar": "Nicolas Pépé"
+          "ar": "نيكولاس بيبي"
         },
         {
           "id": "opt_afcon2023goal_0",
           "en": "Sébastien Haller",
-          "ar": "Sébastien Haller"
+          "ar": "سيباستيان هالر"
         },
         {
           "id": "opt_afcon2023goal_1",
           "en": "Franck Kessié",
-          "ar": "Franck Kessié"
+          "ar": "فرانك كيسييه"
         }
       ],
       "answerOptionId": "opt_afcon2023goal_0",
@@ -7995,8 +7995,8 @@
       },
       "localization": {
         "enChars": 132,
-        "arChars": 111,
-        "parityRatio": 0.841,
+        "arChars": 108,
+        "parityRatio": 0.818,
         "verifiedBy": "auto-check-pending-editor"
       },
       "authoring": {
@@ -8030,22 +8030,22 @@
         {
           "id": "opt_euro2000goal_3",
           "en": "Zinedine Zidane",
-          "ar": "Zinedine Zidane"
+          "ar": "زين الدين زيدان"
         },
         {
           "id": "opt_euro2000goal_0",
           "en": "David Trezeguet",
-          "ar": "David Trezeguet"
+          "ar": "دافيد تريزيغيه"
         },
         {
           "id": "opt_euro2000goal_1",
           "en": "Thierry Henry",
-          "ar": "Thierry Henry"
+          "ar": "تييري هنري"
         },
         {
           "id": "opt_euro2000goal_2",
           "en": "Sylvain Wiltord",
-          "ar": "Sylvain Wiltord"
+          "ar": "سيلفان ويلتورد"
         }
       ],
       "answerOptionId": "opt_euro2000goal_0",
@@ -8055,8 +8055,8 @@
       },
       "localization": {
         "enChars": 113,
-        "arChars": 105,
-        "parityRatio": 0.929,
+        "arChars": 100,
+        "parityRatio": 0.885,
         "verifiedBy": "auto-check-pending-editor"
       },
       "authoring": {
@@ -8090,22 +8090,22 @@
         {
           "id": "opt_euro2016goal_2",
           "en": "Nani",
-          "ar": "Nani"
+          "ar": "ناني"
         },
         {
           "id": "opt_euro2016goal_1",
           "en": "Cristiano Ronaldo",
-          "ar": "Cristiano Ronaldo"
+          "ar": "كريستيانو رونالدو"
         },
         {
           "id": "opt_euro2016goal_0",
           "en": "Éder",
-          "ar": "Éder"
+          "ar": "إيدر"
         },
         {
           "id": "opt_euro2016goal_3",
           "en": "Renato Sanches",
-          "ar": "Renato Sanches"
+          "ar": "ريناتو سانشيز"
         }
       ],
       "answerOptionId": "opt_euro2016goal_0",
@@ -8115,8 +8115,8 @@
       },
       "localization": {
         "enChars": 97,
-        "arChars": 83,
-        "parityRatio": 0.856,
+        "arChars": 82,
+        "parityRatio": 0.845,
         "verifiedBy": "auto-check-pending-editor"
       },
       "authoring": {
@@ -8150,22 +8150,22 @@
         {
           "id": "opt_euro1996goal_2",
           "en": "Matthias Sammer",
-          "ar": "Matthias Sammer"
+          "ar": "ماتياس زامر"
         },
         {
           "id": "opt_euro1996goal_0",
           "en": "Oliver Bierhoff",
-          "ar": "Oliver Bierhoff"
+          "ar": "أوليفر بيرهوف"
         },
         {
           "id": "opt_euro1996goal_1",
           "en": "Jürgen Klinsmann",
-          "ar": "Jürgen Klinsmann"
+          "ar": "يورغن كلينسمان"
         },
         {
           "id": "opt_euro1996goal_3",
           "en": "Andreas Möller",
-          "ar": "Andreas Möller"
+          "ar": "أندرياس مولر"
         }
       ],
       "answerOptionId": "opt_euro1996goal_0",
@@ -8175,8 +8175,8 @@
       },
       "localization": {
         "enChars": 116,
-        "arChars": 109,
-        "parityRatio": 0.94,
+        "arChars": 99,
+        "parityRatio": 0.853,
         "verifiedBy": "auto-check-pending-editor"
       },
       "authoring": {
