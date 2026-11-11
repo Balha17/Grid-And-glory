@@ -357,7 +357,9 @@ test("both answers advance immediately through the third round without a stuck p
     assert.ok(qa && qb, `both players receive round ${round}`);
     const tokenA = (qa!.payload as { token: string }).token;
     const tokenB = (qb!.payload as { token: string }).token;
-    const answerId = room.audit!.answerOptionId;
+    // Keep this progression test on the normal-round path; repeated perfect answers can
+    // legitimately reach the final pitch zone and trigger a Shooting Chance.
+    const answerId = "deliberately_wrong";
 
     const a = room.submitAnswer(ALICE.playerId, { token: tokenA, optionId: answerId }, now + 250);
     assert.ok(a.some((e) => e.type === "round.answer_ack"));
