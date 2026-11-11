@@ -1,0 +1,55 @@
+name: grid_and_glory
+description: "Grid & Glory — التحدي الكروي. 1v1 cross-language football trivia."
+publish_to: "none"
+version: 1.0.0+1
+
+environment:
+  sdk: ">=3.5.0 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+
+  # State. Riverpod over Provider because the match state is fed by a stream of
+  # server events and must be testable without a BuildContext.
+  flutter_riverpod: ^2.6.1
+
+  # Locale persistence. Read synchronously at startup so the first frame is never
+  # in the wrong language.
+  shared_preferences: ^2.3.3
+
+  # Date/number formatting; also pulls in the locale data used by NumberFormat.
+  intl: any
+
+  # WebSocket. `web_socket_channel` works on Android, iOS and the test VM, and gives
+  # us a Stream we can drive from a fake in widget tests.
+  web_socket_channel: ^3.0.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0
+
+flutter:
+  uses-material-design: true
+
+  # Fonts are deliberately NOT declared yet — drop the files in and uncomment.
+  # Arabic needs a real Arabic face: synthetic bold smears the letter joins.
+  #
+  # fonts:
+  #   - family: Inter
+  #     fonts:
+  #       - asset: assets/fonts/Inter-Regular.ttf
+  #       - asset: assets/fonts/Inter-SemiBold.ttf
+  #         weight: 600
+  #       - asset: assets/fonts/Inter-ExtraBold.ttf
+  #         weight: 800
+  #   - family: IBMPlexSansArabic
+  #     fonts:
+  #       - asset: assets/fonts/IBMPlexSansArabic-Regular.ttf
+  #       - asset: assets/fonts/IBMPlexSansArabic-SemiBold.ttf
+  #         weight: 600
+  #       - asset: assets/fonts/IBMPlexSansArabic-Bold.ttf
+  #         weight: 700

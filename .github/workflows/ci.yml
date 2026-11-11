@@ -1,0 +1,47 @@
+name: ci
+
+# The gate that matters: everything here is runnable without a Flutter SDK.
+# (The Flutter/APK build lives in android.yml and needs an x86-64 runner.)
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    name: Engine, content and structure
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+
+      - run: npm ci
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      - name: Engine tests
+        run: npm test
+
+      - name: Question bank validity
+        run: npm run validate:schema
+
+      - name: Question bank fairness
+        run: npm run validate:bank
+
+      - name: Flutter structure
+        run: npm run check:app
+
+      # Proves the gateway still plays a match end to end. Cheap (virtual clock).
+      - name: Match simulation
+        run: npm run demo

@@ -1,0 +1,42 @@
+{
+  "@@locale": "ar",
+  "appTitle": "التحدي الكروي",
+  "appSubtitle": "مبارزة كرة القدم ١ ضد ١",
+  "play": "العب",
+  "matchHalf": "الشوط {half}",
+  "@matchHalf": {
+    "placeholders": {
+      "half": {
+        "type": "int"
+      }
+    }
+  },
+  "matchRound": "الجولة {round}",
+  "@matchRound": {
+    "placeholders": {
+      "round": {
+        "type": "String"
+      }
+    }
+  },
+  "opponentAnswered": "أجاب الخصم",
+  "shootingChance": "فرصة تسديد",
+  "defending": "تدافع…",
+  "halfTime": "بين الشوطين",
+  "fullTime": "نهاية المباراة",
+  "rematch": "مباراة أخرى",
+  "searching": "نبحث عن خصم…",
+  "searchingWide": "ما زلنا نبحث… نوسّع نطاق البحث.",
+  "cancel": "إلغاء",
+  "offline": "أنت غير متصل. تحقّق من اتصالك.",
+  "opponentLeft": "انقطع اتصال الخصم — ٢٥ ثانية للعودة.",
+  "matchVoided": "أُلغيت المباراة. لا تغيير في التصنيف.",
+  "youWin": "فزت",
+  "youLose": "خسرت",
+  "draw": "تعادل",
+  "decidedByGoals": "حُسمت بالأهداف",
+  "decidedByZone": "حُسمت بالأرضية",
+  "accuracy": "الدقة",
+  "opponentFound": "تم إيجاد خصم",
+  "homeAction": "الرئيسية"
+}

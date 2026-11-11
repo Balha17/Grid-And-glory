@@ -1,0 +1,20 @@
+node_modules/
+.dart_tool/
+build/
+*.iml
+.idea/
+.vscode/
+.env
+.env.*
+.DS_Store
+/tmp/
+*.log
+
+# Android signing — never commit these
+app/android/key.properties
+*.jks
+*.keystore
+upload-keystore.jks
+
+# build/packaging output
+dist/

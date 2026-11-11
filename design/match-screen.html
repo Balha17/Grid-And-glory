@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Grid &amp; Glory — match screen layout proof (EN / AR)</title>
+<style>
+  /* ---------------------------------------------------------------------------
+     Static layout proof for docs/04-ui-ux-spec.md.
+
+     This is NOT the Flutter build — that cannot be compiled in this environment.
+     It is the same specification rendered in a browser so the 40/60 split, the
+     upward-attacking pitch, and the LTR/RTL mirroring can be *seen* and argued
+     about. Every number here is copied from the spec, not invented.
+     --------------------------------------------------------------------------- */
+
+  :root {
+    --bg: #0B1220;
+    --raised: #131C2E;
+    --sunken: #080E19;
+    --grass-a: #1B7F4B;
+    --grass-b: #17703F;
+    --accent: #FFC24B;
+    --you: #38BDF8;
+    --opp: #F472B6;
+    --text: #F2F6FF;
+    --muted: #9FB0CC;
+    --border: #22304A;
+    --correct: #2FBF71;
+    --wrong: #E5484D;
+    --safe-top: 47px;
+    --safe-bottom: 34px;
+    --device-w: 390px;
+    --device-h: 844px;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    padding: 40px 24px 64px;
+    background: #070b14;
+    color: var(--text);
+    font-family: Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
+  }
+
+  header { max-width: 860px; margin: 0 auto 8px; }
+  h1 { font-size: 22px; margin: 0 0 6px; letter-spacing: -0.2px; }
+  header p { color: var(--muted); font-size: 14px; line-height: 1.6; margin: 0; max-width: 70ch; }
+  header code { background: #16213a; padding: 1px 5px; border-radius: 4px; font-size: 12.5px; }
+
+  .grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 28px;
+    justify-content: center;
+    margin-top: 32px;
+  }
+
+  .cell { width: var(--device-w); }
+  .cell figcaption {
+    margin-top: 10px;
+    font-size: 12.5px;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+  .cell figcaption b { color: var(--text); font-weight: 600; }
+
+  /* ------------------------------------------------------------------ device */
+
+  .device {
+    width: var(--device-w);
+    height: var(--device-h);
+    background: var(--bg);
+    border-radius: 26px;
+    border: 1px solid var(--border);
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 24px 60px rgba(0,0,0,.55);
+  }
+
+  .safe-top { height: var(--safe-top); flex: none; }
+  .safe-bottom { height: var(--safe-bottom); flex: none; }
+
+  /* ------------------------------------------------------------------- pitch */
+  /* 40% of the available height: (844 - 47 - 34) * 0.40 = 305.2px */
+
+  .pitch {
+    height: 305px;
+    flex: none;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .band { position: absolute; left: 0; right: 0; height: calc(100% / 6); }
+  .band:nth-child(odd)  { background: var(--grass-a); }
+  .band:nth-child(even) { background: var(--grass-b); }
+
+  .goal {
+    position: absolute; left: 0; right: 0; height: calc(100% / 6);
+    background: rgba(255,255,255,.05);
+    background-image:
+      repeating-linear-gradient(90deg, rgba(255,255,255,.14) 0 1px, transparent 1px 12px),
+      repeating-linear-gradient(0deg,  rgba(255,255,255,.14) 0 1px, transparent 1px 12px);
+  }
+  .goal.top { top: 0; }
+  .goal.bottom { bottom: 0; }
+
+  .centre-line {
+    position: absolute; top: 0; bottom: 0; left: 50%;
+    width: 1px; background: rgba(255,255,255,.07);
+  }
+
+  .avatar {
+    position: absolute;
+    width: 40px; height: 40px;
+    margin-left: -20px; margin-top: -20px;
+    border-radius: 50%;
+    background: var(--bg);
+    border: 2.5px solid currentColor;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px; font-weight: 700;
+    color: inherit;
+  }
+  .avatar::after {
+    content: "";
+    position: absolute; inset: -7px;
+    border-radius: 50%;
+    background: currentColor;
+    opacity: .16;
+  }
+  .avatar.you { color: var(--you); }
+  .avatar.opp { color: var(--opp); }
+
+  /* Lane assignment mirrors with direction; the vertical axis never does. */
+  .device[dir="ltr"] .avatar.you { left: 31%; }
+  .device[dir="ltr"] .avatar.opp { left: 69%; }
+  .device[dir="rtl"] .avatar.you { left: 69%; }
+  .device[dir="rtl"] .avatar.opp { left: 31%; }
+
+  .ball {
+    position: absolute; width: 11px; height: 11px; border-radius: 50%;
+    background: #fff; border: 1.5px solid var(--bg);
+    margin-top: -5px;
+  }
+  /* The ball belongs to whoever has possession, so it mirrors with the lane. */
+  .device[dir="ltr"] .ball { left: 31%; margin-left: 14px; }
+  .device[dir="rtl"] .ball { left: 69%; margin-left: -25px; }
+
+  /* --------------------------------------------------------------------- hud */
+
+  .hud {
+    position: absolute; top: 0; left: 0; right: 0; height: 44px;
+    display: flex; align-items: center; gap: 8px;
+    padding: 0 16px;
+    background: linear-gradient(to bottom, rgba(11,18,32,.85), rgba(11,18,32,0));
+    font-variant-numeric: tabular-nums;
+  }
+  .poss { width: 8px; height: 8px; border-radius: 50%; border: 1px solid rgba(56,189,248,.6); }
+  .poss.on { background: var(--you); }
+  .score { font-size: 26px; font-weight: 800; letter-spacing: -0.5px; }
+  .score span { color: var(--muted); font-weight: 700; padding: 0 6px; font-size: 20px; }
+  .spacer { flex: 1; }
+  .clock {
+    width: 44px; height: 44px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px; font-weight: 800;
+    background:
+      conic-gradient(var(--accent) 0 78%, var(--border) 78% 100%);
+    position: relative;
+  }
+  .clock::before {
+    content: ""; position: absolute; inset: 3px; border-radius: 50%; background: var(--bg);
+  }
+  .clock span { position: relative; }
+  .half { font-size: 12px; color: var(--muted); font-weight: 600; }
+
+  /* -------------------------------------------------------------------- quiz */
+  /* 60% = 458px */
+
+  .quiz {
+    height: 458px;
+    flex: none;
+    padding: 12px 16px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .meta {
+    height: 28px;
+    display: flex; align-items: center;
+    font-size: 12.5px; font-weight: 600; color: var(--muted);
+  }
+  .meta .spacer { flex: 1; }
+
+  .card {
+    flex: 1;
+    min-height: 96px;
+    background: var(--sunken);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 16px;
+    display: flex; flex-direction: column; gap: 12px;
+  }
+  .prompt { font-size: 22px; font-weight: 700; line-height: 1.28; letter-spacing: -0.2px; }
+  [dir="rtl"] .prompt { line-height: 1.7; font-size: 21px; letter-spacing: 0; }
+
+  .answers { display: flex; flex-direction: column; gap: 8px; }
+
+  .answer {
+    height: 56px;
+    display: flex; align-items: center; gap: 8px;
+    padding: 0 16px;
+    background: var(--raised);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    font-size: 16px; font-weight: 500;
+  }
+  .answer .t { flex: 1; }
+  .answer .mark { font-size: 18px; opacity: 0; }
+
+  .answer.selected { border: 2px solid var(--accent); background: rgba(255,194,75,.12); padding: 0 15px; }
+  .answer.selected .mark { opacity: 1; color: var(--accent); }
+
+  .answer.correct { border: 2px solid var(--correct); background: rgba(47,191,113,.12); padding: 0 15px; }
+  .answer.correct .mark { opacity: 1; color: var(--correct); }
+
+  .answer.wrong { border: 2px solid var(--wrong); background: rgba(229,72,77,.12); padding: 0 15px; }
+  .answer.wrong .mark { opacity: 1; color: var(--wrong); }
+
+  .answer.dim { opacity: .45; }
+
+  /* --------------------------------------------------------------- overlays */
+
+  .banner {
+    margin: 0 16px;
+    padding: 8px 12px;
+    border-radius: 10px;
+    font-size: 12.5px; font-weight: 800;
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+  }
+  .banner.shoot { color: var(--accent); background: rgba(255,194,75,.10); border: 1px solid rgba(255,194,75,.55); }
+
+  .scrim {
+    position: absolute; inset: 0;
+    background: rgba(11,18,32,.86);
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center; gap: 16px;
+  }
+  .scrim .big { font-size: 30px; font-weight: 800; }
+
+  .delta {
+    font-size: 13px; font-weight: 800; color: var(--correct);
+  }
+  .tag {
+    display: inline-block;
+    font-size: 11px; font-weight: 700; letter-spacing: .04em;
+    text-transform: uppercase;
+    color: var(--accent);
+    border: 1px solid rgba(255,194,75,.5);
+    border-radius: 999px;
+    padding: 2px 8px;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Match screen — layout proof (English LTR / Arabic RTL)</h1>
+  <p>
+    Rendered from the same numbers as <code>docs/04-ui-ux-spec.md</code>: 390 × 844, safe areas
+    47 / 34, pitch <code>40%</code> of the remaining 763 px (305 px), quiz <code>458 px</code>,
+    answers 56 px with 8 px gaps. The pitch attacks <b>upward for the local player in both
+    languages</b>; only the lane assignment mirrors. This is a browser rendering of the
+    specification, not the Flutter build.
+  </p>
+</header>
+
+<div class="grid">
+
+  <!-- ============================ 1. PLAYING (EN) ============================ -->
+  <figure class="cell">
+    <div class="device" dir="ltr">
+      <div class="safe-top"></div>
+      <div class="pitch">
+        <div class="band" style="top:0"></div>
+        <div class="band" style="top:16.667%"></div>
+        <div class="band" style="top:33.333%"></div>
+        <div class="band" style="top:50%"></div>
+        <div class="band" style="top:66.667%"></div>
+        <div class="band" style="top:83.333%"></div>
+        <div class="goal top"></div>
+        <div class="goal bottom"></div>
+        <div class="centre-line"></div>
+
+        <!-- zone 3 (you) and zone 2 (opponent): y = height - (zone + 0.5) * band -->
+        <div class="avatar you" style="top: calc(305px - (3 + .5) * 50.833px)">●</div>
+        <div class="avatar opp" style="top: calc(305px - (2 + .5) * 50.833px)">○</div>
+        <div class="ball" style="top: calc(305px - (3 + .5) * 50.833px + 14px)"></div>
+
+        <div class="hud">
+          <div class="poss on"></div>
+          <div class="score">2<span>–</span>1</div>
+          <div class="spacer"></div>
+          <div class="clock"><span>7</span></div>
+          <div class="spacer"></div>
+          <div class="half">Half 1</div>
+        </div>
+      </div>
+
+      <div class="quiz">
+        <div class="meta">ROUND 4 <div class="spacer"></div> Opponent answered</div>
+        <div class="card">
+          <div class="prompt">Which club has won the most UEFA Champions League titles?</div>
+        </div>
+        <div class="answers">
+          <div class="answer selected"><div class="t">Real Madrid</div><div class="mark">◉</div></div>
+          <div class="answer"><div class="t">AC Milan</div><div class="mark">◉</div></div>
+          <div class="answer"><div class="t">Bayern Munich</div><div class="mark">◉</div></div>
+          <div class="answer"><div class="t">Liverpool</div><div class="mark">◉</div></div>
+        </div>
+      </div>
+      <div class="safe-bottom"></div>
+    </div>
+    <figcaption><b>1 · EN, question open.</b> You are on zone 3, opponent on zone 2, you have the ball.
+    Answers sit in the bottom 60% — the only part of the screen a thumb reaches.</figcaption>
+  </figure>
+
+  <!-- ============================ 2. PLAYING (AR) ============================ -->
+  <figure class="cell">
+    <div class="device" dir="rtl" lang="ar">
+      <div class="safe-top"></div>
+      <div class="pitch">
+        <div class="band" style="top:0"></div>
+        <div class="band" style="top:16.667%"></div>
+        <div class="band" style="top:33.333%"></div>
+        <div class="band" style="top:50%"></div>
+        <div class="band" style="top:66.667%"></div>
+        <div class="band" style="top:83.333%"></div>
+        <div class="goal top"></div>
+        <div class="goal bottom"></div>
+        <div class="centre-line"></div>
+
+        <div class="avatar you" style="top: calc(305px - (3 + .5) * 50.833px)">●</div>
+        <div class="avatar opp" style="top: calc(305px - (2 + .5) * 50.833px)">○</div>
+        <div class="ball" style="top: calc(305px - (3 + .5) * 50.833px + 14px)"></div>
+
+        <div class="hud" style="font-family:'IBM Plex Sans Arabic','Segoe UI',Tahoma,sans-serif">
+          <div class="poss on"></div>
+          <div class="score">2<span>–</span>1</div>
+          <div class="spacer"></div>
+          <div class="clock"><span>7</span></div>
+          <div class="spacer"></div>
+          <div class="half">الشوط 1</div>
+        </div>
+      </div>
+
+      <div class="quiz" style="font-family:'IBM Plex Sans Arabic','Segoe UI',Tahoma,sans-serif">
+        <div class="meta">الجولة 4 <div class="spacer"></div> أجاب الخصم</div>
+        <div class="card">
+          <div class="prompt">أي نادٍ فاز بأكبر عدد من ألقاب دوري أبطال أوروبا؟</div>
+        </div>
+        <div class="answers">
+          <div class="answer selected"><div class="t">ريال مدريد</div><div class="mark">◉</div></div>
+          <div class="answer"><div class="t">ميلان</div><div class="mark">◉</div></div>
+          <div class="answer"><div class="t">بايرن ميونخ</div><div class="mark">◉</div></div>
+          <div class="answer"><div class="t">ليفربول</div><div class="mark">◉</div></div>
+        </div>
+      </div>
+      <div class="safe-bottom"></div>
+    </div>
+    <figcaption><b>2 · AR, same moment.</b> Your lane is now on the right (reading-start), the
+    scoreline container mirrors, but <b>you still attack upward</b> and the clock still sweeps
+    clockwise. The numerals stay Western and keep their order.</figcaption>
+  </figure>
+
+  <!-- ============================ 3. REVEAL (EN) ============================ -->
+  <figure class="cell">
+    <div class="device" dir="ltr">
+      <div class="safe-top"></div>
+      <div class="pitch">
+        <div class="band" style="top:0"></div>
+        <div class="band" style="top:16.667%"></div>
+        <div class="band" style="top:33.333%"></div>
+        <div class="band" style="top:50%"></div>
+        <div class="band" style="top:66.667%"></div>
+        <div class="band" style="top:83.333%"></div>
+        <div class="goal top"></div>
+        <div class="goal bottom"></div>
+        <div class="centre-line"></div>
+
+        <div class="avatar you" style="top: calc(305px - (5 + .5) * 50.833px)">●</div>
+        <div class="avatar opp" style="top: calc(305px - (2 + .5) * 50.833px)">○</div>
+
+        <div class="hud">
+          <div class="poss on"></div>
+          <div class="score">2<span>–</span>1</div>
+          <div class="spacer"></div>
+          <div class="clock"><span>0</span></div>
+          <div class="spacer"></div>
+          <div class="half">Half 1</div>
+        </div>
+      </div>
+
+      <div class="quiz">
+        <div class="meta">ROUND 4 <div class="spacer"></div> <span class="delta">+2 ZONES</span></div>
+        <div class="card">
+          <div class="prompt">Which club has won the most UEFA Champions League titles?</div>
+        </div>
+        <div class="answers">
+          <div class="answer correct"><div class="t">Real Madrid</div><div class="mark">✓</div></div>
+          <div class="answer dim"><div class="t">AC Milan</div><div class="mark">◉</div></div>
+          <div class="answer dim"><div class="t">Bayern Munich</div><div class="mark">◉</div></div>
+          <div class="answer dim"><div class="t">Liverpool</div><div class="mark">◉</div></div>
+        </div>
+      </div>
+      <div class="safe-bottom"></div>
+    </div>
+    <figcaption><b>3 · EN, reveal.</b> Correct is green <i>and</i> carries ✓ — colour is never the
+    only signal. Fastest correct answer: +2 zones, and the avatar has arrived at zone 5.</figcaption>
+  </figure>
+
+  <!-- ======================= 4. SHOOTING CHANCE (AR) ======================== -->
+  <figure class="cell">
+    <div class="device" dir="rtl" lang="ar">
+      <div class="safe-top"></div>
+      <div class="pitch">
+        <div class="band" style="top:0"></div>
+        <div class="band" style="top:16.667%"></div>
+        <div class="band" style="top:33.333%"></div>
+        <div class="band" style="top:50%"></div>
+        <div class="band" style="top:66.667%"></div>
+        <div class="band" style="top:83.333%"></div>
+        <div class="goal top" style="background-color:rgba(255,255,255,.12)"></div>
+        <div class="goal bottom"></div>
+        <div class="centre-line"></div>
+
+        <div class="avatar you" style="top: calc(305px - (5 + .5) * 50.833px)">●</div>
+        <div class="avatar opp" style="top: calc(305px - (4 + .5) * 50.833px)">○</div>
+
+        <div class="hud" style="font-family:'IBM Plex Sans Arabic','Segoe UI',Tahoma,sans-serif">
+          <div class="poss on"></div>
+          <div class="score">2<span>–</span>1</div>
+          <div class="spacer"></div>
+          <div class="clock"><span>5</span></div>
+          <div class="spacer"></div>
+          <div class="half">الشوط 1</div>
+        </div>
+      </div>
+
+      <div class="quiz" style="font-family:'IBM Plex Sans Arabic','Segoe UI',Tahoma,sans-serif">
+        <div class="banner shoot">🎯 فرصة تسديد</div>
+        <div class="card" style="margin-top:8px">
+          <div class="prompt">من سجّل أهدافاً أكثر في كأس العالم؟</div>
+        </div>
+        <div class="answers">
+          <div class="answer"><div class="t">ميروسلاف كلوزه</div><div class="mark">◉</div></div>
+          <div class="answer"><div class="t">رونالدو نازاريو</div><div class="mark">◉</div></div>
+          <div class="answer"><div class="t">متساويان</div><div class="mark">◉</div></div>
+        </div>
+      </div>
+      <div class="safe-bottom"></div>
+    </div>
+    <figcaption><b>4 · AR, Shooting Chance.</b> Five seconds, difficulty 4–5, <b>match clock frozen</b>
+    (stoppage time never punishes the player who earned the shot). Only the shooter can answer.</figcaption>
+  </figure>
+
+</div>
+
+</body>
+</html>

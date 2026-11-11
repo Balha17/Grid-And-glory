@@ -1,0 +1,18 @@
+include: package:flutter_lints/flutter.yaml
+
+analyzer:
+  language:
+    strict-casts: true
+    strict-raw-types: true
+  errors:
+    # A stray `left:` is invisible in English and broken in Arabic. Treat the
+    # directional-padding lint as an error so it cannot be merged.
+    avoid_positional_boolean_parameters: warning
+    use_build_context_synchronously: error
+
+linter:
+  rules:
+    prefer_const_constructors: true
+    prefer_const_declarations: true
+    sort_child_properties_last: true
+    use_super_parameters: true

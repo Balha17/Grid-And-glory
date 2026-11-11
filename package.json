@@ -1,0 +1,34 @@
+{
+  "name": "grid-and-glory",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Grid & Glory \u2014 1v1 cross-language football trivia. Spec, content pipeline, and match engine.",
+  "engines": {
+    "node": ">=22.6"
+  },
+  "scripts": {
+    "test": "node server/test/scoring.test.ts && node server/test/matchmaking.test.ts && node server/test/match.test.ts && node server/test/gateway.test.ts",
+    "demo": "node server/src/demo.ts",
+    "validate:bank": "node db/validate.mjs",
+    "normalize:bank": "node db/normalize.mjs",
+    "shuffle:bank": "node db/shuffle-answers.mjs",
+    "typecheck": "tsc -p tsconfig.json",
+    "verify": "npm run typecheck && npm test && npm run validate:schema && npm run validate:bank && npm run check:app",
+    "validate:schema": "node db/check-schema.mjs",
+    "serve": "node server/src/index.ts",
+    "smoke": "node server/src/smoke.ts",
+    "check:app": "node app/tools/check.mjs",
+    "bench": "node server/src/loadtest.ts --matches=200"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "@types/ws": "^8.18.2",
+    "ajv": "^8.17.1",
+    "ajv-formats": "^3.0.1",
+    "typescript": "^5.9.3"
+  },
+  "dependencies": {
+    "ws": "^8.22.2"
+  }
+}

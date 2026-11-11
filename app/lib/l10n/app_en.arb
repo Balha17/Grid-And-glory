@@ -1,0 +1,42 @@
+{
+  "@@locale": "en",
+  "appTitle": "Grid & Glory",
+  "appSubtitle": "1v1 Football Trivia Battle",
+  "play": "PLAY",
+  "matchHalf": "Half {half}",
+  "@matchHalf": {
+    "placeholders": {
+      "half": {
+        "type": "int"
+      }
+    }
+  },
+  "matchRound": "ROUND {round}",
+  "@matchRound": {
+    "placeholders": {
+      "round": {
+        "type": "String"
+      }
+    }
+  },
+  "opponentAnswered": "Opponent answered",
+  "shootingChance": "SHOOTING CHANCE",
+  "defending": "Defending…",
+  "halfTime": "HALF TIME",
+  "fullTime": "FULL TIME",
+  "rematch": "REMATCH",
+  "searching": "Looking for an opponent…",
+  "searchingWide": "Still looking… widening the search.",
+  "cancel": "Cancel",
+  "offline": "You're offline. Check your connection.",
+  "opponentLeft": "Opponent disconnected — 25 s to return.",
+  "matchVoided": "Match cancelled. No rating change.",
+  "youWin": "You win",
+  "youLose": "You lose",
+  "draw": "Draw",
+  "decidedByGoals": "Decided on goals",
+  "decidedByZone": "Decided on territory",
+  "accuracy": "Accuracy",
+  "opponentFound": "Opponent found",
+  "homeAction": "Home"
+}

@@ -1,0 +1,98 @@
+name: android-apk
+
+# An APK cannot be built in every environment: Flutter publishes no ARM64 Linux SDK, so
+# an aarch64 host cannot run the toolchain at all. This workflow is the portable answer —
+# an x86-64 runner that produces the artifact on every push.
+
+on:
+  workflow_dispatch:
+    inputs:
+      ws_url:
+        description: "WebSocket URL baked into the build"
+        required: false
+        default: "wss://ws.gridandglory.gg/ws"
+  push:
+    branches: [main]
+    paths:
+      - "app/**"
+      - ".github/workflows/android.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  apk:
+    name: Build APK
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+
+      - name: Flutter version
+        run: flutter --version
+
+      # The Android SDK ships with the runner image; this only accepts the licences.
+      - name: Accept Android licences
+        run: yes | flutter doctor --android-licenses || true
+
+      - name: Generate android/ and apply networking fixes
+        working-directory: app
+        run: bash tools/prepare-android.sh
+
+      - name: Dependencies
+        working-directory: app
+        run: flutter pub get
+
+      - name: Generate localisations
+        working-directory: app
+        run: flutter gen-l10n
+
+      # This is the first real compile of this Dart. Warnings are not fatal; errors are,
+      # which is exactly the signal we want on a codebase that has never been built.
+      - name: Analyse
+        working-directory: app
+        run: flutter analyze --no-fatal-infos --no-fatal-warnings
+
+      - name: Build release APK
+        working-directory: app
+        env:
+          WS_URL: ${{ github.event.inputs.ws_url || 'wss://ws.gridandglory.gg/ws' }}
+        run: >
+          flutter build apk --release
+          --dart-define=WS_URL="$WS_URL"
+          --build-name=1.0.0
+          --build-number=${{ github.run_number }}
+
+      - name: Build debug APK (installable without a signing key)
+        working-directory: app
+        env:
+          WS_URL: ${{ github.event.inputs.ws_url || 'wss://ws.gridandglory.gg/ws' }}
+        run: >
+          flutter build apk --debug
+          --dart-define=WS_URL="$WS_URL"
+
+      - name: Upload APKs
+        uses: actions/upload-artifact@v4
+        with:
+          name: grid-and-glory-apk
+          if-no-files-found: error
+          path: |
+            app/build/app/outputs/flutter-apk/app-release.apk
+            app/build/app/outputs/flutter-apk/app-debug.apk
+          retention-days: 14
+
+      # Release builds are signed with the debug key above so the artifact is installable.
+      # For a Play upload, add a keystore and use `flutter build appbundle` instead.

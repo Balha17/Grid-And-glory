@@ -1,0 +1,6 @@
+arb-dir: lib/l10n
+template-arb-file: app_en.arb
+output-localization-file: app_localizations.dart
+output-class: AppLocalizations
+# Keep the default nullable getter (`AppLocalizations.of(context)`) so a missing
+# delegate is a compile-time annoyance rather than a runtime crash in Arabic.

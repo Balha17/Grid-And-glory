@@ -1,0 +1,382 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://gridandglory.gg/schema/question-bank/1.0.0.json",
+  "title": "Grid & Glory Bilingual Question Bank",
+  "description": "Authoring + runtime contract for the EN/AR question bank. One question record = one canonical question with two locale renderings. There is no per-locale question variant by design.",
+
+  "type": "object",
+  "required": ["meta", "catalogs", "questions"],
+  "additionalProperties": false,
+
+  "properties": {
+    "meta": { "$ref": "#/$defs/meta" },
+    "catalogs": { "$ref": "#/$defs/catalogs" },
+    "questions": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/question" }
+    }
+  },
+
+  "$defs": {
+
+    "localeString": {
+      "type": "object",
+      "description": "The atomic bilingual pair. Every player-visible string uses this shape.",
+      "required": ["en", "ar"],
+      "additionalProperties": false,
+      "properties": {
+        "en": { "type": "string", "minLength": 1, "maxLength": 240 },
+        "ar": { "type": "string", "minLength": 1, "maxLength": 240 }
+      }
+    },
+
+    "meta": {
+      "type": "object",
+      "required": ["schemaVersion", "bankId", "locales", "updatedAt"],
+      "additionalProperties": false,
+      "properties": {
+        "schemaVersion": { "const": "1.0.0" },
+        "bankId": { "type": "string", "pattern": "^bank_[a-z0-9_]+$" },
+        "locales": {
+          "type": "array",
+          "const": ["en", "ar"],
+          "description": "Direction is derived per-locale on the client (en=LTR, ar=RTL). Never stored on the question."
+        },
+        "updatedAt": { "type": "string", "format": "date-time" },
+        "notes": { "type": "string" }
+      }
+    },
+
+    "catalogs": {
+      "type": "object",
+      "description": "Shared entities. Club and person names are translated ONCE here and referenced by id, so Arabic club naming cannot drift between questions.",
+      "required": ["clubs", "people", "nations", "assets", "competitions"],
+      "additionalProperties": false,
+      "properties": {
+        "clubs": { "type": "array", "items": { "$ref": "#/$defs/club" } },
+        "people": { "type": "array", "items": { "$ref": "#/$defs/person" } },
+        "nations": { "type": "array", "items": { "$ref": "#/$defs/nation" } },
+        "assets": { "type": "array", "items": { "$ref": "#/$defs/asset" } },
+        "competitions": { "type": "array", "items": { "$ref": "#/$defs/competition" } }
+      }
+    },
+
+    "club": {
+      "type": "object",
+      "required": ["id", "en", "ar"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "type": "string", "pattern": "^c_[a-z0-9_]+$" },
+        "en": { "type": "string", "minLength": 1 },
+        "ar": { "type": "string", "minLength": 1 },
+        "countryCode": { "type": "string", "pattern": "^[A-Z]{2}$" },
+        "crestAssetId": { "type": "string", "pattern": "^a_[a-z0-9_]+$" }
+      }
+    },
+
+    "person": {
+      "type": "object",
+      "required": ["id", "en", "ar"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "type": "string", "pattern": "^p_[a-z0-9_]+$" },
+        "en": { "type": "string", "minLength": 1 },
+        "ar": { "type": "string", "minLength": 1 },
+        "countryCode": { "type": "string", "pattern": "^[A-Z]{2}$" },
+        "photoAssetId": { "type": "string", "pattern": "^a_[a-z0-9_]+$" }
+      }
+    },
+
+    "nation": {
+      "type": "object",
+      "description": "National teams are entities in their own right — a stat question can compare two federations, not two people.",
+      "required": ["id", "en", "ar", "countryCode"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "type": "string", "pattern": "^n_[a-z0-9_]+$" },
+        "en": { "type": "string", "minLength": 1 },
+        "ar": { "type": "string", "minLength": 1 },
+        "countryCode": { "type": "string", "pattern": "^[A-Z]{2}$" }
+      }
+    },
+
+    "asset": {
+      "type": "object",
+      "required": ["id", "kind", "uri", "textFree", "alt"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "type": "string", "pattern": "^a_[a-z0-9_]+$" },
+        "kind": { "enum": ["image", "crest", "trophy", "stadium", "flag", "silhouette"] },
+        "uri": { "type": "string", "minLength": 1 },
+        "textFree": {
+          "type": "boolean",
+          "description": "MUST be true for any asset used by blur_reveal. An image containing a name hands that locale a free hint."
+        },
+        "alt": {
+          "description": "Screen-reader description. Required: blur_reveal questions are unanswerable without it for a low-vision player.",
+          "$ref": "#/$defs/localeString"
+        },
+        "credit": { "type": "string" },
+        "licensedUntil": { "type": "string", "format": "date" }
+      }
+    },
+
+    "competition": {
+      "type": "object",
+      "required": ["id", "en", "ar"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "type": "string", "pattern": "^[A-Z0-9_]+$" },
+        "en": { "type": "string", "minLength": 1 },
+        "ar": { "type": "string", "minLength": 1 }
+      }
+    },
+
+    "option": {
+      "type": "object",
+      "required": ["id", "en", "ar"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "type": "string", "pattern": "^opt_[a-z0-9_]+$" },
+        "en": { "type": "string", "minLength": 1, "maxLength": 80 },
+        "ar": { "type": "string", "minLength": 1, "maxLength": 80 }
+      }
+    },
+
+    "question": {
+      "type": "object",
+      "required": [
+        "id", "schemaVersion", "format", "difficulty", "region", "competitions",
+        "tags", "era", "prompt", "options", "answerOptionId", "explainer",
+        "localization", "authoring"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^q_(mc|career|emoji|blur|stat)_[a-z0-9_]+$",
+          "description": "Prefix encodes format for at-a-glance log triage."
+        },
+        "schemaVersion": { "const": "1.0.0" },
+        "format": {
+          "enum": ["mc", "career_path", "emoji_story", "blur_reveal", "stat_highlow"]
+        },
+        "difficulty": { "type": "integer", "minimum": 1, "maximum": 5 },
+        "region": {
+          "enum": ["GLOBAL", "MENA", "AFRICA", "EUROPE", "SOUTH_AMERICA", "ASIA", "NORTH_AMERICA"]
+        },
+        "bridge": {
+          "type": "boolean",
+          "default": false,
+          "description": "REGIONAL_BRIDGE: a global figure with MENA relevance (or vice versa). Counts toward the MENA quota."
+        },
+        "competitions": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 4,
+          "items": { "type": "string", "pattern": "^[A-Z0-9_]+$" }
+        },
+        "tags": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 8,
+          "items": { "type": "string", "pattern": "^[a-z0-9-]+$" }
+        },
+        "era": {
+          "enum": ["PRE_1990", "1990s", "2000s", "2010s", "2020s", "ALL_TIME"]
+        },
+        "prompt": { "$ref": "#/$defs/localeString" },
+        "options": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 6,
+          "items": { "$ref": "#/$defs/option" }
+        },
+        "answerOptionId": {
+          "type": "string",
+          "pattern": "^opt_[a-z0-9_]+$",
+          "description": "Stable option id — NEVER an index. Option order is shuffled per player, so an index would be wrong for one of the two players."
+        },
+        "explainer": {
+          "$ref": "#/$defs/localeString",
+          "description": "Shown during REVEAL. The learning moment; also the anti-frustration valve."
+        },
+        "formatData": {
+          "description": "Format-specific payload. Required for every format except mc.",
+          "oneOf": [
+            { "$ref": "#/$defs/dataCareerPath" },
+            { "$ref": "#/$defs/dataEmojiStory" },
+            { "$ref": "#/$defs/dataBlurReveal" },
+            { "$ref": "#/$defs/dataStatHighLow" }
+          ]
+        },
+        "media": {
+          "type": "array",
+          "maxItems": 2,
+          "items": {
+            "type": "object",
+            "required": ["assetId", "role"],
+            "additionalProperties": false,
+            "properties": {
+              "assetId": { "type": "string", "pattern": "^a_[a-z0-9_]+$" },
+              "role": { "enum": ["reveal", "crest", "photo", "background"] }
+            }
+          }
+        },
+        "localization": {
+          "type": "object",
+          "required": ["enChars", "arChars", "parityRatio", "verifiedBy"],
+          "additionalProperties": false,
+          "properties": {
+            "enChars": { "type": "integer", "minimum": 1 },
+            "arChars": { "type": "integer", "minimum": 1 },
+            "parityRatio": { "type": "number", "minimum": 0, "maximum": 5 },
+            "verifiedBy": {
+              "type": "string",
+              "minLength": 2,
+              "description": "Arabic linguist sign-off id. Publishing is blocked without it."
+            }
+          }
+        },
+        "stats": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "dataAsOf": {
+              "type": "string",
+              "format": "date",
+              "description": "Required for any countable fact (stat_highlow). Prevents a transfer or a new title from silently making the bank wrong."
+            },
+            "globalCorrectRate": { "type": "number", "minimum": 0, "maximum": 1 },
+            "timesServed": { "type": "integer", "minimum": 0 }
+          }
+        },
+        "authoring": {
+          "type": "object",
+          "required": ["status", "version", "updatedAt"],
+          "additionalProperties": false,
+          "properties": {
+            "status": { "enum": ["draft", "in_review", "published", "retired"] },
+            "version": { "type": "integer", "minimum": 1 },
+            "author": { "type": "string" },
+            "reviewedBy": { "type": "string" },
+            "updatedAt": { "type": "string", "format": "date-time" }
+          }
+        }
+      },
+
+      "allOf": [
+        {
+          "if": { "properties": { "format": { "const": "mc" } }, "required": ["format"] },
+          "then": { "properties": { "formatData": false } }
+        },
+        {
+          "if": { "properties": { "format": { "const": "career_path" } }, "required": ["format"] },
+          "then": { "required": ["formatData"], "properties": { "formatData": { "$ref": "#/$defs/dataCareerPath" } } }
+        },
+        {
+          "if": { "properties": { "format": { "const": "emoji_story" } }, "required": ["format"] },
+          "then": { "required": ["formatData"], "properties": { "formatData": { "$ref": "#/$defs/dataEmojiStory" } } }
+        },
+        {
+          "if": { "properties": { "format": { "const": "blur_reveal" } }, "required": ["format"] },
+          "then": {
+            "required": ["formatData", "media"],
+            "properties": {
+              "formatData": { "$ref": "#/$defs/dataBlurReveal" },
+              "media": { "type": "array", "minItems": 1, "contains": { "type": "object", "properties": { "role": { "const": "reveal" } }, "required": ["role"] } }
+            }
+          }
+        },
+        {
+          "if": { "properties": { "format": { "const": "stat_highlow" } }, "required": ["format"] },
+          "then": {
+            "required": ["formatData", "stats"],
+            "properties": {
+              "formatData": { "$ref": "#/$defs/dataStatHighLow" },
+              "stats": {
+                "type": "object",
+                "required": ["dataAsOf"],
+                "properties": {
+                  "dataAsOf": { "type": "string", "format": "date" }
+                },
+                "description": "A countable fact must carry the date it was verified, or a transfer silently makes the bank wrong."
+              }
+            }
+          }
+        }
+      ]
+    },
+
+    "dataCareerPath": {
+      "type": "object",
+      "required": ["clubIds", "order"],
+      "additionalProperties": false,
+      "properties": {
+        "clubIds": {
+          "type": "array",
+          "minItems": 3,
+          "maxItems": 7,
+          "items": { "type": "string", "pattern": "^c_[a-z0-9_]+$" },
+          "description": "Chronological. Revealed one-by-one during the question window in the player's locale."
+        },
+        "order": { "const": "chronological" },
+        "showYears": { "type": "boolean", "default": false }
+      }
+    },
+
+    "dataEmojiStory": {
+      "type": "object",
+      "required": ["emoji", "revealMode"],
+      "additionalProperties": false,
+      "properties": {
+        "emoji": {
+          "type": "string",
+          "minLength": 3,
+          "maxLength": 120,
+          "pattern": "^\\u2066.*\\u2069$",
+          "description": "MUST be wrapped in U+2066 (LRI) … U+2069 (PDI). Without isolation, an Arabic (RTL) UI renders the sequence mirrored, and the clue means something different to the two players."
+        },
+        "revealMode": { "enum": ["all_at_once", "sequential"] },
+        "emojiIntervalMs": { "type": "integer", "minimum": 100, "maximum": 1200 },
+        "subject": { "enum": ["player", "club", "event", "trophy"] }
+      }
+    },
+
+    "dataBlurReveal": {
+      "type": "object",
+      "required": ["revealMs", "initialBlurSigma"],
+      "additionalProperties": false,
+      "properties": {
+        "revealMs": { "type": "integer", "minimum": 2000, "maximum": 8000 },
+        "initialBlurSigma": { "type": "number", "minimum": 4, "maximum": 40 },
+        "finalBlurSigma": { "type": "number", "minimum": 0, "maximum": 2, "default": 0 },
+        "curve": { "enum": ["linear", "easeOut", "stepwise"], "default": "easeOut" }
+      }
+    },
+
+    "dataStatHighLow": {
+      "type": "object",
+      "required": ["statLabel", "entityA", "entityB", "values", "direction", "unit"],
+      "additionalProperties": false,
+      "properties": {
+        "statLabel": { "$ref": "#/$defs/localeString" },
+        "entityA": { "type": "string", "pattern": "^(p|c|n)_[a-z0-9_]+$" },
+        "entityB": { "type": "string", "pattern": "^(p|c|n)_[a-z0-9_]+$" },
+        "values": {
+          "type": "object",
+          "required": ["A", "B"],
+          "additionalProperties": false,
+          "properties": {
+            "A": { "type": "number" },
+            "B": { "type": "number" }
+          },
+          "description": "Shown only at reveal. Never sent with the question."
+        },
+        "direction": { "enum": ["higher", "lower"] },
+        "unit": { "$ref": "#/$defs/localeString" }
+      }
+    }
+  }
+}
