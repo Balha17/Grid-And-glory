@@ -717,9 +717,9 @@ func _build_hud() -> void:
 	home_layer.add_child(outer)
 	var menu := VBoxContainer.new()
 	menu.alignment = BoxContainer.ALIGNMENT_CENTER
-	menu.add_theme_constant_override("separation", 13)
+	menu.add_theme_constant_override("separation", 18)
 	var menu_card := PanelContainer.new()
-	menu_card.custom_minimum_size = Vector2(0, 700)
+	menu_card.custom_minimum_size = Vector2(0, 0)
 	menu_card.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	menu_card.add_theme_stylebox_override("panel", _panel_style(Color(0.006,0.022,0.052,0.78), Color(0.18,0.48,0.82,0.62), 2))
 	outer.add_child(menu_card)
@@ -729,14 +729,14 @@ func _build_hud() -> void:
 	logo.texture = load("res://assets/grid_glory_icon.svg")
 	logo.expand_mode = TextureRect.EXPAND_FIT_WIDTH_PROPORTIONAL
 	logo.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-	logo.custom_minimum_size = Vector2(0, 158)
+	logo.custom_minimum_size = Vector2(0, 112)
 	menu.add_child(logo)
 
 	menu_title = Label.new()
 	menu_title.text = "GRID & GLORY"
 	menu_title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	menu_title.add_theme_color_override("font_color", Color(1.0,0.78,0.30))
-	menu_title.add_theme_font_size_override("font_size", 42)
+	menu_title.add_theme_font_size_override("font_size", 36)
 	menu_title.add_theme_color_override("font_shadow_color", Color(0,0,0,0.9))
 	menu_title.add_theme_constant_override("shadow_offset_x", 2)
 	menu_title.add_theme_constant_override("shadow_offset_y", 3)
@@ -746,7 +746,7 @@ func _build_hud() -> void:
 	menu_subtitle.text = "THE ULTIMATE FOOTBALL QUIZ BATTLE"
 	menu_subtitle.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	menu_subtitle.add_theme_color_override("font_color", Color(0.73,0.86,1.0))
-	menu_subtitle.add_theme_font_size_override("font_size", 16)
+	menu_subtitle.add_theme_font_size_override("font_size", 14)
 	menu.add_child(menu_subtitle)
 
 	var feature := PanelContainer.new()
@@ -756,7 +756,7 @@ func _build_hud() -> void:
 	menu_feature_label.text = "⚽  1v1 FOOTBALL TRIVIA  •  RISE TO LEGEND"
 	menu_feature_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	menu_feature_label.add_theme_color_override("font_color", Color(1.0,0.88,0.58))
-	menu_feature_label.add_theme_font_size_override("font_size", 14)
+	menu_feature_label.add_theme_font_size_override("font_size", 13)
 	feature.add_child(menu_feature_label)
 	result_banner = PanelContainer.new()
 	result_banner.add_theme_stylebox_override("panel", _panel_style(Color(0.11,0.075,0.018,0.97), Color(1.0,0.73,0.20), 3))
@@ -769,11 +769,11 @@ func _build_hud() -> void:
 	result_banner_label.add_theme_font_size_override("font_size", 20)
 	result_banner.add_child(result_banner_label)
 
-	home_primary_button = _make_button("▶  PLAY ONLINE", Color(0.045,0.48,0.20), Color(0.28,1.0,0.49), 62)
+	home_primary_button = _make_button("▶  PLAY ONLINE", Color(0.045,0.48,0.20), Color(0.28,1.0,0.49), 58)
 	home_primary_button.add_theme_color_override("font_color", Color(0.10,0.08,0.04))
 	home_primary_button.pressed.connect(_on_menu_primary)
 	menu.add_child(home_primary_button)
-	home_secondary_button = _make_button("⚔  PLAY VS AI", Color(0.025,0.19,0.42), Color(0.22,0.62,1.0), 56)
+	home_secondary_button = _make_button("⚔  PLAY VS AI", Color(0.025,0.19,0.42), Color(0.22,0.62,1.0), 54)
 	home_secondary_button.pressed.connect(_on_menu_secondary)
 	menu.add_child(home_secondary_button)
 
@@ -781,7 +781,7 @@ func _build_hud() -> void:
 	settings_row.alignment = BoxContainer.ALIGNMENT_CENTER
 	settings_row.add_theme_constant_override("separation", 12)
 	menu.add_child(settings_row)
-	home_sound_button = _make_button("SOUND ON  ♪", Color(0.08,0.13,0.25), Color(0.28,0.52,0.82), 50)
+	home_sound_button = _make_button("SOUND ON  ♪", Color(0.08,0.13,0.25), Color(0.28,0.52,0.82), 46)
 	home_sound_button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	home_sound_button.pressed.connect(_toggle_sound)
 	settings_row.add_child(home_sound_button)
