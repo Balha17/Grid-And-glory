@@ -558,28 +558,33 @@ func _build_hud() -> void:
 
 	var outer := MarginContainer.new()
 	outer.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	outer.add_theme_constant_override("margin_left", 24)
-	outer.add_theme_constant_override("margin_right", 24)
+	outer.add_theme_constant_override("margin_left", 16)
+	outer.add_theme_constant_override("margin_right", 16)
 	outer.add_theme_constant_override("margin_top", 24)
 	outer.add_theme_constant_override("margin_bottom", 24)
 	home_layer.add_child(outer)
 	var menu := VBoxContainer.new()
 	menu.alignment = BoxContainer.ALIGNMENT_CENTER
-	menu.add_theme_constant_override("separation", 19)
-	outer.add_child(menu)
+	menu.add_theme_constant_override("separation", 13)
+	var menu_card := PanelContainer.new()
+	menu_card.custom_minimum_size = Vector2(0, 700)
+	menu_card.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+	menu_card.add_theme_stylebox_override("panel", _panel_style(Color(0.006,0.022,0.052,0.78), Color(0.18,0.48,0.82,0.62), 2))
+	outer.add_child(menu_card)
+	menu_card.add_child(menu)
 
 	var logo := TextureRect.new()
 	logo.texture = load("res://assets/grid_glory_icon.svg")
 	logo.expand_mode = TextureRect.EXPAND_FIT_WIDTH_PROPORTIONAL
 	logo.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-	logo.custom_minimum_size = Vector2(0, 148)
+	logo.custom_minimum_size = Vector2(0, 158)
 	menu.add_child(logo)
 
 	menu_title = Label.new()
 	menu_title.text = "GRID & GLORY"
 	menu_title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	menu_title.add_theme_color_override("font_color", Color(1.0,0.78,0.30))
-	menu_title.add_theme_font_size_override("font_size", 38)
+	menu_title.add_theme_font_size_override("font_size", 42)
 	menu_title.add_theme_color_override("font_shadow_color", Color(0,0,0,0.9))
 	menu_title.add_theme_constant_override("shadow_offset_x", 2)
 	menu_title.add_theme_constant_override("shadow_offset_y", 3)
@@ -612,11 +617,11 @@ func _build_hud() -> void:
 	result_banner_label.add_theme_font_size_override("font_size", 20)
 	result_banner.add_child(result_banner_label)
 
-	home_primary_button = _make_button("PLAY ONLINE", Color(0.95,0.57,0.08), Color(1.0,0.83,0.30), 70)
+	home_primary_button = _make_button("▶  PLAY ONLINE", Color(0.045,0.48,0.20), Color(0.28,1.0,0.49), 62)
 	home_primary_button.add_theme_color_override("font_color", Color(0.10,0.08,0.04))
 	home_primary_button.pressed.connect(_on_menu_primary)
 	menu.add_child(home_primary_button)
-	home_secondary_button = _make_button("PLAY VS AI", Color(0.035,0.27,0.65), Color(0.23,0.66,1.0), 62)
+	home_secondary_button = _make_button("⚔  PLAY VS AI", Color(0.025,0.19,0.42), Color(0.22,0.62,1.0), 56)
 	home_secondary_button.pressed.connect(_on_menu_secondary)
 	menu.add_child(home_secondary_button)
 
