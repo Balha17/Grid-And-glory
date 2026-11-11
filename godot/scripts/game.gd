@@ -554,7 +554,7 @@ func _build_hud() -> void:
 	bottom.offset_right = 0
 	bottom.offset_top = 0
 	bottom.offset_bottom = 0
-	bottom.add_theme_stylebox_override("panel", _panel_style(Color(0.012,0.035,0.085,0.98), Color(0.20,0.57,0.94), 3))
+	bottom.add_theme_stylebox_override("panel", _panel_style(Color(0.008,0.025,0.065,0.99), Color(0.92,0.68,0.24), 3))
 	match_layer.add_child(bottom)
 	var margin := MarginContainer.new()
 	margin.add_theme_constant_override("margin_left", 14)
@@ -573,7 +573,7 @@ func _build_hud() -> void:
 	content.add_child(pitch_status)
 	question_meta_label = Label.new()
 	question_meta_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	question_meta_label.add_theme_color_override("font_color", Color(1.0,0.76,0.28))
+	question_meta_label.add_theme_color_override("font_color", Color(1.0,0.79,0.34))
 	question_meta_label.add_theme_font_size_override("font_size", 12)
 	content.add_child(question_meta_label)
 	question_label = Label.new()
@@ -582,9 +582,9 @@ func _build_hud() -> void:
 	question_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	question_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 	question_label.size_flags_vertical = Control.SIZE_SHRINK_CENTER
-	question_label.custom_minimum_size = Vector2(0, 48)
+	question_label.custom_minimum_size = Vector2(0, 68)
 	question_label.add_theme_color_override("font_color", Color(0.98,0.98,1.0))
-	question_label.add_theme_font_size_override("font_size", 18)
+	question_label.add_theme_font_size_override("font_size", 21)
 	content.add_child(question_label)
 	clue_label = Label.new()
 	clue_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
@@ -1205,7 +1205,7 @@ func _show_question(view: Dictionary) -> void:
 	clue_label.add_theme_color_override("font_color", Color(1.0,0.82,0.35))
 	var difficulty := int(view.get("difficulty", 1))
 	var difficulty_stars := "★".repeat(clampi(difficulty, 1, 5))
-	question_meta_label.text = _tr("FOOTBALL CHALLENGE", "تحدي كرة القدم") + "   •   " + difficulty_stars
+	question_meta_label.text = _tr("THE MILLION-POINT CHALLENGE", "تحدي المليون") + "   •   " + _tr("LEVEL ", "المستوى ") + str(difficulty) + "/5"
 	var image_path := str(view.get("imagePath", "")).strip_edges()
 	if image_path.is_empty():
 		var media_items: Array = view.get("media", [])
@@ -1289,9 +1289,9 @@ func _show_question(view: Dictionary) -> void:
 	for index in range(current_options.size()):
 		var option: Dictionary = current_options[index]
 		var letter: String = ["A", "B", "C", "D", "E", "F"][index % 6]
-		var b := _make_button(letter + "   " + str(option.get("text", "")), Color(0.025,0.105,0.22), Color(0.18,0.48,0.78), 50)
-		b.add_theme_font_size_override("font_size", 15)
-		b.alignment = HORIZONTAL_ALIGNMENT_CENTER
+		var b := _make_button(letter + "     " + str(option.get("text", "")), Color(0.018,0.075,0.16), Color(0.82,0.61,0.25), 56)
+		b.add_theme_font_size_override("font_size", 16)
+		b.alignment = HORIZONTAL_ALIGNMENT_LEFT
 		b.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		b.text_direction = Control.TEXT_DIRECTION_AUTO
 		var option_id := str(option.get("id", ""))
