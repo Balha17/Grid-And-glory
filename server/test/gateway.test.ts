@@ -137,6 +137,50 @@ test("an English player and an Arabic player are matched and told about each oth
   assert.equal(b.has("match.start"), true);
 });
 
+test("an unmatched online player receives an AI opponent after 15 seconds", () => {
+  const h = build();
+  const a = h.connect("c-ai-fallback");
+  h.hello(a, "en", "EU", "dev-ai-fallback");
+  h.join(a);
+
+  h.clock.now += 15_000;
+  h.gateway.tick(h.clock.now);
+
+  const found = a.last("match.found");
+  assert.ok(found, "the waiting player is moved into a match");
+  const payload = found!.payload as { isBot: boolean; opponent: { displayName: string } };
+  assert.equal(payload.isBot, true);
+  assert.equal(payload.opponent.displayName, "AI Rookie");
+  assert.equal(h.gateway.stats().queued, 0);
+  assert.equal(h.gateway.stats().liveMatches, 1);
+});
+
+test("explicit AI mode starts immediately and the bot answers through MatchRoom", () => {
+  const h = build();
+  const a = h.connect("c-ai-direct");
+  h.hello(a, "ar", "MENA", "dev-ai-direct");
+  h.gateway.handleFrame(a, frame("bot.join", {}));
+
+  const found = a.last("match.found");
+  assert.ok(found, "AI mode starts without waiting for matchmaking");
+  assert.equal((found!.payload as { isBot: boolean }).isBot, true);
+  assert.equal(a.has("match.start"), true);
+
+  h.clock.now += 1_100;
+  h.gateway.tick(h.clock.now);
+  const question = a.last("round.question");
+  assert.ok(question, "the human receives a normal server-rendered question");
+  assert.equal(
+    JSON.stringify(question!.payload).includes("answerOptionId"),
+    false,
+    "the answer key is never sent to the client",
+  );
+
+  h.clock.now += 3_000;
+  h.gateway.tick(h.clock.now);
+  assert.equal(a.has("round.opponent_answered"), true, "the server-controlled bot submits an answer");
+});
+
 test("a queued player who disconnects is removed from the queue, not left as a ghost", () => {
   const h = build();
   const a = h.connect("c1");
