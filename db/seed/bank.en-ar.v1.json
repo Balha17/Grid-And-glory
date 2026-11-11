@@ -7315,7 +7315,7 @@
         {
           "id": "opt_ucl2023goal_1",
           "en": "İlkay Gündoğan",
-          "ar": "إيلكاي غوندوغان"
+          "ar": "إلكاي غوندوغان"
         },
         {
           "id": "opt_ucl2023goal_3",
@@ -7335,8 +7335,8 @@
       },
       "localization": {
         "enChars": 141,
-        "arChars": 123,
-        "parityRatio": 0.872,
+        "arChars": 122,
+        "parityRatio": 0.865,
         "verifiedBy": "auto-check-pending-editor"
       },
       "authoring": {
@@ -7860,7 +7860,7 @@
         {
           "id": "opt_afcon2017goal_3",
           "en": "Nicolas Nkoulou",
-          "ar": "نيكولاس نكولو"
+          "ar": "نيكولا نكولو"
         },
         {
           "id": "opt_afcon2017goal_1",
@@ -7875,8 +7875,8 @@
       },
       "localization": {
         "enChars": 148,
-        "arChars": 123,
-        "parityRatio": 0.831,
+        "arChars": 122,
+        "parityRatio": 0.824,
         "verifiedBy": "auto-check-pending-editor"
       },
       "authoring": {
@@ -7975,7 +7975,7 @@
         {
           "id": "opt_afcon2023goal_2",
           "en": "Nicolas Pépé",
-          "ar": "نيكولاس بيبي"
+          "ar": "نيكولا بيبي"
         },
         {
           "id": "opt_afcon2023goal_0",
@@ -7995,8 +7995,8 @@
       },
       "localization": {
         "enChars": 132,
-        "arChars": 108,
-        "parityRatio": 0.818,
+        "arChars": 107,
+        "parityRatio": 0.811,
         "verifiedBy": "auto-check-pending-editor"
       },
       "authoring": {
