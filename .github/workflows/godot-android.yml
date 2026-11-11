@@ -76,5 +76,5 @@ jobs:
         with:
           name: grid-and-glory-godot4-apk
           if-no-files-found: error
-          path: build/godot/grid-and-glory-debug.apk
+          path: godot/build/godot/grid-and-glory-debug.apk
           retention-days: 14
