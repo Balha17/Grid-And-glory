@@ -95,6 +95,7 @@ export class MatchRoom {
   private roundNo = 0;
   private currentWindowMs: number = MATCH.ANSWER_WINDOW_MS;
   private pendingDoc: QuestionDoc | null = null;
+  private pendingViews: Record<PlayerId, QuestionView> = {} as Record<PlayerId, QuestionView>;
   private live: LiveQuestion | null = null;
   private cooldownUntil = 0;
   private readonly usedQuestionIds = new Set<string>();
@@ -294,13 +295,22 @@ export class MatchRoom {
     this.pendingDoc = this.drawQuestion(
       DIFFICULTY_CURVE[Math.min(this.roundNo, DIFFICULTY_CURVE.length - 1)],
     );
+    this.pendingViews = {} as Record<PlayerId, QuestionView>;
+    for (const id of this.order) {
+      this.pendingViews[id] = renderQuestion(this.pendingDoc, this.players[id].locale, {
+        catalog: this.catalog,
+        assetUrl: this.assetUrl,
+        seed: `${this.matchId}:${this.roundNo}:${id}`,
+      });
+    }
 
-    this.emitBoth(out, "round.intro", () => ({
+    this.emitBoth(out, "round.intro", (id) => ({
       roundNo: this.roundNo,
       half: this.half,
       halfRemainingMs: this.halfRemainingMs,
       windowMs: this.currentWindowMs,
       serverNow: now,
+      view: this.pendingViews[id],
     }));
 
     const assetId = this.pendingDoc.media?.[0]?.assetId;
@@ -327,7 +337,7 @@ export class MatchRoom {
     };
 
     for (const id of this.order) {
-      live.views[id] = renderQuestion(doc, this.players[id].locale, {
+      live.views[id] = this.pendingViews[id] ?? renderQuestion(doc, this.players[id].locale, {
         catalog: this.catalog,
         assetUrl: this.assetUrl,
         seed: `${this.matchId}:${this.roundNo}:${id}`,
@@ -341,6 +351,7 @@ export class MatchRoom {
       });
     }
 
+    this.pendingViews = {} as Record<PlayerId, QuestionView>;
     this.live = live;
     this.phase = "question_open";
     this.phaseEndsAt = windowEndsAt;
