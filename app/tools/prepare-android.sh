@@ -56,6 +56,44 @@ for locale, name in [("values", "Grid &amp; Glory"), ("values-ar", "التحدي
         encoding="utf-8",
     )
 
+# Branded Android 12+ launch screen. This is generated on every clean CI build.
+drawable_dir = res_dir / "drawable"
+drawable_dir.mkdir(parents=True, exist_ok=True)
+(drawable_dir / "gg_splash_icon.xml").write_text(
+    '<?xml version="1.0" encoding="utf-8"?>\n'
+    '<vector xmlns:android="http://schemas.android.com/apk/res/android" '
+    'android:width="108dp" android:height="108dp" android:viewportWidth="108" '
+    'android:viewportHeight="108">\n'
+    '  <path android:fillColor="#FFC24B" android:pathData="M54,5 L94,20 L88,63 '
+    'Q82,88 54,102 Q26,88 20,63 L14,20 Z"/>\n'
+    '  <path android:fillColor="#10233A" android:pathData="M54,15 L83,26 L79,61 '
+    'Q74,80 54,91 Q34,80 29,61 L25,26 Z"/>\n'
+    '  <path android:strokeColor="#75D6B0" android:strokeWidth="3" '
+    'android:fillColor="#00000000" android:pathData="M38,36 L70,36 L70,68 '
+    'L38,68 Z M54,36 L54,68 M38,52 L70,52"/>\n'
+    '  <path android:fillColor="#FFC24B" android:pathData="M54,43 '
+    'A9,9 0,1 0,54.1 43 Z"/>\n'
+    '</vector>\n',
+    encoding="utf-8",
+)
+v31 = res_dir / "values-v31"
+v31.mkdir(parents=True, exist_ok=True)
+(v31 / "styles.xml").write_text(
+    '<?xml version="1.0" encoding="utf-8"?>\n'
+    '<resources>\n'
+    '  <style name="LaunchTheme" parent="@android:style/Theme.SplashScreen">\n'
+    '    <item name="android:windowSplashScreenBackground">#0B1220</item>\n'
+    '    <item name="android:windowSplashScreenAnimatedIcon">@drawable/gg_splash_icon</item>\n'
+    '    <item name="android:windowSplashScreenIconBackgroundColor">#172B40</item>\n'
+    '    <item name="postSplashScreenTheme">@style/NormalTheme</item>\n'
+    '  </style>\n'
+    '  <style name="NormalTheme" parent="@android:style/Theme.Light.NoTitleBar">\n'
+    '    <item name="android:windowBackground">?android:colorBackground</item>\n'
+    '  </style>\n'
+    '</resources>\n',
+    encoding="utf-8",
+)
+
 main_dir = app_dir / "android" / "app" / "src" / "main"
 for src in list(main_dir.rglob("MainActivity.kt")) + list(main_dir.rglob("MainActivity.java")):
     rel = src.relative_to(main_dir)
