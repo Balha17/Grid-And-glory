@@ -3,6 +3,7 @@ import 'dart:math' as math;
 import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import '../../core/l10n/bidi.dart';
 import '../../core/theme/tokens.dart';
@@ -234,6 +235,11 @@ class _TimerChipState extends State<_TimerChip> {
         return;
       }
       setState(() => _seconds -= 1);
+      // Audible final-five-second ticks and stronger haptics near the deadline.
+      if (_seconds <= 5 && _seconds > 0) {
+        SystemSound.play(_seconds <= 3 ? SystemSoundType.alert : SystemSoundType.click);
+      }
+      if (_seconds <= 3 && _seconds > 0) HapticFeedback.mediumImpact();
     });
   }
 
@@ -448,10 +454,37 @@ class _QuizPanel extends StatelessWidget {
                 label: option.text,
                 locale: locale,
                 state: _visualStateFor(option.id),
-                onPressed: () => onAnswer(option.id),
+                onPressed: () {
+                  SystemSound.play(SystemSoundType.click);
+                  HapticFeedback.selectionClick();
+                  onAnswer(option.id);
+                },
               ),
             ),
           ),
+          if (state.phase == 'reveal' && state.explainer.isNotEmpty)
+            AnimatedContainer(
+              duration: const Duration(milliseconds: 250),
+              padding: const EdgeInsetsDirectional.all(AppSpacing.md),
+              decoration: BoxDecoration(
+                color: AppColors.correct.withValues(alpha: 0.10),
+                borderRadius: const BorderRadius.all(AppRadii.md),
+                border: Border.all(color: AppColors.correct.withValues(alpha: 0.65)),
+              ),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Icon(Icons.lightbulb_outline, color: AppColors.correct, size: 19),
+                  const SizedBox(width: AppSpacing.sm),
+                  Expanded(
+                    child: Text(
+                      state.explainer,
+                      style: AppType.label(locale).copyWith(color: AppColors.textPrimary),
+                    ),
+                  ),
+                ],
+              ),
+            ),
         ],
       ),
     );
