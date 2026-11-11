@@ -119,41 +119,95 @@ class _PitchPainter extends CustomPainter {
 
   void _paintGrass(Canvas canvas, Size size) {
     final band = size.height / PitchViewport.zoneCount;
-    final paint = Paint();
-    for (var i = 0; i < PitchViewport.zoneCount; i++) {
-      paint.color = i.isEven ? AppColors.grassA : AppColors.grassB;
-      canvas.drawRect(Rect.fromLTWH(0, i * band, size.width, band), paint);
+    final grass = Paint();
+    // A broadcast-style natural pitch: alternating mowing lanes are subtle, not six
+    // oversized blocks competing with the players and the question.
+    for (var i = 0; i < PitchViewport.zoneCount * 2; i++) {
+      grass.color = i.isEven
+          ? AppColors.grassA.withValues(alpha: 0.94)
+          : AppColors.grassB.withValues(alpha: 0.94);
+      canvas.drawRect(
+        Rect.fromLTWH(0, i * size.height / 12, size.width, size.height / 12 + 0.5),
+        grass,
+      );
     }
 
-    // Thin centre line, no zone numbers during play — they are noise at speed.
-    final centreLine = Paint()
-      ..color = Colors.white.withValues(alpha: 0.07)
-      ..strokeWidth = 1;
-    canvas.drawLine(
-      Offset(size.width / 2, 0),
-      Offset(size.width / 2, size.height),
-      centreLine,
+    final line = Paint()
+      ..color = Colors.white.withValues(alpha: goalFlash ? 0.48 : 0.34)
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 1.35;
+
+    // Touchlines and goal lines.
+    canvas.drawRect(
+      Rect.fromLTWH(7, 7, size.width - 14, size.height - 14),
+      line,
     );
+    // Halfway line and centre circle, correctly oriented for an attacking-up pitch.
+    canvas.drawLine(
+      Offset(7, size.height / 2),
+      Offset(size.width - 7, size.height / 2),
+      line,
+    );
+    canvas.drawCircle(
+      Offset(size.width / 2, size.height / 2),
+      size.width * 0.115,
+      line,
+    );
+    canvas.drawCircle(
+      Offset(size.width / 2, size.height / 2),
+      2.2,
+      Paint()..color = Colors.white.withValues(alpha: 0.55),
+    );
+
+    // Penalty areas and six-yard boxes at both ends.
+    final boxWidth = size.width * 0.58;
+    final sixWidth = size.width * 0.30;
+    final boxDepth = size.height * 0.145;
+    final sixDepth = size.height * 0.065;
+    for (final top in [true, false]) {
+      final y = top ? 7.0 : size.height - 7 - boxDepth;
+      canvas.drawRect(Rect.fromLTWH((size.width - boxWidth) / 2, y, boxWidth, boxDepth), line);
+      final sixY = top ? 7.0 : size.height - 7 - sixDepth;
+      canvas.drawRect(Rect.fromLTWH((size.width - sixWidth) / 2, sixY, sixWidth, sixDepth), line);
+      final spotY = top ? 7 + boxDepth * 0.70 : size.height - 7 - boxDepth * 0.70;
+      canvas.drawCircle(Offset(size.width / 2, spotY), 2, Paint()..color = Colors.white.withValues(alpha: 0.55));
+    }
+
+    // Soft stadium edge shading adds depth without covering the field.
+    final shade = Paint()
+      ..shader = const LinearGradient(
+        begin: Alignment.topCenter,
+        end: Alignment.bottomCenter,
+        colors: [Color(0x26000000), Color(0x00000000), Color(0x26000000)],
+        stops: [0, 0.5, 1],
+      ).createShader(Offset.zero & size);
+    canvas.drawRect(Offset.zero & size, shade);
+    // Keep the six gameplay zones readable through faint separators.
+    final separators = Paint()
+      ..color = Colors.white.withValues(alpha: 0.055)
+      ..strokeWidth = 0.7;
+    for (var i = 1; i < PitchViewport.zoneCount; i++) {
+      final y = band * i;
+      canvas.drawLine(Offset(8, y), Offset(size.width - 8, y), separators);
+    }
   }
 
   void _paintGoalMouths(Canvas canvas, Size size) {
-    final band = size.height / PitchViewport.zoneCount;
+    final goalWidth = size.width * 0.38;
+    final goalDepth = 9.0;
     final net = Paint()
-      ..color = Colors.white.withValues(alpha: goalFlash ? 0.30 : 0.14)
-      ..strokeWidth = 1;
-
-    for (final top in [0.0, size.height - band]) {
-      final rect = Rect.fromLTWH(0, top, size.width, band);
-      canvas.drawRect(
-        rect,
-        Paint()..color = Colors.white.withValues(alpha: 0.05),
-      );
-      for (var x = 0.0; x < size.width; x += 12) {
-        canvas.drawLine(Offset(x, rect.top), Offset(x, rect.bottom), net);
+      ..color = Colors.white.withValues(alpha: goalFlash ? 0.58 : 0.28)
+      ..strokeWidth = 0.8;
+    for (final top in [true, false]) {
+      final left = (size.width - goalWidth) / 2;
+      final y = top ? 0.0 : size.height - goalDepth;
+      final goal = Rect.fromLTWH(left, y, goalWidth, goalDepth);
+      canvas.drawRect(goal, Paint()..color = Colors.white.withValues(alpha: 0.10));
+      canvas.drawRect(goal, net..style = PaintingStyle.stroke..strokeWidth = 1.5);
+      for (var x = left + 8; x < left + goalWidth; x += 8) {
+        canvas.drawLine(Offset(x, y), Offset(x, y + goalDepth), net);
       }
-      for (var y = rect.top; y < rect.bottom; y += 12) {
-        canvas.drawLine(Offset(0, y), Offset(size.width, y), net);
-      }
+      canvas.drawLine(Offset(left, y + goalDepth / 2), Offset(left + goalWidth, y + goalDepth / 2), net);
     }
   }
 
