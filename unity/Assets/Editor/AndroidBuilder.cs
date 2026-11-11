@@ -1,6 +1,7 @@
 using System.IO;
 using UnityEditor;
 using UnityEditor.Build.Reporting;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 
 namespace GridGlory.Editor
@@ -17,7 +18,8 @@ namespace GridGlory.Editor
             PlayerSettings.companyName = "Grid Glory Studio";
             PlayerSettings.applicationIdentifier = "com.gridglory.footballquiz";
             PlayerSettings.defaultInterfaceOrientation = UIOrientation.Portrait;
-            PlayerSettings.Android.minSdkVersion = Android最低();
+            PlayerSettings.Android.minSdkVersion = AndroidSdkVersions.AndroidApiLevel23;
+            PlayerSettings.Android.forceInternetPermission = true;
             PlayerSettings.Android.targetArchitectures = AndroidArchitecture.ARM64;
             var scene = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
             EditorSceneManager.SaveScene(scene, "Assets/Scenes/Main.unity");
@@ -32,6 +34,5 @@ namespace GridGlory.Editor
                 throw new System.Exception("Android build failed: " + report.summary.result);
             Debug.Log("APK created: " + Path.GetFullPath(output));
         }
-        private static AndroidSdkVersions Android最低() => AndroidSdkVersions.AndroidApiLevel23;
     }
 }
