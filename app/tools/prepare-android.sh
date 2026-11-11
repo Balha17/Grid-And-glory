@@ -128,7 +128,7 @@ if main_activity is None:
     raise SystemExit("error: flutter create did not generate MainActivity.kt")
 source = main_activity.read_text(encoding="utf-8")
 source, replacements = re.subn(
-    r"(?m)^package\\s+[A-Za-z_][A-Za-z0-9_.]*",
+    r"(?m)^package\s+[A-Za-z_][A-Za-z0-9_.]*",
     f"package {app_id}",
     source,
     count=1,
