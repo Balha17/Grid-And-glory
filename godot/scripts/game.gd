@@ -22,6 +22,7 @@ var rival_goals := 0
 var you_are_shooting := false
 var selected := false
 
+var stadium_root: Node3D
 var camera: Camera3D
 var ball: MeshInstance3D
 var home_player: Node3D
@@ -29,6 +30,15 @@ var away_player: Node3D
 var home_team: Array[Node3D] = []
 var away_team: Array[Node3D] = []
 var hud: CanvasLayer
+var match_layer: Control
+var home_layer: Control
+var menu_title: Label
+var menu_subtitle: Label
+var home_primary_button: Button
+var home_secondary_button: Button
+var home_sound_button: Button
+var match_sound_button: Button
+var sound_muted := false
 var title_label: Label
 var status_label: Label
 var question_label: Label
@@ -45,9 +55,14 @@ var audio_players: Dictionary = {}
 var audio_requests: Dictionary = {}
 
 func _ready() -> void:
+	stadium_root = Node3D.new()
+	stadium_root.name = "MatchOnly3DStadium"
+	stadium_root.visible = false
+	add_child(stadium_root)
 	_build_stadium()
 	_build_hud()
 	_setup_audio()
+	_load_settings()
 	_show_home()
 	set_process(true)
 
@@ -70,7 +85,8 @@ func _process(_delta: float) -> void:
 			timer_label.modulate = Color(1.0, 0.3, 0.25)
 	else:
 		timer_label.text = ""
-	_update_pitch_state()
+	if stadium_root.visible:
+		_update_pitch_state()
 
 func _build_stadium() -> void:
 	var world := WorldEnvironment.new()
@@ -81,20 +97,20 @@ func _build_stadium() -> void:
 	env.ambient_light_color = Color(0.72, 0.82, 0.94)
 	env.ambient_light_energy = 0.8
 	world.environment = env
-	add_child(world)
+	stadium_root.add_child(world)
 
 	camera = Camera3D.new()
 	camera.position = Vector3(0, 34, 38)
 	camera.rotation_degrees = Vector3(-41, 0, 0)
 	camera.fov = 54
-	add_child(camera)
+	stadium_root.add_child(camera)
 	camera.current = true
 
 	var stadium_light := DirectionalLight3D.new()
 	stadium_light.rotation_degrees = Vector3(-55, -25, 0)
 	stadium_light.light_energy = 1.25
 	stadium_light.shadow_enabled = true
-	add_child(stadium_light)
+	stadium_root.add_child(stadium_light)
 
 	_box("StadiumBase", Vector3(0, -0.65, 0), Vector3(34, 1.1, 56), Color(0.035, 0.12, 0.11))
 	_box("Pitch", Vector3(0, 0, 0), Vector3(FIELD_WIDTH, 0.12, FIELD_LENGTH), Color(0.08, 0.39, 0.22))
@@ -124,11 +140,11 @@ func _build_stadium() -> void:
 	for i in range(11):
 		var h := _make_player("HOME_" + str(i+1), Color(0.12, 0.58, 1.0))
 		h.position = home_positions[i]
-		add_child(h)
+		stadium_root.add_child(h)
 		home_team.append(h)
 		var a := _make_player("AWAY_" + str(i+1), Color(1.0, 0.34, 0.19))
 		a.position = away_positions[i]
-		add_child(a)
+		stadium_root.add_child(a)
 		away_team.append(a)
 	home_player = home_team[9]
 	away_player = away_team[9]
@@ -142,7 +158,7 @@ func _build_stadium() -> void:
 	ball_mat.albedo_color = Color(0.97, 0.97, 0.92)
 	ball_mat.roughness = 0.35
 	ball.material_override = ball_mat
-	add_child(ball)
+	stadium_root.add_child(ball)
 	_add_stands()
 
 func _add_stands() -> void:
@@ -158,7 +174,7 @@ func _add_stands() -> void:
 				var mat := StandardMaterial3D.new()
 				mat.albedo_color = [Color(0.08,0.45,0.75), Color(0.9,0.28,0.17), Color(0.88,0.9,0.94)][(row+col)%3]
 				seat.material_override = mat
-				add_child(seat)
+				stadium_root.add_child(seat)
 
 func _build_goal(sign: int) -> void:
 	var z := float(sign) * (FIELD_LENGTH/2.0 + 0.45)
@@ -251,7 +267,7 @@ func _box(label: String, pos: Vector3, size: Vector3, color: Color, wire := fals
 		mat.cull_mode = BaseMaterial3D.CULL_DISABLED
 		mat.flags_transparent = true
 	node.material_override = mat
-	add_child(node)
+	stadium_root.add_child(node)
 
 func _line(label: String, pos: Vector3, size: Vector3, color: Color) -> void:
 	_box(label, pos, size, color)
@@ -269,7 +285,7 @@ func _circle(label: String, pos: Vector3, radius: float, width: float, color: Co
 	mat.albedo_color = color
 	mat.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
 	ring.material_override = mat
-	add_child(ring)
+	stadium_root.add_child(ring)
 
 func _build_hud() -> void:
 	hud = CanvasLayer.new()
@@ -277,89 +293,263 @@ func _build_hud() -> void:
 	var root := Control.new()
 	root.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	hud.add_child(root)
+
+	match_layer = Control.new()
+	match_layer.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	root.add_child(match_layer)
+
 	var top := PanelContainer.new()
 	top.anchor_left = 0.025
 	top.anchor_right = 0.975
 	top.anchor_top = 0.012
-	top.anchor_bottom = 0.105
+	top.anchor_bottom = 0.155
 	top.offset_left = 0
 	top.offset_right = 0
 	top.offset_top = 0
 	top.offset_bottom = 0
-	root.add_child(top)
+	top.add_theme_stylebox_override("panel", _panel_style(Color(0.018,0.055,0.12,0.96), Color(0.22,0.62,1.0), 3))
+	match_layer.add_child(top)
 	var topbox := VBoxContainer.new()
+	topbox.add_theme_constant_override("separation", 2)
 	top.add_child(topbox)
 	title_label = Label.new()
 	title_label.text = "GRID & GLORY  •  MATCHDAY"
 	title_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	title_label.add_theme_font_size_override("font_size", 24)
+	title_label.add_theme_color_override("font_color", Color(0.96,0.79,0.38))
+	title_label.add_theme_font_size_override("font_size", 19)
 	topbox.add_child(title_label)
 	score_label = Label.new()
 	score_label.text = "YOU  0  —  0  RIVAL"
 	score_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	score_label.add_theme_font_size_override("font_size", 28)
+	score_label.add_theme_color_override("font_color", Color.WHITE)
+	score_label.add_theme_font_size_override("font_size", 27)
 	topbox.add_child(score_label)
 	status_label = Label.new()
-	status_label.text = "3D STADIUM • ONLINE FOOTBALL QUIZ"
+	status_label.text = "MATCHDAY"
 	status_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	status_label.add_theme_font_size_override("font_size", 14)
+	status_label.add_theme_color_override("font_color", Color(0.65,0.82,1.0))
 	topbox.add_child(status_label)
+	match_sound_button = _make_button("SOUND ON  ♪", Color(0.08,0.20,0.36), Color(0.30,0.63,0.92), 40)
+	match_sound_button.pressed.connect(_toggle_sound)
+	topbox.add_child(match_sound_button)
+
 	var bottom := PanelContainer.new()
-	bottom.anchor_left = 0
-	bottom.anchor_right = 1
-	bottom.anchor_top = 1
-	bottom.anchor_bottom = 1
-	bottom.offset_left = 12
-	bottom.offset_right = -12
-	bottom.offset_top = -330
-	bottom.offset_bottom = -10
-	root.add_child(bottom)
+	bottom.anchor_left = 0.025
+	bottom.anchor_right = 0.975
+	bottom.anchor_top = 0.535
+	bottom.anchor_bottom = 0.985
+	bottom.offset_left = 0
+	bottom.offset_right = 0
+	bottom.offset_top = 0
+	bottom.offset_bottom = 0
+	bottom.add_theme_stylebox_override("panel", _panel_style(Color(0.012,0.035,0.085,0.98), Color(0.20,0.57,0.94), 3))
+	match_layer.add_child(bottom)
+	var margin := MarginContainer.new()
+	margin.add_theme_constant_override("margin_left", 18)
+	margin.add_theme_constant_override("margin_right", 18)
+	margin.add_theme_constant_override("margin_top", 14)
+	margin.add_theme_constant_override("margin_bottom", 12)
+	bottom.add_child(margin)
 	var content := VBoxContainer.new()
-	content.add_theme_constant_override("separation", 10)
-	bottom.add_child(content)
+	content.add_theme_constant_override("separation", 8)
+	margin.add_child(content)
 	pitch_status = Label.new()
 	pitch_status.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	pitch_status.add_theme_font_size_override("font_size", 18)
+	pitch_status.add_theme_color_override("font_color", Color(0.48,0.85,1.0))
+	pitch_status.add_theme_font_size_override("font_size", 15)
 	content.add_child(pitch_status)
 	question_label = Label.new()
-	question_label.text = "Choose your arena"
+	question_label.text = "Get ready for the next challenge"
 	question_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	question_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	question_label.add_theme_font_size_override("font_size", 22)
+	question_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	question_label.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	question_label.custom_minimum_size = Vector2(0, 92)
+	question_label.add_theme_color_override("font_color", Color(0.98,0.98,1.0))
+	question_label.add_theme_font_size_override("font_size", 23)
 	content.add_child(question_label)
 	timer_label = Label.new()
 	timer_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	timer_label.add_theme_font_size_override("font_size", 34)
+	timer_label.add_theme_color_override("font_color", Color(1.0,0.78,0.25))
+	timer_label.add_theme_font_size_override("font_size", 29)
 	content.add_child(timer_label)
 	options_box = VBoxContainer.new()
-	options_box.add_theme_constant_override("separation", 7)
+	options_box.add_theme_constant_override("separation", 8)
 	content.add_child(options_box)
 	action_box = HBoxContainer.new()
 	action_box.alignment = BoxContainer.ALIGNMENT_CENTER
+	action_box.add_theme_constant_override("separation", 10)
 	content.add_child(action_box)
-	connect_button = Button.new()
-	connect_button.text = "PLAY ONLINE"
-	connect_button.custom_minimum_size = Vector2(260, 58)
-	connect_button.pressed.connect(_on_online_pressed)
-	action_box.add_child(connect_button)
-	var ai_button := Button.new()
-	ai_button.text = "PLAY VS AI"
-	ai_button.custom_minimum_size = Vector2(180, 58)
-	ai_button.pressed.connect(_on_ai_pressed)
-	action_box.add_child(ai_button)
-	locale_button = Button.new()
-	locale_button.text = "العربية"
+
+	home_layer = Control.new()
+	home_layer.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	root.add_child(home_layer)
+	var backdrop := ColorRect.new()
+	backdrop.color = Color(0.012,0.025,0.075)
+	backdrop.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	home_layer.add_child(backdrop)
+	var glow := ColorRect.new()
+	glow.color = Color(0.025,0.13,0.28,0.72)
+	glow.anchor_left = 0
+	glow.anchor_right = 1
+	glow.anchor_top = 0
+	glow.anchor_bottom = 0.46
+	glow.offset_left = 0
+	glow.offset_right = 0
+	glow.offset_top = 0
+	glow.offset_bottom = 0
+	home_layer.add_child(glow)
+
+	var outer := MarginContainer.new()
+	outer.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	outer.add_theme_constant_override("margin_left", 28)
+	outer.add_theme_constant_override("margin_right", 28)
+	outer.add_theme_constant_override("margin_top", 32)
+	outer.add_theme_constant_override("margin_bottom", 28)
+	home_layer.add_child(outer)
+	var menu := VBoxContainer.new()
+	menu.alignment = BoxContainer.ALIGNMENT_CENTER
+	menu.add_theme_constant_override("separation", 13)
+	outer.add_child(menu)
+
+	var logo := TextureRect.new()
+	logo.texture = load("res://assets/grid_glory_icon.svg")
+	logo.expand_mode = TextureRect.EXPAND_FIT_WIDTH_PROPORTIONAL
+	logo.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	logo.custom_minimum_size = Vector2(0, 176)
+	menu.add_child(logo)
+
+	menu_title = Label.new()
+	menu_title.text = "GRID & GLORY"
+	menu_title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	menu_title.add_theme_color_override("font_color", Color(1.0,0.78,0.30))
+	menu_title.add_theme_font_size_override("font_size", 38)
+	menu_title.add_theme_color_override("font_shadow_color", Color(0,0,0,0.9))
+	menu_title.add_theme_constant_override("shadow_offset_x", 2)
+	menu_title.add_theme_constant_override("shadow_offset_y", 3)
+	menu.add_child(menu_title)
+
+	menu_subtitle = Label.new()
+	menu_subtitle.text = "THE ULTIMATE FOOTBALL QUIZ BATTLE"
+	menu_subtitle.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	menu_subtitle.add_theme_color_override("font_color", Color(0.73,0.86,1.0))
+	menu_subtitle.add_theme_font_size_override("font_size", 16)
+	menu.add_child(menu_subtitle)
+
+	var feature := PanelContainer.new()
+	feature.add_theme_stylebox_override("panel", _panel_style(Color(0.035,0.085,0.17,0.96), Color(0.78,0.55,0.20), 2))
+	menu.add_child(feature)
+	var feature_text := Label.new()
+	feature_text.text = "⚽  1v1 FOOTBALL TRIVIA  •  RISE TO LEGEND"
+	feature_text.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	feature_text.add_theme_color_override("font_color", Color(1.0,0.88,0.58))
+	feature_text.add_theme_font_size_override("font_size", 14)
+	feature.add_child(feature_text)
+
+	home_primary_button = _make_button("PLAY ONLINE", Color(0.95,0.57,0.08), Color(1.0,0.83,0.30), 76)
+	home_primary_button.add_theme_color_override("font_color", Color(0.10,0.08,0.04))
+	home_primary_button.pressed.connect(_on_menu_primary)
+	menu.add_child(home_primary_button)
+	home_secondary_button = _make_button("PLAY VS AI", Color(0.035,0.27,0.65), Color(0.23,0.66,1.0), 66)
+	home_secondary_button.pressed.connect(_on_menu_secondary)
+	menu.add_child(home_secondary_button)
+
+	var settings_row := HBoxContainer.new()
+	settings_row.alignment = BoxContainer.ALIGNMENT_CENTER
+	settings_row.add_theme_constant_override("separation", 12)
+	menu.add_child(settings_row)
+	home_sound_button = _make_button("SOUND ON  ♪", Color(0.08,0.13,0.25), Color(0.28,0.52,0.82), 50)
+	home_sound_button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	home_sound_button.pressed.connect(_toggle_sound)
+	settings_row.add_child(home_sound_button)
+	locale_button = _make_button("العربية / EN", Color(0.08,0.13,0.25), Color(0.28,0.52,0.82), 50)
+	locale_button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	locale_button.pressed.connect(_toggle_locale)
-	action_box.add_child(locale_button)
-	question_label.text = "A real 3D football arena awaits."
-	status_label.text = "3D PITCH  •  STADIUM LIGHTS  •  GOALS"
+	settings_row.add_child(locale_button)
+
+	var footer := Label.new()
+	footer.text = "ONLINE DUELS  •  SMART AI  •  FOOTBALL KNOWLEDGE"
+	footer.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	footer.add_theme_color_override("font_color", Color(0.43,0.62,0.82))
+	footer.add_theme_font_size_override("font_size", 11)
+	menu.add_child(footer)
+
+	match_layer.visible = false
+	home_layer.visible = true
+
+func _panel_style(fill: Color, edge: Color, border_width: int) -> StyleBoxFlat:
+	var style := StyleBoxFlat.new()
+	style.bg_color = fill
+	style.border_color = edge
+	style.set_border_width_all(border_width)
+	style.set_corner_radius_all(18)
+	style.shadow_color = Color(0,0,0,0.55)
+	style.shadow_size = 12
+	style.content_margin_left = 14
+	style.content_margin_right = 14
+	style.content_margin_top = 10
+	style.content_margin_bottom = 10
+	return style
+
+func _make_button(label: String, fill: Color, edge: Color, height: float) -> Button:
+	var button := Button.new()
+	button.text = label
+	button.custom_minimum_size = Vector2(0, height)
+	button.add_theme_font_size_override("font_size", 20 if height > 60 else 16)
+	button.add_theme_color_override("font_color", Color.WHITE)
+	button.add_theme_color_override("font_hover_color", Color.WHITE)
+	button.add_theme_color_override("font_pressed_color", Color.WHITE)
+	var normal := _panel_style(fill, edge, 2)
+	normal.set_corner_radius_all(16)
+	normal.shadow_size = 7
+	button.add_theme_stylebox_override("normal", normal)
+	var hover := _panel_style(fill.lightened(0.12), edge.lightened(0.1), 3)
+	button.add_theme_stylebox_override("hover", hover)
+	button.add_theme_stylebox_override("pressed", _panel_style(fill.darkened(0.16), edge, 2))
+	button.add_theme_stylebox_override("focus", _panel_style(fill, edge.lightened(0.25), 3))
+	return button
 
 func _show_home() -> void:
 	phase = "home"
+	stadium_root.visible = false
+	match_layer.visible = false
+	home_layer.visible = true
+	menu_title.text = "GRID & GLORY"
+	menu_subtitle.text = "THE ULTIMATE FOOTBALL QUIZ BATTLE"
+	home_primary_button.text = "PLAY ONLINE"
+	home_secondary_button.text = "PLAY VS AI"
 	question_label.text = "Choose your arena / اختر ساحة المنافسة"
 	_clear_options()
 	action_box.visible = true
-	status_label.text = "3D STADIUM • GRID & GLORY"
+	status_label.text = "READY FOR KICK-OFF"
 	pitch_status.text = "TWO PLAYERS • ONE PITCH • ONE WINNER"
+
+func _show_match() -> void:
+	home_layer.visible = false
+	match_layer.visible = true
+	stadium_root.visible = true
+
+func _show_result() -> void:
+	stadium_root.visible = false
+	match_layer.visible = false
+	home_layer.visible = true
+	menu_title.text = "FULL TIME"
+	menu_subtitle.text = "FINAL SCORE  •  " + str(my_goals) + " — " + str(rival_goals)
+	home_primary_button.text = "PLAY AGAIN • VS AI"
+	home_secondary_button.text = "RETURN TO MENU"
+
+func _on_menu_primary() -> void:
+	if phase == "ended":
+		_on_ai_pressed()
+	else:
+		_on_online_pressed()
+
+func _on_menu_secondary() -> void:
+	if phase == "ended":
+		_show_home()
+	else:
+		_on_ai_pressed()
 
 func _on_online_pressed() -> void:
 	_start_connection(false)
@@ -405,6 +595,7 @@ func _handle_frame(frame: Dictionary) -> void:
 			question_label.text = "OPPONENT FOUND"
 			status_label.text = "KICK-OFF INCOMING"
 		"match.start", "match.second_half":
+			_show_match()
 			_play_sfx("whistle")
 			phase = "round_intro"
 			_read_scores(p)
@@ -460,11 +651,11 @@ func _handle_frame(frame: Dictionary) -> void:
 			phase = "ended"
 			_read_scores(p)
 			countdown_deadline = 0
-			status_label.text = "VICTORY!" if str(p.get("outcome", "")) == "win" else "FULL TIME"
-			question_label.text = "FINAL SCORE  •  " + str(my_goals) + " — " + str(rival_goals)
+			_play_sfx("whistle")
+			if str(p.get("outcome", "")) == "win":
+				_play_sfx("cheer")
 			_clear_options()
-			_add_action_button("PLAY AGAIN", _on_ai_pressed)
-			_add_action_button("HOME", _show_home)
+			_show_result()
 		"state.sync":
 			status_label.text = "MATCH RECONNECTED"
 			_read_scores(p)
@@ -481,13 +672,31 @@ func _send(kind: String, payload: Dictionary) -> void:
 	socket.send_text(JSON.stringify({"v": 1, "type": kind, "seq": sequence, "ts": Time.get_unix_time_from_system()*1000, "payload": payload}))
 
 func _show_question(view: Dictionary) -> void:
-	question_label.text = str(view.get("prompt", ""))
+	var prompt := str(view.get("prompt", "")).strip_edges()
+	var incoming_options: Array = view.get("options", [])
+	if prompt.is_empty() or incoming_options.size() < 2:
+		question_label.text = "Question unavailable. Waiting for the next round…"
+		_clear_options()
+		action_box.visible = false
+		push_warning("Rejected incomplete question view from server.")
+		return
+	for option in incoming_options:
+		if not (option is Dictionary) or str(option.get("id", "")).is_empty() or str(option.get("text", "")).strip_edges().is_empty():
+			question_label.text = "Question unavailable. Waiting for the next round…"
+			_clear_options()
+			action_box.visible = false
+			push_warning("Rejected question with an incomplete answer option.")
+			return
+	question_label.text = prompt
+	question_label.text_direction = Control.TEXT_DIRECTION_AUTO
 	_clear_options()
-	current_options = view.get("options", [])
-	for option in current_options:
-		var b := Button.new()
-		b.text = str(option.get("text", ""))
-		b.custom_minimum_size = Vector2(0, 48)
+	current_options = incoming_options
+	for index in range(current_options.size()):
+		var option: Dictionary = current_options[index]
+		var b := _make_button(str(option.get("text", "")), Color(0.035,0.12,0.24), Color(0.18,0.43,0.68), 56)
+		b.add_theme_font_size_override("font_size", 18)
+		b.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		b.text_direction = Control.TEXT_DIRECTION_AUTO
 		var option_id := str(option.get("id", ""))
 		b.pressed.connect(func(): _submit_answer(option_id))
 		options_box.add_child(b)
@@ -532,14 +741,46 @@ func _add_action_button(label: String, callback: Callable) -> void:
 
 func _toggle_locale() -> void:
 	locale = "ar" if locale == "en" else "en"
-	locale_button.text = "English" if locale == "ar" else "العربية"
+	locale_button.text = "ENGLISH" if locale == "ar" else "العربية"
 	if socket.get_ready_state() == WebSocketPeer.STATE_OPEN:
 		_send("queue.leave", {})
 		socket.close()
 		connected = false
-		phase = "home"
-		question_label.text = "Reconnect to apply language."
-		status_label.text = "LANGUAGE CHANGED"
+		_show_home()
+	menu_subtitle.text = "معركة معلومات كرة القدم" if locale == "ar" else "THE ULTIMATE FOOTBALL QUIZ BATTLE"
+
+func _toggle_sound() -> void:
+	sound_muted = not sound_muted
+	var bus := AudioServer.get_bus_index("Master")
+	if bus >= 0:
+		AudioServer.set_bus_mute(bus, sound_muted)
+	var label := "SOUND OFF  ×" if sound_muted else "SOUND ON  ♪"
+	if is_instance_valid(home_sound_button):
+		home_sound_button.text = label
+	if is_instance_valid(match_sound_button):
+		match_sound_button.text = label
+	_save_settings()
+
+func _load_settings() -> void:
+	var config := ConfigFile.new()
+	if config.load("user://settings.cfg") == OK:
+		sound_muted = bool(config.get_value("audio", "muted", false))
+	var bus := AudioServer.get_bus_index("Master")
+	if bus >= 0:
+		AudioServer.set_bus_mute(bus, sound_muted)
+	_toggle_sound_label()
+
+func _save_settings() -> void:
+	var config := ConfigFile.new()
+	config.set_value("audio", "muted", sound_muted)
+	config.save("user://settings.cfg")
+
+func _toggle_sound_label() -> void:
+	var label := "SOUND OFF  ×" if sound_muted else "SOUND ON  ♪"
+	if is_instance_valid(home_sound_button):
+		home_sound_button.text = label
+	if is_instance_valid(match_sound_button):
+		match_sound_button.text = label
 
 func _update_pitch_state() -> void:
 	if not is_instance_valid(home_player) or not is_instance_valid(away_player):
