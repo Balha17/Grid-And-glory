@@ -445,63 +445,65 @@ class _QuizPanel extends StatelessWidget {
                   Text(l10n.opponentAnswered, style: AppType.label(locale)),
               ],
               const SizedBox(width: AppSpacing.sm),
-              _TimerChip(
-                key: ValueKey('${state.half}:${state.roundNo}:${state.phase == 'shoot' ? 'shoot' : 'normal'}'),
-                seconds: state.remainingSeconds,
-                locale: locale,
-              ),
+              _TimerChip(seconds: state.remainingSeconds, locale: locale),
             ],
           ),
           const SizedBox(height: AppSpacing.sm),
-
-          // Overflow ladder step 1: the question card is the only flexible element.
-          // It shrinks to its minimum before any answer row is allowed to move.
+          // Keep the timer fixed while allowing long prompts, career paths and
+          // explanations to scroll. This avoids RenderFlex overflow on short phones.
           Expanded(
-            child: ConstrainedBox(
-              constraints: const BoxConstraints(minHeight: 96),
-              child: _QuestionCard(state: state, locale: locale),
-            ),
-          ),
-          const SizedBox(height: AppSpacing.sm),
-
-          ...state.options.map(
-            (option) => Padding(
-              padding: const EdgeInsetsDirectional.only(bottom: AppSpacing.sm),
-              child: AnswerButton(
-                label: option.text,
-                locale: locale,
-                state: _visualStateFor(option.id),
-                onPressed: () {
-                  SystemSound.play(SystemSoundType.click);
-                  HapticFeedback.selectionClick();
-                  onAnswer(option.id);
-                },
-              ),
-            ),
-          ),
-          if (state.phase == 'reveal' && state.explainer.isNotEmpty)
-            AnimatedContainer(
-              duration: const Duration(milliseconds: 250),
-              padding: const EdgeInsetsDirectional.all(AppSpacing.md),
-              decoration: BoxDecoration(
-                color: AppColors.correct.withValues(alpha: 0.10),
-                borderRadius: const BorderRadius.all(AppRadii.md),
-                border: Border.all(color: AppColors.correct.withValues(alpha: 0.65)),
-              ),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
+            child: SingleChildScrollView(
+              physics: const ClampingScrollPhysics(),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  const Icon(Icons.lightbulb_outline, color: AppColors.correct, size: 19),
-                  const SizedBox(width: AppSpacing.sm),
-                  Expanded(
-                    child: Text(
-                      state.explainer,
-                      style: AppType.label(locale).copyWith(color: AppColors.textPrimary),
+                  ConstrainedBox(
+                    constraints: const BoxConstraints(minHeight: 96),
+                    child: _QuestionCard(state: state, locale: locale),
+                  ),
+                  const SizedBox(height: AppSpacing.sm),
+                  ...state.options.map(
+                    (option) => Padding(
+                      padding: const EdgeInsetsDirectional.only(bottom: AppSpacing.sm),
+                      child: AnswerButton(
+                        label: option.text,
+                        locale: locale,
+                        state: _visualStateFor(option.id),
+                        onPressed: () {
+                          SystemSound.play(SystemSoundType.click);
+                          HapticFeedback.selectionClick();
+                          onAnswer(option.id);
+                        },
+                      ),
                     ),
                   ),
+                  if (state.phase == 'reveal' && state.explainer.isNotEmpty)
+                    AnimatedContainer(
+                      duration: const Duration(milliseconds: 250),
+                      padding: const EdgeInsetsDirectional.all(AppSpacing.md),
+                      decoration: BoxDecoration(
+                        color: AppColors.correct.withValues(alpha: 0.10),
+                        borderRadius: const BorderRadius.all(AppRadii.md),
+                        border: Border.all(color: AppColors.correct.withValues(alpha: 0.65)),
+                      ),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Icon(Icons.lightbulb_outline, color: AppColors.correct, size: 19),
+                          const SizedBox(width: AppSpacing.sm),
+                          Expanded(
+                            child: Text(
+                              state.explainer,
+                              style: AppType.label(locale).copyWith(color: AppColors.textPrimary),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
                 ],
               ),
             ),
+          ),
         ],
       ),
     );
