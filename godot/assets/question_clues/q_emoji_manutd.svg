@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="320" height="112" viewBox="0 0 320 220">
+<title>Manchester United</title><defs><linearGradient id="bg" x2="1" y2="1"><stop stop-color="#12365b"/><stop offset="1" stop-color="#061426"/></linearGradient><linearGradient id="edge"><stop stop-color="#f5c45a"/><stop offset="1" stop-color="#fff0a8"/></linearGradient></defs>
+<rect x="3" y="3" width="314" height="214" rx="26" fill="url(#bg)" stroke="url(#edge)" stroke-width="5"/>
+<circle cx="94" cy="110" r="58" fill="#ffffff" opacity=".08"/><circle cx="225" cy="110" r="58" fill="#ffffff" opacity=".05"/>
+<g><path d="M48 66h92v88H48z" fill="#da291c"/><path d="M94 78l24 32-24 32-24-32z" fill="#fff"/><circle cx="94" cy="110" r="10" fill="#da291c"/></g><g><circle cx="225" cy="111" r="39" fill="#da291c"/><path d="M197 98l28-14 28 14-9 29h-38z" fill="#fff"/><path d="M210 103l15-9 15 9-5 17h-20z" fill="#da291c"/></g><g transform="translate(0 0)"><path d="M190 87l-13-19 31 9 17-12 17 12 31-9-13 19q10 34-35 58-45-24-35-58z" fill="#e84a3b"/><path d="M207 106l12 5-12 5m36-10-12 5 12 5" stroke="#fff" stroke-width="4" fill="none"/><path d="M225 118l-7 12h14z" fill="#fff"/></g>
+<path d="M158 43v134" stroke="#78b9ed" stroke-width="2" opacity=".45"/>
+<circle cx="94" cy="110" r="49" fill="none" stroke="#d9eaff" stroke-width="2" opacity=".45"/>
+</svg>
