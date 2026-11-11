@@ -69,7 +69,7 @@ test("correct vs wrong: +2 for the correct player, turnover for the other", () =
 test("sole correct answer is automatically the fastest", () => {
   const r = resolve(answer(A, "opt_right", 9_500), undefined);
   assert.equal(r.results[A].delta, SCORE.FAST);
-  assert.equal(r.results[B].outcome, "no_answer");
+  assert.equal(r.results[B].outcome, "wrong");
   assert.equal(r.results[B].delta, SCORE.TURNOVER);
 });
 
@@ -81,11 +81,11 @@ test("a lone correct answer at the last millisecond still gets +2", () => {
 
 /* ------------------------------------------------------------------ timing */
 
-test("late-but-in-window-grace answer counts for correctness but cannot be fastest", () => {
+test("an answer after the deadline is wrong even if it is otherwise correct", () => {
   const r = resolve(answer(A, "opt_right", TIMING.windowEndsAt + 100), undefined);
-  assert.equal(r.results[A].outcome, "correct");
+  assert.equal(r.results[A].outcome, "wrong");
   assert.equal(r.results[A].late, true);
-  assert.equal(r.results[A].delta, SCORE.SLOW, "late answers never earn the speed bonus");
+  assert.equal(r.results[A].delta, SCORE.TURNOVER);
   assert.deepEqual(r.fastestIds, []);
 });
 
@@ -96,10 +96,10 @@ test("an on-time answer beats a late one regardless of correctness order", () =>
   assert.deepEqual(r.fastestIds, [A]);
 });
 
-test("an answer past window + grace is discarded as no answer", () => {
+test("an answer past the deadline is wrong, not a no-answer", () => {
   const late = TIMING.windowEndsAt + SCORE.LATE_GRACE_MS + 1;
   const r = resolve(answer(A, "opt_right", late), undefined);
-  assert.equal(r.results[A].outcome, "no_answer");
+  assert.equal(r.results[A].outcome, "wrong");
   assert.equal(r.results[A].delta, SCORE.TURNOVER);
   assert.equal(r.results[A].late, true, "recorded as late for telemetry even though discarded");
 });
