@@ -115,32 +115,29 @@ mipmap_v26.mkdir(parents=True, exist_ok=True)
     encoding="utf-8",
 )
 colors = res_dir / "values" / "colors.xml"
-if colors.exists():
-    color_xml = colors.read_text(encoding="utf-8")
-    if "gg_icon_background" not in color_xml:
+color_xml = colors.read_text(encoding="utf-8") if colors.exists() else (
+    '<?xml version="1.0" encoding="utf-8"?>\\n<resources>\\n</resources>\\n'
+)
+for name, value in [("gg_icon_background", "#10233A"), ("gg_splash_background", "#0B1220")]:
+    if f'name="{name}"' not in color_xml:
         color_xml = color_xml.replace(
             "</resources>",
-            '    <color name="gg_icon_background">#10233A</color>\n</resources>',
+            f'    <color name="{name}">{value}</color>\\n</resources>',
         )
-else:
-    color_xml = (
-        '<?xml version="1.0" encoding="utf-8"?>\n'
-        '<resources><color name="gg_icon_background">#10233A</color></resources>\n'
-    )
 colors.write_text(color_xml, encoding="utf-8")
 
 base_values = res_dir / "values"
 base_values.mkdir(parents=True, exist_ok=True)
 (base_values / "styles.xml").write_text(
-    '<?xml version="1.0" encoding="utf-8"?>\\n'
-    '<resources>\\n'
-    '  <style name="LaunchTheme" parent="@android:style/Theme.Material.Light.NoActionBar">\\n'
-    '    <item name="android:windowBackground">@drawable/launch_background</item>\\n'
-    '  </style>\\n'
-    '  <style name="NormalTheme" parent="@android:style/Theme.Material.Light.NoActionBar">\\n'
-    '    <item name="android:windowBackground">?android:colorBackground</item>\\n'
-    '  </style>\\n'
-    '</resources>\\n',
+    '<?xml version="1.0" encoding="utf-8"?>\n'
+    '<resources>\n'
+    '  <style name="LaunchTheme" parent="@android:style/Theme.Material.Light.NoActionBar">\n'
+    '    <item name="android:windowBackground">@drawable/launch_background</item>\n'
+    '  </style>\n'
+    '  <style name="NormalTheme" parent="@android:style/Theme.Material.Light.NoActionBar">\n'
+    '    <item name="android:windowBackground">?android:colorBackground</item>\n'
+    '  </style>\n'
+    '</resources>\n',
     encoding="utf-8",
 )
 
