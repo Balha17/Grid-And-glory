@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import '../../core/l10n/bidi.dart';
+import '../../core/audio/game_audio.dart';
 import '../../core/theme/tokens.dart';
 import '../../l10n/app_localizations.dart';
 import 'match_view_model.dart';
@@ -247,14 +248,9 @@ class _TimerChipState extends State<_TimerChip> {
       setState(() => _seconds -= 1);
       // Audible final-five-second ticks and stronger haptics near the deadline.
       if (_seconds <= 5 && _seconds > 0) {
-        SystemSound.play(_seconds <= 3 ? SystemSoundType.alert : SystemSoundType.click);
+        GameAudio.play('tick', volume: _seconds <= 3 ? .72 : .42);
       }
       if (_seconds <= 3 && _seconds > 0) HapticFeedback.heavyImpact();
-      if (_seconds <= 2 && _seconds > 0) {
-        Future<void>.delayed(const Duration(milliseconds: 180), () {
-          if (mounted && _seconds <= 2) SystemSound.play(SystemSoundType.alert);
-        });
-      }
     });
   }
 
@@ -476,7 +472,7 @@ class _QuizPanel extends StatelessWidget {
                         locale: locale,
                         state: _visualStateFor(option.id),
                         onPressed: () {
-                          SystemSound.play(SystemSoundType.click);
+                          GameAudio.play('kick', volume: .35);
                           HapticFeedback.selectionClick();
                           onAnswer(option.id);
                         },
