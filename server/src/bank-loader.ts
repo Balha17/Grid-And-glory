@@ -44,9 +44,9 @@ export const loadBank = async (path = DEFAULT_BANK): Promise<LoadedBank> => {
     competitions: toMap(raw.catalogs.competitions),
   };
 
-  // Never publish a visual clue unless its real image is hosted and available.
-  // The current bank still contains placeholder asset:// references, so exclude
-  // every media-dependent question from live matches and Shooting Chances.
+  // Do not publish a visual question backed only by placeholder asset:// data.
+  // A question with a real image_path can be rendered by the client from res://,
+  // user:// or HTTP(S); media-only legacy records remain excluded until hosted.
   const playableQuestions = raw.questions.filter((q) => {
     // Image questions are playable only when a real client image source is supplied.
     // Legacy asset:// placeholders are intentionally not treated as playable media.
