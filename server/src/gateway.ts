@@ -100,6 +100,12 @@ const seedFrom = (value: string): number =>
  * Pseudonym, not a name. No signup, no PII, and no free-text field to moderate in a
  * 90-second cross-language game.
  */
+const sanitizeDisplayName = (value: unknown): string | null => {
+  if (typeof value !== "string") return null;
+  const clean = Array.from(value.normalize("NFKC").replace(/[\\u0000-\\u001F\\u007F]/g, "").replace(/\\s+/g, " ").trim()).slice(0, 18).join("");
+  return clean.length >= 2 ? clean : null;
+};
+
 const pseudonymFor = (playerId: string): string => {
   const hash = createHash("sha256").update(playerId).digest();
   const stem = PSEUDONYM_STEMS[hash[0] % PSEUDONYM_STEMS.length];
@@ -198,6 +204,9 @@ export class Gateway {
       case "round.answer":
         this.handleAnswer(session, payload, now);
         return;
+      case "match.forfeit":
+        this.handleForfeit(session, now);
+        return;
       case "ping":
         conn.send("pong", { c0: payload.c0 ?? null, serverNow: now });
         return;
@@ -249,17 +258,19 @@ export class Gateway {
     const playerId = resumedId ?? (deviceId ? playerIdForDevice(deviceId) : `p_${randomUUID()}`);
 
     let session = this.sessions.get(playerId);
+    const requestedName = sanitizeDisplayName(payload.displayName);
     if (session) {
       // Reconnect: hand the player to the new connection and try to rejoin the match.
       this.sessionByConn.delete(session.connId);
       session.connId = conn.id;
       session.player.locale = locale;
       session.player.region = region;
+      if (requestedName) session.player.displayName = requestedName;
     } else {
       session = {
         player: {
           playerId,
-          displayName: pseudonymFor(playerId),
+          displayName: requestedName ?? pseudonymFor(playerId),
           locale,
           region,
           rating: this.ratings.get(playerId) ?? 1000,
@@ -359,6 +370,8 @@ export class Gateway {
     this.send(player.playerId, "match.found", {
       matchId,
       you: player.playerId,
+      youColor: "blue",
+      opponentColor: "red",
       opponent: {
         displayName: bot.displayName,
         locale: bot.locale,
@@ -372,6 +385,16 @@ export class Gateway {
       serverNow: now,
     });
     this.dispatch(room.start(now), now);
+  }
+
+  private handleForfeit(session: Session, now: number): void {
+    const room = session.matchId ? this.rooms.get(session.matchId) : undefined;
+    if (!room || room.isFinished) {
+      this.send(session.player.playerId, "error", { code: "NOT_IN_MATCH" });
+      return;
+    }
+    this.dispatch(room.forfeit(session.player.playerId, now), now);
+    this.retire(room);
   }
 
   private handleQueueLeave(session: Session): void {
@@ -470,6 +493,8 @@ export class Gateway {
       this.send(self.player.playerId, "match.found", {
         matchId: pairing.matchId,
         you: self.player.playerId,
+        youColor: self === sa ? "blue" : "red",
+        opponentColor: self === sa ? "red" : "blue",
         opponent: {
           displayName: other.player.displayName,
           locale: other.player.locale,
