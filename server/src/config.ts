@@ -13,7 +13,7 @@ export const MATCH = {
   /** A normal round = intro + question window + reveal (clock runs through all three). */
   ROUND_INTRO_MS: 1_000,
   ANSWER_WINDOW_MS: 9_000,
-  REVEAL_MS: 1_400,
+  REVEAL_MS: 850,
 
   /** A Shooting Chance runs on stoppage time: the clock is frozen while it plays. */
   SHOOT_WINDOW_MS: 5_000,
