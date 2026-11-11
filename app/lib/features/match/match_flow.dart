@@ -554,7 +554,7 @@ class _WinnerConfettiPainter extends CustomPainter {
     for (var i = 0; i < 64; i++) {
       final startX = random.nextDouble() * size.width;
       final delay = random.nextDouble() * 0.42;
-      final local = ((progress - delay) / (1 - delay)).clamp(0.0, 1.0);
+      final local = ((progress - delay) / (1 - delay)).clamp(0.0, 1.0).toDouble();
       if (local <= 0) continue;
       final fall = local * size.height * 0.92;
       final drift = math.sin(local * 8 + i) * 22;
@@ -562,7 +562,7 @@ class _WinnerConfettiPainter extends CustomPainter {
       final y = -18 + fall;
       final paint = Paint()
         ..color = _colors[i % _colors.length].withValues(
-          alpha: (1 - local * 0.65).clamp(0.0, 1.0),
+          alpha: (1 - local * 0.65).clamp(0.0, 1.0).toDouble(),
         );
       canvas.save();
       canvas.translate(x, y);
