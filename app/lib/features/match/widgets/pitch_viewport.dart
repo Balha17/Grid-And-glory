@@ -87,7 +87,7 @@ class _PitchPainter extends CustomPainter {
     for(var i=0;i<12;i++){
       final band=Rect.fromLTWH(f.left,f.top+i*h,f.width,h+1);
       c.drawRect(band,Paint()..shader=LinearGradient(
-        begin:Alignment.centerLeft,end:Alignment.centerRight,
+        begin:AlignmentDirectional.centerStart,end:AlignmentDirectional.centerEnd,
         colors:i.isEven?const [Color(0xFF247B4D),Color(0xFF1A663F)]:const [Color(0xFF1A693F),Color(0xFF155735)]
       ).createShader(band));
     }
