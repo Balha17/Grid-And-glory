@@ -668,6 +668,7 @@ func _make_button(label: String, fill: Color, edge: Color, height: float) -> But
 	button.pivot_offset = Vector2(0, height / 2.0)
 	button.resized.connect(func(): button.pivot_offset = button.size / 2.0)
 	button.button_down.connect(func():
+		_play_sfx("ui_click")
 		var press_tween := button.create_tween()
 		press_tween.tween_property(button, "scale", Vector2(0.975, 0.975), 0.07)
 	)
@@ -1293,10 +1294,31 @@ func _setup_audio() -> void:
 	_create_audio_player("cheer", false, -4.0)
 	_create_audio_player("whistle", false, -7.0)
 	_create_audio_player("kick", false, -9.0)
+	_create_audio_player("ui_click", false, -10.0)
+	_create_ui_click_sound()
 	_load_or_download_audio("ambience", "stadium-crowd-03.mp3", "https://sfxmint.com/dl/stadium-crowd-03.mp3")
 	_load_or_download_audio("cheer", "stadium-crowd-02.mp3", "https://sfxmint.com/dl/stadium-crowd-02.mp3")
 	_load_or_download_audio("whistle", "instrument-whistle-11.mp3", "https://sfxmint.com/dl/instrument-whistle-11.mp3")
 	_load_or_download_audio("kick", "impact-thud-42.mp3", "https://sfxmint.com/dl/impact-thud-42.mp3")
+
+func _create_ui_click_sound() -> void:
+	# A tiny synthesized UI tick: no external file, network request or third-party license.
+	var sample_rate := 22050
+	var sample_count := int(sample_rate * 0.055)
+	var samples := PackedByteArray()
+	samples.resize(sample_count * 2)
+	for i in range(sample_count):
+		var t := float(i) / float(sample_count)
+		var frequency := lerpf(980.0, 520.0, t)
+		var envelope := exp(-42.0 * t)
+		var sample := sin(TAU * frequency * t) * envelope * 0.16
+		samples.encode_s16(i * 2, int(sample * 32767.0))
+	var stream := AudioStreamWAV.new()
+	stream.format = AudioStreamWAV.FORMAT_16_BITS
+	stream.mix_rate = sample_rate
+	stream.stereo = false
+	stream.data = samples
+	audio_players["ui_click"].stream = stream
 
 func _create_audio_player(key: String, looping: bool, volume_db: float) -> void:
 	var player := AudioStreamPlayer.new()
