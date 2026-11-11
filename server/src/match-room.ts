@@ -845,16 +845,21 @@ export class MatchRoom {
     const unused = this.pool.filter((q) => !this.usedQuestionIds.has(q.id));
     const source = unused.length ? unused : this.pool;
 
-    // Closest difficulty; ties keep the earlier draw (stable, therefore replayable).
-    let best = source[0];
-    let bestGap = Math.abs(best.difficulty - targetDifficulty);
+    // Keep the difficulty curve, but randomize among every equally suitable
+    // question. Previously ties always selected the first item in bank order,
+    // making matches feel scripted and repeat in the same sequence.
+    let bestGap = Number.POSITIVE_INFINITY;
+    let candidates: QuestionDoc[] = [];
     for (const q of source) {
       const gap = Math.abs(q.difficulty - targetDifficulty);
       if (gap < bestGap) {
-        best = q;
         bestGap = gap;
+        candidates = [q];
+      } else if (gap === bestGap) {
+        candidates.push(q);
       }
     }
+    const best = candidates[Math.floor(Math.random() * candidates.length)];
     this.usedQuestionIds.add(best.id);
     return best;
   }
@@ -871,7 +876,7 @@ export class MatchRoom {
       if (!fallback) throw new Error(`match ${this.matchId}: shot pool is empty`);
       return fallback;
     }
-    const q = source[0];
+    const q = source[Math.floor(Math.random() * source.length)];
     this.usedShotIds.add(q.id);
     return q;
   }
