@@ -30,7 +30,7 @@ interface Harness {
   gateway: Gateway;
   clock: { now: number };
   connect(id: string): MemoryConnection;
-  hello(conn: MemoryConnection, locale: "en" | "ar", region?: string, deviceId?: string): void;
+  hello(conn: MemoryConnection, locale: "en" | "ar", region?: string, deviceId?: string, displayName?: string): void;
   join(conn: MemoryConnection): void;
 }
 
