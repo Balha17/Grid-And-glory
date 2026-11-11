@@ -113,9 +113,11 @@ class _PitchPainter extends CustomPainter {
       c.drawCircle(spot,2,Paint()..color=line);
       c.drawArc(Rect.fromCircle(center:spot,radius:f.width*.145),top ? 0.20 : math.pi + 0.20,math.pi-.4,false,p);
     }
-    for(final x in [f.left,f.right]) for(final y in [f.top,f.bottom]){
-      final start=(x==f.left?0.0:math.pi/2)+(y==f.top?0:math.pi);
-      c.drawArc(Rect.fromCircle(center:Offset(x,y),radius:7),start,math.pi/2,false,p);
+    for (final x in [f.left, f.right]) {
+      for (final y in [f.top, f.bottom]) {
+        final start = (x == f.left ? 0.0 : math.pi / 2) + (y == f.top ? 0 : math.pi);
+        c.drawArc(Rect.fromCircle(center: Offset(x, y), radius: 7), start, math.pi / 2, false, p);
+      }
     }
   }
 
