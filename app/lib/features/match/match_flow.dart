@@ -98,7 +98,6 @@ class _MatchFlowScreenState extends ConsumerState<MatchFlowScreen> {
         final playerId = payload['playerId'] as String?;
         if (playerId == null) return;
         _playerId = playerId;
-        _playerId = playerId;
         _attachTransport();
         _joinMatch();
         if (mounted) setState(() => _stage = _Stage.searching);
