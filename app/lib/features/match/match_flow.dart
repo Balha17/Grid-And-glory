@@ -216,8 +216,11 @@ class _MatchFlowScreenState extends ConsumerState<MatchFlowScreen> {
 
     switch (_stage) {
       case _Stage.playing:
-        return WillPopScope(
-          onWillPop: () async { await _confirmForfeit(); return false; },
+        return PopScope(
+          canPop: false,
+          onPopInvokedWithResult: (didPop, result) {
+            if (!didPop) _confirmForfeit();
+          },
           child: MatchScreen(
             state: _state,
             locale: locale,
