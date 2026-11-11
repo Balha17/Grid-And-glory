@@ -124,15 +124,15 @@ colors.write_text(color_xml, encoding="utf-8")
 v31 = res_dir / "values-v31"
 v31.mkdir(parents=True, exist_ok=True)
 (v31 / "styles.xml").write_text(
-    '<?xml version="1.0" encoding="utf-8"?>\\n'
-    '<resources>\\n'
-    '  <style name="LaunchTheme" parent="@android:style/Theme.Material.Light.NoActionBar">\\n'
-    '    <item name="android:windowBackground">#0B1220</item>\\n'
-    '  </style>\\n'
-    '  <style name="NormalTheme" parent="@android:style/Theme.Material.Light.NoActionBar">\\n'
-    '    <item name="android:windowBackground">?android:colorBackground</item>\\n'
-    '  </style>\\n'
-    '</resources>\\n',
+    '<?xml version="1.0" encoding="utf-8"?>\n'
+    '<resources>\n'
+    '  <style name="LaunchTheme" parent="@android:style/Theme.Material.Light.NoActionBar">\n'
+    '    <item name="android:windowBackground">#0B1220</item>\n'
+    '  </style>\n'
+    '  <style name="NormalTheme" parent="@android:style/Theme.Material.Light.NoActionBar">\n'
+    '    <item name="android:windowBackground">?android:colorBackground</item>\n'
+    '  </style>\n'
+    '</resources>\n',
     encoding="utf-8",
 )
 
