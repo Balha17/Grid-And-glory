@@ -93,7 +93,7 @@ namespace GridGlory
             ball.name="Match ball"; ball.transform.position=new Vector3(0,.48f,0);
             ball.transform.localScale=Vector3.one*.72f;
             ball.GetComponent<Renderer>().material=Mat(Color.white);
-            var floor = Cube("Stadium floor",new Vector3(0,-.55f,0),new Vector3(100,.3f,100),dark);
+            Cube("Stadium floor",new Vector3(0,-.55f,0),new Vector3(100,.3f,100),dark);
         }
 
         private void Player(string n, Vector3 p, Material kit, Material trim)
