@@ -44,6 +44,14 @@ export interface GatewayOptions {
   }) => void;
 }
 
+interface BotState {
+  playerId: string;
+  token: string | null;
+  questionId: string | null;
+  answerAt: number;
+  accuracy: number;
+}
+
 interface Session {
   player: PlayerRef;
   connId: string;
@@ -111,6 +119,7 @@ export class Gateway {
   private readonly sessionByConn = new Map<string, string>();
   private readonly connByPlayer = new Map<string, Connection>();
   private readonly rooms = new Map<string, MatchRoom>();
+  private readonly botsByMatch = new Map<string, BotState>();
   private readonly ratings = new Map<string, number>();
 
   private lastMatchPass = Number.NEGATIVE_INFINITY;
@@ -179,6 +188,9 @@ export class Gateway {
     switch (frame.type) {
       case "queue.join":
         this.handleQueueJoin(session, now);
+        return;
+      case "bot.join":
+        this.handleBotJoin(session, now);
         return;
       case "queue.leave":
         this.handleQueueLeave(session);
@@ -301,6 +313,65 @@ export class Gateway {
     });
   }
 
+  private handleBotJoin(session: Session, now: number): void {
+    if (session.matchId) {
+      this.send(session.player.playerId, "error", { code: "ALREADY_IN_MATCH" });
+      return;
+    }
+    this.matchmaker.cancel(session.player.playerId);
+    session.queuedAt = null;
+    this.createBotMatch(session, now);
+  }
+
+  private createBotMatch(session: Session, now: number): void {
+    const player = session.player;
+    const botId = `bot_${randomUUID()}`;
+    const bot: PlayerRef = {
+      playerId: botId,
+      displayName: "AI Rookie",
+      locale: player.locale,
+      region: player.region,
+      rating: player.rating,
+    };
+    const matchId = `m_ai_${randomUUID().replaceAll("-", "").slice(0, 12)}`;
+    const room = new MatchRoom({
+      matchId,
+      players: [player, bot],
+      pool: drawPool(this.bank.questions, MATCH_LIMITS.POOL_SIZE, seedFrom(matchId)),
+      shotPool: this.bank.shotQuestions,
+      catalog: this.bank.catalog,
+    });
+
+    session.matchId = matchId;
+    session.queuedAt = null;
+    this.rooms.set(matchId, room);
+    this.botsByMatch.set(matchId, {
+      playerId: botId,
+      token: null,
+      questionId: null,
+      answerAt: 0,
+      accuracy: 0.64,
+    });
+    this.matchesStarted += 1;
+
+    this.send(player.playerId, "match.found", {
+      matchId,
+      you: player.playerId,
+      opponent: {
+        displayName: bot.displayName,
+        locale: bot.locale,
+        dir: bot.locale === "ar" ? "rtl" : "ltr",
+        rating: bot.rating,
+        isBot: true,
+      },
+      crossRegion: false,
+      waitMs: now - (session.queuedAt ?? now),
+      isBot: true,
+      serverNow: now,
+    });
+    this.dispatch(room.start(now), now);
+  }
+
   private handleQueueLeave(session: Session): void {
     this.matchmaker.cancel(session.player.playerId);
     session.queuedAt = null;
@@ -337,9 +408,24 @@ export class Gateway {
       for (const pairing of this.matchmaker.tick(now)) this.createMatch(pairing, now);
     }
 
+    // A real player always gets the first chance at a human opponent. After 15 seconds,
+    // an unmatched ticket becomes a bot match so matchmaking cannot wait forever.
+    for (const entry of this.matchmaker.tickets()) {
+      if (now - entry.joinedAt < 15_000) continue;
+      const session = this.sessions.get(entry.player.playerId);
+      if (!session || session.queuedAt === null || !this.connByPlayer.has(entry.player.playerId)) {
+        this.matchmaker.cancel(entry.player.playerId);
+        continue;
+      }
+      this.matchmaker.cancel(entry.player.playerId);
+      session.queuedAt = null;
+      this.createBotMatch(session, now);
+    }
+
     for (const room of [...this.rooms.values()]) {
       const out = room.advance(now);
       if (out.length) this.dispatch(out, now);
+      this.advanceBot(room, now);
       if (room.isFinished) this.retire(room);
     }
   }
@@ -397,8 +483,40 @@ export class Gateway {
     this.dispatch(room.start(now), now);
   }
 
+  private advanceBot(room: MatchRoom, now: number): void {
+    const bot = this.botsByMatch.get(room.matchId);
+    if (!bot || !bot.token || now < bot.answerAt || room.isFinished) return;
+
+    const audit = room.audit;
+    if (!audit || audit.questionId !== bot.questionId) {
+      bot.token = null;
+      bot.questionId = null;
+      return;
+    }
+
+    const question = [...this.bank.questions, ...this.bank.shotQuestions]
+      .find((item) => item.id === audit.questionId);
+    if (!question) {
+      bot.token = null;
+      return;
+    }
+
+    const roll = seedFrom(`${room.matchId}:${audit.questionId}:skill`) % 1_000 / 1_000;
+    const correct = roll < bot.accuracy;
+    const optionId = correct
+      ? audit.answerOptionId
+      : (question.options.find((option) => option.id !== audit.answerOptionId)?.id
+        ?? question.options[0]?.id
+        ?? audit.answerOptionId);
+    const token = bot.token;
+    bot.token = null;
+    bot.questionId = null;
+    this.dispatch(room.submitAnswer(bot.playerId, { token, optionId }, now), now);
+  }
+
   private retire(room: MatchRoom): void {
     this.rooms.delete(room.matchId);
+    this.botsByMatch.delete(room.matchId);
     const summary: Array<{ playerId: string; outcome: string; ratingDelta: number }> = [];
     for (const playerId of Object.keys(room.players)) {
       const session = this.sessions.get(playerId);
@@ -412,19 +530,46 @@ export class Gateway {
 
   private dispatch(out: Outbound[], now: number): void {
     for (const env of out) {
+      const botMatch = [...this.botsByMatch.entries()].find(([, bot]) => bot.playerId === env.to);
+      if (botMatch) {
+        const [matchId, bot] = botMatch;
+        if (env.type === "round.question" || env.type === "shoot.question") {
+          const payload = env.payload as {
+            token?: string;
+            youAreShooting?: boolean;
+            view?: { questionId?: string };
+          };
+          const isBotQuestion = env.type === "round.question" || payload.youAreShooting === true;
+          if (isBotQuestion && typeof payload.token === "string" && typeof payload.view?.questionId === "string") {
+            const delay = 700 + seedFrom(`${matchId}:${payload.view.questionId}:delay`) % 2_200;
+            bot.token = payload.token;
+            bot.questionId = payload.view.questionId;
+            bot.answerAt = now + delay;
+          }
+        }
+        continue;
+      }
       if (env.to === "all") {
         for (const conn of this.connByPlayer.values()) conn.send(env.type, env.payload);
         continue;
       }
 
       const conn = this.connByPlayer.get(env.to);
-      if (conn) conn.send(env.type, env.payload);
+      const sessionForRecipient = this.sessions.get(env.to);
+      const isBotMatch = Boolean(sessionForRecipient?.matchId && this.botsByMatch.has(sessionForRecipient.matchId));
+      if (conn) {
+        if (env.type === "match.end" && isBotMatch && typeof env.payload === "object" && env.payload !== null) {
+          conn.send(env.type, { ...(env.payload as Record<string, unknown>), ratingDelta: 0 });
+        } else {
+          conn.send(env.type, env.payload);
+        }
+      }
 
       if (env.type === "match.end") {
         const payload = env.payload as { outcome?: string; ratingDelta?: number };
         const delta = payload.ratingDelta ?? 0;
         const session = this.sessions.get(env.to);
-        if (session) {
+        if (session && !isBotMatch) {
           const next = (this.ratings.get(env.to) ?? session.player.rating) + delta;
           this.ratings.set(env.to, next);
           session.player.rating = next;
