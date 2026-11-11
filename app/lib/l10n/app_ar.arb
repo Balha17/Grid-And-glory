@@ -38,5 +38,7 @@
   "decidedByZone": "حُسمت بالأرضية",
   "accuracy": "الدقة",
   "opponentFound": "تم إيجاد خصم",
-  "homeAction": "الرئيسية"
+  "homeAction": "الرئيسية",
+  "playOnline": "العب عبر الإنترنت",
+  "playVsAi": "العب ضد الذكاء الاصطناعي"
 }
