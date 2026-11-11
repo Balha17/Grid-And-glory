@@ -463,10 +463,11 @@ class _ModeCard extends StatelessWidget {
                 ),
                 const SizedBox(width: 8),
                 Icon(
-                  Icons.arrow_forward_rounded,
+                  locale.languageCode == 'ar'
+                      ? Icons.arrow_back_rounded
+                      : Icons.arrow_forward_rounded,
                   color: primary ? AppColors.accent : AppColors.textSecondary,
                   size: 20,
-                  matchTextDirection: true,
                 ),
               ],
             ),
