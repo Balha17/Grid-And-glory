@@ -35,6 +35,9 @@ var home_player: Node3D
 var away_player: Node3D
 var home_team: Array[Node3D] = []
 var away_team: Array[Node3D] = []
+var rendered_home_zone := -999
+var rendered_away_zone := -999
+var rendered_pitch_status := ""
 var hud: CanvasLayer
 var match_layer: Control
 var home_layer: Control
@@ -241,7 +244,7 @@ func _build_stadium() -> void:
 	var stadium_light := DirectionalLight3D.new()
 	stadium_light.rotation_degrees = Vector3(-55, -25, 0)
 	stadium_light.light_energy = 1.25
-	stadium_light.shadow_enabled = true
+	stadium_light.shadow_enabled = false
 	stadium_root.add_child(stadium_light)
 
 	_box("StadiumBase", Vector3(0, -0.65, 0), Vector3(34, 1.1, 56), Color(0.035, 0.12, 0.11))
@@ -345,14 +348,6 @@ func _add_stadium_details() -> void:
 			for lamp_index in range(4):
 				var lamp_x := x - 1.2 + float(lamp_index) * 0.8
 				_box("Floodlight_Lamp", Vector3(lamp_x, 13.15, z), Vector3(0.48, 0.34, 0.16), Color(0.82, 0.91, 1.0))
-			var glow := OmniLight3D.new()
-			glow.name = "Floodlight_Glow"
-			glow.position = Vector3(x, 12.9, z)
-			glow.light_color = Color(0.76, 0.86, 1.0)
-			glow.light_energy = 1.15
-			glow.omni_range = 30.0
-			glow.shadow_enabled = false
-			stadium_root.add_child(glow)
 	# Corner flags make the field markings read like a complete football ground.
 	for side in [-1, 1]:
 		for end in [-1, 1]:
@@ -1441,20 +1436,27 @@ func _toggle_sound_label() -> void:
 func _update_pitch_state() -> void:
 	if not is_instance_valid(home_player) or not is_instance_valid(away_player):
 		return
-	var home_shift := float(my_zone) * 2.1
-	var away_shift := float(rival_zone) * 2.1
-	var home_base := [Vector3(0,0,21),Vector3(-10,0,14),Vector3(-3.3,0,15),Vector3(3.3,0,15),Vector3(10,0,14),Vector3(-7,0,5),Vector3(0,0,7),Vector3(7,0,5),Vector3(-8,0,-6),Vector3(0,0,-8),Vector3(8,0,-6)]
-	var away_base := [Vector3(0,0,-21),Vector3(10,0,-14),Vector3(3.3,0,-15),Vector3(-3.3,0,-15),Vector3(-10,0,-14),Vector3(7,0,-5),Vector3(0,0,-7),Vector3(-7,0,-5),Vector3(8,0,6),Vector3(0,0,8),Vector3(-8,0,6)]
+	# Reposition the 22 players only when the authoritative zone changes.
+	if rendered_home_zone != my_zone:
+		rendered_home_zone = my_zone
+		var home_base := [Vector3(0,0,21),Vector3(-10,0,14),Vector3(-3.3,0,15),Vector3(3.3,0,15),Vector3(10,0,14),Vector3(-7,0,5),Vector3(0,0,7),Vector3(7,0,5),Vector3(-8,0,-6),Vector3(0,0,-8),Vector3(8,0,-6)]
+		var shift := float(my_zone) * 2.1
+		for i in range(home_team.size()):
+			home_team[i].position = home_base[i] + Vector3(0,0,-shift)
+	if rendered_away_zone != rival_zone:
+		rendered_away_zone = rival_zone
+		var away_base := [Vector3(0,0,-21),Vector3(10,0,-14),Vector3(3.3,0,-15),Vector3(-3.3,0,-15),Vector3(-10,0,-14),Vector3(7,0,-5),Vector3(0,0,-7),Vector3(-7,0,-5),Vector3(8,0,6),Vector3(0,0,8),Vector3(-8,0,6)]
+		var shift := float(rival_zone) * 2.1
+		for i in range(away_team.size()):
+			away_team[i].position = away_base[i] + Vector3(0,0,shift)
+	# Animate only the two featured players; reserve players remain static.
 	var gait := float(Time.get_ticks_msec()) * 0.012
-	for i in range(home_team.size()):
-		var target: Vector3 = home_base[i] + Vector3(0,0,-home_shift)
-		home_team[i].position = home_team[i].position.lerp(target, 0.025)
-		_animate_player(home_team[i], gait + float(i)*0.55)
-	for i in range(away_team.size()):
-		var target: Vector3 = away_base[i] + Vector3(0,0,away_shift)
-		away_team[i].position = away_team[i].position.lerp(target, 0.025)
-		_animate_player(away_team[i], -gait + float(i)*0.55)
-	pitch_status.text = _tr("ATTACKING • ZONE ", "هجوم • المنطقة ") + str(my_zone) if my_zone > rival_zone else _tr("DEFENDING • WIN THE BALL", "دفاع • استعد الكرة")
+	_animate_player(home_player, gait)
+	_animate_player(away_player, -gait)
+	var next_status := _tr("ATTACKING • ZONE ", "هجوم • المنطقة ") + str(my_zone) if my_zone > rival_zone else _tr("DEFENDING • WIN THE BALL", "دفاع • استعد الكرة")
+	if rendered_pitch_status != next_status:
+		rendered_pitch_status = next_status
+		pitch_status.text = next_status
 
 func animate_kickoff() -> void:
 	var tween := create_tween()
