@@ -249,7 +249,7 @@ Future<void> _editPlayerName(BuildContext context, WidgetRef ref, Locale locale)
   if (value == null) return;
   final clean = value.replaceAll(RegExp(r'[\\u0000-\\u001F\\u007F]'), '').trim();
   if (clean.length < 2) return;
-  await prefs.setString('player_nickname', clean.characters.take(18).toString());
+  await prefs.setString('player_nickname', String.fromCharCodes(clean.runes.take(18)));
 }
 
 class _HomeAtmosphere extends StatelessWidget {
