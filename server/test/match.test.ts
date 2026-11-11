@@ -9,6 +9,7 @@
 
 import { assert, summarize, test } from "./harness.ts";
 import { MatchRoom } from "../src/match-room.ts";
+import { renderQuestion } from "../src/render.ts";
 import { drawPool, loadBank } from "../src/bank-loader.ts";
 import type { Outbound, PlayerRef, QuestionView } from "../src/types.ts";
 
@@ -249,6 +250,23 @@ test("question tokens are bound to the player", () => {
     strongVsWeak.firstTokens[BOB.playerId],
     "a token minted for one player must not authorise the other",
   );
+});
+
+test("every career-path question renders its complete chronological club sequence", () => {
+  const careerQuestions = bank.questions.filter((q) => q.format === "career_path");
+  assert.ok(careerQuestions.length > 0, "the bank contains career-path questions");
+  for (const question of careerQuestions) {
+    const view = renderQuestion(question, "en", {
+      catalog: bank.catalog,
+      assetUrl: (assetId) => `https://assets.invalid/${assetId}.webp`,
+      seed: `career-test:${question.id}`,
+    });
+    const clubs = view.formatData.clubs as Array<{ id: string; name: string }>;
+    const ids = question.formatData?.clubIds as string[];
+    assert.equal(clubs.length, ids.length, `${question.id} must render every club`);
+    assert.ok(clubs.every((club) => club.name.length > 0 && club.name !== club.id),
+      `${question.id} must show readable club names, not missing ids`);
+  }
 });
 
 test("a stronger player beats a weaker one over a full match", () => {
