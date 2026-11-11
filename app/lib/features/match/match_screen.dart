@@ -60,6 +60,8 @@ class MatchScreen extends StatelessWidget {
                               youHaveBall: state.youHaveBall,
                               locale: locale,
                               goalFlash: state.goalFlash,
+                              phase: state.phase,
+                              youAreShooting: state.youAreShooting,
                             ),
                           ),
                           // HUD overlays the pitch instead of sitting above it: the pitch
