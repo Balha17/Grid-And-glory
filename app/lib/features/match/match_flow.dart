@@ -195,7 +195,7 @@ class _MatchFlowScreenState extends ConsumerState<MatchFlowScreen> {
   }
 }
 
-class _LobbyView extends StatelessWidget {
+class _LobbyView extends StatefulWidget {
   const _LobbyView({
     required this.locale,
     required this.l10n,
@@ -213,7 +213,30 @@ class _LobbyView extends StatelessWidget {
   final VoidCallback onCancel;
 
   @override
+  State<_LobbyView> createState() => _LobbyViewState();
+}
+
+class _LobbyViewState extends State<_LobbyView>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController _ball = AnimationController(
+    vsync: this,
+    duration: const Duration(milliseconds: 1500),
+  )..repeat();
+
+  @override
+  void dispose() {
+    _ball.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final locale = widget.locale;
+    final l10n = widget.l10n;
+    final searching = widget.searching;
+    final opponentName = widget.opponentName;
+    final opponentLocale = widget.opponentLocale;
+    final onCancel = widget.onCancel;
     return Scaffold(
       backgroundColor: AppColors.bgBase,
       body: SafeArea(
@@ -224,11 +247,49 @@ class _LobbyView extends StatelessWidget {
             children: [
               const Spacer(),
               SizedBox(
-                width: 120,
-                height: 120,
-                child: CircularProgressIndicator(
-                  strokeWidth: 3,
-                  color: searching ? AppColors.accent : AppColors.correct,
+                width: 150,
+                height: 150,
+                child: Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    Container(
+                      width: 132,
+                      height: 132,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: AppColors.bgRaised,
+                        border: Border.all(
+                          color: AppColors.accent.withValues(alpha: 0.45),
+                          width: 2,
+                        ),
+                      ),
+                    ),
+                    AnimatedBuilder(
+                      animation: _ball,
+                      builder: (context, _) => Transform.translate(
+                        offset: Offset(0, -8 - math.sin(_ball.value * math.pi * 2) * 13),
+                        child: Transform.rotate(
+                          angle: _ball.value * math.pi * 4,
+                          child: const Icon(
+                            Icons.sports_soccer_rounded,
+                            size: 66,
+                            color: AppColors.accent,
+                          ),
+                        ),
+                      ),
+                    ),
+                    Positioned(
+                      bottom: 4,
+                      child: SizedBox(
+                        width: 145,
+                        child: LinearProgressIndicator(
+                          minHeight: 3,
+                          color: searching ? AppColors.accent : AppColors.correct,
+                          backgroundColor: AppColors.border,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
               const SizedBox(height: AppSpacing.xl),
