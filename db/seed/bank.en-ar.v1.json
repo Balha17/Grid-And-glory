@@ -625,6 +625,11 @@
         "id": "UEFA_SC",
         "en": "UEFA Super Cup",
         "ar": "كأس السوبر الأوروبي"
+      },
+      {
+        "id": "UEFA_EURO",
+        "en": "UEFA European Championship",
+        "ar": "بطولة أمم أوروبا"
       }
     ]
   },
@@ -8116,45 +8121,47 @@
       }
     },
     {
-      "id": "q_hard_wc1966final",
+      "id": "q_mc_hard_wc1966final",
       "schemaVersion": "1.0.0",
       "format": "mc",
       "difficulty": 5,
       "region": "GLOBAL",
-      "competitions": [],
+      "competitions": [
+        "FIFA_WC"
+      ],
       "tags": [
         "expert",
         "football-history",
         "finals"
       ],
-      "era": "classic-and-modern",
+      "era": "ALL_TIME",
       "prompt": {
         "en": "Which player scored a hat-trick in the 1966 World Cup final?",
         "ar": "من اللاعب الذي سجل ثلاثية في نهائي كأس العالم 1966؟"
       },
       "options": [
         {
-          "id": "q_hard_wc1966final_o3",
-          "en": "Roger Hunt",
-          "ar": "روجر هانت"
-        },
-        {
-          "id": "q_hard_wc1966final_o2",
+          "id": "opt_hard_wc1966final_o2",
           "en": "Bobby Charlton",
           "ar": "بوبي تشارلتون"
         },
         {
-          "id": "q_hard_wc1966final_o4",
+          "id": "opt_hard_wc1966final_o1",
+          "en": "Geoff Hurst",
+          "ar": "جيف هيرست"
+        },
+        {
+          "id": "opt_hard_wc1966final_o4",
           "en": "Martin Peters",
           "ar": "مارتن بيترز"
         },
         {
-          "id": "q_hard_wc1966final_o1",
-          "en": "Geoff Hurst",
-          "ar": "جيف هيرست"
+          "id": "opt_hard_wc1966final_o3",
+          "en": "Roger Hunt",
+          "ar": "روجر هانت"
         }
       ],
-      "answerOptionId": "q_hard_wc1966final_o1",
+      "answerOptionId": "opt_hard_wc1966final_o1",
       "explainer": {
         "en": "Geoff Hurst scored three times as England beat West Germany 4–2 after extra time.",
         "ar": "سجل جيف هيرست ثلاثة أهداف عندما فازت إنجلترا على ألمانيا الغربية 4-2 بعد التمديد."
@@ -8169,50 +8176,51 @@
         "status": "draft",
         "version": 1,
         "author": "assistant-generated",
-        "reviewedBy": null,
         "updatedAt": "2026-11-11T00:00:00.000Z"
       }
     },
     {
-      "id": "q_hard_wc1982semi",
+      "id": "q_mc_hard_wc1982semi",
       "schemaVersion": "1.0.0",
       "format": "mc",
       "difficulty": 5,
       "region": "GLOBAL",
-      "competitions": [],
+      "competitions": [
+        "FIFA_WC"
+      ],
       "tags": [
         "expert",
         "football-history",
         "finals"
       ],
-      "era": "classic-and-modern",
+      "era": "ALL_TIME",
       "prompt": {
         "en": "Which country did Italy eliminate in the 1982 World Cup semi-final?",
         "ar": "أي منتخب أقصته إيطاليا في نصف نهائي كأس العالم 1982؟"
       },
       "options": [
         {
-          "id": "q_hard_wc1982semi_o1",
+          "id": "opt_hard_wc1982semi_o2",
+          "en": "West Germany",
+          "ar": "ألمانيا الغربية"
+        },
+        {
+          "id": "opt_hard_wc1982semi_o1",
           "en": "Poland",
           "ar": "بولندا"
         },
         {
-          "id": "q_hard_wc1982semi_o4",
-          "en": "Brazil",
-          "ar": "البرازيل"
-        },
-        {
-          "id": "q_hard_wc1982semi_o3",
+          "id": "opt_hard_wc1982semi_o3",
           "en": "France",
           "ar": "فرنسا"
         },
         {
-          "id": "q_hard_wc1982semi_o2",
-          "en": "West Germany",
-          "ar": "ألمانيا الغربية"
+          "id": "opt_hard_wc1982semi_o4",
+          "en": "Brazil",
+          "ar": "البرازيل"
         }
       ],
-      "answerOptionId": "q_hard_wc1982semi_o1",
+      "answerOptionId": "opt_hard_wc1982semi_o1",
       "explainer": {
         "en": "Italy beat Poland 2–0 in the semi-final, with Paolo Rossi scoring both goals.",
         "ar": "فازت إيطاليا على بولندا 2-0 في نصف النهائي وسجل باولو روسي الهدفين."
@@ -8227,50 +8235,51 @@
         "status": "draft",
         "version": 1,
         "author": "assistant-generated",
-        "reviewedBy": null,
         "updatedAt": "2026-11-11T00:00:00.000Z"
       }
     },
     {
-      "id": "q_hard_wc1986hand",
+      "id": "q_mc_hard_wc1986hand",
       "schemaVersion": "1.0.0",
       "format": "mc",
       "difficulty": 5,
       "region": "GLOBAL",
-      "competitions": [],
+      "competitions": [
+        "FIFA_WC"
+      ],
       "tags": [
         "expert",
         "football-history",
         "finals"
       ],
-      "era": "classic-and-modern",
+      "era": "ALL_TIME",
       "prompt": {
         "en": "Who was England's opponent when Diego Maradona scored the Hand of God goal?",
         "ar": "من كان منافس إنجلترا عندما سجل دييغو مارادونا هدف يد الله؟"
       },
       "options": [
         {
-          "id": "q_hard_wc1986hand_o4",
+          "id": "opt_hard_wc1986hand_o4",
           "en": "West Germany",
           "ar": "ألمانيا الغربية"
         },
         {
-          "id": "q_hard_wc1986hand_o3",
-          "en": "Belgium",
-          "ar": "بلجيكا"
-        },
-        {
-          "id": "q_hard_wc1986hand_o1",
+          "id": "opt_hard_wc1986hand_o1",
           "en": "Argentina",
           "ar": "الأرجنتين"
         },
         {
-          "id": "q_hard_wc1986hand_o2",
+          "id": "opt_hard_wc1986hand_o2",
           "en": "Uruguay",
           "ar": "الأوروغواي"
+        },
+        {
+          "id": "opt_hard_wc1986hand_o3",
+          "en": "Belgium",
+          "ar": "بلجيكا"
         }
       ],
-      "answerOptionId": "q_hard_wc1986hand_o1",
+      "answerOptionId": "opt_hard_wc1986hand_o1",
       "explainer": {
         "en": "The famous Hand of God goal came against England in the 1986 quarter-final.",
         "ar": "جاء هدف يد الله الشهير أمام إنجلترا في ربع نهائي 1986."
@@ -8285,50 +8294,51 @@
         "status": "draft",
         "version": 1,
         "author": "assistant-generated",
-        "reviewedBy": null,
         "updatedAt": "2026-11-11T00:00:00.000Z"
       }
     },
     {
-      "id": "q_hard_wc1990golden",
+      "id": "q_mc_hard_wc1990golden",
       "schemaVersion": "1.0.0",
       "format": "mc",
       "difficulty": 5,
       "region": "GLOBAL",
-      "competitions": [],
+      "competitions": [
+        "FIFA_WC"
+      ],
       "tags": [
         "expert",
         "football-history",
         "finals"
       ],
-      "era": "classic-and-modern",
+      "era": "ALL_TIME",
       "prompt": {
         "en": "Who won the Golden Boot at the 1990 FIFA World Cup?",
         "ar": "من فاز بالحذاء الذهبي في كأس العالم 1990؟"
       },
       "options": [
         {
-          "id": "q_hard_wc1990golden_o4",
-          "en": "Roger Milla",
-          "ar": "روجيه ميلا"
-        },
-        {
-          "id": "q_hard_wc1990golden_o2",
-          "en": "Gary Lineker",
-          "ar": "غاري لينيكر"
-        },
-        {
-          "id": "q_hard_wc1990golden_o1",
+          "id": "opt_hard_wc1990golden_o1",
           "en": "Salvatore Schillaci",
           "ar": "سلفاتوري سكيلاتشي"
         },
         {
-          "id": "q_hard_wc1990golden_o3",
+          "id": "opt_hard_wc1990golden_o2",
+          "en": "Gary Lineker",
+          "ar": "غاري لينيكر"
+        },
+        {
+          "id": "opt_hard_wc1990golden_o4",
+          "en": "Roger Milla",
+          "ar": "روجيه ميلا"
+        },
+        {
+          "id": "opt_hard_wc1990golden_o3",
           "en": "Lothar Matthäus",
           "ar": "لوثار ماتيوس"
         }
       ],
-      "answerOptionId": "q_hard_wc1990golden_o1",
+      "answerOptionId": "opt_hard_wc1990golden_o1",
       "explainer": {
         "en": "Italy's Salvatore Schillaci finished as top scorer with six goals.",
         "ar": "أنهى الإيطالي سلفاتوري سكيلاتشي البطولة هدافاً بستة أهداف."
@@ -8343,50 +8353,51 @@
         "status": "draft",
         "version": 1,
         "author": "assistant-generated",
-        "reviewedBy": null,
         "updatedAt": "2026-11-11T00:00:00.000Z"
       }
     },
     {
-      "id": "q_hard_wc1998headers",
+      "id": "q_mc_hard_wc1998headers",
       "schemaVersion": "1.0.0",
       "format": "mc",
       "difficulty": 5,
       "region": "GLOBAL",
-      "competitions": [],
+      "competitions": [
+        "FIFA_WC"
+      ],
       "tags": [
         "expert",
         "football-history",
         "finals"
       ],
-      "era": "classic-and-modern",
+      "era": "ALL_TIME",
       "prompt": {
         "en": "How many goals did Zinedine Zidane score in the 1998 World Cup final?",
         "ar": "كم هدفاً سجل زين الدين زيدان في نهائي كأس العالم 1998؟"
       },
       "options": [
         {
-          "id": "q_hard_wc1998headers_o2",
-          "en": "One",
-          "ar": "هدفاً واحداً"
-        },
-        {
-          "id": "q_hard_wc1998headers_o3",
+          "id": "opt_hard_wc1998headers_o3",
           "en": "Three",
           "ar": "ثلاثة أهداف"
         },
         {
-          "id": "q_hard_wc1998headers_o1",
+          "id": "opt_hard_wc1998headers_o1",
           "en": "Two",
           "ar": "هدفين"
         },
         {
-          "id": "q_hard_wc1998headers_o4",
+          "id": "opt_hard_wc1998headers_o2",
+          "en": "One",
+          "ar": "هدفاً واحداً"
+        },
+        {
+          "id": "opt_hard_wc1998headers_o4",
           "en": "None",
           "ar": "لم يسجل"
         }
       ],
-      "answerOptionId": "q_hard_wc1998headers_o1",
+      "answerOptionId": "opt_hard_wc1998headers_o1",
       "explainer": {
         "en": "Zidane scored twice with headers as France beat Brazil 3–0.",
         "ar": "سجل زيدان هدفين بالرأس في فوز فرنسا على البرازيل 3-0."
@@ -8401,50 +8412,51 @@
         "status": "draft",
         "version": 1,
         "author": "assistant-generated",
-        "reviewedBy": null,
         "updatedAt": "2026-11-11T00:00:00.000Z"
       }
     },
     {
-      "id": "q_hard_wc2002golden",
+      "id": "q_mc_hard_wc2002golden",
       "schemaVersion": "1.0.0",
       "format": "mc",
       "difficulty": 5,
       "region": "GLOBAL",
-      "competitions": [],
+      "competitions": [
+        "FIFA_WC"
+      ],
       "tags": [
         "expert",
         "football-history",
         "finals"
       ],
-      "era": "classic-and-modern",
+      "era": "ALL_TIME",
       "prompt": {
         "en": "How many goals did Ronaldo score at the 2002 World Cup?",
         "ar": "كم هدفاً سجل رونالدو في كأس العالم 2002؟"
       },
       "options": [
         {
-          "id": "q_hard_wc2002golden_o1",
+          "id": "opt_hard_wc2002golden_o1",
           "en": "Eight",
           "ar": "ثمانية"
         },
         {
-          "id": "q_hard_wc2002golden_o3",
-          "en": "Seven",
-          "ar": "سبعة"
-        },
-        {
-          "id": "q_hard_wc2002golden_o4",
+          "id": "opt_hard_wc2002golden_o4",
           "en": "Ten",
           "ar": "عشرة"
         },
         {
-          "id": "q_hard_wc2002golden_o2",
+          "id": "opt_hard_wc2002golden_o3",
+          "en": "Seven",
+          "ar": "سبعة"
+        },
+        {
+          "id": "opt_hard_wc2002golden_o2",
           "en": "Six",
           "ar": "ستة"
         }
       ],
-      "answerOptionId": "q_hard_wc2002golden_o1",
+      "answerOptionId": "opt_hard_wc2002golden_o1",
       "explainer": {
         "en": "Brazil's Ronaldo scored eight goals and won the tournament's Golden Boot.",
         "ar": "سجل رونالدو البرازيلي ثمانية أهداف وفاز بالحذاء الذهبي."
@@ -8459,50 +8471,51 @@
         "status": "draft",
         "version": 1,
         "author": "assistant-generated",
-        "reviewedBy": null,
         "updatedAt": "2026-11-11T00:00:00.000Z"
       }
     },
     {
-      "id": "q_hard_wc2006equalizer",
+      "id": "q_mc_hard_wc2006equalizer",
       "schemaVersion": "1.0.0",
       "format": "mc",
       "difficulty": 5,
       "region": "GLOBAL",
-      "competitions": [],
+      "competitions": [
+        "FIFA_WC"
+      ],
       "tags": [
         "expert",
         "football-history",
         "finals"
       ],
-      "era": "classic-and-modern",
+      "era": "ALL_TIME",
       "prompt": {
         "en": "Who scored France's equaliser in the 2006 World Cup final?",
         "ar": "من سجل هدف التعادل لفرنسا في نهائي كأس العالم 2006؟"
       },
       "options": [
         {
-          "id": "q_hard_wc2006equalizer_o1",
-          "en": "Marco Materazzi",
-          "ar": "ماركو ماتيراتزي"
+          "id": "opt_hard_wc2006equalizer_o2",
+          "en": "Luca Toni",
+          "ar": "لوكا توني"
         },
         {
-          "id": "q_hard_wc2006equalizer_o4",
+          "id": "opt_hard_wc2006equalizer_o4",
           "en": "Fabio Grosso",
           "ar": "فابيو غروسو"
         },
         {
-          "id": "q_hard_wc2006equalizer_o3",
+          "id": "opt_hard_wc2006equalizer_o3",
           "en": "Andrea Pirlo",
           "ar": "أندريا بيرلو"
         },
         {
-          "id": "q_hard_wc2006equalizer_o2",
-          "en": "Luca Toni",
-          "ar": "لوكا توني"
+          "id": "opt_hard_wc2006equalizer_o1",
+          "en": "Marco Materazzi",
+          "ar": "ماركو ماتيراتزي"
         }
       ],
-      "answerOptionId": "q_hard_wc2006equalizer_o1",
+      "answerOptionId": "opt_hard_wc2006equalizer_o1",
       "explainer": {
         "en": "Marco Materazzi headed Italy level after Zinedine Zidane's early penalty.",
         "ar": "سجل ماركو ماتيراتزي هدف التعادل لإيطاليا برأسية بعد ركلة جزاء زيدان."
@@ -8517,50 +8530,51 @@
         "status": "draft",
         "version": 1,
         "author": "assistant-generated",
-        "reviewedBy": null,
         "updatedAt": "2026-11-11T00:00:00.000Z"
       }
     },
     {
-      "id": "q_hard_ucl2008terry",
+      "id": "q_mc_hard_ucl2008terry",
       "schemaVersion": "1.0.0",
       "format": "mc",
       "difficulty": 5,
       "region": "GLOBAL",
-      "competitions": [],
+      "competitions": [
+        "UEFA_CL"
+      ],
       "tags": [
         "expert",
         "football-history",
         "finals"
       ],
-      "era": "classic-and-modern",
+      "era": "ALL_TIME",
       "prompt": {
         "en": "Which Chelsea player slipped while taking a penalty in the 2008 Champions League final shootout?",
         "ar": "أي لاعب من تشيلسي انزلق أثناء تنفيذ ركلة ترجيح في نهائي دوري الأبطال 2008؟"
       },
       "options": [
         {
-          "id": "q_hard_ucl2008terry_o3",
-          "en": "Didier Drogba",
-          "ar": "ديدييه دروغبا"
+          "id": "opt_hard_ucl2008terry_o4",
+          "en": "Michael Ballack",
+          "ar": "مايكل بالاك"
         },
         {
-          "id": "q_hard_ucl2008terry_o2",
-          "en": "Frank Lampard",
-          "ar": "فرانك لامبارد"
-        },
-        {
-          "id": "q_hard_ucl2008terry_o1",
+          "id": "opt_hard_ucl2008terry_o1",
           "en": "John Terry",
           "ar": "جون تيري"
         },
         {
-          "id": "q_hard_ucl2008terry_o4",
-          "en": "Michael Ballack",
-          "ar": "مايكل بالاك"
+          "id": "opt_hard_ucl2008terry_o3",
+          "en": "Didier Drogba",
+          "ar": "ديدييه دروغبا"
+        },
+        {
+          "id": "opt_hard_ucl2008terry_o2",
+          "en": "Frank Lampard",
+          "ar": "فرانك لامبارد"
         }
       ],
-      "answerOptionId": "q_hard_ucl2008terry_o1",
+      "answerOptionId": "opt_hard_ucl2008terry_o1",
       "explainer": {
         "en": "John Terry slipped and hit the post; Manchester United went on to win the shootout.",
         "ar": "انزلق جون تيري وسدد في القائم، ثم فاز مانشستر يونايتد بركلات الترجيح."
@@ -8575,50 +8589,51 @@
         "status": "draft",
         "version": 1,
         "author": "assistant-generated",
-        "reviewedBy": null,
         "updatedAt": "2026-11-11T00:00:00.000Z"
       }
     },
     {
-      "id": "q_hard_ucl2009goals",
+      "id": "q_mc_hard_ucl2009goals",
       "schemaVersion": "1.0.0",
       "format": "mc",
       "difficulty": 5,
       "region": "GLOBAL",
-      "competitions": [],
+      "competitions": [
+        "UEFA_CL"
+      ],
       "tags": [
         "expert",
         "football-history",
         "finals"
       ],
-      "era": "classic-and-modern",
+      "era": "ALL_TIME",
       "prompt": {
         "en": "Who scored Barcelona's two goals in the 2009 Champions League final?",
         "ar": "من سجل هدفي برشلونة في نهائي دوري أبطال أوروبا 2009؟"
       },
       "options": [
         {
-          "id": "q_hard_ucl2009goals_o4",
+          "id": "opt_hard_ucl2009goals_o4",
           "en": "Eto'o and Henry",
           "ar": "إيتو وهنري"
         },
         {
-          "id": "q_hard_ucl2009goals_o3",
+          "id": "opt_hard_ucl2009goals_o3",
           "en": "Henry and Iniesta",
           "ar": "هنري وإنييستا"
         },
         {
-          "id": "q_hard_ucl2009goals_o1",
+          "id": "opt_hard_ucl2009goals_o1",
           "en": "Samuel Eto'o and Lionel Messi",
           "ar": "صامويل إيتو وليونيل ميسي"
         },
         {
-          "id": "q_hard_ucl2009goals_o2",
+          "id": "opt_hard_ucl2009goals_o2",
           "en": "Messi and Xavi",
           "ar": "ميسي وتشافي"
         }
       ],
-      "answerOptionId": "q_hard_ucl2009goals_o1",
+      "answerOptionId": "opt_hard_ucl2009goals_o1",
       "explainer": {
         "en": "Samuel Eto'o opened the scoring before Lionel Messi added the second against Manchester United.",
         "ar": "افتتح صامويل إيتو التسجيل ثم أضاف ليونيل ميسي الهدف الثاني أمام مانشستر يونايتد."
@@ -8633,166 +8648,51 @@
         "status": "draft",
         "version": 1,
         "author": "assistant-generated",
-        "reviewedBy": null,
         "updatedAt": "2026-11-11T00:00:00.000Z"
       }
     },
     {
-      "id": "q_hard_wc2010winner",
+      "id": "q_mc_hard_ucl2015opponent",
       "schemaVersion": "1.0.0",
       "format": "mc",
       "difficulty": 5,
       "region": "GLOBAL",
-      "competitions": [],
+      "competitions": [
+        "UEFA_CL"
+      ],
       "tags": [
         "expert",
         "football-history",
         "finals"
       ],
-      "era": "classic-and-modern",
-      "prompt": {
-        "en": "Who scored the winning goal in the 2010 World Cup final?",
-        "ar": "من سجل هدف الفوز في نهائي كأس العالم 2010؟"
-      },
-      "options": [
-        {
-          "id": "q_hard_wc2010winner_o2",
-          "en": "David Villa",
-          "ar": "دافيد فيا"
-        },
-        {
-          "id": "q_hard_wc2010winner_o3",
-          "en": "Xavi",
-          "ar": "تشافي"
-        },
-        {
-          "id": "q_hard_wc2010winner_o1",
-          "en": "Andrés Iniesta",
-          "ar": "أندريس إنييستا"
-        },
-        {
-          "id": "q_hard_wc2010winner_o4",
-          "en": "Fernando Torres",
-          "ar": "فرناندو توريس"
-        }
-      ],
-      "answerOptionId": "q_hard_wc2010winner_o1",
-      "explainer": {
-        "en": "Andrés Iniesta scored in extra time to give Spain its first men's World Cup title.",
-        "ar": "سجل أندريس إنييستا في الوقت الإضافي ليمنح إسبانيا أول لقب عالمي للرجال."
-      },
-      "localization": {
-        "enChars": 100,
-        "arChars": 83,
-        "parityRatio": 0.83,
-        "verifiedBy": "auto-check-pending-editor"
-      },
-      "authoring": {
-        "status": "draft",
-        "version": 1,
-        "author": "assistant-generated",
-        "reviewedBy": null,
-        "updatedAt": "2026-11-11T00:00:00.000Z"
-      }
-    },
-    {
-      "id": "q_hard_ucl2013winner",
-      "schemaVersion": "1.0.0",
-      "format": "mc",
-      "difficulty": 5,
-      "region": "GLOBAL",
-      "competitions": [],
-      "tags": [
-        "expert",
-        "football-history",
-        "finals"
-      ],
-      "era": "classic-and-modern",
-      "prompt": {
-        "en": "Who scored Bayern Munich's winning goal in the 2013 Champions League final?",
-        "ar": "من سجل هدف فوز بايرن ميونخ في نهائي دوري أبطال أوروبا 2013؟"
-      },
-      "options": [
-        {
-          "id": "q_hard_ucl2013winner_o3",
-          "en": "Mario Mandžukić",
-          "ar": "ماريو ماندجوكيتش"
-        },
-        {
-          "id": "q_hard_ucl2013winner_o2",
-          "en": "Franck Ribéry",
-          "ar": "فرانك ريبيري"
-        },
-        {
-          "id": "q_hard_ucl2013winner_o4",
-          "en": "Thomas Müller",
-          "ar": "توماس مولر"
-        },
-        {
-          "id": "q_hard_ucl2013winner_o1",
-          "en": "Arjen Robben",
-          "ar": "آريين روبن"
-        }
-      ],
-      "answerOptionId": "q_hard_ucl2013winner_o1",
-      "explainer": {
-        "en": "Arjen Robben scored late to defeat Borussia Dortmund at Wembley.",
-        "ar": "سجل آريين روبن هدفاً متأخراً ليهزم بوروسيا دورتموند في ويمبلي."
-      },
-      "localization": {
-        "enChars": 128,
-        "arChars": 107,
-        "parityRatio": 0.836,
-        "verifiedBy": "auto-check-pending-editor"
-      },
-      "authoring": {
-        "status": "draft",
-        "version": 1,
-        "author": "assistant-generated",
-        "reviewedBy": null,
-        "updatedAt": "2026-11-11T00:00:00.000Z"
-      }
-    },
-    {
-      "id": "q_hard_ucl2015opponent",
-      "schemaVersion": "1.0.0",
-      "format": "mc",
-      "difficulty": 5,
-      "region": "GLOBAL",
-      "competitions": [],
-      "tags": [
-        "expert",
-        "football-history",
-        "finals"
-      ],
-      "era": "classic-and-modern",
+      "era": "ALL_TIME",
       "prompt": {
         "en": "Which club did Barcelona defeat in the 2015 Champions League final?",
         "ar": "أي نادٍ هزمه برشلونة في نهائي دوري أبطال أوروبا 2015؟"
       },
       "options": [
         {
-          "id": "q_hard_ucl2015opponent_o1",
-          "en": "Juventus",
-          "ar": "يوفنتوس"
-        },
-        {
-          "id": "q_hard_ucl2015opponent_o3",
+          "id": "opt_hard_ucl2015opponent_o3",
           "en": "Bayern Munich",
           "ar": "بايرن ميونخ"
         },
         {
-          "id": "q_hard_ucl2015opponent_o4",
+          "id": "opt_hard_ucl2015opponent_o4",
           "en": "Atlético Madrid",
           "ar": "أتلتيكو مدريد"
         },
         {
-          "id": "q_hard_ucl2015opponent_o2",
+          "id": "opt_hard_ucl2015opponent_o1",
+          "en": "Juventus",
+          "ar": "يوفنتوس"
+        },
+        {
+          "id": "opt_hard_ucl2015opponent_o2",
           "en": "Real Madrid",
           "ar": "ريال مدريد"
         }
       ],
-      "answerOptionId": "q_hard_ucl2015opponent_o1",
+      "answerOptionId": "opt_hard_ucl2015opponent_o1",
       "explainer": {
         "en": "Barcelona beat Juventus 3–1 in Berlin to complete a continental treble.",
         "ar": "فاز برشلونة على يوفنتوس 3-1 في برلين ليكمل الثلاثية."
@@ -8807,50 +8707,51 @@
         "status": "draft",
         "version": 1,
         "author": "assistant-generated",
-        "reviewedBy": null,
         "updatedAt": "2026-11-11T00:00:00.000Z"
       }
     },
     {
-      "id": "q_hard_ucl2017opponent",
+      "id": "q_mc_hard_ucl2017opponent",
       "schemaVersion": "1.0.0",
       "format": "mc",
       "difficulty": 5,
       "region": "GLOBAL",
-      "competitions": [],
+      "competitions": [
+        "UEFA_CL"
+      ],
       "tags": [
         "expert",
         "football-history",
         "finals"
       ],
-      "era": "classic-and-modern",
+      "era": "ALL_TIME",
       "prompt": {
         "en": "Which team did Real Madrid beat in the 2017 Champions League final?",
         "ar": "أي فريق هزمه ريال مدريد في نهائي دوري أبطال أوروبا 2017؟"
       },
       "options": [
         {
-          "id": "q_hard_ucl2017opponent_o1",
+          "id": "opt_hard_ucl2017opponent_o1",
           "en": "Juventus",
           "ar": "يوفنتوس"
         },
         {
-          "id": "q_hard_ucl2017opponent_o2",
-          "en": "Atlético Madrid",
-          "ar": "أتلتيكو مدريد"
-        },
-        {
-          "id": "q_hard_ucl2017opponent_o4",
+          "id": "opt_hard_ucl2017opponent_o4",
           "en": "Bayern Munich",
           "ar": "بايرن ميونخ"
         },
         {
-          "id": "q_hard_ucl2017opponent_o3",
+          "id": "opt_hard_ucl2017opponent_o2",
+          "en": "Atlético Madrid",
+          "ar": "أتلتيكو مدريد"
+        },
+        {
+          "id": "opt_hard_ucl2017opponent_o3",
           "en": "Liverpool",
           "ar": "ليفربول"
         }
       ],
-      "answerOptionId": "q_hard_ucl2017opponent_o1",
+      "answerOptionId": "opt_hard_ucl2017opponent_o1",
       "explainer": {
         "en": "Real Madrid defeated Juventus 4–1 in Cardiff.",
         "ar": "هزم ريال مدريد يوفنتوس 4-1 في كارديف."
@@ -8865,50 +8766,51 @@
         "status": "draft",
         "version": 1,
         "author": "assistant-generated",
-        "reviewedBy": null,
         "updatedAt": "2026-11-11T00:00:00.000Z"
       }
     },
     {
-      "id": "q_hard_ucl2018bale",
+      "id": "q_mc_hard_ucl2018bale",
       "schemaVersion": "1.0.0",
       "format": "mc",
       "difficulty": 5,
       "region": "GLOBAL",
-      "competitions": [],
+      "competitions": [
+        "UEFA_CL"
+      ],
       "tags": [
         "expert",
         "football-history",
         "finals"
       ],
-      "era": "classic-and-modern",
+      "era": "ALL_TIME",
       "prompt": {
         "en": "Who scored the spectacular bicycle-kick goal in the 2018 Champions League final?",
         "ar": "من سجل الهدف المقصي الشهير في نهائي دوري أبطال أوروبا 2018؟"
       },
       "options": [
         {
-          "id": "q_hard_ucl2018bale_o4",
-          "en": "Sadio Mané",
-          "ar": "ساديو ماني"
-        },
-        {
-          "id": "q_hard_ucl2018bale_o3",
+          "id": "opt_hard_ucl2018bale_o3",
           "en": "Karim Benzema",
           "ar": "كريم بنزيما"
         },
         {
-          "id": "q_hard_ucl2018bale_o1",
+          "id": "opt_hard_ucl2018bale_o4",
+          "en": "Sadio Mané",
+          "ar": "ساديو ماني"
+        },
+        {
+          "id": "opt_hard_ucl2018bale_o1",
           "en": "Gareth Bale",
           "ar": "غاريث بيل"
         },
         {
-          "id": "q_hard_ucl2018bale_o2",
+          "id": "opt_hard_ucl2018bale_o2",
           "en": "Cristiano Ronaldo",
           "ar": "كريستيانو رونالدو"
         }
       ],
-      "answerOptionId": "q_hard_ucl2018bale_o1",
+      "answerOptionId": "opt_hard_ucl2018bale_o1",
       "explainer": {
         "en": "Gareth Bale scored twice against Liverpool, including the famous overhead kick.",
         "ar": "سجل غاريث بيل هدفين أمام ليفربول، من بينهما المقصية الشهيرة."
@@ -8923,50 +8825,51 @@
         "status": "draft",
         "version": 1,
         "author": "assistant-generated",
-        "reviewedBy": null,
         "updatedAt": "2026-11-11T00:00:00.000Z"
       }
     },
     {
-      "id": "q_hard_ucl2019penalty",
+      "id": "q_mc_hard_ucl2019penalty",
       "schemaVersion": "1.0.0",
       "format": "mc",
       "difficulty": 5,
       "region": "GLOBAL",
-      "competitions": [],
+      "competitions": [
+        "UEFA_CL"
+      ],
       "tags": [
         "expert",
         "football-history",
         "finals"
       ],
-      "era": "classic-and-modern",
+      "era": "ALL_TIME",
       "prompt": {
         "en": "Who converted Liverpool's early penalty in the 2019 Champions League final?",
         "ar": "من نفذ ركلة جزاء ليفربول المبكرة في نهائي دوري أبطال أوروبا 2019؟"
       },
       "options": [
         {
-          "id": "q_hard_ucl2019penalty_o3",
-          "en": "Roberto Firmino",
-          "ar": "روبرتو فيرمينو"
+          "id": "opt_hard_ucl2019penalty_o2",
+          "en": "Sadio Mané",
+          "ar": "ساديو ماني"
         },
         {
-          "id": "q_hard_ucl2019penalty_o1",
+          "id": "opt_hard_ucl2019penalty_o1",
           "en": "Mohamed Salah",
           "ar": "محمد صلاح"
         },
         {
-          "id": "q_hard_ucl2019penalty_o4",
-          "en": "Divock Origi",
-          "ar": "ديفوك أوريغي"
+          "id": "opt_hard_ucl2019penalty_o3",
+          "en": "Roberto Firmino",
+          "ar": "روبرتو فيرمينو"
         },
         {
-          "id": "q_hard_ucl2019penalty_o2",
-          "en": "Sadio Mané",
-          "ar": "ساديو ماني"
+          "id": "opt_hard_ucl2019penalty_o4",
+          "en": "Divock Origi",
+          "ar": "ديفوك أوريغي"
         }
       ],
-      "answerOptionId": "q_hard_ucl2019penalty_o1",
+      "answerOptionId": "opt_hard_ucl2019penalty_o1",
       "explainer": {
         "en": "Mohamed Salah scored from the spot in the second minute against Tottenham.",
         "ar": "سجل محمد صلاح من ركلة جزاء في الدقيقة الثانية أمام توتنهام."
@@ -8981,50 +8884,51 @@
         "status": "draft",
         "version": 1,
         "author": "assistant-generated",
-        "reviewedBy": null,
         "updatedAt": "2026-11-11T00:00:00.000Z"
       }
     },
     {
-      "id": "q_hard_ucl2020goal",
+      "id": "q_mc_hard_ucl2020goal",
       "schemaVersion": "1.0.0",
       "format": "mc",
       "difficulty": 5,
       "region": "GLOBAL",
-      "competitions": [],
+      "competitions": [
+        "UEFA_CL"
+      ],
       "tags": [
         "expert",
         "football-history",
         "finals"
       ],
-      "era": "classic-and-modern",
+      "era": "ALL_TIME",
       "prompt": {
         "en": "Who scored Bayern Munich's winning goal in the 2020 Champions League final?",
         "ar": "من سجل هدف فوز بايرن ميونخ في نهائي دوري أبطال أوروبا 2020؟"
       },
       "options": [
         {
-          "id": "q_hard_ucl2020goal_o1",
-          "en": "Kingsley Coman",
-          "ar": "كينغسلي كومان"
-        },
-        {
-          "id": "q_hard_ucl2020goal_o3",
-          "en": "Serge Gnabry",
-          "ar": "سيرج غنابري"
-        },
-        {
-          "id": "q_hard_ucl2020goal_o4",
+          "id": "opt_hard_ucl2020goal_o4",
           "en": "Joshua Kimmich",
           "ar": "جوشوا كيميش"
         },
         {
-          "id": "q_hard_ucl2020goal_o2",
+          "id": "opt_hard_ucl2020goal_o2",
           "en": "Robert Lewandowski",
           "ar": "روبرت ليفاندوفسكي"
+        },
+        {
+          "id": "opt_hard_ucl2020goal_o3",
+          "en": "Serge Gnabry",
+          "ar": "سيرج غنابري"
+        },
+        {
+          "id": "opt_hard_ucl2020goal_o1",
+          "en": "Kingsley Coman",
+          "ar": "كينغسلي كومان"
         }
       ],
-      "answerOptionId": "q_hard_ucl2020goal_o1",
+      "answerOptionId": "opt_hard_ucl2020goal_o1",
       "explainer": {
         "en": "Kingsley Coman headed the only goal against Paris Saint-Germain.",
         "ar": "سجل كينغسلي كومان برأسه الهدف الوحيد أمام باريس سان جيرمان."
@@ -9039,50 +8943,51 @@
         "status": "draft",
         "version": 1,
         "author": "assistant-generated",
-        "reviewedBy": null,
         "updatedAt": "2026-11-11T00:00:00.000Z"
       }
     },
     {
-      "id": "q_hard_ucl2021goal",
+      "id": "q_mc_hard_ucl2021goal",
       "schemaVersion": "1.0.0",
       "format": "mc",
       "difficulty": 5,
       "region": "GLOBAL",
-      "competitions": [],
+      "competitions": [
+        "UEFA_CL"
+      ],
       "tags": [
         "expert",
         "football-history",
         "finals"
       ],
-      "era": "classic-and-modern",
+      "era": "ALL_TIME",
       "prompt": {
         "en": "Who scored the only goal in the 2021 Champions League final?",
         "ar": "من سجل الهدف الوحيد في نهائي دوري أبطال أوروبا 2021؟"
       },
       "options": [
         {
-          "id": "q_hard_ucl2021goal_o3",
-          "en": "Christian Pulisic",
-          "ar": "كريستيان بوليسيتش"
+          "id": "opt_hard_ucl2021goal_o4",
+          "en": "Timo Werner",
+          "ar": "تيمو فيرنر"
         },
         {
-          "id": "q_hard_ucl2021goal_o1",
-          "en": "Kai Havertz",
-          "ar": "كاي هافيرتز"
-        },
-        {
-          "id": "q_hard_ucl2021goal_o2",
+          "id": "opt_hard_ucl2021goal_o2",
           "en": "Mason Mount",
           "ar": "ماسون ماونت"
         },
         {
-          "id": "q_hard_ucl2021goal_o4",
-          "en": "Timo Werner",
-          "ar": "تيمو فيرنر"
+          "id": "opt_hard_ucl2021goal_o3",
+          "en": "Christian Pulisic",
+          "ar": "كريستيان بوليسيتش"
+        },
+        {
+          "id": "opt_hard_ucl2021goal_o1",
+          "en": "Kai Havertz",
+          "ar": "كاي هافيرتز"
         }
       ],
-      "answerOptionId": "q_hard_ucl2021goal_o1",
+      "answerOptionId": "opt_hard_ucl2021goal_o1",
       "explainer": {
         "en": "Kai Havertz scored for Chelsea against Manchester City in Porto.",
         "ar": "سجل كاي هافيرتز لتشيلسي أمام مانشستر سيتي في بورتو."
@@ -9097,50 +9002,51 @@
         "status": "draft",
         "version": 1,
         "author": "assistant-generated",
-        "reviewedBy": null,
         "updatedAt": "2026-11-11T00:00:00.000Z"
       }
     },
     {
-      "id": "q_hard_ucl2023goal",
+      "id": "q_mc_hard_ucl2023goal",
       "schemaVersion": "1.0.0",
       "format": "mc",
       "difficulty": 5,
       "region": "GLOBAL",
-      "competitions": [],
+      "competitions": [
+        "UEFA_CL"
+      ],
       "tags": [
         "expert",
         "football-history",
         "finals"
       ],
-      "era": "classic-and-modern",
+      "era": "ALL_TIME",
       "prompt": {
         "en": "Who scored Manchester City's winning goal in the 2023 Champions League final?",
         "ar": "من سجل هدف فوز مانشستر سيتي في نهائي دوري أبطال أوروبا 2023؟"
       },
       "options": [
         {
-          "id": "q_hard_ucl2023goal_o3",
+          "id": "opt_hard_ucl2023goal_o2",
+          "en": "Erling Haaland",
+          "ar": "إيرلينغ هالاند"
+        },
+        {
+          "id": "opt_hard_ucl2023goal_o3",
           "en": "Kevin De Bruyne",
           "ar": "كيفن دي بروين"
         },
         {
-          "id": "q_hard_ucl2023goal_o1",
-          "en": "Rodri",
-          "ar": "رودري"
-        },
-        {
-          "id": "q_hard_ucl2023goal_o4",
+          "id": "opt_hard_ucl2023goal_o4",
           "en": "İlkay Gündoğan",
           "ar": "إلكاي غوندوغان"
         },
         {
-          "id": "q_hard_ucl2023goal_o2",
-          "en": "Erling Haaland",
-          "ar": "إيرلينغ هالاند"
+          "id": "opt_hard_ucl2023goal_o1",
+          "en": "Rodri",
+          "ar": "رودري"
         }
       ],
-      "answerOptionId": "q_hard_ucl2023goal_o1",
+      "answerOptionId": "opt_hard_ucl2023goal_o1",
       "explainer": {
         "en": "Rodri scored the only goal against Inter in Istanbul.",
         "ar": "سجل رودري الهدف الوحيد أمام إنتر في إسطنبول."
@@ -9155,50 +9061,51 @@
         "status": "draft",
         "version": 1,
         "author": "assistant-generated",
-        "reviewedBy": null,
         "updatedAt": "2026-11-11T00:00:00.000Z"
       }
     },
     {
-      "id": "q_hard_ucl2024goal",
+      "id": "q_mc_hard_ucl2024goal",
       "schemaVersion": "1.0.0",
       "format": "mc",
       "difficulty": 5,
       "region": "GLOBAL",
-      "competitions": [],
+      "competitions": [
+        "UEFA_CL"
+      ],
       "tags": [
         "expert",
         "football-history",
         "finals"
       ],
-      "era": "classic-and-modern",
+      "era": "ALL_TIME",
       "prompt": {
         "en": "Who scored Real Madrid's second goal in the 2024 Champions League final?",
         "ar": "من سجل الهدف الثاني لريال مدريد في نهائي دوري أبطال أوروبا 2024؟"
       },
       "options": [
         {
-          "id": "q_hard_ucl2024goal_o1",
-          "en": "Vinícius Júnior",
-          "ar": "فينيسيوس جونيور"
+          "id": "opt_hard_ucl2024goal_o3",
+          "en": "Federico Valverde",
+          "ar": "فيديريكو فالفيردي"
         },
         {
-          "id": "q_hard_ucl2024goal_o4",
-          "en": "Dani Carvajal",
-          "ar": "داني كارفاخال"
-        },
-        {
-          "id": "q_hard_ucl2024goal_o2",
+          "id": "opt_hard_ucl2024goal_o2",
           "en": "Jude Bellingham",
           "ar": "جود بيلينغهام"
         },
         {
-          "id": "q_hard_ucl2024goal_o3",
-          "en": "Federico Valverde",
-          "ar": "فيديريكو فالفيردي"
+          "id": "opt_hard_ucl2024goal_o1",
+          "en": "Vinícius Júnior",
+          "ar": "فينيسيوس جونيور"
+        },
+        {
+          "id": "opt_hard_ucl2024goal_o4",
+          "en": "Dani Carvajal",
+          "ar": "داني كارفاخال"
         }
       ],
-      "answerOptionId": "q_hard_ucl2024goal_o1",
+      "answerOptionId": "opt_hard_ucl2024goal_o1",
       "explainer": {
         "en": "Vinícius Júnior sealed the 2–0 win over Borussia Dortmund at Wembley.",
         "ar": "حسم فينيسيوس جونيور الفوز 2-0 على بوروسيا دورتموند في ويمبلي."
@@ -9213,50 +9120,51 @@
         "status": "draft",
         "version": 1,
         "author": "assistant-generated",
-        "reviewedBy": null,
         "updatedAt": "2026-11-11T00:00:00.000Z"
       }
     },
     {
-      "id": "q_hard_afcon2013final",
+      "id": "q_mc_hard_afcon2013final",
       "schemaVersion": "1.0.0",
       "format": "mc",
       "difficulty": 5,
       "region": "GLOBAL",
-      "competitions": [],
+      "competitions": [
+        "AFCON"
+      ],
       "tags": [
         "expert",
         "football-history",
         "finals"
       ],
-      "era": "classic-and-modern",
+      "era": "ALL_TIME",
       "prompt": {
         "en": "Which country did Nigeria defeat in the 2013 Africa Cup of Nations final?",
         "ar": "أي منتخب هزمته نيجيريا في نهائي كأس الأمم الأفريقية 2013؟"
       },
       "options": [
         {
-          "id": "q_hard_afcon2013final_o1",
+          "id": "opt_hard_afcon2013final_o4",
+          "en": "Ivory Coast",
+          "ar": "كوت ديفوار"
+        },
+        {
+          "id": "opt_hard_afcon2013final_o1",
           "en": "Burkina Faso",
           "ar": "بوركينا فاسو"
         },
         {
-          "id": "q_hard_afcon2013final_o3",
+          "id": "opt_hard_afcon2013final_o3",
           "en": "Ghana",
           "ar": "غانا"
         },
         {
-          "id": "q_hard_afcon2013final_o2",
+          "id": "opt_hard_afcon2013final_o2",
           "en": "Mali",
           "ar": "مالي"
-        },
-        {
-          "id": "q_hard_afcon2013final_o4",
-          "en": "Ivory Coast",
-          "ar": "كوت ديفوار"
         }
       ],
-      "answerOptionId": "q_hard_afcon2013final_o1",
+      "answerOptionId": "opt_hard_afcon2013final_o1",
       "explainer": {
         "en": "Nigeria won 1–0 against Burkina Faso, with Sunday Mba scoring.",
         "ar": "فازت نيجيريا 1-0 على بوركينا فاسو بهدف صنداي إمبا."
@@ -9271,50 +9179,51 @@
         "status": "draft",
         "version": 1,
         "author": "assistant-generated",
-        "reviewedBy": null,
         "updatedAt": "2026-11-11T00:00:00.000Z"
       }
     },
     {
-      "id": "q_hard_afcon2015winner",
+      "id": "q_mc_hard_afcon2015winner",
       "schemaVersion": "1.0.0",
       "format": "mc",
       "difficulty": 5,
       "region": "GLOBAL",
-      "competitions": [],
+      "competitions": [
+        "AFCON"
+      ],
       "tags": [
         "expert",
         "football-history",
         "finals"
       ],
-      "era": "classic-and-modern",
+      "era": "ALL_TIME",
       "prompt": {
         "en": "Which nation won the 2015 Africa Cup of Nations after a penalty shootout against Ghana?",
         "ar": "أي منتخب فاز بكأس الأمم الأفريقية 2015 بعد ركلات الترجيح أمام غانا؟"
       },
       "options": [
         {
-          "id": "q_hard_afcon2015winner_o4",
-          "en": "DR Congo",
-          "ar": "الكونغو الديمقراطية"
-        },
-        {
-          "id": "q_hard_afcon2015winner_o1",
+          "id": "opt_hard_afcon2015winner_o1",
           "en": "Ivory Coast",
           "ar": "كوت ديفوار"
         },
         {
-          "id": "q_hard_afcon2015winner_o2",
+          "id": "opt_hard_afcon2015winner_o3",
+          "en": "Equatorial Guinea",
+          "ar": "غينيا الاستوائية"
+        },
+        {
+          "id": "opt_hard_afcon2015winner_o2",
           "en": "Ghana",
           "ar": "غانا"
         },
         {
-          "id": "q_hard_afcon2015winner_o3",
-          "en": "Equatorial Guinea",
-          "ar": "غينيا الاستوائية"
+          "id": "opt_hard_afcon2015winner_o4",
+          "en": "DR Congo",
+          "ar": "الكونغو الديمقراطية"
         }
       ],
-      "answerOptionId": "q_hard_afcon2015winner_o1",
+      "answerOptionId": "opt_hard_afcon2015winner_o1",
       "explainer": {
         "en": "Ivory Coast won the final shootout 9–8 after a goalless draw.",
         "ar": "فازت كوت ديفوار بركلات الترجيح 9-8 بعد تعادل سلبي."
@@ -9329,50 +9238,51 @@
         "status": "draft",
         "version": 1,
         "author": "assistant-generated",
-        "reviewedBy": null,
         "updatedAt": "2026-11-11T00:00:00.000Z"
       }
     },
     {
-      "id": "q_hard_afcon2017winner",
+      "id": "q_mc_hard_afcon2017winner",
       "schemaVersion": "1.0.0",
       "format": "mc",
       "difficulty": 5,
       "region": "GLOBAL",
-      "competitions": [],
+      "competitions": [
+        "AFCON"
+      ],
       "tags": [
         "expert",
         "football-history",
         "finals"
       ],
-      "era": "classic-and-modern",
+      "era": "ALL_TIME",
       "prompt": {
         "en": "Which country did Cameroon defeat in the 2017 Africa Cup of Nations final?",
         "ar": "أي منتخب هزمته الكاميرون في نهائي كأس الأمم الأفريقية 2017؟"
       },
       "options": [
         {
-          "id": "q_hard_afcon2017winner_o4",
-          "en": "Senegal",
-          "ar": "السنغال"
-        },
-        {
-          "id": "q_hard_afcon2017winner_o2",
-          "en": "Ghana",
-          "ar": "غانا"
-        },
-        {
-          "id": "q_hard_afcon2017winner_o3",
+          "id": "opt_hard_afcon2017winner_o3",
           "en": "Burkina Faso",
           "ar": "بوركينا فاسو"
         },
         {
-          "id": "q_hard_afcon2017winner_o1",
+          "id": "opt_hard_afcon2017winner_o2",
+          "en": "Ghana",
+          "ar": "غانا"
+        },
+        {
+          "id": "opt_hard_afcon2017winner_o1",
           "en": "Egypt",
           "ar": "مصر"
+        },
+        {
+          "id": "opt_hard_afcon2017winner_o4",
+          "en": "Senegal",
+          "ar": "السنغال"
         }
       ],
-      "answerOptionId": "q_hard_afcon2017winner_o1",
+      "answerOptionId": "opt_hard_afcon2017winner_o1",
       "explainer": {
         "en": "Cameroon came from behind to beat Egypt 2–1 in Libreville.",
         "ar": "قلبت الكاميرون تأخرها وفازت على مصر 2-1 في ليبرفيل."
@@ -9387,50 +9297,51 @@
         "status": "draft",
         "version": 1,
         "author": "assistant-generated",
-        "reviewedBy": null,
         "updatedAt": "2026-11-11T00:00:00.000Z"
       }
     },
     {
-      "id": "q_hard_afcon2019winner",
+      "id": "q_mc_hard_afcon2019winner",
       "schemaVersion": "1.0.0",
       "format": "mc",
       "difficulty": 5,
       "region": "GLOBAL",
-      "competitions": [],
+      "competitions": [
+        "AFCON"
+      ],
       "tags": [
         "expert",
         "football-history",
         "finals"
       ],
-      "era": "classic-and-modern",
+      "era": "ALL_TIME",
       "prompt": {
         "en": "Who scored Algeria's winning goal in the 2019 Africa Cup of Nations final?",
         "ar": "من سجل هدف فوز الجزائر في نهائي كأس الأمم الأفريقية 2019؟"
       },
       "options": [
         {
-          "id": "q_hard_afcon2019winner_o4",
+          "id": "opt_hard_afcon2019winner_o4",
           "en": "Islam Slimani",
           "ar": "إسلام سليماني"
         },
         {
-          "id": "q_hard_afcon2019winner_o2",
-          "en": "Riyad Mahrez",
-          "ar": "رياض محرز"
+          "id": "opt_hard_afcon2019winner_o1",
+          "en": "Baghdad Bounedjah",
+          "ar": "بغداد بونجاح"
         },
         {
-          "id": "q_hard_afcon2019winner_o3",
+          "id": "opt_hard_afcon2019winner_o3",
           "en": "Youcef Belaïli",
           "ar": "يوسف بلايلي"
         },
         {
-          "id": "q_hard_afcon2019winner_o1",
-          "en": "Baghdad Bounedjah",
-          "ar": "بغداد بونجاح"
+          "id": "opt_hard_afcon2019winner_o2",
+          "en": "Riyad Mahrez",
+          "ar": "رياض محرز"
         }
       ],
-      "answerOptionId": "q_hard_afcon2019winner_o1",
+      "answerOptionId": "opt_hard_afcon2019winner_o1",
       "explainer": {
         "en": "Baghdad Bounedjah's early deflected strike decided the final against Senegal.",
         "ar": "حسمت تسديدة بغداد بونجاح المبكرة والمنحرفة النهائي أمام السنغال."
@@ -9445,108 +9356,51 @@
         "status": "draft",
         "version": 1,
         "author": "assistant-generated",
-        "reviewedBy": null,
         "updatedAt": "2026-11-11T00:00:00.000Z"
       }
     },
     {
-      "id": "q_hard_euro2000golden",
+      "id": "q_mc_hard_euro2008goal",
       "schemaVersion": "1.0.0",
       "format": "mc",
       "difficulty": 5,
       "region": "GLOBAL",
-      "competitions": [],
+      "competitions": [
+        "UEFA_EURO"
+      ],
       "tags": [
         "expert",
         "football-history",
         "finals"
       ],
-      "era": "classic-and-modern",
-      "prompt": {
-        "en": "Who scored France's golden goal in the Euro 2000 final?",
-        "ar": "من سجل الهدف الذهبي لفرنسا في نهائي يورو 2000؟"
-      },
-      "options": [
-        {
-          "id": "q_hard_euro2000golden_o1",
-          "en": "David Trezeguet",
-          "ar": "دافيد تريزيغيه"
-        },
-        {
-          "id": "q_hard_euro2000golden_o4",
-          "en": "Zinedine Zidane",
-          "ar": "زين الدين زيدان"
-        },
-        {
-          "id": "q_hard_euro2000golden_o3",
-          "en": "Sylvain Wiltord",
-          "ar": "سيلفان ويلتورد"
-        },
-        {
-          "id": "q_hard_euro2000golden_o2",
-          "en": "Thierry Henry",
-          "ar": "تييري هنري"
-        }
-      ],
-      "answerOptionId": "q_hard_euro2000golden_o1",
-      "explainer": {
-        "en": "David Trezeguet scored the golden goal to beat Italy 2–1.",
-        "ar": "سجل دافيد تريزيغيه الهدف الذهبي ليهزم إيطاليا 2-1."
-      },
-      "localization": {
-        "enChars": 113,
-        "arChars": 99,
-        "parityRatio": 0.876,
-        "verifiedBy": "auto-check-pending-editor"
-      },
-      "authoring": {
-        "status": "draft",
-        "version": 1,
-        "author": "assistant-generated",
-        "reviewedBy": null,
-        "updatedAt": "2026-11-11T00:00:00.000Z"
-      }
-    },
-    {
-      "id": "q_hard_euro2008goal",
-      "schemaVersion": "1.0.0",
-      "format": "mc",
-      "difficulty": 5,
-      "region": "GLOBAL",
-      "competitions": [],
-      "tags": [
-        "expert",
-        "football-history",
-        "finals"
-      ],
-      "era": "classic-and-modern",
+      "era": "ALL_TIME",
       "prompt": {
         "en": "Who scored Spain's winning goal in the Euro 2008 final?",
         "ar": "من سجل هدف فوز إسبانيا في نهائي يورو 2008؟"
       },
       "options": [
         {
-          "id": "q_hard_euro2008goal_o3",
-          "en": "Cesc Fàbregas",
-          "ar": "سيسك فابريغاس"
+          "id": "opt_hard_euro2008goal_o4",
+          "en": "Xavi",
+          "ar": "تشافي"
         },
         {
-          "id": "q_hard_euro2008goal_o2",
+          "id": "opt_hard_euro2008goal_o2",
           "en": "David Villa",
           "ar": "دافيد فيا"
         },
         {
-          "id": "q_hard_euro2008goal_o1",
-          "en": "Fernando Torres",
-          "ar": "فرناندو توريس"
+          "id": "opt_hard_euro2008goal_o3",
+          "en": "Cesc Fàbregas",
+          "ar": "سيسك فابريغاس"
         },
         {
-          "id": "q_hard_euro2008goal_o4",
-          "en": "Xavi",
-          "ar": "تشافي"
+          "id": "opt_hard_euro2008goal_o1",
+          "en": "Fernando Torres",
+          "ar": "فرناندو توريس"
         }
       ],
-      "answerOptionId": "q_hard_euro2008goal_o1",
+      "answerOptionId": "opt_hard_euro2008goal_o1",
       "explainer": {
         "en": "Fernando Torres scored the only goal against Germany in Vienna.",
         "ar": "سجل فرناندو توريس الهدف الوحيد أمام ألمانيا في فيينا."
@@ -9561,50 +9415,51 @@
         "status": "draft",
         "version": 1,
         "author": "assistant-generated",
-        "reviewedBy": null,
         "updatedAt": "2026-11-11T00:00:00.000Z"
       }
     },
     {
-      "id": "q_hard_euro2012final",
+      "id": "q_mc_hard_euro2012final",
       "schemaVersion": "1.0.0",
       "format": "mc",
       "difficulty": 5,
       "region": "GLOBAL",
-      "competitions": [],
+      "competitions": [
+        "UEFA_EURO"
+      ],
       "tags": [
         "expert",
         "football-history",
         "finals"
       ],
-      "era": "classic-and-modern",
+      "era": "ALL_TIME",
       "prompt": {
         "en": "What was the score when Spain defeated Italy in the Euro 2012 final?",
         "ar": "ما نتيجة فوز إسبانيا على إيطاليا في نهائي يورو 2012؟"
       },
       "options": [
         {
-          "id": "q_hard_euro2012final_o4",
-          "en": "4–1",
-          "ar": "4-1"
-        },
-        {
-          "id": "q_hard_euro2012final_o2",
-          "en": "3–0",
-          "ar": "3-0"
-        },
-        {
-          "id": "q_hard_euro2012final_o3",
+          "id": "opt_hard_euro2012final_o3",
           "en": "2–0",
           "ar": "2-0"
         },
         {
-          "id": "q_hard_euro2012final_o1",
+          "id": "opt_hard_euro2012final_o4",
+          "en": "4–1",
+          "ar": "4-1"
+        },
+        {
+          "id": "opt_hard_euro2012final_o2",
+          "en": "3–0",
+          "ar": "3-0"
+        },
+        {
+          "id": "opt_hard_euro2012final_o1",
           "en": "4–0",
           "ar": "4-0"
         }
       ],
-      "answerOptionId": "q_hard_euro2012final_o1",
+      "answerOptionId": "opt_hard_euro2012final_o1",
       "explainer": {
         "en": "Spain won 4–0, becoming the first team to retain the European Championship in the modern era.",
         "ar": "فازت إسبانيا 4-0 وأصبحت أول منتخب يحتفظ بلقب البطولة الأوروبية في العصر الحديث."
@@ -9619,12 +9474,11 @@
         "status": "draft",
         "version": 1,
         "author": "assistant-generated",
-        "reviewedBy": null,
         "updatedAt": "2026-11-11T00:00:00.000Z"
       }
     },
     {
-      "id": "q_expert_wc1982brazilitaly",
+      "id": "q_mc_expert_wc1982brazilitaly",
       "schemaVersion": "1.0.0",
       "format": "mc",
       "difficulty": 5,
@@ -9644,14 +9498,14 @@
       },
       "options": [
         {
-          "id": "opt_wc1982brazilitaly_2",
-          "en": "Antonio Cabrini",
-          "ar": "أنطونيو كابريني"
-        },
-        {
           "id": "opt_wc1982brazilitaly_3",
           "en": "Bruno Conti",
           "ar": "برونو كونتي"
+        },
+        {
+          "id": "opt_wc1982brazilitaly_1",
+          "en": "Marco Tardelli",
+          "ar": "ماركو تارديلي"
         },
         {
           "id": "opt_wc1982brazilitaly_0",
@@ -9659,9 +9513,9 @@
           "ar": "باولو روسي"
         },
         {
-          "id": "opt_wc1982brazilitaly_1",
-          "en": "Marco Tardelli",
-          "ar": "ماركو تارديلي"
+          "id": "opt_wc1982brazilitaly_2",
+          "en": "Antonio Cabrini",
+          "ar": "أنطونيو كابريني"
         }
       ],
       "answerOptionId": "opt_wc1982brazilitaly_0",
@@ -9683,7 +9537,7 @@
       }
     },
     {
-      "id": "q_expert_wc1978goldenboot",
+      "id": "q_mc_expert_wc1978goldenboot",
       "schemaVersion": "1.0.0",
       "format": "mc",
       "difficulty": 5,
@@ -9742,7 +9596,7 @@
       }
     },
     {
-      "id": "q_expert_wc1990goldenboot",
+      "id": "q_mc_expert_wc1990goldenboot",
       "schemaVersion": "1.0.0",
       "format": "mc",
       "difficulty": 5,
@@ -9772,14 +9626,14 @@
           "ar": "جيانلوكا فيالي"
         },
         {
-          "id": "opt_wc1990goldenboot_3",
-          "en": "Giuseppe Giannini",
-          "ar": "جوزيبي جيانيني"
-        },
-        {
           "id": "opt_wc1990goldenboot_0",
           "en": "Roberto Baggio",
           "ar": "روبرتو باجيو"
+        },
+        {
+          "id": "opt_wc1990goldenboot_3",
+          "en": "Giuseppe Giannini",
+          "ar": "جوزيبي جيانيني"
         }
       ],
       "answerOptionId": "opt_wc1990goldenboot_2",
@@ -9801,7 +9655,7 @@
       }
     },
     {
-      "id": "q_expert_wc1994jointboot",
+      "id": "q_mc_expert_wc1994jointboot",
       "schemaVersion": "1.0.0",
       "format": "mc",
       "difficulty": 5,
@@ -9826,9 +9680,9 @@
           "ar": "روماريو وبيبيتو"
         },
         {
-          "id": "opt_wc1994jointboot_1",
-          "en": "Hristo Stoichkov and Oleg Salenko",
-          "ar": "خريستو ستويتشكوف وأوليغ سالينكو"
+          "id": "opt_wc1994jointboot_2",
+          "en": "Roberto Baggio and Dennis Bergkamp",
+          "ar": "روبرتو باجيو ودينيس بيركامب"
         },
         {
           "id": "opt_wc1994jointboot_3",
@@ -9836,9 +9690,9 @@
           "ar": "يورغن كلينسمان وغيورغي هاجي"
         },
         {
-          "id": "opt_wc1994jointboot_2",
-          "en": "Roberto Baggio and Dennis Bergkamp",
-          "ar": "روبرتو باجيو ودينيس بيركامب"
+          "id": "opt_wc1994jointboot_1",
+          "en": "Hristo Stoichkov and Oleg Salenko",
+          "ar": "خريستو ستويتشكوف وأوليغ سالينكو"
         }
       ],
       "answerOptionId": "opt_wc1994jointboot_1",
@@ -9860,7 +9714,7 @@
       }
     },
     {
-      "id": "q_expert_wc1998goldenboot",
+      "id": "q_mc_expert_wc1998goldenboot",
       "schemaVersion": "1.0.0",
       "format": "mc",
       "difficulty": 5,
@@ -9880,24 +9734,24 @@
       },
       "options": [
         {
-          "id": "opt_wc1998goldenboot_1",
-          "en": "Gabriel Batistuta",
-          "ar": "غابرييل باتيستوتا"
-        },
-        {
           "id": "opt_wc1998goldenboot_0",
           "en": "Ronaldo",
           "ar": "رونالدو"
         },
         {
-          "id": "opt_wc1998goldenboot_3",
-          "en": "Christian Vieri",
-          "ar": "كريستيان فييري"
-        },
-        {
           "id": "opt_wc1998goldenboot_2",
           "en": "Davor Šuker",
           "ar": "دافور شوكر"
+        },
+        {
+          "id": "opt_wc1998goldenboot_1",
+          "en": "Gabriel Batistuta",
+          "ar": "غابرييل باتيستوتا"
+        },
+        {
+          "id": "opt_wc1998goldenboot_3",
+          "en": "Christian Vieri",
+          "ar": "كريستيان فييري"
         }
       ],
       "answerOptionId": "opt_wc1998goldenboot_2",
@@ -9919,7 +9773,7 @@
       }
     },
     {
-      "id": "q_expert_wc2006goldenball",
+      "id": "q_mc_expert_wc2006goldenball",
       "schemaVersion": "1.0.0",
       "format": "mc",
       "difficulty": 5,
@@ -9939,11 +9793,6 @@
       },
       "options": [
         {
-          "id": "opt_wc2006goldenball_1",
-          "en": "Zinedine Zidane",
-          "ar": "زين الدين زيدان"
-        },
-        {
           "id": "opt_wc2006goldenball_2",
           "en": "Andrea Pirlo",
           "ar": "أندريا بيرلو"
@@ -9952,6 +9801,11 @@
           "id": "opt_wc2006goldenball_0",
           "en": "Fabio Cannavaro",
           "ar": "فابيو كانافارو"
+        },
+        {
+          "id": "opt_wc2006goldenball_1",
+          "en": "Zinedine Zidane",
+          "ar": "زين الدين زيدان"
         },
         {
           "id": "opt_wc2006goldenball_3",
@@ -9978,7 +9832,7 @@
       }
     },
     {
-      "id": "q_expert_wc2010goldenboot",
+      "id": "q_mc_expert_wc2010goldenboot",
       "schemaVersion": "1.0.0",
       "format": "mc",
       "difficulty": 5,
@@ -9998,9 +9852,9 @@
       },
       "options": [
         {
-          "id": "opt_wc2010goldenboot_2",
-          "en": "Thomas Müller",
-          "ar": "توماس مولر"
+          "id": "opt_wc2010goldenboot_0",
+          "en": "David Villa",
+          "ar": "دافيد فيا"
         },
         {
           "id": "opt_wc2010goldenboot_3",
@@ -10008,9 +9862,9 @@
           "ar": "دييغو فورلان"
         },
         {
-          "id": "opt_wc2010goldenboot_0",
-          "en": "David Villa",
-          "ar": "دافيد فيا"
+          "id": "opt_wc2010goldenboot_2",
+          "en": "Thomas Müller",
+          "ar": "توماس مولر"
         },
         {
           "id": "opt_wc2010goldenboot_1",
@@ -10037,7 +9891,7 @@
       }
     },
     {
-      "id": "q_expert_wc2018goldenball",
+      "id": "q_mc_expert_wc2018goldenball",
       "schemaVersion": "1.0.0",
       "format": "mc",
       "difficulty": 5,
@@ -10096,7 +9950,7 @@
       }
     },
     {
-      "id": "q_expert_wc1954miracle",
+      "id": "q_mc_expert_wc1954miracle",
       "schemaVersion": "1.0.0",
       "format": "mc",
       "difficulty": 5,
@@ -10116,16 +9970,6 @@
       },
       "options": [
         {
-          "id": "opt_wc1954miracle_1",
-          "en": "Hungary",
-          "ar": "المجر"
-        },
-        {
-          "id": "opt_wc1954miracle_3",
-          "en": "Uruguay",
-          "ar": "الأوروغواي"
-        },
-        {
           "id": "opt_wc1954miracle_0",
           "en": "Austria",
           "ar": "النمسا"
@@ -10134,6 +9978,16 @@
           "id": "opt_wc1954miracle_2",
           "en": "Brazil",
           "ar": "البرازيل"
+        },
+        {
+          "id": "opt_wc1954miracle_3",
+          "en": "Uruguay",
+          "ar": "الأوروغواي"
+        },
+        {
+          "id": "opt_wc1954miracle_1",
+          "en": "Hungary",
+          "ar": "المجر"
         }
       ],
       "answerOptionId": "opt_wc1954miracle_1",
@@ -10155,7 +10009,7 @@
       }
     },
     {
-      "id": "q_expert_wc1966hattrick",
+      "id": "q_mc_expert_wc1966hattrick",
       "schemaVersion": "1.0.0",
       "format": "mc",
       "difficulty": 5,
@@ -10180,6 +10034,11 @@
           "ar": "أوزيبيو"
         },
         {
+          "id": "opt_wc1966hattrick_2",
+          "en": "Gerd Müller",
+          "ar": "غيرد مولر"
+        },
+        {
           "id": "opt_wc1966hattrick_0",
           "en": "Pelé",
           "ar": "بيليه"
@@ -10188,11 +10047,6 @@
           "id": "opt_wc1966hattrick_1",
           "en": "Geoff Hurst",
           "ar": "جيف هيرست"
-        },
-        {
-          "id": "opt_wc1966hattrick_2",
-          "en": "Gerd Müller",
-          "ar": "غيرد مولر"
         }
       ],
       "answerOptionId": "opt_wc1966hattrick_1",
@@ -10214,7 +10068,7 @@
       }
     },
     {
-      "id": "q_expert_wc1970captain_goal",
+      "id": "q_mc_expert_wc1970captain_goal",
       "schemaVersion": "1.0.0",
       "format": "mc",
       "difficulty": 5,
@@ -10234,11 +10088,6 @@
       },
       "options": [
         {
-          "id": "opt_wc1970captain_goal_0",
-          "en": "Jairzinho",
-          "ar": "جاييرزينيو"
-        },
-        {
           "id": "opt_wc1970captain_goal_1",
           "en": "Rivelino",
           "ar": "ريفيلينو"
@@ -10247,6 +10096,11 @@
           "id": "opt_wc1970captain_goal_2",
           "en": "Carlos Alberto",
           "ar": "كارلوس ألبرتو"
+        },
+        {
+          "id": "opt_wc1970captain_goal_0",
+          "en": "Jairzinho",
+          "ar": "جاييرزينيو"
         },
         {
           "id": "opt_wc1970captain_goal_3",
@@ -10273,7 +10127,7 @@
       }
     },
     {
-      "id": "q_expert_wc1974finalwinner",
+      "id": "q_mc_expert_wc1974finalwinner",
       "schemaVersion": "1.0.0",
       "format": "mc",
       "difficulty": 5,
@@ -10293,16 +10147,6 @@
       },
       "options": [
         {
-          "id": "opt_wc1974finalwinner_1",
-          "en": "Gerd Müller",
-          "ar": "غيرد مولر"
-        },
-        {
-          "id": "opt_wc1974finalwinner_3",
-          "en": "Uli Hoeneß",
-          "ar": "أولي هونيس"
-        },
-        {
           "id": "opt_wc1974finalwinner_2",
           "en": "Franz Beckenbauer",
           "ar": "فرانتس بيكنباور"
@@ -10311,6 +10155,16 @@
           "id": "opt_wc1974finalwinner_0",
           "en": "Paul Breitner",
           "ar": "باول برايتنر"
+        },
+        {
+          "id": "opt_wc1974finalwinner_3",
+          "en": "Uli Hoeneß",
+          "ar": "أولي هونيس"
+        },
+        {
+          "id": "opt_wc1974finalwinner_1",
+          "en": "Gerd Müller",
+          "ar": "غيرد مولر"
         }
       ],
       "answerOptionId": "opt_wc1974finalwinner_1",
@@ -10332,7 +10186,7 @@
       }
     },
     {
-      "id": "q_expert_wc1986finalopponent",
+      "id": "q_mc_expert_wc1986finalopponent",
       "schemaVersion": "1.0.0",
       "format": "mc",
       "difficulty": 5,
@@ -10352,9 +10206,9 @@
       },
       "options": [
         {
-          "id": "opt_wc1986finalopponent_3",
-          "en": "France",
-          "ar": "فرنسا"
+          "id": "opt_wc1986finalopponent_2",
+          "en": "West Germany",
+          "ar": "ألمانيا الغربية"
         },
         {
           "id": "opt_wc1986finalopponent_1",
@@ -10362,14 +10216,14 @@
           "ar": "إنجلترا"
         },
         {
-          "id": "opt_wc1986finalopponent_2",
-          "en": "West Germany",
-          "ar": "ألمانيا الغربية"
-        },
-        {
           "id": "opt_wc1986finalopponent_0",
           "en": "Belgium",
           "ar": "بلجيكا"
+        },
+        {
+          "id": "opt_wc1986finalopponent_3",
+          "en": "France",
+          "ar": "فرنسا"
         }
       ],
       "answerOptionId": "opt_wc1986finalopponent_2",
@@ -10391,7 +10245,7 @@
       }
     },
     {
-      "id": "q_expert_euro1988volley",
+      "id": "q_mc_expert_euro1988volley",
       "schemaVersion": "1.0.0",
       "format": "mc",
       "difficulty": 5,
@@ -10411,11 +10265,6 @@
       },
       "options": [
         {
-          "id": "opt_euro1988volley_1",
-          "en": "Frank Rijkaard",
-          "ar": "فرانك ريكارد"
-        },
-        {
           "id": "opt_euro1988volley_0",
           "en": "Ruud Gullit",
           "ar": "رود خوليت"
@@ -10429,6 +10278,11 @@
           "id": "opt_euro1988volley_2",
           "en": "Marco van Basten",
           "ar": "ماركو فان باستن"
+        },
+        {
+          "id": "opt_euro1988volley_1",
+          "en": "Frank Rijkaard",
+          "ar": "فرانك ريكارد"
         }
       ],
       "answerOptionId": "opt_euro1988volley_2",
@@ -10450,66 +10304,7 @@
       }
     },
     {
-      "id": "q_expert_euro2000goldengoal",
-      "schemaVersion": "1.0.0",
-      "format": "mc",
-      "difficulty": 5,
-      "region": "EUROPE",
-      "competitions": [
-        "UEFA_EURO"
-      ],
-      "tags": [
-        "expert",
-        "very-hard",
-        "football-history"
-      ],
-      "era": "ALL_TIME",
-      "prompt": {
-        "en": "Who scored France’s golden goal in the Euro 2000 final?",
-        "ar": "من سجّل الهدف الذهبي لفرنسا في نهائي يورو 2000؟"
-      },
-      "options": [
-        {
-          "id": "opt_euro2000goldengoal_2",
-          "en": "Sylvain Wiltord",
-          "ar": "سيلفان ويلتورد"
-        },
-        {
-          "id": "opt_euro2000goldengoal_3",
-          "en": "Youri Djorkaeff",
-          "ar": "يوري دجوركاييف"
-        },
-        {
-          "id": "opt_euro2000goldengoal_0",
-          "en": "Thierry Henry",
-          "ar": "تييري هنري"
-        },
-        {
-          "id": "opt_euro2000goldengoal_1",
-          "en": "David Trezeguet",
-          "ar": "دافيد تريزيغيه"
-        }
-      ],
-      "answerOptionId": "opt_euro2000goldengoal_1",
-      "explainer": {
-        "en": "Trezeguet ended Italy’s resistance in extra time.",
-        "ar": "أنهى تريزيغيه صمود إيطاليا بهدف في الوقت الإضافي."
-      },
-      "localization": {
-        "enChars": 113,
-        "arChars": 99,
-        "parityRatio": 0.876,
-        "verifiedBy": "auto-check-pending-editor"
-      },
-      "authoring": {
-        "status": "draft",
-        "version": 1,
-        "author": "assistant-generated",
-        "updatedAt": "2026-11-11T19:00:00.000Z"
-      }
-    },
-    {
-      "id": "q_expert_euro2008goldenboot",
+      "id": "q_mc_expert_euro2008goldenboot",
       "schemaVersion": "1.0.0",
       "format": "mc",
       "difficulty": 5,
@@ -10534,11 +10329,6 @@
           "ar": "تشافي"
         },
         {
-          "id": "opt_euro2008goldenboot_1",
-          "en": "David Villa",
-          "ar": "دافيد فيا"
-        },
-        {
           "id": "opt_euro2008goldenboot_0",
           "en": "Fernando Torres",
           "ar": "فرناندو توريس"
@@ -10547,6 +10337,11 @@
           "id": "opt_euro2008goldenboot_3",
           "en": "Miroslav Klose",
           "ar": "ميروسلاف كلوزه"
+        },
+        {
+          "id": "opt_euro2008goldenboot_1",
+          "en": "David Villa",
+          "ar": "دافيد فيا"
         }
       ],
       "answerOptionId": "opt_euro2008goldenboot_1",
@@ -10568,7 +10363,7 @@
       }
     },
     {
-      "id": "q_expert_euro2012retained",
+      "id": "q_mc_expert_euro2012retained",
       "schemaVersion": "1.0.0",
       "format": "mc",
       "difficulty": 5,
@@ -10588,24 +10383,24 @@
       },
       "options": [
         {
-          "id": "opt_euro2012retained_0",
-          "en": "Germany",
-          "ar": "ألمانيا"
-        },
-        {
           "id": "opt_euro2012retained_1",
           "en": "France",
           "ar": "فرنسا"
         },
         {
-          "id": "opt_euro2012retained_2",
-          "en": "Spain",
-          "ar": "إسبانيا"
-        },
-        {
           "id": "opt_euro2012retained_3",
           "en": "Italy",
           "ar": "إيطاليا"
+        },
+        {
+          "id": "opt_euro2012retained_0",
+          "en": "Germany",
+          "ar": "ألمانيا"
+        },
+        {
+          "id": "opt_euro2012retained_2",
+          "en": "Spain",
+          "ar": "إسبانيا"
         }
       ],
       "answerOptionId": "opt_euro2012retained_2",
@@ -10627,66 +10422,7 @@
       }
     },
     {
-      "id": "q_expert_euro2016finalgoal",
-      "schemaVersion": "1.0.0",
-      "format": "mc",
-      "difficulty": 5,
-      "region": "EUROPE",
-      "competitions": [
-        "UEFA_EURO"
-      ],
-      "tags": [
-        "expert",
-        "very-hard",
-        "football-history"
-      ],
-      "era": "ALL_TIME",
-      "prompt": {
-        "en": "Who scored Portugal’s winning goal in the Euro 2016 final?",
-        "ar": "من سجّل هدف فوز البرتغال في نهائي يورو 2016؟"
-      },
-      "options": [
-        {
-          "id": "opt_euro2016finalgoal_0",
-          "en": "Nani",
-          "ar": "ناني"
-        },
-        {
-          "id": "opt_euro2016finalgoal_2",
-          "en": "Cristiano Ronaldo",
-          "ar": "كريستيانو رونالدو"
-        },
-        {
-          "id": "opt_euro2016finalgoal_3",
-          "en": "João Moutinho",
-          "ar": "جواو موتينيو"
-        },
-        {
-          "id": "opt_euro2016finalgoal_1",
-          "en": "Éder",
-          "ar": "إيدر"
-        }
-      ],
-      "answerOptionId": "opt_euro2016finalgoal_1",
-      "explainer": {
-        "en": "Éder scored the only goal against France in extra time.",
-        "ar": "سجّل إيدر الهدف الوحيد أمام فرنسا في الوقت الإضافي."
-      },
-      "localization": {
-        "enChars": 96,
-        "arChars": 81,
-        "parityRatio": 0.844,
-        "verifiedBy": "auto-check-pending-editor"
-      },
-      "authoring": {
-        "status": "draft",
-        "version": 1,
-        "author": "assistant-generated",
-        "updatedAt": "2026-11-11T19:00:00.000Z"
-      }
-    },
-    {
-      "id": "q_expert_euro2020finalshootout",
+      "id": "q_mc_expert_euro2020finalshootout",
       "schemaVersion": "1.0.0",
       "format": "mc",
       "difficulty": 5,
@@ -10711,11 +10447,6 @@
           "ar": "الدنمارك"
         },
         {
-          "id": "opt_euro2020finalshootout_2",
-          "en": "Spain",
-          "ar": "إسبانيا"
-        },
-        {
           "id": "opt_euro2020finalshootout_1",
           "en": "Italy",
           "ar": "إيطاليا"
@@ -10724,6 +10455,11 @@
           "id": "opt_euro2020finalshootout_0",
           "en": "England",
           "ar": "إنجلترا"
+        },
+        {
+          "id": "opt_euro2020finalshootout_2",
+          "en": "Spain",
+          "ar": "إسبانيا"
         }
       ],
       "answerOptionId": "opt_euro2020finalshootout_1",
@@ -10745,7 +10481,7 @@
       }
     },
     {
-      "id": "q_expert_ucl1997final",
+      "id": "q_mc_expert_ucl1997final",
       "schemaVersion": "1.0.0",
       "format": "mc",
       "difficulty": 5,
@@ -10765,24 +10501,24 @@
       },
       "options": [
         {
-          "id": "opt_ucl1997final_1",
-          "en": "Ajax",
-          "ar": "أياكس"
-        },
-        {
           "id": "opt_ucl1997final_3",
           "en": "Manchester United",
           "ar": "مانشستر يونايتد"
         },
         {
-          "id": "opt_ucl1997final_0",
-          "en": "Borussia Dortmund",
-          "ar": "بوروسيا دورتموند"
-        },
-        {
           "id": "opt_ucl1997final_2",
           "en": "Real Madrid",
           "ar": "ريال مدريد"
+        },
+        {
+          "id": "opt_ucl1997final_1",
+          "en": "Ajax",
+          "ar": "أياكس"
+        },
+        {
+          "id": "opt_ucl1997final_0",
+          "en": "Borussia Dortmund",
+          "ar": "بوروسيا دورتموند"
         }
       ],
       "answerOptionId": "opt_ucl1997final_0",
@@ -10804,7 +10540,7 @@
       }
     },
     {
-      "id": "q_expert_ucl2004final",
+      "id": "q_mc_expert_ucl2004final",
       "schemaVersion": "1.0.0",
       "format": "mc",
       "difficulty": 5,
@@ -10824,14 +10560,14 @@
       },
       "options": [
         {
-          "id": "opt_ucl2004final_2",
-          "en": "Inter Milan",
-          "ar": "إنتر ميلان"
-        },
-        {
           "id": "opt_ucl2004final_1",
           "en": "Porto",
           "ar": "بورتو"
+        },
+        {
+          "id": "opt_ucl2004final_3",
+          "en": "Benfica",
+          "ar": "بنفيكا"
         },
         {
           "id": "opt_ucl2004final_0",
@@ -10839,9 +10575,9 @@
           "ar": "تشيلسي"
         },
         {
-          "id": "opt_ucl2004final_3",
-          "en": "Benfica",
-          "ar": "بنفيكا"
+          "id": "opt_ucl2004final_2",
+          "en": "Inter Milan",
+          "ar": "إنتر ميلان"
         }
       ],
       "answerOptionId": "opt_ucl2004final_1",
@@ -10863,66 +10599,7 @@
       }
     },
     {
-      "id": "q_expert_ucl2013winner",
-      "schemaVersion": "1.0.0",
-      "format": "mc",
-      "difficulty": 5,
-      "region": "EUROPE",
-      "competitions": [
-        "UEFA_CL"
-      ],
-      "tags": [
-        "expert",
-        "very-hard",
-        "football-history"
-      ],
-      "era": "ALL_TIME",
-      "prompt": {
-        "en": "Who scored Bayern Munich’s winning goal in the 2013 Champions League final?",
-        "ar": "من سجّل هدف فوز بايرن ميونخ في نهائي دوري أبطال أوروبا 2013؟"
-      },
-      "options": [
-        {
-          "id": "opt_ucl2013winner_0",
-          "en": "Mario Mandžukić",
-          "ar": "ماريو ماندجوكيتش"
-        },
-        {
-          "id": "opt_ucl2013winner_2",
-          "en": "Arjen Robben",
-          "ar": "آريين روبن"
-        },
-        {
-          "id": "opt_ucl2013winner_3",
-          "en": "Thomas Müller",
-          "ar": "توماس مولر"
-        },
-        {
-          "id": "opt_ucl2013winner_1",
-          "en": "Franck Ribéry",
-          "ar": "فرانك ريبيري"
-        }
-      ],
-      "answerOptionId": "opt_ucl2013winner_2",
-      "explainer": {
-        "en": "Robben scored late to defeat Borussia Dortmund 2–1 at Wembley.",
-        "ar": "سجّل روبن هدفاً متأخراً ليهزم بوروسيا دورتموند 2-1 في ويمبلي."
-      },
-      "localization": {
-        "enChars": 128,
-        "arChars": 108,
-        "parityRatio": 0.844,
-        "verifiedBy": "auto-check-pending-editor"
-      },
-      "authoring": {
-        "status": "draft",
-        "version": 1,
-        "author": "assistant-generated",
-        "updatedAt": "2026-11-11T19:00:00.000Z"
-      }
-    },
-    {
-      "id": "q_expert_ucl2016missedpenalty",
+      "id": "q_mc_expert_ucl2016missedpenalty",
       "schemaVersion": "1.0.0",
       "format": "mc",
       "difficulty": 5,
@@ -10942,16 +10619,6 @@
       },
       "options": [
         {
-          "id": "opt_ucl2016missedpenalty_2",
-          "en": "Juanfran",
-          "ar": "خوانفران"
-        },
-        {
-          "id": "opt_ucl2016missedpenalty_3",
-          "en": "Koke",
-          "ar": "كوكي"
-        },
-        {
           "id": "opt_ucl2016missedpenalty_1",
           "en": "Gabi",
           "ar": "غابي"
@@ -10960,6 +10627,16 @@
           "id": "opt_ucl2016missedpenalty_0",
           "en": "Antoine Griezmann",
           "ar": "أنطوان غريزمان"
+        },
+        {
+          "id": "opt_ucl2016missedpenalty_2",
+          "en": "Juanfran",
+          "ar": "خوانفران"
+        },
+        {
+          "id": "opt_ucl2016missedpenalty_3",
+          "en": "Koke",
+          "ar": "كوكي"
         }
       ],
       "answerOptionId": "opt_ucl2016missedpenalty_2",
@@ -10971,65 +10648,6 @@
         "enChars": 123,
         "arChars": 104,
         "parityRatio": 0.846,
-        "verifiedBy": "auto-check-pending-editor"
-      },
-      "authoring": {
-        "status": "draft",
-        "version": 1,
-        "author": "assistant-generated",
-        "updatedAt": "2026-11-11T19:00:00.000Z"
-      }
-    },
-    {
-      "id": "q_expert_ucl2023goal",
-      "schemaVersion": "1.0.0",
-      "format": "mc",
-      "difficulty": 5,
-      "region": "EUROPE",
-      "competitions": [
-        "UEFA_CL"
-      ],
-      "tags": [
-        "expert",
-        "very-hard",
-        "football-history"
-      ],
-      "era": "ALL_TIME",
-      "prompt": {
-        "en": "Who scored Manchester City’s winning goal in the 2023 Champions League final?",
-        "ar": "من سجّل هدف فوز مانشستر سيتي في نهائي دوري أبطال أوروبا 2023؟"
-      },
-      "options": [
-        {
-          "id": "opt_ucl2023goal_1",
-          "en": "Erling Haaland",
-          "ar": "إيرلينغ هالاند"
-        },
-        {
-          "id": "opt_ucl2023goal_0",
-          "en": "Kevin De Bruyne",
-          "ar": "كيفن دي بروين"
-        },
-        {
-          "id": "opt_ucl2023goal_3",
-          "en": "Rodri",
-          "ar": "رودري"
-        },
-        {
-          "id": "opt_ucl2023goal_2",
-          "en": "İlkay Gündoğan",
-          "ar": "إلكاي غوندوغان"
-        }
-      ],
-      "answerOptionId": "opt_ucl2023goal_3",
-      "explainer": {
-        "en": "Rodri scored the only goal against Inter in Istanbul.",
-        "ar": "سجّل رودري الهدف الوحيد أمام إنتر في إسطنبول."
-      },
-      "localization": {
-        "enChars": 125,
-        "arChars": 107,
-        "parityRatio": 0.856,
         "verifiedBy": "auto-check-pending-editor"
       },
       "authoring": {
