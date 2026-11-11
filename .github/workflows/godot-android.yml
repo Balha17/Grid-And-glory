@@ -73,6 +73,7 @@ jobs:
             if (!Array.isArray(q.options) || q.options.length < 2 || q.options.some(o => !o.id || !o.en?.trim() || !o.ar?.trim()) || !q.options.some(o => o.id === q.answerOptionId)) errors.push(q.id + ': incomplete options or invalid answer');
             for (const media of q.media || []) if (!assets.has(media.assetId)) errors.push(q.id + ': missing media asset ' + media.assetId);
             if (q.format === 'blur_reveal' && !(q.media || []).length) errors.push(q.id + ': image question has no media');
+            if (q.format === 'emoji_story' && !q.formatData?.emoji?.trim()) errors.push(q.id + ': emoji clue is missing');
             if (q.format === 'career_path') for (const id of q.formatData?.clubIds || []) if (!clubs.has(id)) errors.push(q.id + ': unknown club ' + id);
             if (q.format === 'stat_highlow') for (const id of [q.formatData?.entityA, q.formatData?.entityB]) if (!(clubs.has(id) || people.has(id) || nations.has(id))) errors.push(q.id + ': unknown statistic entity ' + id);
           }
