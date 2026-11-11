@@ -40,6 +40,8 @@ var match_layer: Control
 var home_layer: Control
 var menu_title: Label
 var menu_subtitle: Label
+var menu_feature_label: Label
+var menu_footer_label: Label
 var home_primary_button: Button
 var home_secondary_button: Button
 var home_sound_button: Button
@@ -517,6 +519,21 @@ func _build_hud() -> void:
 	glow.offset_top = 0
 	glow.offset_bottom = 0
 	home_layer.add_child(glow)
+	var menu_gradient := Gradient.new()
+	menu_gradient.colors = PackedColorArray([Color(0.015,0.045,0.10,0.18), Color(0.005,0.018,0.04,0.92)])
+	menu_gradient.offsets = PackedFloat32Array([0.0, 1.0])
+	var gradient_texture := GradientTexture2D.new()
+	gradient_texture.gradient = menu_gradient
+	gradient_texture.width = 2
+	gradient_texture.height = 512
+	gradient_texture.fill_from = Vector2(0, 0)
+	gradient_texture.fill_to = Vector2(0, 1)
+	var gradient_overlay := TextureRect.new()
+	gradient_overlay.texture = gradient_texture
+	gradient_overlay.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	gradient_overlay.stretch_mode = TextureRect.STRETCH_SCALE
+	gradient_overlay.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	home_layer.add_child(gradient_overlay)
 
 	var outer := MarginContainer.new()
 	outer.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
@@ -557,12 +574,12 @@ func _build_hud() -> void:
 	var feature := PanelContainer.new()
 	feature.add_theme_stylebox_override("panel", _panel_style(Color(0.035,0.085,0.17,0.96), Color(0.78,0.55,0.20), 2))
 	menu.add_child(feature)
-	var feature_text := Label.new()
-	feature_text.text = "⚽  1v1 FOOTBALL TRIVIA  •  RISE TO LEGEND"
-	feature_text.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	feature_text.add_theme_color_override("font_color", Color(1.0,0.88,0.58))
-	feature_text.add_theme_font_size_override("font_size", 14)
-	feature.add_child(feature_text)
+	vmenu_feature_label = Label.new()
+	menu_feature_label.text = "⚽  1v1 FOOTBALL TRIVIA  •  RISE TO LEGEND"
+	menu_feature_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	menu_feature_label.add_theme_color_override("font_color", Color(1.0,0.88,0.58))
+	menu_feature_label.add_theme_font_size_override("font_size", 14)
+	feature.add_child(menu_feature_label)
 
 	home_primary_button = _make_button("PLAY ONLINE", Color(0.95,0.57,0.08), Color(1.0,0.83,0.30), 70)
 	home_primary_button.add_theme_color_override("font_color", Color(0.10,0.08,0.04))
@@ -607,12 +624,12 @@ func _build_hud() -> void:
 	matchmaking_cancel_button.pressed.connect(_cancel_matchmaking)
 	matchmaking_box.add_child(matchmaking_cancel_button)
 
-	var footer := Label.new()
-	footer.text = "ONLINE DUELS  •  SMART AI  •  FOOTBALL KNOWLEDGE"
-	footer.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	footer.add_theme_color_override("font_color", Color(0.43,0.62,0.82))
-	footer.add_theme_font_size_override("font_size", 11)
-	menu.add_child(footer)
+	menu_footer_label = Label.new()
+	menu_footer_label.text = "ONLINE DUELS  •  SMART AI  •  FOOTBALL KNOWLEDGE"
+	menu_footer_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	menu_footer_label.add_theme_color_override("font_color", Color(0.43,0.62,0.82))
+	menu_footer_label.add_theme_font_size_override("font_size", 11)
+	menu.add_child(menu_footer_label)
 
 	match_layer.visible = false
 	home_layer.visible = true
@@ -1044,6 +1061,21 @@ func _apply_locale() -> void:
 		locale_button.text = "English" if locale == "ar" else "العربية"
 	if is_instance_valid(menu_title):
 		menu_title.text = "GRID & GLORY"
+		menu_title.layout_direction = Control.LAYOUT_DIRECTION_LTR
+	if is_instance_valid(menu_feature_label):
+		menu_feature_label.text = _tr("⚽  1v1 FOOTBALL TRIVIA  •  RISE TO LEGEND", "⚽  تحدي كرة القدم  •  كن أسطورة")
+		menu_feature_label.layout_direction = Control.LAYOUT_DIRECTION_RTL if locale == "ar" else Control.LAYOUT_DIRECTION_LTR
+	if is_instance_valid(menu_footer_label):
+		menu_footer_label.text = _tr("ONLINE DUELS  •  SMART AI  •  FOOTBALL KNOWLEDGE", "مواجهات مباشرة  •  ذكاء اصطناعي  •  ثقافة كروية")
+		menu_footer_label.layout_direction = Control.LAYOUT_DIRECTION_RTL if locale == "ar" else Control.LAYOUT_DIRECTION_LTR
+	if is_instance_valid(question_label):
+		question_label.layout_direction = Control.LAYOUT_DIRECTION_RTL if locale == "ar" else Control.LAYOUT_DIRECTION_LTR
+	if is_instance_valid(status_label):
+		status_label.layout_direction = Control.LAYOUT_DIRECTION_RTL if locale == "ar" else Control.LAYOUT_DIRECTION_LTR
+	if is_instance_valid(score_label):
+		score_label.layout_direction = Control.LAYOUT_DIRECTION_RTL if locale == "ar" else Control.LAYOUT_DIRECTION_LTR
+	if is_instance_valid(pitch_status):
+		pitch_status.layout_direction = Control.LAYOUT_DIRECTION_RTL if locale == "ar" else Control.LAYOUT_DIRECTION_LTR
 	if is_instance_valid(menu_subtitle) and phase == "home":
 		menu_subtitle.text = "معركة معلومات كرة القدم" if locale == "ar" else "THE ULTIMATE FOOTBALL QUIZ BATTLE"
 	if is_instance_valid(home_primary_button) and phase != "ended":
@@ -1153,11 +1185,10 @@ func _toggle_sound() -> void:
 	var bus := AudioServer.get_bus_index("Master")
 	if bus >= 0:
 		AudioServer.set_bus_mute(bus, sound_muted)
-	var label := "SOUND OFF  ×" if sound_muted else "SOUND ON  ♪"
 	if is_instance_valid(home_sound_button):
-		home_sound_button.text = label
+		home_sound_button.text = _tr("SOUND OFF  ×", "الصوت مغلق  ×") if sound_muted else _tr("SOUND ON  ♪", "الصوت يعمل  ♪")
 	if is_instance_valid(match_sound_button):
-		match_sound_button.text = label
+		match_sound_button.text = _tr("SOUND OFF  ×", "الصوت مغلق  ×") if sound_muted else _tr("SOUND ON  ♪", "الصوت يعمل  ♪")
 	_save_settings()
 
 func _load_settings() -> void:
@@ -1179,7 +1210,7 @@ func _save_settings() -> void:
 	config.save("user://settings.cfg")
 
 func _toggle_sound_label() -> void:
-	var label := "SOUND OFF  ×" if sound_muted else "SOUND ON  ♪"
+	var label := _tr("SOUND OFF  ×", "الصوت مغلق  ×") if sound_muted else _tr("SOUND ON  ♪", "الصوت يعمل  ♪")
 	if is_instance_valid(home_sound_button):
 		home_sound_button.text = label
 	if is_instance_valid(match_sound_button):
