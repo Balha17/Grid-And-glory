@@ -338,6 +338,27 @@ test("disconnect past the grace period forfeits the match", () => {
   assert.equal((endForBob!.payload as { decidedBy: string }).decidedBy, "forfeit");
 });
 
+test("both answers resolve the round immediately without waiting for the deadline", () => {
+  const room = buildRoom(313);
+  let now = 5_700_000;
+  room.start(now);
+  now += 1_100;
+  const opened = room.advance(now);
+  const qa = opened.find((e) => e.type === "round.question" && e.to === ALICE.playerId);
+  const qb = opened.find((e) => e.type === "round.question" && e.to === BOB.playerId);
+  assert.ok(qa && qb, "both players receive the same live round");
+  const deadline = (qa!.payload as { windowEndsAt: number }).windowEndsAt;
+  const tokenA = (qa!.payload as { token: string }).token;
+  const tokenB = (qb!.payload as { token: string }).token;
+  const first = room.submitAnswer(ALICE.playerId, { token: tokenA, optionId: room.audit!.answerOptionId }, now + 100);
+  assert.ok(first.some((e) => e.type === "round.answer_ack"));
+  assert.equal(first.some((e) => e.type === "round.reveal"), false, "one answer must wait for the other player");
+  const second = room.submitAnswer(BOB.playerId, { token: tokenB, optionId: "definitely-wrong" }, now + 250);
+  assert.ok(second.some((e) => e.type === "round.reveal"), "second answer resolves immediately");
+  assert.equal(room.phaseName, "round_reveal");
+  assert.ok(now + 250 < deadline, "the deadline has not been reached");
+});
+
 test("a player who lets the question timer expire receives a wrong verdict", () => {
   const room = buildRoom(71);
   let now = 5_500_000;
