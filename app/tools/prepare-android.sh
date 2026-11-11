@@ -27,6 +27,10 @@ if [ ! -d android ]; then
   cp pubspec.yaml /tmp/gg_pubspec.yaml
   cp analysis_options.yaml /tmp/gg_analysis.yaml
   flutter create --platforms=android --org "$ORG" --project-name "$PROJECT" .
+  # flutter create scaffolds a demo widget test for a class named MyApp.
+  # This app uses GridAndGloryApp, so remove the generated demo test (not project tests).
+  rm -f test/widget_test.dart
+  rmdir test 2>/dev/null || true
   cp /tmp/gg_pubspec.yaml pubspec.yaml
   cp /tmp/gg_analysis.yaml analysis_options.yaml
 fi
