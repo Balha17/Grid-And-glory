@@ -8563,8 +8563,8 @@
       ],
       "era": "ALL_TIME",
       "prompt": {
-        "en": "Who scored France's equaliser in the 2006 World Cup final?",
-        "ar": "من سجل هدف التعادل لفرنسا في نهائي كأس العالم 2006؟"
+        "en": "Who scored Italy's equaliser in the 2006 World Cup final?",
+        "ar": "من سجل هدف التعادل لإيطاليا في نهائي كأس العالم 2006؟"
       },
       "options": [
         {
@@ -8594,9 +8594,9 @@
         "ar": "سجل ماركو ماتيراتزي هدف التعادل لإيطاليا برأسية بعد ركلة جزاء زيدان."
       },
       "localization": {
-        "enChars": 106,
-        "arChars": 98,
-        "parityRatio": 0.925,
+        "enChars": 105,
+        "arChars": 100,
+        "parityRatio": 0.952,
         "verifiedBy": "auto-check-pending-editor"
       },
       "authoring": {
