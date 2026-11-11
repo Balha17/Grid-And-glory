@@ -247,7 +247,7 @@ Future<void> _editPlayerName(BuildContext context, WidgetRef ref, Locale locale)
   );
   controller.dispose();
   if (value == null) return;
-  final clean = value.replaceAll(RegExp(r'[\\u0000-\\u001F\\u007F]'), '').trim();
+  final clean = value.trim();
   if (clean.length < 2) return;
   await prefs.setString('player_nickname', String.fromCharCodes(clean.runes.take(18)));
 }
