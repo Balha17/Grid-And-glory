@@ -22,6 +22,7 @@ var rival_goals := 0
 var you_are_shooting := false
 var selected := false
 var selected_option_id := ""
+var selected_option_id := ""
 var option_buttons: Dictionary = {}
 
 var stadium_root: Node3D
@@ -664,7 +665,8 @@ func _handle_frame(frame: Dictionary) -> void:
 			countdown_deadline = 0
 			_read_scores(p)
 			var outcome := str(p.get("outcome", ""))
-			status_label.text = "CORRECT!" if outcome == "correct" else "NOT THIS TIME"
+			status_label.text = "CORRECT!" if outcome == "correct" else "WRONG!"
+			status_label.add_theme_color_override("font_color", Color(0.20, 0.95, 0.43) if outcome == "correct" else Color(1.0, 0.25, 0.22))
 			question_label.text = ""
 			_show_answer_feedback(str(p.get("correctOptionText", "")), outcome == "correct")
 			animate_reveal(outcome == "correct")
@@ -673,6 +675,7 @@ func _handle_frame(frame: Dictionary) -> void:
 			_read_scores(p)
 			var scored := bool(p.get("scored", false))
 			status_label.text = "GOOOOOAL!" if scored else "SAVED!"
+			status_label.add_theme_color_override("font_color", Color(0.20, 0.95, 0.43) if scored else Color(1.0, 0.25, 0.22))
 			question_label.text = ""
 			_show_answer_feedback("", scored)
 			animate_shot(scored)
@@ -729,6 +732,8 @@ func _show_question(view: Dictionary) -> void:
 			return
 	question_label.text = prompt
 	question_label.text_direction = Control.TEXT_DIRECTION_AUTO
+	selected_option_id = ""
+	status_label.add_theme_color_override("font_color", Color(0.65,0.82,1.0))
 	# Render format-specific clues: the old client showed only the prompt and
 	# answer buttons, silently dropping emoji, career-path and statistics data.
 	var format_data: Dictionary = view.get("formatData", {})
@@ -764,6 +769,7 @@ func _show_question(view: Dictionary) -> void:
 		b.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		b.text_direction = Control.TEXT_DIRECTION_AUTO
 		var option_id := str(option.get("id", ""))
+		b.set_meta("option_id", option_id)
 		b.pressed.connect(func(): _submit_answer(option_id))
 		options_box.add_child(b)
 		option_buttons[option_id] = b
@@ -801,6 +807,19 @@ func _show_answer_feedback(correct_text: String, was_correct: bool) -> void:
 	status_label.text = "CORRECT" if was_correct else "WRONG"
 	if not correct_text.is_empty():
 		question_label.text = "✓  " + correct_text if was_correct else "✕  CORRECT: " + correct_text
+
+func _paint_answer_result(correct_id: String) -> void:
+	for child in options_box.get_children():
+		if not child is Button:
+			continue
+		var option_button := child as Button
+		var option_id := str(option_button.get_meta("option_id", ""))
+		if option_id == correct_id:
+			option_button.add_theme_stylebox_override("normal", _panel_style(Color(0.035, 0.34, 0.16), Color(0.20, 0.95, 0.43), 3))
+			option_button.add_theme_stylebox_override("hover", _panel_style(Color(0.035, 0.34, 0.16), Color(0.20, 0.95, 0.43), 3))
+		elif option_id == selected_option_id:
+			option_button.add_theme_stylebox_override("normal", _panel_style(Color(0.40, 0.055, 0.07), Color(1.0, 0.25, 0.22), 3))
+			option_button.add_theme_stylebox_override("hover", _panel_style(Color(0.40, 0.055, 0.07), Color(1.0, 0.25, 0.22), 3))
 
 func _read_scores(p: Dictionary) -> void:
 	var zones: Dictionary = p.get("zones", {})
