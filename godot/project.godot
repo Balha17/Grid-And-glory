@@ -3,6 +3,7 @@ config_version=5
 
 [application]
 config/name="Grid & Glory"
+config/quit_on_go_back=false
 config/icon="res://assets/grid_glory_icon.svg"
 config/description="3D bilingual football trivia duel"
 run/main_scene="res://scenes/main.tscn"
