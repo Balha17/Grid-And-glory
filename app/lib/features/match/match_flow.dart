@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -141,6 +142,9 @@ class _MatchFlowScreenState extends ConsumerState<MatchFlowScreen> {
     _transport = transport;
     _stateSub = transport.states.listen((next) {
       if (!mounted) return;
+      if (next.phase == 'open' && _state.phase != 'open') {
+        SystemSound.play(SystemSoundType.click);
+      }
       if (next.phase == 'reveal' && _state.phase != 'reveal') {
         SystemSound.play(next.goalFlash ? SystemSoundType.alert : SystemSoundType.click);
         if (next.goalFlash) HapticFeedback.heavyImpact();
