@@ -1988,7 +1988,7 @@
     {
       "id": "q_blur_bernabeu",
       "schemaVersion": "1.0.0",
-      "format": "blur_reveal",
+      "format": "mc",
       "difficulty": 2,
       "region": "EUROPE",
       "competitions": [
@@ -2001,8 +2001,8 @@
       ],
       "era": "ALL_TIME",
       "prompt": {
-        "en": "Which stadium is this?",
-        "ar": "أي ملعب هذا؟"
+        "en": "Which stadium is Real Madrid's home ground?",
+        "ar": "ما الملعب الذي يُعدّ الملعب الرئيسي لريال مدريد؟"
       },
       "options": [
         {
@@ -2027,18 +2027,6 @@
         }
       ],
       "answerOptionId": "opt_bernabeu",
-      "formatData": {
-        "revealMs": 6000,
-        "initialBlurSigma": 28,
-        "finalBlurSigma": 0,
-        "curve": "easeOut"
-      },
-      "media": [
-        {
-          "assetId": "a_stadium_bernabeu",
-          "role": "reveal"
-        }
-      ],
       "explainer": {
         "en": "The Bernabéu is Real Madrid's home ground.",
         "ar": "البرنابيو هو ملعب ريال مدريد."
@@ -2054,13 +2042,13 @@
         "version": 1,
         "author": "content-01",
         "reviewedBy": "editor-01",
-        "updatedAt": "2026-10-05T09:00:00.000Z"
+        "updatedAt": "2026-11-11T16:00:00.000Z"
       }
     },
     {
       "id": "q_blur_crest_lfc",
       "schemaVersion": "1.0.0",
-      "format": "blur_reveal",
+      "format": "mc",
       "difficulty": 2,
       "region": "EUROPE",
       "competitions": [
@@ -2072,8 +2060,8 @@
       ],
       "era": "ALL_TIME",
       "prompt": {
-        "en": "Whose crest is this?",
-        "ar": "لمن هذا الشعار؟"
+        "en": "Which club plays its home matches at Anfield?",
+        "ar": "أي نادٍ يخوض مبارياته على ملعب أنفيلد؟"
       },
       "options": [
         {
@@ -2098,18 +2086,6 @@
         }
       ],
       "answerOptionId": "opt_lfc",
-      "formatData": {
-        "revealMs": 5000,
-        "initialBlurSigma": 32,
-        "finalBlurSigma": 0,
-        "curve": "stepwise"
-      },
-      "media": [
-        {
-          "assetId": "a_crest_lfc",
-          "role": "reveal"
-        }
-      ],
       "explainer": {
         "en": "The Liver Bird sits at the centre of Liverpool's crest.",
         "ar": "يظهر «طائر ليفر» في قلب شعار ليفربول."
@@ -2125,13 +2101,13 @@
         "version": 1,
         "author": "content-01",
         "reviewedBy": "editor-01",
-        "updatedAt": "2026-10-05T09:05:00.000Z"
+        "updatedAt": "2026-11-11T16:00:00.000Z"
       }
     },
     {
       "id": "q_blur_ucl_trophy",
       "schemaVersion": "1.0.0",
-      "format": "blur_reveal",
+      "format": "mc",
       "difficulty": 3,
       "region": "GLOBAL",
       "competitions": [
@@ -2143,8 +2119,8 @@
       ],
       "era": "ALL_TIME",
       "prompt": {
-        "en": "Which trophy is this?",
-        "ar": "أي كأس هذه؟"
+        "en": "Which competition awards the trophy known as the Big Ears?",
+        "ar": "أي بطولة تمنح الكأس المعروفة باسم «ذات الأذنين»؟"
       },
       "options": [
         {
@@ -2169,18 +2145,6 @@
         }
       ],
       "answerOptionId": "opt_ucl",
-      "formatData": {
-        "revealMs": 5500,
-        "initialBlurSigma": 30,
-        "finalBlurSigma": 0,
-        "curve": "easeOut"
-      },
-      "media": [
-        {
-          "assetId": "a_trophy_ucl",
-          "role": "reveal"
-        }
-      ],
       "explainer": {
         "en": "The 'Big Ears' trophy has been awarded since 1956.",
         "ar": "يُمنح كأس «الأذنان الكبيرتان» منذ عام 1956."
@@ -2196,13 +2160,13 @@
         "version": 1,
         "author": "content-01",
         "reviewedBy": "editor-01",
-        "updatedAt": "2026-10-05T09:10:00.000Z"
+        "updatedAt": "2026-11-11T16:00:00.000Z"
       }
     },
     {
       "id": "q_blur_flag_mar",
       "schemaVersion": "1.0.0",
-      "format": "blur_reveal",
+      "format": "mc",
       "difficulty": 1,
       "region": "AFRICA",
       "competitions": [
@@ -2215,8 +2179,8 @@
       ],
       "era": "ALL_TIME",
       "prompt": {
-        "en": "Which country's flag is this?",
-        "ar": "علم أي دولة هذا؟"
+        "en": "Which country has a red flag with a green five-pointed star?",
+        "ar": "أي دولة يحمل علمها اللون الأحمر ونجمة خضراء خماسية؟"
       },
       "options": [
         {
@@ -2241,18 +2205,6 @@
         }
       ],
       "answerOptionId": "opt_mar",
-      "formatData": {
-        "revealMs": 4000,
-        "initialBlurSigma": 22,
-        "finalBlurSigma": 0,
-        "curve": "linear"
-      },
-      "media": [
-        {
-          "assetId": "a_flag_mar",
-          "role": "reveal"
-        }
-      ],
       "explainer": {
         "en": "Morocco's flag is red with a green pentagram.",
         "ar": "علم المغرب أحمر يتوسطه نجمة خماسية خضراء."
@@ -2268,7 +2220,7 @@
         "version": 1,
         "author": "content-01",
         "reviewedBy": "editor-01",
-        "updatedAt": "2026-10-05T09:15:00.000Z"
+        "updatedAt": "2026-11-11T16:00:00.000Z"
       }
     },
     {
@@ -3789,10 +3741,10 @@
         "version": 1,
         "author": "content-02",
         "reviewedBy": "editor-01",
-        "updatedAt": "2026-11-10T08:00:00.000Z"
+        "updatedAt": "2026-11-11T16:00:00.000Z"
       },
       "id": "q_blur_campnou",
-      "format": "blur_reveal",
+      "format": "mc",
       "difficulty": 2,
       "region": "EUROPE",
       "competitions": [
@@ -3805,8 +3757,8 @@
       ],
       "era": "ALL_TIME",
       "prompt": {
-        "en": "Which stadium is this?",
-        "ar": "أي ملعب هذا؟"
+        "en": "Which stadium is FC Barcelona's historic home ground?",
+        "ar": "ما الملعب التاريخي لنادي برشلونة؟"
       },
       "options": [
         {
@@ -3831,18 +3783,6 @@
         }
       ],
       "answerOptionId": "opt_campnou",
-      "formatData": {
-        "revealMs": 5500,
-        "initialBlurSigma": 26,
-        "finalBlurSigma": 0,
-        "curve": "easeOut"
-      },
-      "media": [
-        {
-          "assetId": "a_stadium_campnou",
-          "role": "reveal"
-        }
-      ],
       "explainer": {
         "en": "Camp Nou is Barcelona's home ground.",
         "ar": "كامب نو هو ملعب برشلونة."
@@ -3861,10 +3801,10 @@
         "version": 1,
         "author": "content-02",
         "reviewedBy": "editor-01",
-        "updatedAt": "2026-11-10T08:00:00.000Z"
+        "updatedAt": "2026-11-11T16:00:00.000Z"
       },
       "id": "q_blur_crest_fcb",
-      "format": "blur_reveal",
+      "format": "mc",
       "difficulty": 2,
       "region": "EUROPE",
       "competitions": [
@@ -3876,8 +3816,8 @@
       ],
       "era": "ALL_TIME",
       "prompt": {
-        "en": "Whose crest is this?",
-        "ar": "لمن هذا الشعار؟"
+        "en": "Which club is traditionally known for its blue-and-garnet colours?",
+        "ar": "أي نادٍ يشتهر بألوانه التقليدية الأزرق والأحمر الداكن؟"
       },
       "options": [
         {
@@ -3902,18 +3842,6 @@
         }
       ],
       "answerOptionId": "opt_fcb",
-      "formatData": {
-        "revealMs": 5000,
-        "initialBlurSigma": 30,
-        "finalBlurSigma": 0,
-        "curve": "stepwise"
-      },
-      "media": [
-        {
-          "assetId": "a_crest_fcb",
-          "role": "reveal"
-        }
-      ],
       "explainer": {
         "en": "Barcelona's crest carries the club's initials, the city cross and the Catalan flag.",
         "ar": "يجمع شعار برشلونة بين أحرف النادي وصليب المدينة وعلم كتالونيا."
@@ -3932,10 +3860,10 @@
         "version": 1,
         "author": "content-02",
         "reviewedBy": "editor-01",
-        "updatedAt": "2026-11-10T08:00:00.000Z"
+        "updatedAt": "2026-11-11T16:00:00.000Z"
       },
       "id": "q_blur_wc_trophy",
-      "format": "blur_reveal",
+      "format": "mc",
       "difficulty": 2,
       "region": "GLOBAL",
       "competitions": [
@@ -3947,8 +3875,8 @@
       ],
       "era": "ALL_TIME",
       "prompt": {
-        "en": "Which trophy is this?",
-        "ar": "أي كأس هذه؟"
+        "en": "Which trophy is awarded to the winner of the FIFA World Cup?",
+        "ar": "ما الكأس التي يحصل عليها الفائز بكأس العالم لكرة القدم؟"
       },
       "options": [
         {
@@ -3973,18 +3901,6 @@
         }
       ],
       "answerOptionId": "opt_wc",
-      "formatData": {
-        "revealMs": 5000,
-        "initialBlurSigma": 24,
-        "finalBlurSigma": 0,
-        "curve": "easeOut"
-      },
-      "media": [
-        {
-          "assetId": "a_trophy_wc",
-          "role": "reveal"
-        }
-      ],
       "explainer": {
         "en": "The World Cup trophy has been awarded since 1974.",
         "ar": "يُمنح كأس العالم بشكله الحالي منذ عام 1974."
