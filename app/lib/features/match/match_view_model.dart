@@ -28,6 +28,7 @@ class MatchUiState {
     this.prompt = '',
     this.format = 'mc',
     this.formatData = const <String, dynamic>{},
+    this.media = const <Map<String, String>>[],
     this.options = const <AnswerOption>[],
     this.selectedOptionId,
     this.correctOptionId,
@@ -57,6 +58,7 @@ class MatchUiState {
   final String prompt;
   final String format;
   final Map<String, dynamic> formatData;
+  final List<Map<String, String>> media;
   final List<AnswerOption> options;
 
   final String? selectedOptionId;
@@ -91,6 +93,7 @@ class MatchUiState {
     String? prompt,
     String? format,
     Map<String, dynamic>? formatData,
+    List<Map<String, String>>? media,
     List<AnswerOption>? options,
     String? selectedOptionId,
     String? correctOptionId,
@@ -118,6 +121,7 @@ class MatchUiState {
       prompt: prompt ?? this.prompt,
       format: format ?? this.format,
       formatData: formatData ?? this.formatData,
+      media: media ?? this.media,
       options: options ?? this.options,
       selectedOptionId: selectedOptionId ?? this.selectedOptionId,
       correctOptionId: correctOptionId ?? this.correctOptionId,
@@ -146,6 +150,7 @@ class MatchUiState {
         youHaveBall: youHaveBall,
         roundNo: roundNo,
         formatData: const <String, dynamic>{},
+        media: const <Map<String, String>>[],
       );
 }
 
@@ -179,10 +184,23 @@ MatchUiState reduce(MatchUiState state, Map<String, dynamic> event) {
       );
 
     case 'round.intro':
+      final introView = (payload['view'] as Map?)?.cast<String, dynamic>();
+      final introOptions = ((introView?['options'] as List?) ?? const [])
+          .cast<Map<String, dynamic>>()
+          .map((o) => AnswerOption(id: o['id'] as String, text: o['text'] as String))
+          .toList(growable: false);
       return state.nextRound().copyWith(
         phase: 'intro',
         roundNo: (payload['roundNo'] as int?) ?? state.roundNo,
-        remainingSeconds: ((payload['windowMs'] as int?) ?? 9000) ~/ 1000,
+        remainingSeconds: 1,
+        prompt: (introView?['prompt'] as String?) ?? '',
+        format: (introView?['format'] as String?) ?? 'mc',
+        formatData: (introView?['formatData'] as Map?)?.cast<String, dynamic>() ?? const {},
+        media: ((introView?['media'] as List?) ?? const [])
+            .whereType<Map>()
+            .map((m) => m.cast<String, String>())
+            .toList(growable: false),
+        options: introOptions,
       );
 
     case 'round.question':
@@ -196,6 +214,11 @@ MatchUiState reduce(MatchUiState state, Map<String, dynamic> event) {
         prompt: (view?['prompt'] as String?) ?? '',
         format: (view?['format'] as String?) ?? 'mc',
         formatData: (view?['formatData'] as Map?)?.cast<String, dynamic>() ?? const {},
+        media: ((view?['media'] as List?) ?? const [])
+            .whereType<Map>()
+            .map((m) => m.cast<String, String>())
+            .toList(growable: false),
+        remainingSeconds: (((payload['windowEndsAt'] as int?) ?? 0) - ((payload['serverNow'] as int?) ?? 0)).clamp(0, 9000) ~/ 1000,
         options: options,
         selectedOptionId: '',
         correctOptionId: '',
@@ -230,6 +253,11 @@ MatchUiState reduce(MatchUiState state, Map<String, dynamic> event) {
         prompt: (view?['prompt'] as String?) ?? '',
         format: (view?['format'] as String?) ?? 'mc',
         formatData: (view?['formatData'] as Map?)?.cast<String, dynamic>() ?? const {},
+        media: ((view?['media'] as List?) ?? const [])
+            .whereType<Map>()
+            .map((m) => m.cast<String, String>())
+            .toList(growable: false),
+        remainingSeconds: (((payload['windowEndsAt'] as int?) ?? 0) - ((payload['serverNow'] as int?) ?? 0)).clamp(0, 5000) ~/ 1000,
         options: ((view?['options'] as List?) ?? const [])
             .cast<Map<String, dynamic>>()
             .map((o) => AnswerOption(id: o['id'] as String, text: o['text'] as String))
