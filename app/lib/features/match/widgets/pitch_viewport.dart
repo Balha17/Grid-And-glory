@@ -1,3 +1,4 @@
+import 'dart:math' as math;
 import 'package:flutter/material.dart';
 
 import '../../../core/theme/tokens.dart';
@@ -118,125 +119,124 @@ class _PitchPainter extends CustomPainter {
   }
 
   void _paintGrass(Canvas canvas, Size size) {
-    final band = size.height / PitchViewport.zoneCount;
-    final grass = Paint();
-    // A broadcast-style natural pitch: alternating mowing lanes are subtle, not six
-    // oversized blocks competing with the players and the question.
-    for (var i = 0; i < PitchViewport.zoneCount * 2; i++) {
-      grass.color = i.isEven
-          ? AppColors.grassA.withValues(alpha: 0.94)
-          : AppColors.grassB.withValues(alpha: 0.94);
-      canvas.drawRect(
-        Rect.fromLTWH(0, i * size.height / 12, size.width, size.height / 12 + 0.5),
-        grass,
-      );
+    final field = Offset.zero & size;
+    final grass = Paint()
+      ..shader = const LinearGradient(
+        begin: Alignment.topLeft,
+        end: Alignment.bottomRight,
+        colors: [Color(0xFF167447), Color(0xFF0D5B38), Color(0xFF104D32)],
+      ).createShader(field);
+    canvas.drawRect(field, grass);
+
+    final lane = Paint()..color = Colors.white.withValues(alpha: 0.035);
+    final laneHeight = size.height / 10;
+    for (var i = 0; i < 10; i++) {
+      if (i.isEven) canvas.drawRect(Rect.fromLTWH(0, i * laneHeight, size.width, laneHeight), lane);
     }
+    canvas.drawRect(
+      field,
+      Paint()
+        ..shader = RadialGradient(
+          colors: [Colors.transparent, Colors.black.withValues(alpha: 0.24)],
+          stops: const [0.58, 1],
+        ).createShader(field),
+    );
 
     final line = Paint()
-      ..color = Colors.white.withValues(alpha: goalFlash ? 0.48 : 0.34)
+      ..color = Colors.white.withValues(alpha: 0.78)
       ..style = PaintingStyle.stroke
       ..strokeWidth = 1.35;
+    final inset = math.min(size.width, size.height) * 0.055;
+    final pitch = Rect.fromLTWH(inset, inset, size.width - inset * 2, size.height - inset * 2);
+    canvas.drawRRect(RRect.fromRectAndRadius(pitch, const Radius.circular(5)), line);
 
-    // Touchlines and goal lines.
-    canvas.drawRect(
-      Rect.fromLTWH(7, 7, size.width - 14, size.height - 14),
-      line,
-    );
-    // Halfway line and centre circle, correctly oriented for an attacking-up pitch.
-    canvas.drawLine(
-      Offset(7, size.height / 2),
-      Offset(size.width - 7, size.height / 2),
-      line,
-    );
-    canvas.drawCircle(
-      Offset(size.width / 2, size.height / 2),
-      size.width * 0.115,
-      line,
-    );
-    canvas.drawCircle(
-      Offset(size.width / 2, size.height / 2),
-      2.2,
-      Paint()..color = Colors.white.withValues(alpha: 0.55),
-    );
+    final middleY = size.height / 2;
+    canvas.drawLine(Offset(inset, middleY), Offset(size.width - inset, middleY), line);
+    canvas.drawCircle(Offset(size.width / 2, middleY), size.width * 0.115, line);
+    canvas.drawCircle(Offset(size.width / 2, middleY), 2.1, Paint()..color = Colors.white);
 
-    // Penalty areas and six-yard boxes at both ends.
     final boxWidth = size.width * 0.58;
-    final sixWidth = size.width * 0.30;
-    final boxDepth = size.height * 0.145;
-    final sixDepth = size.height * 0.065;
-    for (final top in [true, false]) {
-      final y = top ? 7.0 : size.height - 7 - boxDepth;
-      canvas.drawRect(Rect.fromLTWH((size.width - boxWidth) / 2, y, boxWidth, boxDepth), line);
-      final sixY = top ? 7.0 : size.height - 7 - sixDepth;
-      canvas.drawRect(Rect.fromLTWH((size.width - sixWidth) / 2, sixY, sixWidth, sixDepth), line);
-      final spotY = top ? 7 + boxDepth * 0.70 : size.height - 7 - boxDepth * 0.70;
-      canvas.drawCircle(Offset(size.width / 2, spotY), 2, Paint()..color = Colors.white.withValues(alpha: 0.55));
+    final boxHeight = size.height * 0.155;
+    final sixWidth = size.width * 0.34;
+    final sixHeight = size.height * 0.065;
+    final goalWidth = size.width * 0.22;
+    final goalDepth = size.height * 0.022;
+    final left = (size.width - boxWidth) / 2;
+    final sixLeft = (size.width - sixWidth) / 2;
+    final goalLeft = (size.width - goalWidth) / 2;
+
+    for (final isTop in [true, false]) {
+      final top = isTop ? inset : size.height - inset - boxHeight;
+      canvas.drawRect(Rect.fromLTWH(left, top, boxWidth, boxHeight), line);
+      final sixTop = isTop ? top : top + boxHeight - sixHeight;
+      canvas.drawRect(Rect.fromLTWH(sixLeft, sixTop, sixWidth, sixHeight), line);
+      final spotY = isTop ? top + boxHeight * 0.68 : top + boxHeight * 0.32;
+      canvas.drawCircle(Offset(size.width / 2, spotY), 1.8, Paint()..color = Colors.white);
+      final arcCenterY = isTop ? top + boxHeight : top;
+      final arcRect = Rect.fromCircle(center: Offset(size.width / 2, arcCenterY), radius: size.width * 0.105);
+      canvas.drawArc(arcRect, isTop ? 0.18 : math.pi + 0.18, math.pi - 0.36, false, line);
     }
 
-    // Soft stadium edge shading adds depth without covering the field.
-    final shade = Paint()
-      ..shader = const LinearGradient(
-        begin: Alignment.topCenter,
-        end: Alignment.bottomCenter,
-        colors: [Color(0x26000000), Color(0x00000000), Color(0x26000000)],
-        stops: [0, 0.5, 1],
-      ).createShader(Offset.zero & size);
-    canvas.drawRect(Offset.zero & size, shade);
-    // Keep the six gameplay zones readable through faint separators.
-    final separators = Paint()
-      ..color = Colors.white.withValues(alpha: 0.055)
-      ..strokeWidth = 0.7;
-    for (var i = 1; i < PitchViewport.zoneCount; i++) {
-      final y = band * i;
-      canvas.drawLine(Offset(8, y), Offset(size.width - 8, y), separators);
-    }
-  }
-
-  void _paintGoalMouths(Canvas canvas, Size size) {
-    final goalWidth = size.width * 0.38;
-    final goalDepth = 9.0;
     final net = Paint()
-      ..color = Colors.white.withValues(alpha: goalFlash ? 0.58 : 0.28)
-      ..strokeWidth = 0.8;
-    for (final top in [true, false]) {
-      final left = (size.width - goalWidth) / 2;
-      final y = top ? 0.0 : size.height - goalDepth;
-      final goal = Rect.fromLTWH(left, y, goalWidth, goalDepth);
-      canvas.drawRect(goal, Paint()..color = Colors.white.withValues(alpha: 0.10));
-      canvas.drawRect(goal, net..style = PaintingStyle.stroke..strokeWidth = 1.5);
-      for (var x = left + 8; x < left + goalWidth; x += 8) {
-        canvas.drawLine(Offset(x, y), Offset(x, y + goalDepth), net);
+      ..color = Colors.white.withValues(alpha: 0.42)
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 1;
+    for (final y in [inset - goalDepth, size.height - inset]) {
+      final goal = Rect.fromLTWH(goalLeft, y, goalWidth, goalDepth);
+      canvas.drawRect(goal, net);
+      for (var x = goal.left + 5; x < goal.right; x += 7) {
+        canvas.drawLine(Offset(x, goal.top), Offset(x, goal.bottom), net);
       }
-      canvas.drawLine(Offset(left, y + goalDepth / 2), Offset(left + goalWidth, y + goalDepth / 2), net);
+    }
+
+    final cornerRadius = size.width * 0.035;
+    for (final x in [inset, size.width - inset]) {
+      for (final y in [inset, size.height - inset]) {
+        final rect = Rect.fromCircle(center: Offset(x, y), radius: cornerRadius);
+        canvas.drawArc(rect, x == inset ? 0 : math.pi / 2, math.pi / 2, false, line);
+      }
     }
   }
 
   void _paintAvatar(Canvas canvas, Offset centre, Color colour, bool hasBall) {
     if (hasBall) {
+      canvas.drawCircle(centre, _avatarRadius + 10, Paint()..color = colour.withValues(alpha: 0.18));
       canvas.drawCircle(
         centre,
-        _avatarRadius + 7,
-        Paint()..color = colour.withValues(alpha: 0.18),
+        _avatarRadius + 5,
+        Paint()
+          ..style = PaintingStyle.stroke
+          ..strokeWidth = 1.5
+          ..color = colour.withValues(alpha: 0.72),
       );
     }
-    canvas.drawCircle(centre, _avatarRadius, Paint()..color = AppColors.bgBase);
-    canvas.drawCircle(
-      centre,
-      _avatarRadius,
+    final shirt = Path()
+      ..moveTo(centre.dx - 10, centre.dy - 9)
+      ..lineTo(centre.dx - 17, centre.dy - 4)
+      ..lineTo(centre.dx - 13, centre.dy + 4)
+      ..lineTo(centre.dx - 9, centre.dy + 2)
+      ..lineTo(centre.dx - 8, centre.dy + 12)
+      ..quadraticBezierTo(centre.dx, centre.dy + 16, centre.dx + 8, centre.dy + 12)
+      ..lineTo(centre.dx + 9, centre.dy + 2)
+      ..lineTo(centre.dx + 13, centre.dy + 4)
+      ..lineTo(centre.dx + 17, centre.dy - 4)
+      ..lineTo(centre.dx + 10, centre.dy - 9)
+      ..quadraticBezierTo(centre.dx, centre.dy - 3, centre.dx - 10, centre.dy - 9)
+      ..close();
+    canvas.drawShadow(shirt, Colors.black.withValues(alpha: 0.42), 4, true);
+    canvas.drawPath(shirt, Paint()..color = colour);
+    canvas.drawPath(
+      shirt,
       Paint()
         ..style = PaintingStyle.stroke
-        ..strokeWidth = 3
-        ..color = colour,
+        ..strokeWidth = 1.5
+        ..color = Colors.white.withValues(alpha: 0.92),
     );
-    // The jersey number is the identity marker; no faces means no uncanny mirroring.
-    final label = TextPainter(
-      text: TextSpan(
-        text: hasBall ? '●' : '○',
-        style: TextStyle(color: colour, fontSize: 14, height: 1),
-      ),
-      textDirection: TextDirection.ltr,
-    )..layout();
-    label.paint(canvas, centre - Offset(label.width / 2, label.height / 2));
+    canvas.drawLine(
+      Offset(centre.dx - 5, centre.dy - 4),
+      Offset(centre.dx + 5, centre.dy - 4),
+      Paint()..color = Colors.white.withValues(alpha: 0.72)..strokeWidth = 1.2,
+    );
   }
 
   void _paintBall(Canvas canvas, ({double you, double opponent}) lanes, Size size) {
@@ -244,16 +244,17 @@ class _PitchPainter extends CustomPainter {
         ? Offset(lanes.you, _yForZone(yourZone, size.height))
         : Offset(lanes.opponent, _yForZone(opponentZone, size.height));
     final ball = owner + const Offset(_avatarRadius * 0.85, _avatarRadius * 0.5);
-
-    canvas.drawCircle(ball, 6, Paint()..color = Colors.white);
+    canvas.drawCircle(ball + const Offset(0, 2), 7, Paint()..color = Colors.black.withValues(alpha: 0.28));
+    canvas.drawCircle(ball, 6, Paint()..color = const Color(0xFFF8FAFC));
     canvas.drawCircle(
       ball,
       6,
       Paint()
         ..style = PaintingStyle.stroke
-        ..strokeWidth = 1.5
-        ..color = AppColors.bgBase,
+        ..strokeWidth = 1.1
+        ..color = const Color(0xFF172033),
     );
+    canvas.drawCircle(ball, 1.8, Paint()..color = const Color(0xFF172033));
   }
 
   @override
