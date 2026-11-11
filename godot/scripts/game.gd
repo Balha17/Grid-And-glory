@@ -120,27 +120,34 @@ func _handle_back_request() -> void:
 	else:
 		_open_navigation(true)
 
-func _open_navigation(is_home: bool) -> void:
+func _open_navigation(_is_home: bool) -> void:
 	navigation_visible = true
 	navigation_confirming = false
 	navigation_overlay.visible = true
 	navigation_confirm_box.visible = false
-	navigation_resume_button.visible = not is_home
-	navigation_home_button.visible = not is_home
-	navigation_title.text = _tr("MATCH MENU", "قائمة المباراة") if not is_home else _tr("EXIT GAME?", "الخروج من اللعبة؟")
-	navigation_hint.text = _tr("The match clock keeps running while this menu is open.", "وقت المباراة يستمر أثناء فتح هذه القائمة.") if not is_home else _tr("Press Back again to close this menu, or tap Stay.", "اضغط رجوع مرة أخرى لإغلاق القائمة أو اختر البقاء.")
-	if is_home:
-		navigation_resume_button.text = _tr("STAY IN GAME", "البقاء في اللعبة")
-		navigation_resume_button.visible = true
-		navigation_resume_button.pressed.disconnect(_close_navigation)
-		navigation_resume_button.pressed.connect(_close_navigation)
-		navigation_home_button.visible = false
+	var at_home := phase == "home"
+	var connecting_now := phase == "connecting"
+	navigation_resume_button.visible = true
+	navigation_home_button.visible = true
+	navigation_resume_button.text = _tr("STAY IN GAME", "البقاء في اللعبة") if at_home else _tr("RESUME MATCH", "استئناف المباراة")
+	navigation_home_button.text = _tr("EXIT GAME", "الخروج من اللعبة") if at_home else (_tr("CANCEL SEARCH", "إلغاء البحث") if connecting_now else _tr("LEAVE MATCH", "مغادرة المباراة"))
+	navigation_title.text = _tr("EXIT GAME?", "الخروج من اللعبة؟") if at_home else (_tr("MATCHMAKING", "البحث عن منافس") if connecting_now else _tr("MATCH MENU", "قائمة المباراة"))
+	navigation_hint.text = _tr("Choose Stay to continue, or Exit Game to close.", "اختر البقاء للمتابعة أو الخروج لإغلاق اللعبة.") if at_home else (_tr("Cancel the search or return to the match.", "ألغِ البحث أو ارجع إلى المباراة.") if connecting_now else _tr("The match clock keeps running while this menu is open.", "وقت المباراة يستمر أثناء فتح هذه القائمة."))
 
 func _close_navigation() -> void:
 	navigation_visible = false
 	navigation_confirming = false
 	if is_instance_valid(navigation_overlay):
 		navigation_overlay.visible = false
+
+func _navigation_secondary_action() -> void:
+	if phase == "home":
+		get_tree().quit()
+	elif phase == "connecting":
+		_cancel_matchmaking()
+		_close_navigation()
+	else:
+		_ask_leave_match()
 
 func _ask_leave_match() -> void:
 	navigation_confirming = true
@@ -563,7 +570,7 @@ func _build_hud() -> void:
 	clue_label.visible = false
 	content.add_child(clue_label)
 	question_image = TextureRect.new()
-	question_image.custom_minimum_size = Vector2(0, 70)
+	question_image.custom_minimum_size = Vector2(0, 92)
 	question_image.expand_mode = TextureRect.EXPAND_FIT_WIDTH_PROPORTIONAL
 	question_image.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 	question_image.visible = false
@@ -643,7 +650,7 @@ func _build_hud() -> void:
 	navigation_resume_button.pressed.connect(_close_navigation)
 	nav_stack.add_child(navigation_resume_button)
 	navigation_home_button = _make_button("LEAVE MATCH", Color(0.36,0.07,0.09), Color(1.0,0.30,0.24), 48)
-	navigation_home_button.pressed.connect(_ask_leave_match)
+	navigation_home_button.pressed.connect(_navigation_secondary_action)
 	nav_stack.add_child(navigation_home_button)
 	navigation_confirm_box = VBoxContainer.new()
 	navigation_confirm_box.add_theme_constant_override("separation", 7)
@@ -1192,17 +1199,27 @@ func _show_question(view: Dictionary) -> void:
 	clue_label.text = ""
 	clue_label.visible = false
 	if format_type == "emoji_story":
-		clue_label.text = str(format_data.get("emoji", "")).replace("\u2066", "").replace("\u2069", "")
-		clue_label.add_theme_font_size_override("font_size", 42)
-		clue_label.visible = not clue_label.text.strip_edges().is_empty()
+		# Android Godot fonts do not reliably contain flag/emoji glyphs; use bundled vector artwork.
+		var clue_id := str(view.get("questionId", ""))
+		var clue_path := "res://assets/question_clues/" + clue_id + ".svg"
+		if ResourceLoader.exists(clue_path):
+			question_image.texture = load(clue_path) as Texture2D
+			question_image.visible = question_image.texture != null
+			question_image_placeholder.visible = false
+		else:
+			clue_label.text = str(format_data.get("emoji", "")).replace("\u2066", "").replace("\u2069", "")
+			clue_label.add_theme_font_size_override("font_size", 34)
+			clue_label.visible = not clue_label.text.strip_edges().is_empty()
 	elif format_type == "career_path":
 		var career_clubs: Array = format_data.get("clubs", [])
 		var club_names: Array[String] = []
 		for club in career_clubs:
 			if club is Dictionary and not str(club.get("name", "")).is_empty():
 				club_names.append(str(club.get("name", "")))
-		clue_label.text = "\n›   ".join(club_names)
-		clue_label.add_theme_font_size_override("font_size", 14)
+		clue_label.text = "   →   ".join(club_names)
+		clue_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+		clue_label.custom_minimum_size = Vector2(0, 48)
+		clue_label.add_theme_font_size_override("font_size", 13)
 		clue_label.add_theme_color_override("font_color", Color(1.0, 0.84, 0.40))
 		clue_label.visible = not club_names.is_empty()
 	elif format_type == "stat_highlow":
