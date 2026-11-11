@@ -68,7 +68,7 @@ class MatchScreen extends StatelessWidget {
                             top: 0,
                             start: 0,
                             end: 0,
-                            child: _MatchHud(state: state, locale: locale, l10n: l10n),
+                            child: _MatchHud(state: state, locale: locale, l10n: l10n, onForfeit: onForfeit),
                           ),
                         ],
                       ),
@@ -145,11 +145,12 @@ class _Banner extends StatelessWidget {
 }
 
 class _MatchHud extends StatelessWidget {
-  const _MatchHud({required this.state, required this.locale, required this.l10n});
+  const _MatchHud({required this.state, required this.locale, required this.l10n, this.onForfeit});
 
   final MatchUiState state;
   final Locale locale;
   final AppLocalizations l10n;
+  final VoidCallback? onForfeit;
 
   @override
   Widget build(BuildContext context) {
@@ -187,6 +188,13 @@ class _MatchHud extends StatelessWidget {
           ),
           const Spacer(),
           Text(l10n.matchHalf(state.half), style: AppType.label(locale)),
+          if (onForfeit != null)
+            IconButton(
+              visualDensity: VisualDensity.compact,
+              tooltip: locale.languageCode == 'ar' ? 'انسحاب' : 'Forfeit match',
+              onPressed: onForfeit,
+              icon: const Icon(Icons.flag_rounded, color: AppColors.wrong, size: 19),
+            ),
         ],
       ),
     );
@@ -583,23 +591,60 @@ class _FormatBody extends StatelessWidget {
   Widget build(BuildContext context) {
     switch (state.format) {
       case 'career_path':
-        final clubs = (state.formatData['clubs'] as List?) ?? const [];
-        return Wrap(
-          spacing: AppSpacing.sm,
-          runSpacing: AppSpacing.sm,
+        final clubs = ((state.formatData['clubs'] as List?) ?? const [])
+            .whereType<Map>()
+            .map((club) => Map<String, dynamic>.from(club))
+            .where((club) => (club['name'] as String? ?? '').trim().isNotEmpty)
+            .toList(growable: false);
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            for (final club in clubs.cast<Map<String, dynamic>>())
-              Container(
-                padding: const EdgeInsetsDirectional.symmetric(
-                  horizontal: AppSpacing.md,
-                  vertical: AppSpacing.xs,
-                ),
-                decoration: BoxDecoration(
-                  color: AppColors.bgRaised,
-                  borderRadius: const BorderRadius.all(AppRadii.sm),
-                  border: Border.all(color: AppColors.border),
-                ),
-                child: Text(club['name'] as String, style: AppType.label(locale)),
+            Text(
+              locale.languageCode == 'ar' ? 'مسار الأندية بالترتيب الزمني' : 'CAREER PATH • CHRONOLOGICAL',
+              style: AppType.label(locale).copyWith(
+                color: AppColors.accent,
+                fontWeight: FontWeight.w900,
+              ),
+            ),
+            const SizedBox(height: AppSpacing.sm),
+            if (clubs.isEmpty)
+              Text(
+                locale.languageCode == 'ar' ? 'تسلسل الأندية غير متاح لهذا السؤال' : 'Career sequence unavailable for this question',
+                style: AppType.label(locale).copyWith(color: AppColors.wrong),
+              )
+            else
+              Wrap(
+                spacing: AppSpacing.xs,
+                runSpacing: AppSpacing.sm,
+                crossAxisAlignment: WrapCrossAlignment.center,
+                children: [
+                  for (var i = 0; i < clubs.length; i++) ...[
+                    Container(
+                      padding: const EdgeInsetsDirectional.symmetric(
+                        horizontal: AppSpacing.md,
+                        vertical: AppSpacing.xs,
+                      ),
+                      decoration: BoxDecoration(
+                        color: AppColors.bgRaised,
+                        borderRadius: const BorderRadius.all(AppRadii.sm),
+                        border: Border.all(color: AppColors.accent.withValues(alpha: 0.55)),
+                      ),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text('${i + 1}. ', style: AppType.label(locale).copyWith(color: AppColors.accent)),
+                          Flexible(child: Text(clubs[i]['name'] as String, style: AppType.label(locale))),
+                        ],
+                      ),
+                    ),
+                    if (i < clubs.length - 1)
+                      Icon(
+                        locale.languageCode == 'ar' ? Icons.arrow_back_rounded : Icons.arrow_forward_rounded,
+                        color: AppColors.accent,
+                        size: 17,
+                      ),
+                  ],
+                ],
               ),
           ],
         );
