@@ -396,6 +396,7 @@ export class MatchRoom {
         state.correctTimeMs += result.elapsedMs ?? 0;
       } else if (result.outcome === "wrong") {
         state.wrong += 1;
+        if (result.elapsedMs === null) state.noAnswer += 1;
       } else {
         state.wrong += 1;
         state.noAnswer += 1;
