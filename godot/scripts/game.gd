@@ -86,6 +86,8 @@ var countdown_deadline := 0
 var countdown_duration := 0
 var countdown_style_initialized := false
 var last_countdown_urgent := false
+var countdown_ui_next_update_ms := 0
+var last_countdown_displayed_second := -1
 var connection_deadline := 0
 var reconnect_until := 0
 var reconnect_next_attempt := 0
@@ -220,19 +222,27 @@ func _process(_delta: float) -> void:
 	if countdown_deadline > 0 and phase in ["question_open", "shooting_chance"]:
 		var now_ms := Time.get_ticks_msec()
 		var left := maxi(0, int(ceil(float(countdown_deadline - now_ms) / 1000.0)))
-		timer_label.text = str(left) + "s"
-		var total_ms := maxi(1, countdown_deadline - countdown_started)
-		countdown_bar.value = clampf(float(countdown_deadline - now_ms) / float(total_ms) * 100.0, 0.0, 100.0)
-		var urgent := left <= 3
-		# Avoid allocating a new StyleBox every frame during the countdown.
-		if not countdown_style_initialized or urgent != last_countdown_urgent:
-			last_countdown_urgent = urgent
-			countdown_style_initialized = true
-			timer_label.add_theme_color_override("font_color", Color(1.0,0.28,0.22) if urgent else Color(1.0,0.78,0.25))
-			countdown_bar.add_theme_stylebox_override("fill", _panel_style(Color(0.88,0.16,0.15) if urgent else Color(0.96,0.65,0.16), Color(1.0,0.78,0.28), 0))
+		# A 10 Hz HUD is visually smooth enough for a countdown and avoids forcing
+		# a ProgressBar redraw on every rendered frame on slower Android devices.
+		if now_ms >= countdown_ui_next_update_ms:
+			countdown_ui_next_update_ms = now_ms + 100
+			if left != last_countdown_displayed_second:
+				last_countdown_displayed_second = left
+				timer_label.text = str(left) + "s"
+			var total_ms := maxi(1, countdown_deadline - countdown_started)
+			countdown_bar.value = clampf(float(countdown_deadline - now_ms) / float(total_ms) * 100.0, 0.0, 100.0)
+			var urgent := left <= 3
+			# Change countdown styles only at the urgency boundary.
+			if not countdown_style_initialized or urgent != last_countdown_urgent:
+				last_countdown_urgent = urgent
+				countdown_style_initialized = true
+				timer_label.add_theme_color_override("font_color", Color(1.0,0.28,0.22) if urgent else Color(1.0,0.78,0.25))
+				countdown_bar.add_theme_stylebox_override("fill", _panel_style(Color(0.88,0.16,0.15) if urgent else Color(0.96,0.65,0.16), Color(1.0,0.78,0.28), 0))
 	else:
-		timer_label.text = ""
-		if is_instance_valid(countdown_bar):
+		if timer_label.text != "":
+			timer_label.text = ""
+			last_countdown_displayed_second = -1
+		if is_instance_valid(countdown_bar) and countdown_bar.value != 0:
 			countdown_bar.value = 0
 	if phase == "connecting" and connection_deadline > 0 and Time.get_ticks_msec() >= connection_deadline:
 		connection_deadline = 0
@@ -1206,6 +1216,8 @@ func _show_question(view: Dictionary) -> void:
 		question_image_request = null
 	current_options.clear()
 	option_buttons.clear()
+	last_countdown_displayed_second = -1
+	countdown_ui_next_update_ms = 0
 	var prompt := str(view.get("prompt", "")).strip_edges()
 	var incoming_options: Array = view.get("options", [])
 	if prompt.is_empty() or incoming_options.size() < 2:
@@ -1455,8 +1467,11 @@ func _read_scores(p: Dictionary) -> void:
 	score_label.text = _tr("YOU  ", "أنت  ") + str(my_goals) + "  —  " + str(rival_goals) + _tr("  RIVAL", "  الخصم")
 
 func _clear_options() -> void:
+	# Question transitions happen on the main thread, outside child callbacks.
+	# Free old answer buttons immediately so rapid rounds do not keep stale controls
+	# alive until the end-of-frame deletion queue is processed.
 	for child in options_box.get_children():
-		child.queue_free()
+		child.free()
 
 func _add_action_button(label: String, callback: Callable) -> void:
 	var b := Button.new()
