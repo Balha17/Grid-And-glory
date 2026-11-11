@@ -65,10 +65,8 @@ jobs:
       - name: Analyse
         working-directory: app
         run: flutter analyze --no-fatal-infos --no-fatal-warnings
-        continue-on-error: true
 
       - name: Build release APK
-        continue-on-error: true
         working-directory: app
         env:
           WS_URL: ${{ github.event.inputs.ws_url || 'wss://ws.gridandglory.gg/ws' }}
