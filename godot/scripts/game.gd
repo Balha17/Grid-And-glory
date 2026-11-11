@@ -44,6 +44,18 @@ var menu_feature_label: Label
 var menu_footer_label: Label
 var result_banner: PanelContainer
 var result_banner_label: Label
+var navigation_overlay: Control
+var navigation_panel: PanelContainer
+var navigation_title: Label
+var navigation_hint: Label
+var navigation_resume_button: Button
+var navigation_home_button: Button
+var navigation_confirm_box: VBoxContainer
+var navigation_confirm_label: Label
+var navigation_confirm_yes: Button
+var navigation_confirm_no: Button
+var navigation_visible := false
+var navigation_confirming := false
 var home_primary_button: Button
 var home_secondary_button: Button
 var home_sound_button: Button
@@ -82,8 +94,77 @@ func _ready() -> void:
 	_build_hud()
 	_setup_audio()
 	_load_settings()
+	get_tree().set_quit_on_go_back(false)
 	_show_home()
 	set_process(true)
+
+func _notification(what: int) -> void:
+	if what == NOTIFICATION_WM_GO_BACK_REQUEST:
+		_handle_back_request()
+
+func _unhandled_key_input(event: InputEvent) -> void:
+	if event is InputEventKey and event.pressed and not event.echo and event.keycode == KEY_ESCAPE:
+		_handle_back_request()
+		get_viewport().set_input_as_handled()
+
+func _handle_back_request() -> void:
+	# Android may deliver the same back request more than once; never toggle the panel.
+	if navigation_visible:
+		return
+	if phase in ["question_open", "shooting_chance", "round_reveal", "shot_reveal", "kickoff", "round_intro", "half_time"]:
+		_open_navigation(false)
+	elif phase == "connecting":
+		_open_navigation(true)
+	elif phase == "ended":
+		_show_home()
+	else:
+		_open_navigation(true)
+
+func _open_navigation(is_home: bool) -> void:
+	navigation_visible = true
+	navigation_confirming = false
+	navigation_overlay.visible = true
+	navigation_confirm_box.visible = false
+	navigation_resume_button.visible = not is_home
+	navigation_home_button.visible = not is_home
+	navigation_title.text = _tr("MATCH MENU", "قائمة المباراة") if not is_home else _tr("EXIT GAME?", "الخروج من اللعبة؟")
+	navigation_hint.text = _tr("The match clock keeps running while this menu is open.", "وقت المباراة يستمر أثناء فتح هذه القائمة.") if not is_home else _tr("Press Back again to close this menu, or tap Stay.", "اضغط رجوع مرة أخرى لإغلاق القائمة أو اختر البقاء.")
+	if is_home:
+		navigation_resume_button.text = _tr("STAY IN GAME", "البقاء في اللعبة")
+		navigation_resume_button.visible = true
+		navigation_resume_button.pressed.disconnect(_close_navigation)
+		navigation_resume_button.pressed.connect(_close_navigation)
+		navigation_home_button.visible = false
+
+func _close_navigation() -> void:
+	navigation_visible = false
+	navigation_confirming = false
+	if is_instance_valid(navigation_overlay):
+		navigation_overlay.visible = false
+
+func _ask_leave_match() -> void:
+	navigation_confirming = true
+	navigation_confirm_box.visible = true
+	navigation_confirm_label.text = _tr("Leave this match? Your current round will be forfeited.", "هل تريد مغادرة المباراة؟ ستُحتسب الجولة الحالية انسحاباً.")
+
+func _cancel_leave_match() -> void:
+	navigation_confirming = false
+	navigation_confirm_box.visible = false
+
+func _leave_match_to_home() -> void:
+	if connected and not player_id.is_empty():
+		_send("queue.leave", {})
+	socket.close()
+	socket = WebSocketPeer.new()
+	connected = false
+	player_id = ""
+	session_token = ""
+	current_token = ""
+	countdown_deadline = 0
+	connection_deadline = 0
+	phase = "home"
+	_close_navigation()
+	_show_home()
 
 func _process(_delta: float) -> void:
 	socket.poll()
@@ -520,6 +601,70 @@ func _build_hud() -> void:
 	action_box.add_theme_constant_override("separation", 10)
 	content.add_child(action_box)
 
+	# Back/menu overlay. It never pauses the authoritative server timer.
+	navigation_overlay = Control.new()
+	navigation_overlay.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	navigation_overlay.visible = false
+	navigation_overlay.process_mode = Node.PROCESS_MODE_ALWAYS
+	match_layer.add_child(navigation_overlay)
+	var shade := ColorRect.new()
+	shade.color = Color(0.002, 0.008, 0.02, 0.82)
+	shade.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	navigation_overlay.add_child(shade)
+	navigation_panel = PanelContainer.new()
+	navigation_panel.anchor_left = 0.09
+	navigation_panel.anchor_right = 0.91
+	navigation_panel.anchor_top = 0.27
+	navigation_panel.anchor_bottom = 0.73
+	navigation_panel.add_theme_stylebox_override("panel", _panel_style(Color(0.012,0.035,0.085,0.99), Color(0.96,0.68,0.20), 3))
+	navigation_overlay.add_child(navigation_panel)
+	var nav_margin := MarginContainer.new()
+	for side in ["left", "right"]:
+		nav_margin.add_theme_constant_override("margin_" + side, 18)
+	nav_margin.add_theme_constant_override("margin_top", 16)
+	nav_margin.add_theme_constant_override("margin_bottom", 16)
+	navigation_panel.add_child(nav_margin)
+	var nav_stack := VBoxContainer.new()
+	nav_stack.alignment = BoxContainer.ALIGNMENT_CENTER
+	nav_stack.add_theme_constant_override("separation", 10)
+	nav_margin.add_child(nav_stack)
+	navigation_title = Label.new()
+	navigation_title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	navigation_title.add_theme_font_size_override("font_size", 27)
+	navigation_title.add_theme_color_override("font_color", Color(1.0,0.79,0.34))
+	nav_stack.add_child(navigation_title)
+	navigation_hint = Label.new()
+	navigation_hint.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	navigation_hint.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	navigation_hint.add_theme_font_size_override("font_size", 14)
+	navigation_hint.add_theme_color_override("font_color", Color(0.72,0.83,0.96))
+	nav_stack.add_child(navigation_hint)
+	navigation_resume_button = _make_button("RESUME MATCH", Color(0.04,0.43,0.19), Color(0.25,0.95,0.45), 52)
+	navigation_resume_button.pressed.connect(_close_navigation)
+	nav_stack.add_child(navigation_resume_button)
+	navigation_home_button = _make_button("LEAVE MATCH", Color(0.36,0.07,0.09), Color(1.0,0.30,0.24), 48)
+	navigation_home_button.pressed.connect(_ask_leave_match)
+	nav_stack.add_child(navigation_home_button)
+	navigation_confirm_box = VBoxContainer.new()
+	navigation_confirm_box.add_theme_constant_override("separation", 7)
+	navigation_confirm_box.visible = false
+	nav_stack.add_child(navigation_confirm_box)
+	navigation_confirm_label = Label.new()
+	navigation_confirm_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	navigation_confirm_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	navigation_confirm_label.add_theme_color_override("font_color", Color(1.0,0.83,0.68))
+	navigation_confirm_box.add_child(navigation_confirm_label)
+	var confirm_row := HBoxContainer.new()
+	confirm_row.alignment = BoxContainer.ALIGNMENT_CENTER
+	confirm_row.add_theme_constant_override("separation", 8)
+	navigation_confirm_box.add_child(confirm_row)
+	navigation_confirm_yes = _make_button("LEAVE", Color(0.42,0.06,0.08), Color(1.0,0.3,0.22), 42)
+	navigation_confirm_yes.pressed.connect(_leave_match_to_home)
+	confirm_row.add_child(navigation_confirm_yes)
+	navigation_confirm_no = _make_button("STAY", Color(0.05,0.29,0.16), Color(0.25,0.9,0.45), 42)
+	navigation_confirm_no.pressed.connect(_cancel_leave_match)
+	confirm_row.add_child(navigation_confirm_no)
+
 	home_layer = Control.new()
 	home_layer.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	root.add_child(home_layer)
@@ -716,6 +861,7 @@ func _make_button(label: String, fill: Color, edge: Color, height: float) -> But
 
 func _show_home() -> void:
 	phase = "home"
+	_close_navigation()
 	stadium_root.visible = false
 	match_layer.visible = false
 	home_layer.visible = true
@@ -743,6 +889,7 @@ func _show_match() -> void:
 	home_secondary_button.disabled = false
 	home_layer.visible = false
 	match_layer.visible = true
+	_close_navigation()
 	stadium_root.visible = true
 
 func _show_result() -> void:
