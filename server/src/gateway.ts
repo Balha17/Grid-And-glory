@@ -342,6 +342,7 @@ export class Gateway {
       catalog: this.bank.catalog,
     });
 
+    const waitMs = session.queuedAt === null ? 0 : now - session.queuedAt;
     session.matchId = matchId;
     session.queuedAt = null;
     this.rooms.set(matchId, room);
@@ -365,7 +366,7 @@ export class Gateway {
         isBot: true,
       },
       crossRegion: false,
-      waitMs: now - (session.queuedAt ?? now),
+      waitMs,
       isBot: true,
       serverNow: now,
     });
