@@ -4,7 +4,10 @@ This is the new native Godot 4 client. The Node.js/TypeScript match server and b
 
 ## What is in this first migration slice
 
-- A real perspective 3D stadium and pitch, not a flat green UI panel.
+- A dedicated HD-styled main menu with a custom shield/football icon and illustrated stadium backdrop.
+- The 3D stadium is hidden on the home screen and only shown during an active match; it is hidden again at full time.
+- A high-contrast, responsive question panel with larger answer cards and an in-game sound mute toggle persisted between launches.
+- Seven image-dependent questions with missing image files were rewritten as complete bilingual text questions; CI now validates every prompt, option, answer, explanation, and referenced asset.
 - Pitch markings, penalty areas, goals and net frames, stadium seating, lights and shadows.
 - Two full 11-player formations with team colours and zone-driven movement.
 - A Godot `WebSocketPeer` client using the existing version-1 JSON protocol and production WSS endpoint.
