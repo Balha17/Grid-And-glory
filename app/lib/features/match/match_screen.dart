@@ -185,8 +185,6 @@ class _MatchHud extends StatelessWidget {
             locale: locale,
           ),
           const Spacer(),
-          _TimerChip(seconds: state.remainingSeconds, locale: locale),
-          const Spacer(),
           Text(l10n.matchHalf(state.half), style: AppType.label(locale)),
         ],
       ),
@@ -411,21 +409,26 @@ class _QuizPanel extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          if (state.phase == 'shoot')
-            _ShootBanner(
-              locale: locale,
-              l10n: l10n,
-              shooting: state.youAreShooting == true,
-            )
-          else
-            Row(
-              children: [
+          Row(
+            children: [
+              if (state.phase == 'shoot')
+                Expanded(
+                  child: _ShootBanner(
+                    locale: locale,
+                    l10n: l10n,
+                    shooting: state.youAreShooting == true,
+                  ),
+                )
+              else ...[
                 Text(l10n.matchRound(isoNum(state.roundNo)), style: AppType.label(locale)),
                 const Spacer(),
                 if (state.opponentAnswered)
                   Text(l10n.opponentAnswered, style: AppType.label(locale)),
               ],
-            ),
+              const SizedBox(width: AppSpacing.sm),
+              _TimerChip(seconds: state.remainingSeconds, locale: locale),
+            ],
+          ),
           const SizedBox(height: AppSpacing.sm),
 
           // Overflow ladder step 1: the question card is the only flexible element.
@@ -616,7 +619,7 @@ class _BlurReveal extends StatelessWidget {
       return _image(finalSigma);
     }
     return TweenAnimationBuilder<double>(
-      tween: Tween<double>(begin: initialSigma, end: initialSigma),
+      tween: Tween<double>(begin: initialSigma, end: finalSigma),
       duration: Duration(milliseconds: revealMs),
       curve: Curves.easeOut,
       builder: (context, sigma, _) => _image(sigma),
@@ -633,7 +636,19 @@ class _BlurReveal extends StatelessWidget {
           ),
           child: AspectRatio(
             aspectRatio: 16 / 9,
-            child: Image.network(url, fit: BoxFit.cover),
+            child: Image.network(
+              url,
+              fit: BoxFit.cover,
+              errorBuilder: (context, error, stack) => Container(
+                color: AppColors.bgRaised,
+                alignment: Alignment.center,
+                padding: const EdgeInsets.all(AppSpacing.md),
+                child: Text(
+                  locale.languageCode == 'ar' ? 'الصورة غير متاحة' : 'Image unavailable',
+                  style: AppType.label(locale),
+                ),
+              ),
+            ),
           ),
         ),
       );
