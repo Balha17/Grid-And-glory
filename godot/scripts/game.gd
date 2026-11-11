@@ -85,6 +85,8 @@ var pitch_status: Label
 var countdown_deadline := 0
 var countdown_duration := 0
 var connection_deadline := 0
+var reconnect_until := 0
+var reconnect_next_attempt := 0
 var audio_players: Dictionary = {}
 var audio_requests: Dictionary = {}
 
@@ -195,6 +197,21 @@ func _process(_delta: float) -> void:
 			home_primary_button.disabled = false
 			home_secondary_button.disabled = false
 			menu_subtitle.text = _tr("CONNECTION FAILED • TAP TO RETRY", "فشل الاتصال • اضغط لإعادة المحاولة")
+		elif phase not in ["home", "ended"] and not session_token.is_empty():
+			var reconnect_now := Time.get_ticks_msec()
+			if reconnect_until == 0:
+				reconnect_until = reconnect_now + 25000
+				reconnect_next_attempt = reconnect_now
+				status_label.text = _tr("CONNECTION LOST • RECONNECTING…", "انقطع الاتصال • جارٍ إعادة الاتصال…")
+			if reconnect_now >= reconnect_until:
+				reconnect_until = 0
+				phase = "home"
+				_show_home()
+				menu_subtitle.text = _tr("MATCH CONNECTION LOST • PLEASE REJOIN", "انقطع الاتصال بالمباراة • أعد الدخول")
+			elif reconnect_now >= reconnect_next_attempt:
+				socket = WebSocketPeer.new()
+				var reconnect_error := socket.connect_to_url(SERVER_URL)
+				reconnect_next_attempt = reconnect_now + (2500 if reconnect_error == OK else 1200)
 	if phase == "connecting" and connection_deadline > 0:
 		var wait_left := maxi(0, int(ceil(float(connection_deadline - Time.get_ticks_msec()) / 1000.0)))
 		matchmaking_label.text = _tr("CONNECTING TO MATCH SERVER…\n", "جارٍ الاتصال بالخادم…\n") + str(wait_left) + "s"
@@ -1012,11 +1029,16 @@ func _handle_frame(frame: Dictionary) -> void:
 	var p: Dictionary = payload_value
 	match type:
 		"welcome":
-			_send("hello", {"deviceId": OS.get_unique_id(), "locale": locale, "region": "MENA", "displayName": display_name})
+			_send("hello", {"deviceId": OS.get_unique_id(), "sessionToken": session_token, "locale": locale, "region": "MENA", "displayName": display_name})
 		"hello.ack":
 			player_id = str(p.get("playerId", ""))
 			session_token = str(p.get("sessionToken", ""))
-			_send_join_request()
+			if bool(p.get("resumed", false)) and not match_id.is_empty():
+				reconnect_until = 0
+				reconnect_next_attempt = 0
+				status_label.text = _tr("MATCH RECONNECTED • RESTORING QUESTION", "عاد الاتصال • جارٍ استعادة السؤال")
+			else:
+				_send_join_request()
 		"queue.joined":
 			matchmaking_label.text = _tr("SEARCHING FOR A PLAYER…\nAI BACKUP IN 15 SECONDS", "نبحث عن لاعب…\nالذكاء الاصطناعي بعد 15 ثانية")
 			question_label.text = _tr("Searching for an opponent…", "جارٍ البحث عن منافس…")
@@ -1092,8 +1114,32 @@ func _handle_frame(frame: Dictionary) -> void:
 			_clear_options()
 			_show_result()
 		"state.sync":
-			status_label.text = _tr("MATCH RECONNECTED", "تمت استعادة الاتصال بالمباراة")
+			reconnect_until = 0
+			reconnect_next_attempt = 0
 			_read_scores(p)
+			var restored_live: Dictionary = p.get("live", {})
+			if not restored_live.is_empty() and restored_live.get("view", {}) is Dictionary:
+				var restored_view: Dictionary = restored_live.get("view", {})
+				current_token = str(restored_live.get("token", ""))
+				selected = not bool(restored_live.get("waitingOnOpponent", true))
+				you_are_shooting = bool(restored_live.get("youAreShooting", false))
+				phase = "shooting_chance" if str(p.get("phase", "")) == "shooting_chance" else "question_open"
+				_show_question(restored_view)
+				var server_now := int(p.get("serverNow", Time.get_ticks_msec()))
+				var window_end := int(restored_live.get("windowEndsAt", server_now))
+				countdown_duration = maxi(0, window_end - server_now)
+				countdown_started = Time.get_ticks_msec()
+				countdown_deadline = countdown_started + countdown_duration
+				if selected:
+					for child in options_box.get_children():
+						if child is Button:
+							child.disabled = true
+					status_label.text = _tr("ANSWER ALREADY SENT • WAITING", "تم إرسال الإجابة • ننتظر النتيجة")
+			else:
+				countdown_deadline = 0
+				phase = str(p.get("phase", "round_intro"))
+				question_label.text = _tr("Connection restored. Next round loading…", "عاد الاتصال. جارٍ تحميل الجولة التالية…")
+				status_label.text = _tr("MATCH RECONNECTED", "تمت استعادة الاتصال بالمباراة")
 		"opponent.connection":
 			status_label.text = _tr("RIVAL DISCONNECTED", "انقطع اتصال المنافس") if not bool(p.get("connected", true)) else _tr("RIVAL BACK ONLINE", "عاد المنافس إلى الاتصال")
 		"error":
