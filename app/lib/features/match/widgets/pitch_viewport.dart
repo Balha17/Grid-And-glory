@@ -154,8 +154,8 @@ class _PitchPainter extends CustomPainter {
       Offset(f.width * .22, dir * f.height * .12),
     ];
     for (var i = 0; i < offsets.length; i++) {
-      final point = Offset((focus.dx + offsets[i].dx).clamp(f.left + 11, f.right - 11),
-        (focus.dy + offsets[i].dy).clamp(f.top + 12, f.bottom - 12));
+      final point = Offset((focus.dx + offsets[i].dx).clamp(f.left + 11, f.right - 11).toDouble(),
+        (focus.dy + offsets[i].dy).clamp(f.top + 12, f.bottom - 12).toDouble());
       _player(c, point, color, active && i == 1, '${i + 2}');
     }
     _player(c, focus, color, active, isBlue ? '10' : '09');
@@ -167,7 +167,7 @@ class _PitchPainter extends CustomPainter {
       : possession ? (ar ? 'هجومك • استحواذ' : 'YOUR ATTACK • IN POSSESSION')
       : (ar ? 'دفاعك • استعد للافتكاك' : 'DEFENDING • WIN IT BACK');
     final color = shooting ? const Color(0xFFFFD166) : possession ? blue : red;
-    final w = math.min(s.width - 24, shooting ? 142.0 : 174.0);
+    final w = math.min(s.width - 24, shooting ? 142.0 : 174.0).toDouble();
     final rect = Rect.fromLTWH((s.width - w) / 2, s.height - 28, w, 16);
     c.drawRRect(RRect.fromRectAndRadius(rect, const Radius.circular(9)),
       Paint()..color = const Color(0xFF071321).withValues(alpha: .9));
