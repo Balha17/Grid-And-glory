@@ -397,6 +397,7 @@ export class MatchRoom {
       } else if (result.outcome === "wrong") {
         state.wrong += 1;
       } else {
+        state.wrong += 1;
         state.noAnswer += 1;
       }
     }
@@ -550,6 +551,7 @@ export class MatchRoom {
     } else if (answer && inTime) {
       shooter.wrong += 1;
     } else {
+      shooter.wrong += 1;
       shooter.noAnswer += 1;
     }
 
@@ -647,14 +649,14 @@ export class MatchRoom {
     });
 
     // A forfeit or a void overrides the pitch result — it is not a draw.
-    const outcomes: Record<PlayerId, "win" | "loss" | "draw"> = this.voided
-      ? { [this.order[0]]: "draw", [this.order[1]]: "draw" }
-      : this.forfeitedBy
-        ? {
+    const outcomes: Record<PlayerId, "win" | "loss" | "draw"> = this.forfeitedBy
+      ? {
             [this.forfeitedBy]: "loss",
             [this.other(this.forfeitedBy)]: "win",
           }
-        : decided.outcomeByPlayer;
+        : this.voided
+          ? { [this.order[0]]: "draw", [this.order[1]]: "draw" }
+          : decided.outcomeByPlayer;
 
     const ratingDeltas: Record<PlayerId, number> = {};
     for (const id of this.order) {
@@ -711,6 +713,15 @@ export class MatchRoom {
       payload: { connected: false, graceMs: MATCH_LIMITS.RECONNECT_GRACE_MS },
     });
     if (this.order.every((id) => !this.players[id].connected)) this.voided = true;
+    return out;
+  }
+
+  forfeit(playerId: PlayerId, now: number): Outbound[] {
+    if (this.finished || !this.players[playerId]) return [];
+    this.forfeitedBy = playerId;
+    this.voided = false;
+    const out: Outbound[] = [];
+    this.finish(now, out);
     return out;
   }
 
