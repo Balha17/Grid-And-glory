@@ -43,25 +43,25 @@ class GameAudio {
       var sample = 0.0;
       if (cue == 'whistle') {
         final env = math.min(1, t / .03) * math.max(0, math.min(1, (duration - t) / .1));
-        sample = env * (.48 * math.sin(2 * math.pi * 2350 * t) + .25 * math.sin(2 * math.pi * 2940 * t));
+        sample = (env * (.48 * math.sin(2 * math.pi * 2350 * t) + .25 * math.sin(2 * math.pi * 2940 * t))).toDouble();
         sample *= .88 + .12 * math.sin(2 * math.pi * 8 * t);
       } else if (cue == 'kick') {
-        sample = math.exp(-t * 24) * (.72 * math.sin(2 * math.pi * (72 - 28 * t) * t) + .24 * noise());
+        sample = (math.exp(-t * 24) * (.72 * math.sin(2 * math.pi * (72 - 28 * t) * t) + .24 * noise())).toDouble();
       } else if (cue == 'goal') {
         final env = math.max(0, math.min(1, t / .12) * math.min(1, (duration - t) / .25)) *
             (.45 + .55 * math.sin(math.pi * math.min(1, t / duration)));
-        sample = env * (.34 * noise() + .22 * math.sin(2 * math.pi * 95 * t) +
-            .12 * math.sin(2 * math.pi * 180 * t) + .1 * math.sin(2 * math.pi * 410 * t));
+        sample = (env * (.34 * noise() + .22 * math.sin(2 * math.pi * 95 * t) +
+            .12 * math.sin(2 * math.pi * 180 * t) + .1 * math.sin(2 * math.pi * 410 * t))).toDouble();
       } else if (cue == 'correct') {
         final freq = t < .13 ? 660 : t < .26 ? 830 : 1046;
-        sample = .32 * math.sin(2 * math.pi * freq * t) *
-            math.min(1, (t % .13) / .015) * math.max(0, math.min(1, (duration - t) / .03));
+        sample = (.32 * math.sin(2 * math.pi * freq * t) *
+            math.min(1, (t % .13) / .015) * math.max(0, math.min(1, (duration - t) / .03))).toDouble();
       } else if (cue == 'wrong') {
         final freq = t < .17 ? 330 : 220;
-        sample = .28 * math.sin(2 * math.pi * freq * t) *
-            math.min(1, (t % .17) / .02) * math.max(0, math.min(1, (duration - t) / .04));
+        sample = (.28 * math.sin(2 * math.pi * freq * t) *
+            math.min(1, (t % .17) / .02) * math.max(0, math.min(1, (duration - t) / .04))).toDouble();
       } else if (cue == 'tick') {
-        sample = .25 * math.sin(2 * math.pi * 1250 * t) * math.exp(-t * 65);
+        sample = (.25 * math.sin(2 * math.pi * 1250 * t) * math.exp(-t * 65)).toDouble();
       }
       data.setInt16(44 + i * 2, (sample.clamp(-.92, .92) * 32767).round(), Endian.little);
     }
