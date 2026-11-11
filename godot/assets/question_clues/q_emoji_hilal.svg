@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="320" height="112" viewBox="0 0 320 220">
+<title>Al Hilal</title><defs><linearGradient id="bg" x2="1" y2="1"><stop stop-color="#12365b"/><stop offset="1" stop-color="#061426"/></linearGradient><linearGradient id="edge"><stop stop-color="#f5c45a"/><stop offset="1" stop-color="#fff0a8"/></linearGradient></defs>
+<rect x="3" y="3" width="314" height="214" rx="26" fill="url(#bg)" stroke="url(#edge)" stroke-width="5"/>
+<circle cx="94" cy="110" r="58" fill="#ffffff" opacity=".08"/><circle cx="225" cy="110" r="58" fill="#ffffff" opacity=".05"/>
+<g><path d="M48 66h92v88H48z" fill="#006c35"/><path d="M70 116h52" stroke="#fff" stroke-width="5" stroke-linecap="round"/><path d="M76 124h42" stroke="#fff" stroke-width="3" stroke-linecap="round"/></g><g><circle cx="225" cy="111" r="40" fill="#1475d1" stroke="#a9d9ff" stroke-width="6"/><path d="M225 78l8 22 23 0-18 14 7 22-20-13-20 13 7-22-18-14h23z" fill="#fff"/></g><g transform="translate(0 0)"><path d="M198 76h54v13c0 25-12 40-27 43-15-3-27-18-27-43z" fill="#f6c453" stroke="#fff0b0" stroke-width="4"/><path d="M198 84h-18v9c0 16 9 24 23 24M252 84h18v9c0 16-9 24-23 24M225 132v17m-22 7h44" fill="none" stroke="#f6c453" stroke-width="7" stroke-linecap="round"/></g>
+<path d="M158 43v134" stroke="#78b9ed" stroke-width="2" opacity=".45"/>
+<circle cx="94" cy="110" r="49" fill="none" stroke="#d9eaff" stroke-width="2" opacity=".45"/>
+</svg>
