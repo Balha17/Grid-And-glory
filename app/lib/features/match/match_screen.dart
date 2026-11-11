@@ -644,8 +644,8 @@ class _BlurReveal extends StatelessWidget {
                 alignment: Alignment.center,
                 padding: const EdgeInsets.all(AppSpacing.md),
                 child: Text(
-                  locale.languageCode == 'ar' ? 'الصورة غير متاحة' : 'Image unavailable',
-                  style: AppType.label(locale),
+                  'Image unavailable',
+                  style: AppType.label(const Locale('en')),
                 ),
               ),
             ),
