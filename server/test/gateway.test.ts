@@ -214,6 +214,43 @@ test("explicit AI mode starts immediately and the bot answers through MatchRoom"
   assert.equal(a.has("round.opponent_answered"), true, "the server-controlled bot submits an answer");
 });
 
+test("an AI match continues past round three and reaches a final result", () => {
+  const h = build();
+  const a = h.connect("c-ai-full-match");
+  h.hello(a, "en", "EU", "dev-ai-full-match");
+  h.gateway.handleFrame(a, frame("bot.join", {}));
+
+  let cursor = 0;
+  let steps = 0;
+  const answered = new Set<string>();
+  while (!a.has("match.end") && steps < 5_000) {
+    steps += 1;
+    h.clock.now += 50;
+    h.gateway.tick(h.clock.now);
+    while (cursor < a.sent.length) {
+      const message = a.sent[cursor++];
+      if (message.type !== "round.question" && message.type !== "shoot.question") continue;
+      const payload = message.payload as {
+        token: string;
+        roundNo?: number;
+        youAreShooting?: boolean;
+        view: { questionId: string; options: Array<{ id: string }> };
+      };
+      if (message.type === "shoot.question" && payload.youAreShooting !== true) continue;
+      const key = `${message.type}:${payload.roundNo ?? 0}:${payload.view.questionId}`;
+      if (answered.has(key)) continue;
+      answered.add(key);
+      const optionId = payload.view.options[0]?.id;
+      assert.ok(optionId, "every playable question has at least one option");
+      h.gateway.handleFrame(a, frame("round.answer", { token: payload.token, optionId }));
+    }
+  }
+
+  assert.equal(a.has("match.end"), true, "the AI match must not stall mid-game");
+  assert.ok(a.all("round.question").length >= 8, "the match continues well beyond round three");
+  assert.ok(steps < 5_000, "the AI match reaches full time in bounded ticks");
+});
+
 test("a queued player who disconnects is removed from the queue, not left as a ghost", () => {
   const h = build();
   const a = h.connect("c1");
