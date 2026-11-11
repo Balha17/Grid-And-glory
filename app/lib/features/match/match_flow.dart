@@ -410,7 +410,7 @@ class _LobbyViewState extends State<_LobbyView>
   }
 }
 
-Color _duelColor(String color) => color == 'red' ? AppColors.opponent : AppColors.you;
+Color _duelColor(String color) => color == 'red' ? AppColors.wrong : AppColors.you;
 
 String _duelColorName(String color, Locale locale) {
   final red = color == 'red';
