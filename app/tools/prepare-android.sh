@@ -76,6 +76,51 @@ drawable_dir.mkdir(parents=True, exist_ok=True)
     '</vector>\n',
     encoding="utf-8",
 )
+# Replace Flutter's default launcher mark with the same Grid & Glory shield.
+launcher_vector = (
+    '<?xml version="1.0" encoding="utf-8"?>\\n'
+    '<vector xmlns:android="http://schemas.android.com/apk/res/android" '
+    'android:width="108dp" android:height="108dp" android:viewportWidth="108" '
+    'android:viewportHeight="108">\\n'
+    '  <path android:fillColor="#FFC24B" android:pathData="M54,5 L94,20 L88,63 '
+    'Q82,88 54,102 Q26,88 20,63 L14,20 Z"/>\\n'
+    '  <path android:fillColor="#10233A" android:pathData="M54,15 L83,26 L79,61 '
+    'Q74,80 54,91 Q34,80 29,61 L25,26 Z"/>\\n'
+    '  <path android:strokeColor="#75D6B0" android:strokeWidth="3" '
+    'android:fillColor="#00000000" android:pathData="M38,36 L70,36 L70,68 '
+    'L38,68 Z M54,36 L54,68 M38,52 L70,52"/>\\n'
+    '  <path android:fillColor="#FFC24B" android:pathData="M54,43 '
+    'A9,9 0,1 0,54.1 43 Z"/>\\n'
+    '</vector>\\n'
+)
+mipmap = res_dir / "mipmap-anydpi"
+mipmap.mkdir(parents=True, exist_ok=True)
+(mipmap / "ic_launcher.xml").write_text(launcher_vector, encoding="utf-8")
+mipmap_v26 = res_dir / "mipmap-anydpi-v26"
+mipmap_v26.mkdir(parents=True, exist_ok=True)
+(mipmap_v26 / "ic_launcher.xml").write_text(
+    '<?xml version="1.0" encoding="utf-8"?>\\n'
+    '<adaptive-icon xmlns:android="http://schemas.android.com/apk/res/android">\\n'
+    '  <background android:drawable="@color/gg_icon_background"/>\\n'
+    '  <foreground android:drawable="@drawable/gg_splash_icon"/>\\n'
+    '</adaptive-icon>\\n',
+    encoding="utf-8",
+)
+colors = res_dir / "values" / "colors.xml"
+if colors.exists():
+    color_xml = colors.read_text(encoding="utf-8")
+    if "gg_icon_background" not in color_xml:
+        color_xml = color_xml.replace(
+            "</resources>",
+            '    <color name="gg_icon_background">#10233A</color>\\n</resources>',
+        )
+else:
+    color_xml = (
+        '<?xml version="1.0" encoding="utf-8"?>\\n'
+        '<resources><color name="gg_icon_background">#10233A</color></resources>\\n'
+    )
+colors.write_text(color_xml, encoding="utf-8")
+
 v31 = res_dir / "values-v31"
 v31.mkdir(parents=True, exist_ok=True)
 (v31 / "styles.xml").write_text(
