@@ -1986,7 +1986,7 @@
       }
     },
     {
-      "id": "q_blur_bernabeu",
+      "id": "q_mc_stadium_bernabeu",
       "schemaVersion": "1.0.0",
       "format": "mc",
       "difficulty": 2,
@@ -2032,9 +2032,9 @@
         "ar": "البرنابيو هو ملعب ريال مدريد."
       },
       "localization": {
-        "enChars": 68,
-        "arChars": 55,
-        "parityRatio": 0.809,
+        "enChars": 89,
+        "arChars": 91,
+        "parityRatio": 1.022,
         "verifiedBy": "ar-linguist-01"
       },
       "authoring": {
@@ -2046,7 +2046,7 @@
       }
     },
     {
-      "id": "q_blur_crest_lfc",
+      "id": "q_mc_club_liverpool",
       "schemaVersion": "1.0.0",
       "format": "mc",
       "difficulty": 2,
@@ -2091,9 +2091,9 @@
         "ar": "يظهر «طائر ليفر» في قلب شعار ليفربول."
       },
       "localization": {
-        "enChars": 57,
-        "arChars": 45,
-        "parityRatio": 0.789,
+        "enChars": 82,
+        "arChars": 68,
+        "parityRatio": 0.829,
         "verifiedBy": "ar-linguist-01"
       },
       "authoring": {
@@ -2105,7 +2105,7 @@
       }
     },
     {
-      "id": "q_blur_ucl_trophy",
+      "id": "q_mc_ucl_trophy",
       "schemaVersion": "1.0.0",
       "format": "mc",
       "difficulty": 3,
@@ -2150,9 +2150,9 @@
         "ar": "يُمنح كأس «الأذنان الكبيرتان» منذ عام 1956."
       },
       "localization": {
-        "enChars": 80,
-        "arChars": 72,
-        "parityRatio": 0.9,
+        "enChars": 117,
+        "arChars": 109,
+        "parityRatio": 0.932,
         "verifiedBy": "ar-linguist-01"
       },
       "authoring": {
@@ -2164,7 +2164,7 @@
       }
     },
     {
-      "id": "q_blur_flag_mar",
+      "id": "q_mc_flag_morocco",
       "schemaVersion": "1.0.0",
       "format": "mc",
       "difficulty": 1,
@@ -2210,9 +2210,9 @@
         "ar": "علم المغرب أحمر يتوسطه نجمة خماسية خضراء."
       },
       "localization": {
-        "enChars": 57,
-        "arChars": 40,
-        "parityRatio": 0.702,
+        "enChars": 88,
+        "arChars": 75,
+        "parityRatio": 0.852,
         "verifiedBy": "ar-linguist-01"
       },
       "authoring": {
@@ -3731,9 +3731,9 @@
     {
       "schemaVersion": "1.0.0",
       "localization": {
-        "enChars": 68,
-        "arChars": 55,
-        "parityRatio": 0.809,
+        "enChars": 99,
+        "arChars": 76,
+        "parityRatio": 0.768,
         "verifiedBy": "ar-linguist-01"
       },
       "authoring": {
@@ -3743,7 +3743,7 @@
         "reviewedBy": "editor-01",
         "updatedAt": "2026-11-11T16:00:00.000Z"
       },
-      "id": "q_blur_campnou",
+      "id": "q_mc_stadium_campnou",
       "format": "mc",
       "difficulty": 2,
       "region": "EUROPE",
@@ -3791,9 +3791,9 @@
     {
       "schemaVersion": "1.0.0",
       "localization": {
-        "enChars": 57,
-        "arChars": 45,
-        "parityRatio": 0.789,
+        "enChars": 103,
+        "arChars": 84,
+        "parityRatio": 0.816,
         "verifiedBy": "ar-linguist-01"
       },
       "authoring": {
@@ -3803,7 +3803,7 @@
         "reviewedBy": "editor-01",
         "updatedAt": "2026-11-11T16:00:00.000Z"
       },
-      "id": "q_blur_crest_fcb",
+      "id": "q_mc_club_barcelona",
       "format": "mc",
       "difficulty": 2,
       "region": "EUROPE",
@@ -3850,9 +3850,9 @@
     {
       "schemaVersion": "1.0.0",
       "localization": {
-        "enChars": 80,
-        "arChars": 72,
-        "parityRatio": 0.9,
+        "enChars": 119,
+        "arChars": 116,
+        "parityRatio": 0.975,
         "verifiedBy": "ar-linguist-01"
       },
       "authoring": {
@@ -3862,7 +3862,7 @@
         "reviewedBy": "editor-01",
         "updatedAt": "2026-11-11T16:00:00.000Z"
       },
-      "id": "q_blur_wc_trophy",
+      "id": "q_mc_worldcup_trophy",
       "format": "mc",
       "difficulty": 2,
       "region": "GLOBAL",
