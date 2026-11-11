@@ -57,10 +57,18 @@ jobs:
           godot --version
           godot --headless --editor --path godot --quit
 
+      - name: Generate temporary CI debug keystore
+        run: |
+          keytool -genkeypair -v -keystore "$RUNNER_TEMP/godot-debug.keystore" -storepass android -alias androiddebugkey -keypass android -keyalg RSA -keysize 2048 -validity 10000 -dname "CN=Android Debug,O=Android,C=US"
+
       - name: Export debug APK
+        env:
+          GODOT_ANDROID_KEYSTORE_DEBUG_PATH: ${{ runner.temp }}/godot-debug.keystore
+          GODOT_ANDROID_KEYSTORE_DEBUG_USER: androiddebugkey
+          GODOT_ANDROID_KEYSTORE_DEBUG_PASSWORD: android
         run: |
           mkdir -p build/godot
-          godot --headless --path godot --export-debug "Android" build/godot/grid-and-glory-debug.apk
+          godot --headless --verbose --path godot --export-debug "Android" build/godot/grid-and-glory-debug.apk
 
       - name: Upload Godot APK
         uses: actions/upload-artifact@v4
