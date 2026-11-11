@@ -42,6 +42,8 @@ var menu_title: Label
 var menu_subtitle: Label
 var menu_feature_label: Label
 var menu_footer_label: Label
+var result_banner: PanelContainer
+var result_banner_label: Label
 var home_primary_button: Button
 var home_secondary_button: Button
 var home_sound_button: Button
@@ -205,8 +207,11 @@ func _build_stadium() -> void:
 	_add_stadium_details()
 
 func _add_stands() -> void:
+	# Main side grandstands with layered roof canopies.
 	for side in [-1, 1]:
 		_box("Stand", Vector3(float(side)*17.2, 2.0, 0), Vector3(5.2, 4.4, 58), Color(0.055, 0.09, 0.14))
+		_box("Stand_Roof", Vector3(float(side)*17.2, 6.0, 0), Vector3(6.2, 0.38, 59), Color(0.025, 0.055, 0.095))
+		_box("Stand_Fascia", Vector3(float(side)*17.2, 5.55, 0), Vector3(5.8, 0.16, 58), Color(0.08, 0.22, 0.36))
 		for row in range(4):
 			for col in range(20):
 				var seat := MeshInstance3D.new()
@@ -217,6 +222,22 @@ func _add_stands() -> void:
 				var mat := StandardMaterial3D.new()
 				mat.albedo_color = [Color(0.08,0.45,0.75), Color(0.9,0.28,0.17), Color(0.88,0.9,0.94)][(row+col)%3]
 				seat.material_override = mat
+				stadium_root.add_child(seat)
+
+	# End stands close the stadium bowl behind both goals.
+	for end in [-1, 1]:
+		_box("End_Stand", Vector3(0, 1.8, float(end)*27.3), Vector3(31, 3.8, 4.0), Color(0.045, 0.075, 0.12))
+		_box("End_Stand_Roof", Vector3(0, 4.1, float(end)*27.3), Vector3(32, 0.35, 5.0), Color(0.025, 0.055, 0.095))
+		for row in range(3):
+			for col in range(24):
+				var seat := MeshInstance3D.new()
+				var seat_mesh := BoxMesh.new()
+				seat_mesh.size = Vector3(0.48, 0.34, 0.38)
+				seat.mesh = seat_mesh
+				seat.position = Vector3(-14.0 + float(col)*1.22, 2.0 + float(row)*0.72, float(end)*25.4)
+				var seat_mat := StandardMaterial3D.new()
+				seat_mat.albedo_color = [Color(0.08,0.43,0.76), Color(0.92,0.30,0.16), Color(0.90,0.88,0.76)][(row*7+col)%3]
+				seat.material_override = seat_mat
 				stadium_root.add_child(seat)
 
 func _add_stadium_details() -> void:
@@ -413,7 +434,7 @@ func _build_hud() -> void:
 	var bottom := PanelContainer.new()
 	bottom.anchor_left = 0.025
 	bottom.anchor_right = 0.975
-	bottom.anchor_top = 0.54
+	bottom.anchor_top = 0.645
 	bottom.anchor_bottom = 0.992
 	bottom.offset_left = 0
 	bottom.offset_right = 0
@@ -424,11 +445,11 @@ func _build_hud() -> void:
 	var margin := MarginContainer.new()
 	margin.add_theme_constant_override("margin_left", 14)
 	margin.add_theme_constant_override("margin_right", 14)
-	margin.add_theme_constant_override("margin_top", 8)
-	margin.add_theme_constant_override("margin_bottom", 8)
+	margin.add_theme_constant_override("margin_top", 5)
+	margin.add_theme_constant_override("margin_bottom", 5)
 	bottom.add_child(margin)
 	var content := VBoxContainer.new()
-	content.add_theme_constant_override("separation", 6)
+	content.add_theme_constant_override("separation", 3)
 	margin.add_child(content)
 	pitch_status = Label.new()
 	pitch_status.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
@@ -447,21 +468,21 @@ func _build_hud() -> void:
 	question_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	question_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 	question_label.size_flags_vertical = Control.SIZE_SHRINK_CENTER
-	question_label.custom_minimum_size = Vector2(0, 64)
+	question_label.custom_minimum_size = Vector2(0, 48)
 	question_label.add_theme_color_override("font_color", Color(0.98,0.98,1.0))
-	question_label.add_theme_font_size_override("font_size", 20)
+	question_label.add_theme_font_size_override("font_size", 18)
 	content.add_child(question_label)
 	clue_label = Label.new()
 	clue_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	clue_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 	clue_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	clue_label.custom_minimum_size = Vector2(0, 46)
+	clue_label.custom_minimum_size = Vector2(0, 30)
 	clue_label.add_theme_color_override("font_color", Color(1.0,0.82,0.35))
 	clue_label.add_theme_font_size_override("font_size", 19)
 	clue_label.visible = false
 	content.add_child(clue_label)
 	question_image = TextureRect.new()
-	question_image.custom_minimum_size = Vector2(0, 112)
+	question_image.custom_minimum_size = Vector2(0, 70)
 	question_image.expand_mode = TextureRect.EXPAND_FIT_WIDTH_PROPORTIONAL
 	question_image.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 	question_image.visible = false
@@ -469,7 +490,7 @@ func _build_hud() -> void:
 	question_image_placeholder = Label.new()
 	question_image_placeholder.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	question_image_placeholder.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-	question_image_placeholder.custom_minimum_size = Vector2(0, 64)
+	question_image_placeholder.custom_minimum_size = Vector2(0, 38)
 	question_image_placeholder.add_theme_color_override("font_color", Color(0.62,0.75,0.88))
 	question_image_placeholder.add_theme_font_size_override("font_size", 13)
 	question_image_placeholder.text = "IMAGE CLUE"
@@ -492,7 +513,7 @@ func _build_hud() -> void:
 	options_box = GridContainer.new()
 	options_box.columns = 2
 	options_box.add_theme_constant_override("h_separation", 8)
-	options_box.add_theme_constant_override("v_separation", 7)
+	options_box.add_theme_constant_override("v_separation", 5)
 	content.add_child(options_box)
 	action_box = HBoxContainer.new()
 	action_box.alignment = BoxContainer.ALIGNMENT_CENTER
@@ -580,6 +601,16 @@ func _build_hud() -> void:
 	menu_feature_label.add_theme_color_override("font_color", Color(1.0,0.88,0.58))
 	menu_feature_label.add_theme_font_size_override("font_size", 14)
 	feature.add_child(menu_feature_label)
+	result_banner = PanelContainer.new()
+	result_banner.add_theme_stylebox_override("panel", _panel_style(Color(0.11,0.075,0.018,0.97), Color(1.0,0.73,0.20), 3))
+	result_banner.visible = false
+	menu.add_child(result_banner)
+	result_banner_label = Label.new()
+	result_banner_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	result_banner_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	result_banner_label.add_theme_color_override("font_color", Color(1.0,0.86,0.42))
+	result_banner_label.add_theme_font_size_override("font_size", 20)
+	result_banner.add_child(result_banner_label)
 
 	home_primary_button = _make_button("PLAY ONLINE", Color(0.95,0.57,0.08), Color(1.0,0.83,0.30), 70)
 	home_primary_button.add_theme_color_override("font_color", Color(0.10,0.08,0.04))
@@ -686,6 +717,10 @@ func _show_home() -> void:
 	matchmaking_panel.visible = false
 	menu_title.text = "GRID & GLORY"
 	menu_subtitle.text = "THE ULTIMATE FOOTBALL QUIZ BATTLE"
+	result_banner.visible = false
+	menu_feature_label.text = _tr("⚽  1v1 FOOTBALL TRIVIA  •  RISE TO LEGEND", "⚽  تحدي كرة القدم  •  كن أسطورة")
+	home_primary_button.disabled = false
+	home_secondary_button.disabled = false
 	home_primary_button.text = "PLAY ONLINE"
 	home_secondary_button.text = "PLAY VS AI"
 	question_label.text = _tr("Choose your arena", "اختر ساحة المنافسة")
@@ -709,8 +744,13 @@ func _show_result() -> void:
 	stadium_root.visible = false
 	match_layer.visible = false
 	home_layer.visible = true
+	var won := my_goals > rival_goals
+	var drew := my_goals == rival_goals
 	menu_title.text = _tr("FULL TIME", "نهاية المباراة")
 	menu_subtitle.text = _tr("FINAL SCORE  •  ", "النتيجة النهائية  •  ") + str(my_goals) + " — " + str(rival_goals)
+	result_banner_label.text = ("🏆  " + _tr("YOU ARE THE CHAMPION!", "أنت البطل!") if won else ("🤝  " + _tr("A GREAT DRAW!", "تعادل رائع!") if drew else "⚽  " + _tr("KEEP TRAINING, CHAMPION!", "واصل التدريب يا بطل!")))
+	result_banner.visible = true
+	menu_feature_label.text = _tr("FULL-TIME • MATCH COMPLETE", "نهاية المباراة • اكتملت المواجهة")
 	home_primary_button.text = _tr("PLAY AGAIN • VS AI", "العب مجدداً ضد الذكاء الاصطناعي")
 	home_secondary_button.text = _tr("RETURN TO MENU", "العودة إلى القائمة")
 
@@ -1024,7 +1064,7 @@ func _show_question(view: Dictionary) -> void:
 	for index in range(current_options.size()):
 		var option: Dictionary = current_options[index]
 		var letter: String = ["A", "B", "C", "D", "E", "F"][index % 6]
-		var b := _make_button(letter + "   " + str(option.get("text", "")), Color(0.035,0.12,0.24), Color(0.18,0.43,0.68), 62)
+		var b := _make_button(letter + "   " + str(option.get("text", "")), Color(0.025,0.105,0.22), Color(0.18,0.48,0.78), 50)
 		b.add_theme_font_size_override("font_size", 15)
 		b.alignment = HORIZONTAL_ALIGNMENT_CENTER
 		b.size_flags_horizontal = Control.SIZE_EXPAND_FILL
@@ -1289,17 +1329,57 @@ func _animate_player(player: Node3D, gait: float) -> void:
 			limb.rotation.x = sin(gait) * amount * side * multiplier
 
 func _setup_audio() -> void:
-	DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path("user://audio"))
-	_create_audio_player("ambience", true, -18.0)
-	_create_audio_player("cheer", false, -4.0)
-	_create_audio_player("whistle", false, -7.0)
-	_create_audio_player("kick", false, -9.0)
-	_create_audio_player("ui_click", false, -10.0)
+	# All game sounds are synthesized locally: no downloads, permissions or network dependency.
+	_create_audio_player("ambience", true, -24.0)
+	_create_audio_player("cheer", false, -5.0)
+	_create_audio_player("whistle", false, -8.0)
+	_create_audio_player("kick", false, -10.0)
+	_create_audio_player("ui_click", false, -12.0)
 	_create_ui_click_sound()
-	_load_or_download_audio("ambience", "stadium-crowd-03.mp3", "https://sfxmint.com/dl/stadium-crowd-03.mp3")
-	_load_or_download_audio("cheer", "stadium-crowd-02.mp3", "https://sfxmint.com/dl/stadium-crowd-02.mp3")
-	_load_or_download_audio("whistle", "instrument-whistle-11.mp3", "https://sfxmint.com/dl/instrument-whistle-11.mp3")
-	_load_or_download_audio("kick", "impact-thud-42.mp3", "https://sfxmint.com/dl/impact-thud-42.mp3")
+	_create_match_sounds()
+	if audio_players["ambience"].stream:
+		audio_players["ambience"].play()
+
+func _create_match_sounds() -> void:
+	audio_players["ambience"].stream = _make_synth_stream("ambience", 3.0, true)
+	audio_players["cheer"].stream = _make_synth_stream("cheer", 1.65, false)
+	audio_players["whistle"].stream = _make_synth_stream("whistle", 0.72, false)
+	audio_players["kick"].stream = _make_synth_stream("kick", 0.24, false)
+
+func _make_synth_stream(kind: String, duration: float, looping: bool) -> AudioStreamWAV:
+	var sample_rate := 22050
+	var count := int(sample_rate * duration)
+	var data := PackedByteArray()
+	data.resize(count * 2)
+	var smooth_noise := 0.0
+	for i in range(count):
+		var t := float(i) / float(sample_rate)
+		var progress := float(i) / float(maxi(1, count - 1))
+		var sample := 0.0
+		if kind == "whistle":
+			var envelope := minf(1.0, t * 22.0) * exp(-2.1 * t)
+			var frequency := lerpf(1780.0, 1320.0, progress)
+			sample = sin(TAU * frequency * t) * envelope * 0.42
+		elif kind == "kick":
+			var envelope := exp(-24.0 * t)
+			sample = (sin(TAU * lerpf(105.0, 42.0, progress) * t) * 0.72 + randf_range(-1.0, 1.0) * 0.28) * envelope * 0.78
+		elif kind == "cheer":
+			var fade := minf(1.0, t * 5.0) * minf(1.0, (duration - t) * 2.5)
+			smooth_noise = smooth_noise * 0.91 + randf_range(-1.0, 1.0) * 0.09
+			var chant := sin(TAU * 118.0 * t) * 0.16 + sin(TAU * 176.0 * t) * 0.10
+			sample = (smooth_noise * 0.72 + chant) * fade * 0.62
+		else:
+			smooth_noise = smooth_noise * 0.96 + randf_range(-1.0, 1.0) * 0.04
+			var crowd_hum := sin(TAU * 83.0 * t) * 0.025 + sin(TAU * 127.0 * t) * 0.018
+			sample = smooth_noise * 0.11 + crowd_hum
+		data.encode_s16(i * 2, int(clampf(sample, -1.0, 1.0) * 32767.0))
+	var stream := AudioStreamWAV.new()
+	stream.format = AudioStreamWAV.FORMAT_16_BITS
+	stream.mix_rate = sample_rate
+	stream.stereo = false
+	stream.data = data
+	stream.loop_mode = AudioStreamWAV.LOOP_FORWARD if looping else AudioStreamWAV.LOOP_DISABLED
+	return stream
 
 func _create_ui_click_sound() -> void:
 	# A tiny synthesized UI tick: no external file, network request or third-party license.
