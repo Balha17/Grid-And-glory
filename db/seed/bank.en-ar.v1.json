@@ -4257,6 +4257,13 @@
         "arChars": 94,
         "parityRatio": 0.79,
         "verifiedBy": "content-01"
+      },
+      "authoring": {
+        "status": "published",
+        "version": 1,
+        "author": "content-02",
+        "reviewedBy": "editor-02",
+        "updatedAt": "2026-11-11T15:05:00.000Z"
       }
     },
     {
@@ -4309,6 +4316,13 @@
         "arChars": 77,
         "parityRatio": 0.802,
         "verifiedBy": "content-01"
+      },
+      "authoring": {
+        "status": "published",
+        "version": 1,
+        "author": "content-02",
+        "reviewedBy": "editor-02",
+        "updatedAt": "2026-11-11T15:05:00.000Z"
       }
     },
     {
@@ -4361,6 +4375,13 @@
         "arChars": 84,
         "parityRatio": 0.824,
         "verifiedBy": "content-01"
+      },
+      "authoring": {
+        "status": "published",
+        "version": 1,
+        "author": "content-02",
+        "reviewedBy": "editor-02",
+        "updatedAt": "2026-11-11T15:05:00.000Z"
       }
     },
     {
@@ -4413,6 +4434,13 @@
         "arChars": 107,
         "parityRatio": 0.843,
         "verifiedBy": "content-01"
+      },
+      "authoring": {
+        "status": "published",
+        "version": 1,
+        "author": "content-02",
+        "reviewedBy": "editor-02",
+        "updatedAt": "2026-11-11T15:05:00.000Z"
       }
     },
     {
@@ -4465,6 +4493,13 @@
         "arChars": 93,
         "parityRatio": 0.845,
         "verifiedBy": "content-01"
+      },
+      "authoring": {
+        "status": "published",
+        "version": 1,
+        "author": "content-02",
+        "reviewedBy": "editor-02",
+        "updatedAt": "2026-11-11T15:05:00.000Z"
       }
     },
     {
@@ -4517,6 +4552,13 @@
         "arChars": 121,
         "parityRatio": 0.877,
         "verifiedBy": "content-01"
+      },
+      "authoring": {
+        "status": "published",
+        "version": 1,
+        "author": "content-02",
+        "reviewedBy": "editor-02",
+        "updatedAt": "2026-11-11T15:05:00.000Z"
       }
     },
     {
@@ -4569,6 +4611,13 @@
         "arChars": 77,
         "parityRatio": 0.811,
         "verifiedBy": "content-01"
+      },
+      "authoring": {
+        "status": "published",
+        "version": 1,
+        "author": "content-02",
+        "reviewedBy": "editor-02",
+        "updatedAt": "2026-11-11T15:05:00.000Z"
       }
     },
     {
@@ -4621,6 +4670,13 @@
         "arChars": 96,
         "parityRatio": 1.091,
         "verifiedBy": "content-01"
+      },
+      "authoring": {
+        "status": "published",
+        "version": 1,
+        "author": "content-02",
+        "reviewedBy": "editor-02",
+        "updatedAt": "2026-11-11T15:05:00.000Z"
       }
     },
     {
@@ -4673,6 +4729,13 @@
         "arChars": 127,
         "parityRatio": 0.804,
         "verifiedBy": "content-01"
+      },
+      "authoring": {
+        "status": "published",
+        "version": 1,
+        "author": "content-02",
+        "reviewedBy": "editor-02",
+        "updatedAt": "2026-11-11T15:05:00.000Z"
       }
     },
     {
@@ -4725,6 +4788,13 @@
         "arChars": 114,
         "parityRatio": 0.74,
         "verifiedBy": "content-01"
+      },
+      "authoring": {
+        "status": "published",
+        "version": 1,
+        "author": "content-02",
+        "reviewedBy": "editor-02",
+        "updatedAt": "2026-11-11T15:05:00.000Z"
       }
     },
     {
@@ -4777,6 +4847,13 @@
         "arChars": 106,
         "parityRatio": 0.883,
         "verifiedBy": "content-01"
+      },
+      "authoring": {
+        "status": "published",
+        "version": 1,
+        "author": "content-02",
+        "reviewedBy": "editor-02",
+        "updatedAt": "2026-11-11T15:05:00.000Z"
       }
     },
     {
@@ -4829,6 +4906,13 @@
         "arChars": 80,
         "parityRatio": 0.833,
         "verifiedBy": "content-01"
+      },
+      "authoring": {
+        "status": "published",
+        "version": 1,
+        "author": "content-02",
+        "reviewedBy": "editor-02",
+        "updatedAt": "2026-11-11T15:05:00.000Z"
       }
     },
     {
@@ -4881,6 +4965,13 @@
         "arChars": 107,
         "parityRatio": 0.877,
         "verifiedBy": "content-01"
+      },
+      "authoring": {
+        "status": "published",
+        "version": 1,
+        "author": "content-02",
+        "reviewedBy": "editor-02",
+        "updatedAt": "2026-11-11T15:05:00.000Z"
       }
     },
     {
@@ -4933,6 +5024,13 @@
         "arChars": 97,
         "parityRatio": 0.815,
         "verifiedBy": "content-01"
+      },
+      "authoring": {
+        "status": "published",
+        "version": 1,
+        "author": "content-02",
+        "reviewedBy": "editor-02",
+        "updatedAt": "2026-11-11T15:05:00.000Z"
       }
     },
     {
@@ -4985,6 +5083,13 @@
         "arChars": 84,
         "parityRatio": 0.785,
         "verifiedBy": "content-01"
+      },
+      "authoring": {
+        "status": "published",
+        "version": 1,
+        "author": "content-02",
+        "reviewedBy": "editor-02",
+        "updatedAt": "2026-11-11T15:05:00.000Z"
       }
     },
     {
@@ -5037,6 +5142,13 @@
         "arChars": 108,
         "parityRatio": 0.8,
         "verifiedBy": "content-01"
+      },
+      "authoring": {
+        "status": "published",
+        "version": 1,
+        "author": "content-02",
+        "reviewedBy": "editor-02",
+        "updatedAt": "2026-11-11T15:05:00.000Z"
       }
     },
     {
@@ -5089,6 +5201,13 @@
         "arChars": 86,
         "parityRatio": 0.796,
         "verifiedBy": "content-01"
+      },
+      "authoring": {
+        "status": "published",
+        "version": 1,
+        "author": "content-02",
+        "reviewedBy": "editor-02",
+        "updatedAt": "2026-11-11T15:05:00.000Z"
       }
     },
     {
@@ -5141,6 +5260,13 @@
         "arChars": 106,
         "parityRatio": 0.906,
         "verifiedBy": "content-01"
+      },
+      "authoring": {
+        "status": "published",
+        "version": 1,
+        "author": "content-02",
+        "reviewedBy": "editor-02",
+        "updatedAt": "2026-11-11T15:05:00.000Z"
       }
     },
     {
@@ -5193,6 +5319,13 @@
         "arChars": 111,
         "parityRatio": 0.804,
         "verifiedBy": "content-01"
+      },
+      "authoring": {
+        "status": "published",
+        "version": 1,
+        "author": "content-02",
+        "reviewedBy": "editor-02",
+        "updatedAt": "2026-11-11T15:05:00.000Z"
       }
     },
     {
@@ -5245,6 +5378,13 @@
         "arChars": 119,
         "parityRatio": 0.799,
         "verifiedBy": "content-01"
+      },
+      "authoring": {
+        "status": "published",
+        "version": 1,
+        "author": "content-02",
+        "reviewedBy": "editor-02",
+        "updatedAt": "2026-11-11T15:05:00.000Z"
       }
     },
     {
@@ -5297,6 +5437,13 @@
         "arChars": 99,
         "parityRatio": 0.934,
         "verifiedBy": "content-01"
+      },
+      "authoring": {
+        "status": "published",
+        "version": 1,
+        "author": "content-02",
+        "reviewedBy": "editor-02",
+        "updatedAt": "2026-11-11T15:05:00.000Z"
       }
     }
   ]
