@@ -269,6 +269,37 @@ test("every career-path question renders its complete chronological club sequenc
   }
 });
 
+test("both submitted answers resolve immediately and the following round opens normally", () => {
+  const room = buildRoom(20261111);
+  let now = 9_500_000;
+  const start = room.start(now);
+  assert.ok(start.some((e) => e.type === "round.intro"));
+  now += 1_000;
+  const opened = room.advance(now);
+  const qa = opened.find((e) => e.type === "round.question" && e.to === ALICE.playerId);
+  const qb = opened.find((e) => e.type === "round.question" && e.to === BOB.playerId);
+  assert.ok(qa && qb, "both players receive the same live round");
+  const tokenA = (qa!.payload as { token: string }).token;
+  const tokenB = (qb!.payload as { token: string }).token;
+  const audit = room.audit!;
+  const a = room.submitAnswer(ALICE.playerId, { token: tokenA, optionId: audit.answerOptionId }, now + 250);
+  assert.ok(a.some((e) => e.type === "round.answer_ack"));
+  assert.equal(a.some((e) => e.type === "round.reveal"), false, "wait for the second answer");
+  const b = room.submitAnswer(BOB.playerId, { token: tokenB, optionId: audit.answerOptionId }, now + 500);
+  assert.equal(b.filter((e) => e.type === "round.reveal").length, 2,
+    "the second answer immediately reveals to both players");
+  assert.equal(room.phaseName, "round_reveal");
+  now += 500 + 1_400;
+  const nextIntro = room.advance(now);
+  assert.equal(room.phaseName, "round_intro");
+  assert.ok(nextIntro.some((e) => e.type === "round.intro"), "round 2 intro is emitted");
+  now += 1_000;
+  const nextQuestion = room.advance(now);
+  assert.equal(room.phaseName, "question_open");
+  assert.ok(nextQuestion.some((e) => e.type === "round.question"), "round 2 question opens");
+  assert.equal(room.clock.roundNo, 2);
+});
+
 test("a stronger player beats a weaker one over a full match", () => {
   const goals = strongVsWeak.room.result.goals;
   assert.ok(
