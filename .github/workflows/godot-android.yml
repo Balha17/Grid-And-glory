@@ -79,6 +79,7 @@ jobs:
             for (const media of q.media || []) if (!assets.has(media.assetId)) errors.push(q.id + ': missing media asset ' + media.assetId);
             if (q.format === 'blur_reveal' && !(q.media || []).length && !q.image_path) errors.push(q.id + ': image question has no media or image_path');
             if (q.image_path && !/^(res:\/\/|user:\/\/|https?:\/\/).+/.test(q.image_path)) errors.push(q.id + ': invalid image_path');
+            if (q.image_path?.startsWith('res://') && !fs.existsSync('godot/' + q.image_path.slice(6))) errors.push(q.id + ': bundled image file not found: ' + q.image_path);
             if (q.format === 'emoji_story' && !q.formatData?.emoji?.trim()) errors.push(q.id + ': emoji clue is missing');
             if (q.format === 'career_path') for (const id of q.formatData?.clubIds || []) if (!clubs.has(id)) errors.push(q.id + ': unknown club ' + id);
             if (q.format === 'stat_highlow') for (const id of [q.formatData?.entityA, q.formatData?.entityB]) if (!(clubs.has(id) || people.has(id) || nations.has(id))) errors.push(q.id + ': unknown statistic entity ' + id);
