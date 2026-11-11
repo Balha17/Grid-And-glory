@@ -52,6 +52,7 @@ var locale_button: Button
 var pitch_status: Label
 var countdown_deadline := 0
 var countdown_duration := 0
+var connection_deadline := 0
 var audio_players: Dictionary = {}
 var audio_requests: Dictionary = {}
 
@@ -86,6 +87,14 @@ func _process(_delta: float) -> void:
 			timer_label.modulate = Color(1.0, 0.3, 0.25)
 	else:
 		timer_label.text = ""
+	if phase == "connecting" and connection_deadline > 0 and Time.get_ticks_msec() >= connection_deadline:
+		connection_deadline = 0
+		socket.close()
+		connected = false
+		phase = "home"
+		home_primary_button.disabled = false
+		home_secondary_button.disabled = false
+		menu_subtitle.text = "SERVER TIMEOUT • CHECK INTERNET AND RETRY"
 	if stadium_root.visible:
 		_update_pitch_state()
 
@@ -540,6 +549,9 @@ func _show_home() -> void:
 	pitch_status.text = "TWO PLAYERS • ONE PITCH • ONE WINNER"
 
 func _show_match() -> void:
+	connection_deadline = 0
+	home_primary_button.disabled = false
+	home_secondary_button.disabled = false
 	home_layer.visible = false
 	match_layer.visible = true
 	stadium_root.visible = true
@@ -579,12 +591,17 @@ func _start_connection(vs_ai: bool) -> void:
 			_send("queue.join", {})
 		return
 	phase = "connecting"
-	question_label.text = "Connecting to match server…"
-	status_label.text = "SECURE WEBSOCKET • WSS"
+	connection_deadline = Time.get_ticks_msec() + 12000
+	menu_subtitle.text = "CONNECTING TO MATCH SERVER…"
+	home_primary_button.disabled = true
+	home_secondary_button.disabled = true
 	var err := socket.connect_to_url(SERVER_URL)
 	if err != OK:
-		question_label.text = "Could not connect. Check internet and retry."
+		connection_deadline = 0
 		phase = "home"
+		home_primary_button.disabled = false
+		home_secondary_button.disabled = false
+		menu_subtitle.text = "CONNECTION FAILED • TAP TO RETRY"
 		return
 	set_meta("join_ai", vs_ai)
 
@@ -595,6 +612,8 @@ func _handle_frame(frame: Dictionary) -> void:
 		"welcome":
 			_send("hello", {"deviceId": OS.get_unique_id(), "locale": locale, "region": "MENA", "displayName": display_name})
 		"hello.ack":
+			connection_deadline = 0
+			menu_subtitle.text = "CONNECTED • FINDING OPPONENT…"
 			player_id = str(p.get("playerId", ""))
 			session_token = str(p.get("sessionToken", ""))
 			if bool(get_meta("join_ai", false)):
@@ -676,6 +695,11 @@ func _handle_frame(frame: Dictionary) -> void:
 		"opponent.connection":
 			status_label.text = "RIVAL DISCONNECTED" if not bool(p.get("connected", true)) else "RIVAL BACK ONLINE"
 		"error":
+			connection_deadline = 0
+			phase = "home"
+			home_primary_button.disabled = false
+			home_secondary_button.disabled = false
+			menu_subtitle.text = "SERVER ERROR • " + str(p.get("code", "ERROR"))
 			question_label.text = "Server: " + str(p.get("code", "ERROR"))
 			status_label.text = "PLEASE TRY AGAIN"
 
