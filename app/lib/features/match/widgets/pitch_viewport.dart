@@ -174,7 +174,7 @@ class _PitchPainter extends CustomPainter {
     c.drawRRect(RRect.fromRectAndRadius(rect, const Radius.circular(9)),
       Paint()..style = PaintingStyle.stroke..strokeWidth = .8..color = color);
     final text = TextPainter(text: TextSpan(text: label, style: TextStyle(color: color, fontSize: 6.2, fontWeight: FontWeight.w900)),
-      textDirection: TextDirection.ltr, maxLines: 1)..layout(maxWidth: w - 8);
+      textDirection: ar ? TextDirection.rtl : TextDirection.ltr, maxLines: 1)..layout(maxWidth: w - 8);
     text.paint(c, Offset(rect.center.dx - text.width / 2, rect.top + 4));
   }
 
