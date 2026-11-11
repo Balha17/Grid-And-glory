@@ -52,6 +52,8 @@ var clue_label: Label
 var question_meta_label: Label
 var question_image: TextureRect
 var question_image_request: HTTPRequest
+var question_image_placeholder: Label
+var question_image_generation := 0
 var score_label: Label
 var timer_label: Label
 var countdown_bar: ProgressBar
@@ -409,7 +411,7 @@ func _build_hud() -> void:
 	var bottom := PanelContainer.new()
 	bottom.anchor_left = 0.025
 	bottom.anchor_right = 0.975
-	bottom.anchor_top = 0.585
+	bottom.anchor_top = 0.54
 	bottom.anchor_bottom = 0.992
 	bottom.offset_left = 0
 	bottom.offset_right = 0
@@ -462,6 +464,15 @@ func _build_hud() -> void:
 	question_image.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 	question_image.visible = false
 	content.add_child(question_image)
+	question_image_placeholder = Label.new()
+	question_image_placeholder.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	question_image_placeholder.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	question_image_placeholder.custom_minimum_size = Vector2(0, 64)
+	question_image_placeholder.add_theme_color_override("font_color", Color(0.62,0.75,0.88))
+	question_image_placeholder.add_theme_font_size_override("font_size", 13)
+	question_image_placeholder.text = "IMAGE CLUE"
+	question_image_placeholder.visible = false
+	content.add_child(question_image_placeholder)
 	timer_label = Label.new()
 	timer_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	timer_label.add_theme_color_override("font_color", Color(1.0,0.78,0.25))
@@ -509,21 +520,21 @@ func _build_hud() -> void:
 
 	var outer := MarginContainer.new()
 	outer.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	outer.add_theme_constant_override("margin_left", 28)
-	outer.add_theme_constant_override("margin_right", 28)
-	outer.add_theme_constant_override("margin_top", 32)
-	outer.add_theme_constant_override("margin_bottom", 28)
+	outer.add_theme_constant_override("margin_left", 24)
+	outer.add_theme_constant_override("margin_right", 24)
+	outer.add_theme_constant_override("margin_top", 24)
+	outer.add_theme_constant_override("margin_bottom", 24)
 	home_layer.add_child(outer)
 	var menu := VBoxContainer.new()
 	menu.alignment = BoxContainer.ALIGNMENT_CENTER
-	menu.add_theme_constant_override("separation", 13)
+	menu.add_theme_constant_override("separation", 19)
 	outer.add_child(menu)
 
 	var logo := TextureRect.new()
 	logo.texture = load("res://assets/grid_glory_icon.svg")
 	logo.expand_mode = TextureRect.EXPAND_FIT_WIDTH_PROPORTIONAL
 	logo.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-	logo.custom_minimum_size = Vector2(0, 176)
+	logo.custom_minimum_size = Vector2(0, 148)
 	menu.add_child(logo)
 
 	menu_title = Label.new()
@@ -553,11 +564,11 @@ func _build_hud() -> void:
 	feature_text.add_theme_font_size_override("font_size", 14)
 	feature.add_child(feature_text)
 
-	home_primary_button = _make_button("PLAY ONLINE", Color(0.95,0.57,0.08), Color(1.0,0.83,0.30), 76)
+	home_primary_button = _make_button("PLAY ONLINE", Color(0.95,0.57,0.08), Color(1.0,0.83,0.30), 70)
 	home_primary_button.add_theme_color_override("font_color", Color(0.10,0.08,0.04))
 	home_primary_button.pressed.connect(_on_menu_primary)
 	menu.add_child(home_primary_button)
-	home_secondary_button = _make_button("PLAY VS AI", Color(0.035,0.27,0.65), Color(0.23,0.66,1.0), 66)
+	home_secondary_button = _make_button("PLAY VS AI", Color(0.035,0.27,0.65), Color(0.23,0.66,1.0), 62)
 	home_secondary_button.pressed.connect(_on_menu_secondary)
 	menu.add_child(home_secondary_button)
 
@@ -637,6 +648,16 @@ func _make_button(label: String, fill: Color, edge: Color, height: float) -> But
 	button.add_theme_stylebox_override("hover", hover)
 	button.add_theme_stylebox_override("pressed", _panel_style(fill.darkened(0.16), edge, 2))
 	button.add_theme_stylebox_override("focus", _panel_style(fill, edge.lightened(0.25), 3))
+	button.pivot_offset = Vector2(0, height / 2.0)
+	button.resized.connect(func(): button.pivot_offset = button.size / 2.0)
+	button.button_down.connect(func():
+		var press_tween := button.create_tween()
+		press_tween.tween_property(button, "scale", Vector2(0.975, 0.975), 0.07)
+	)
+	button.button_up.connect(func():
+		var release_tween := button.create_tween()
+		release_tween.tween_property(button, "scale", Vector2.ONE, 0.10)
+	)
 	return button
 
 func _show_home() -> void:
@@ -649,13 +670,14 @@ func _show_home() -> void:
 	menu_subtitle.text = "THE ULTIMATE FOOTBALL QUIZ BATTLE"
 	home_primary_button.text = "PLAY ONLINE"
 	home_secondary_button.text = "PLAY VS AI"
-	question_label.text = "Choose your arena / اختر ساحة المنافسة"
+	question_label.text = _tr("Choose your arena", "اختر ساحة المنافسة")
 	clue_label.text = ""
 	clue_label.visible = false
 	_clear_options()
 	action_box.visible = true
-	status_label.text = "READY FOR KICK-OFF"
-	pitch_status.text = "TWO PLAYERS • ONE PITCH • ONE WINNER"
+	status_label.text = _tr("READY FOR KICK-OFF", "استعد لركلة البداية")
+	pitch_status.text = _tr("TWO PLAYERS • ONE PITCH • ONE WINNER", "لاعبان • ملعب واحد • فائز واحد")
+	_apply_locale()
 
 func _show_match() -> void:
 	connection_deadline = 0
@@ -703,10 +725,12 @@ func _start_connection(vs_ai: bool) -> void:
 	matchmaking_label.text = "CONNECTING TO MATCH SERVER…"
 	# A closed WebSocketPeer cannot be reused for a new connection attempt.
 	var socket_state := socket.get_ready_state()
-	if socket_state == WebSocketPeer.STATE_CLOSED:
+	if socket_state != WebSocketPeer.STATE_OPEN:
+		if socket_state != WebSocketPeer.STATE_CLOSED:
+			socket.close()
 		socket = WebSocketPeer.new()
 		connected = false
-	elif socket_state == WebSocketPeer.STATE_OPEN:
+	else:
 		if not player_id.is_empty() and not session_token.is_empty():
 			_send_join_request()
 			return
@@ -738,6 +762,7 @@ func _cancel_matchmaking() -> void:
 	if connected and not player_id.is_empty():
 		_send("queue.leave", {})
 	socket.close()
+	socket = WebSocketPeer.new()
 	connected = false
 	connection_deadline = 0
 	phase = "home"
@@ -873,31 +898,56 @@ func _show_question(view: Dictionary) -> void:
 	question_label.text = prompt
 	question_label.text_direction = Control.TEXT_DIRECTION_AUTO
 	question_label.layout_direction = Control.LAYOUT_DIRECTION_RTL if locale == "ar" else Control.LAYOUT_DIRECTION_LTR
-	options_box.columns = 2 if incoming_options.size() >= 4 else 1
+	options_box.columns = 2 if incoming_options.size() >= 4 and get_viewport_rect().size.x >= 600.0 else 1
 	options_box.layout_direction = Control.LAYOUT_DIRECTION_RTL if locale == "ar" else Control.LAYOUT_DIRECTION_LTR
 	clue_label.layout_direction = Control.LAYOUT_DIRECTION_RTL if locale == "ar" else Control.LAYOUT_DIRECTION_LTR
 	selected_option_id = ""
 	status_label.add_theme_color_override("font_color", Color(0.65,0.82,1.0))
+	clue_label.add_theme_font_size_override("font_size", 19)
+	clue_label.add_theme_color_override("font_color", Color(1.0,0.82,0.35))
 	var difficulty := int(view.get("difficulty", 1))
 	var difficulty_stars := "★".repeat(clampi(difficulty, 1, 5))
 	question_meta_label.text = _tr("FOOTBALL CHALLENGE", "تحدي كرة القدم") + "   •   " + difficulty_stars
 	question_image.visible = false
 	question_image.texture = null
+	question_image_placeholder.visible = false
+	question_image_generation += 1
 	if is_instance_valid(question_image_request):
 		question_image_request.cancel_request()
 		question_image_request.queue_free()
 		question_image_request = null
-	var media_items: Array = view.get("media", [])
-	if not media_items.is_empty() and media_items[0] is Dictionary:
-		var media_url := str(media_items[0].get("url", ""))
-		if media_url.begins_with("https://") or media_url.begins_with("http://"):
+	var image_path := str(view.get("imagePath", "")).strip_edges()
+	if image_path.is_empty():
+		var media_items: Array = view.get("media", [])
+		if not media_items.is_empty() and media_items[0] is Dictionary:
+			image_path = str(media_items[0].get("url", "")).strip_edges()
+	var expects_image := str(view.get("format", "")) == "blur_reveal" or not image_path.is_empty()
+	if expects_image:
+		question_image_placeholder.visible = true
+		question_image_placeholder.text = _tr("LOADING IMAGE…", "جارٍ تحميل الصورة…")
+		if image_path.begins_with("res://") or image_path.begins_with("user://"):
+			if ResourceLoader.exists(image_path):
+				var local_texture := load(image_path) as Texture2D
+				if local_texture:
+					question_image.texture = local_texture
+					question_image.visible = true
+					question_image_placeholder.visible = false
+				else:
+					question_image_placeholder.text = _tr("IMAGE UNAVAILABLE", "الصورة غير متاحة")
+			else:
+				question_image_placeholder.text = _tr("IMAGE NOT FOUND", "لم يتم العثور على الصورة")
+		elif image_path.begins_with("https://") or image_path.begins_with("http://"):
 			question_image_request = HTTPRequest.new()
 			question_image_request.timeout = 12.0
 			add_child(question_image_request)
-			question_image_request.request_completed.connect(_on_question_image_loaded)
-			if question_image_request.request(media_url) != OK:
+			var request_generation := question_image_generation
+			question_image_request.request_completed.connect(_on_question_image_loaded.bind(request_generation))
+			if question_image_request.request(image_path) != OK:
 				question_image_request.queue_free()
 				question_image_request = null
+				question_image_placeholder.text = _tr("IMAGE UNAVAILABLE", "الصورة غير متاحة")
+		else:
+			question_image_placeholder.text = _tr("INVALID IMAGE PATH", "مسار الصورة غير صالح")
 	# Render format-specific clues: the old client showed only the prompt and
 	# answer buttons, silently dropping emoji, career-path and statistics data.
 	var format_data: Dictionary = view.get("formatData", {})
@@ -928,9 +978,9 @@ func _show_question(view: Dictionary) -> void:
 	current_options = incoming_options
 	for index in range(current_options.size()):
 		var option: Dictionary = current_options[index]
-		var letter: String = ["A", "B", "C", "D"][index % 4]
-		var b := _make_button(letter + "   " + str(option.get("text", "")), Color(0.035,0.12,0.24), Color(0.18,0.43,0.68), 58)
-		b.add_theme_font_size_override("font_size", 16)
+		var letter: String = ["A", "B", "C", "D", "E", "F"][index % 6]
+		var b := _make_button(letter + "   " + str(option.get("text", "")), Color(0.035,0.12,0.24), Color(0.18,0.43,0.68), 62)
+		b.add_theme_font_size_override("font_size", 15)
 		b.alignment = HORIZONTAL_ALIGNMENT_CENTER
 		b.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		b.text_direction = Control.TEXT_DIRECTION_AUTO
@@ -941,11 +991,14 @@ func _show_question(view: Dictionary) -> void:
 		option_buttons[option_id] = b
 	action_box.visible = false
 
-func _on_question_image_loaded(result: int, response_code: int, _headers: PackedStringArray, body: PackedByteArray) -> void:
+func _on_question_image_loaded(result: int, response_code: int, _headers: PackedStringArray, body: PackedByteArray, generation: int) -> void:
+	if generation != question_image_generation:
+		return
 	if is_instance_valid(question_image_request):
 		question_image_request.queue_free()
 		question_image_request = null
 	if result != HTTPRequest.RESULT_SUCCESS or response_code != 200 or body.is_empty():
+		question_image_placeholder.text = _tr("IMAGE UNAVAILABLE", "الصورة غير متاحة")
 		return
 	var image := Image.new()
 	var error := image.load_webp_from_buffer(body)
@@ -954,13 +1007,31 @@ func _on_question_image_loaded(result: int, response_code: int, _headers: Packed
 	if error != OK:
 		error = image.load_jpg_from_buffer(body)
 	if error != OK:
+		question_image_placeholder.text = _tr("UNSUPPORTED IMAGE FORMAT", "صيغة الصورة غير مدعومة")
 		push_warning("Question media could not be decoded.")
 		return
 	question_image.texture = ImageTexture.create_from_image(image)
 	question_image.visible = true
+	question_image_placeholder.visible = false
 
 func _tr(en: String, ar: String) -> String:
 	return ar if locale == "ar" else en
+
+func _apply_locale() -> void:
+	if is_instance_valid(locale_button):
+		locale_button.text = "English" if locale == "ar" else "العربية"
+	if is_instance_valid(menu_title):
+		menu_title.text = "شبكة ومجد" if locale == "ar" else "GRID & GLORY"
+	if is_instance_valid(menu_subtitle) and phase == "home":
+		menu_subtitle.text = "معركة معلومات كرة القدم" if locale == "ar" else "THE ULTIMATE FOOTBALL QUIZ BATTLE"
+	if is_instance_valid(home_primary_button) and phase != "ended":
+		home_primary_button.text = "العب عبر الإنترنت" if locale == "ar" else "PLAY ONLINE"
+	if is_instance_valid(home_secondary_button) and phase != "ended":
+		home_secondary_button.text = "العب ضد الذكاء الاصطناعي" if locale == "ar" else "PLAY VS AI"
+	if is_instance_valid(match_sound_button):
+		match_sound_button.text = _tr("SOUND OFF  ×", "الصوت مغلق  ×") if sound_muted else _tr("SOUND ON  ♪", "الصوت يعمل  ♪")
+	if is_instance_valid(home_sound_button):
+		home_sound_button.text = _tr("SOUND OFF  ×", "الصوت مغلق  ×") if sound_muted else _tr("SOUND ON  ♪", "الصوت يعمل  ♪")
 
 func _submit_answer(option_id: String) -> void:
 	if selected or current_token.is_empty():
@@ -1038,13 +1109,22 @@ func _add_action_button(label: String, callback: Callable) -> void:
 
 func _toggle_locale() -> void:
 	locale = "ar" if locale == "en" else "en"
-	locale_button.text = "ENGLISH" if locale == "ar" else "العربية"
-	if socket.get_ready_state() == WebSocketPeer.STATE_OPEN:
+	if socket.get_ready_state() == WebSocketPeer.STATE_OPEN and not player_id.is_empty():
 		_send("queue.leave", {})
+	if socket.get_ready_state() != WebSocketPeer.STATE_CLOSED:
 		socket.close()
-		connected = false
-		_show_home()
-	menu_subtitle.text = "معركة معلومات كرة القدم" if locale == "ar" else "THE ULTIMATE FOOTBALL QUIZ BATTLE"
+	socket = WebSocketPeer.new()
+	connected = false
+	player_id = ""
+	session_token = ""
+	connection_deadline = 0
+	countdown_deadline = 0
+	selected = false
+	current_token = ""
+	phase = "home"
+	_show_home()
+	_apply_locale()
+	_save_settings()
 
 func _toggle_sound() -> void:
 	sound_muted = not sound_muted
@@ -1062,6 +1142,9 @@ func _load_settings() -> void:
 	var config := ConfigFile.new()
 	if config.load("user://settings.cfg") == OK:
 		sound_muted = bool(config.get_value("audio", "muted", false))
+		locale = str(config.get_value("game", "locale", "en"))
+		if locale not in ["en", "ar"]:
+			locale = "en"
 	var bus := AudioServer.get_bus_index("Master")
 	if bus >= 0:
 		AudioServer.set_bus_mute(bus, sound_muted)
@@ -1070,6 +1153,7 @@ func _load_settings() -> void:
 func _save_settings() -> void:
 	var config := ConfigFile.new()
 	config.set_value("audio", "muted", sound_muted)
+	config.set_value("game", "locale", locale)
 	config.save("user://settings.cfg")
 
 func _toggle_sound_label() -> void:
