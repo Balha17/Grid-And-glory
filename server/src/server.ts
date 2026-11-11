@@ -29,7 +29,7 @@ export interface GameServer {
 export const createGameServer = async (options: GameServerOptions): Promise<GameServer> => {
   const gateway = new Gateway({ bank: options.bank });
   const httpServer: Server = createServer((req, res) => {
-    if (req.url === "/healthz") {
+    if (new URL(req.url ?? "/", "http://localhost").pathname === "/healthz") {
       res.writeHead(200, { "content-type": "application/json" });
       res.end(JSON.stringify({ ok: true, ...gateway.stats() }));
       return;
