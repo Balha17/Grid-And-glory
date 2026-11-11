@@ -389,7 +389,7 @@ func _build_hud() -> void:
 	topbox.add_theme_constant_override("separation", 2)
 	top.add_child(topbox)
 	title_label = Label.new()
-	title_label.text = "GRID & GLORY  •  MATCHDAY"
+	title_label.text = _tr("GRID & GLORY  •  MATCHDAY", "GRID & GLORY  •  يوم المباراة")
 	title_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	title_label.add_theme_color_override("font_color", Color(0.96,0.79,0.38))
 	title_label.add_theme_font_size_override("font_size", 19)
@@ -574,7 +574,7 @@ func _build_hud() -> void:
 	var feature := PanelContainer.new()
 	feature.add_theme_stylebox_override("panel", _panel_style(Color(0.035,0.085,0.17,0.96), Color(0.78,0.55,0.20), 2))
 	menu.add_child(feature)
-	vmenu_feature_label = Label.new()
+	menu_feature_label = Label.new()
 	menu_feature_label.text = "⚽  1v1 FOOTBALL TRIVIA  •  RISE TO LEGEND"
 	menu_feature_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	menu_feature_label.add_theme_color_override("font_color", Color(1.0,0.88,0.58))
@@ -620,7 +620,7 @@ func _build_hud() -> void:
 	matchmaking_label.add_theme_font_size_override("font_size", 20)
 	matchmaking_label.add_theme_color_override("font_color", Color(0.96,0.84,0.53))
 	matchmaking_box.add_child(matchmaking_label)
-	matchmaking_cancel_button = _make_button("CANCEL", Color(0.34,0.09,0.12), Color(0.9,0.28,0.25), 48)
+	matchmaking_cancel_button = _make_button(_tr("CANCEL", "إلغاء"), Color(0.34,0.09,0.12), Color(0.9,0.28,0.25), 48)
 	matchmaking_cancel_button.pressed.connect(_cancel_matchmaking)
 	matchmaking_box.add_child(matchmaking_cancel_button)
 
@@ -796,7 +796,7 @@ func _cancel_matchmaking() -> void:
 	_show_matchmaking(false)
 	home_primary_button.disabled = false
 	home_secondary_button.disabled = false
-	menu_subtitle.text = "THE ULTIMATE FOOTBALL QUIZ BATTLE"
+	menu_subtitle.text = _tr("THE ULTIMATE FOOTBALL QUIZ BATTLE", "معركة معلومات كرة القدم")
 
 
 func _handle_frame(frame: Dictionary) -> void:
@@ -1061,6 +1061,8 @@ func _apply_locale() -> void:
 		locale_button.text = "English" if locale == "ar" else "العربية"
 	if is_instance_valid(menu_title):
 		menu_title.text = "GRID & GLORY"
+	if is_instance_valid(title_label):
+		title_label.text = _tr("GRID & GLORY  •  MATCHDAY", "GRID & GLORY  •  يوم المباراة")
 		menu_title.layout_direction = Control.LAYOUT_DIRECTION_LTR
 	if is_instance_valid(menu_feature_label):
 		menu_feature_label.text = _tr("⚽  1v1 FOOTBALL TRIVIA  •  RISE TO LEGEND", "⚽  تحدي كرة القدم  •  كن أسطورة")
@@ -1076,6 +1078,10 @@ func _apply_locale() -> void:
 		score_label.layout_direction = Control.LAYOUT_DIRECTION_RTL if locale == "ar" else Control.LAYOUT_DIRECTION_LTR
 	if is_instance_valid(pitch_status):
 		pitch_status.layout_direction = Control.LAYOUT_DIRECTION_RTL if locale == "ar" else Control.LAYOUT_DIRECTION_LTR
+	if is_instance_valid(clue_label):
+		clue_label.layout_direction = Control.LAYOUT_DIRECTION_RTL if locale == "ar" else Control.LAYOUT_DIRECTION_LTR
+	if is_instance_valid(matchmaking_label):
+		matchmaking_label.layout_direction = Control.LAYOUT_DIRECTION_RTL if locale == "ar" else Control.LAYOUT_DIRECTION_LTR
 	if is_instance_valid(menu_subtitle) and phase == "home":
 		menu_subtitle.text = "معركة معلومات كرة القدم" if locale == "ar" else "THE ULTIMATE FOOTBALL QUIZ BATTLE"
 	if is_instance_valid(home_primary_button) and phase != "ended":
