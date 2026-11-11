@@ -33,6 +33,7 @@ dev_dependencies:
   flutter_lints: ^4.0.0
 
 flutter:
+  generate: true
   uses-material-design: true
 
   # Fonts are deliberately NOT declared yet — drop the files in and uncomment.
