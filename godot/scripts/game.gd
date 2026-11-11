@@ -909,6 +909,19 @@ func _send(kind: String, payload: Dictionary) -> void:
 	socket.send_text(JSON.stringify({"v": 1, "type": kind, "seq": sequence, "ts": Time.get_unix_time_from_system()*1000, "payload": payload}))
 
 func _show_question(view: Dictionary) -> void:
+	# Clear every visual from the previous question before validating the new payload.
+	clue_label.text = ""
+	clue_label.visible = false
+	question_image.visible = false
+	question_image.texture = null
+	question_image_placeholder.visible = false
+	question_image_generation += 1
+	if is_instance_valid(question_image_request):
+		question_image_request.cancel_request()
+		question_image_request.queue_free()
+		question_image_request = null
+	current_options.clear()
+	option_buttons.clear()
 	var prompt := str(view.get("prompt", "")).strip_edges()
 	var incoming_options: Array = view.get("options", [])
 	if prompt.is_empty() or incoming_options.size() < 2:
@@ -937,14 +950,6 @@ func _show_question(view: Dictionary) -> void:
 	var difficulty := int(view.get("difficulty", 1))
 	var difficulty_stars := "★".repeat(clampi(difficulty, 1, 5))
 	question_meta_label.text = _tr("FOOTBALL CHALLENGE", "تحدي كرة القدم") + "   •   " + difficulty_stars
-	question_image.visible = false
-	question_image.texture = null
-	question_image_placeholder.visible = false
-	question_image_generation += 1
-	if is_instance_valid(question_image_request):
-		question_image_request.cancel_request()
-		question_image_request.queue_free()
-		question_image_request = null
 	var image_path := str(view.get("imagePath", "")).strip_edges()
 	if image_path.is_empty():
 		var media_items: Array = view.get("media", [])
