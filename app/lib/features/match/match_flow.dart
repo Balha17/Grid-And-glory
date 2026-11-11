@@ -388,7 +388,7 @@ class _LobbyViewState extends State<_LobbyView>
                         color: AppColors.accent, fontWeight: FontWeight.w900, fontSize: 24)),
                     ),
                     Expanded(child: _DuelPlayerCard(
-                      name: opponentName!,
+                      name: opponentName,
                       color: _duelColor(opponentColor),
                       colorLabel: _duelColorName(opponentColor, locale),
                       locale: locale,
