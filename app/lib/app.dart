@@ -85,7 +85,7 @@ class _LaunchExperienceState extends State<_LaunchExperience> with SingleTickerP
       FadeTransition(opacity: _fade, child: ScaleTransition(scale: _scale, child: Center(child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 22),
         child: SvgPicture.asset('assets/images/launch_art.svg', fit: BoxFit.contain, width: double.infinity))))),
-      Positioned(left: 0, right: 0, bottom: 44, child: FadeTransition(opacity: _fade, child: Column(children: [
+      PositionedDirectional(start: 0, end: 0, bottom: 44, child: FadeTransition(opacity: _fade, child: Column(children: [
         const Text('GRID & GLORY', style: TextStyle(color: Color(0xFFFFD166), fontSize: 19, fontWeight: FontWeight.w900, letterSpacing: 4)),
         const SizedBox(height: 8),
         Text(ar ? 'المعرفة • السرعة • المجد' : 'KNOWLEDGE  •  SPEED  •  GLORY',
