@@ -194,10 +194,10 @@ for gradle in list(app_dir.glob("android/app/build.gradle*")):
     # AndroidX supplies the compatibility SplashScreen theme and its attributes.
     dependency = 'implementation("androidx.core:core-splashscreen:1.0.1")' if gradle.suffix == ".kts" else "implementation 'androidx.core:core-splashscreen:1.0.1'"
     if "core-splashscreen" not in s:
-        if re.search(r"(?m)^dependencies\\s*\\{", s):
-            s = re.sub(r"(?m)^dependencies\\s*\\{", lambda m: m.group(0) + "\\n    " + dependency, s, count=1)
+        if re.search(r"(?m)^dependencies\s*\{", s):
+            s = re.sub(r"(?m)^dependencies\s*\{", lambda m: m.group(0) + "\n    " + dependency, s, count=1)
         else:
-            s += "\\n\\ndependencies {\\n    " + dependency + "\\n}\\n"
+            s += "\n\ndependencies {\n    " + dependency + "\n}\n"
 
     gradle.write_text(s)
 
