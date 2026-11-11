@@ -1,0 +1,28 @@
+name: Unity Android
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - "unity/**"
+      - ".github/workflows/unity-android.yml"
+jobs:
+  build:
+    name: Build Unity Android APK
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build Android
+        uses: game-ci/unity-builder@v4
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+        with:
+          projectPath: unity
+          unityVersion: 2022.3.62f1
+          targetPlatform: Android
+          buildMethod: GridGlory.Editor.AndroidBuilder.BuildAndroid
+          customParameters: -quit
+      - uses: actions/upload-artifact@v4
+        with:
+          name: grid-and-glory-unity-apk
+          path: unity/Build/GridAndGlory.apk
+          if-no-files-found: error
