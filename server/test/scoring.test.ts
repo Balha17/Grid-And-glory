@@ -92,7 +92,8 @@ test("an answer after the deadline is wrong even if it is otherwise correct", ()
 test("an on-time answer beats a late one regardless of correctness order", () => {
   const r = resolve(answer(A, "opt_right", TIMING.windowEndsAt - 200), answer(B, "opt_right", TIMING.windowEndsAt + 20));
   assert.equal(r.results[A].delta, SCORE.FAST);
-  assert.equal(r.results[B].delta, SCORE.SLOW);
+  assert.equal(r.results[B].outcome, "wrong");
+  assert.equal(r.results[B].delta, SCORE.TURNOVER);
   assert.deepEqual(r.fastestIds, [A]);
 });
 
