@@ -38,7 +38,10 @@ namespace GridGlory
             socket?.DispatchMessageQueue();
 #endif
             if(deadline>0 && phase=="connecting")
-                waitText.text="CONNECTING TO SERVER…\n"+Mathf.CeilToInt(Mathf.Max(0,deadline-Time.realtimeSinceStartup))+"s";
+            {
+                if(Time.realtimeSinceStartup>=deadline) Fail("CONNECTION TIMEOUT • CHECK INTERNET");
+                else waitText.text="CONNECTING TO SERVER…\n"+Mathf.CeilToInt(Mathf.Max(0,deadline-Time.realtimeSinceStartup))+"s";
+            }
             if(deadline>0 && (phase=="question_open" || phase=="shooting_chance"))
                 timer.text=Mathf.CeilToInt(Mathf.Max(0,deadline-Time.realtimeSinceStartup)).ToString();
         }
