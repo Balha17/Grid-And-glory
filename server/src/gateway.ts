@@ -102,7 +102,7 @@ const seedFrom = (value: string): number =>
  */
 const sanitizeDisplayName = (value: unknown): string | null => {
   if (typeof value !== "string") return null;
-  const clean = Array.from(value.normalize("NFKC").replace(/[\\u0000-\\u001F\\u007F]/g, "").replace(/\\s+/g, " ").trim()).slice(0, 18).join("");
+  const clean = Array.from(value.normalize("NFKC").replace(/[\u0000-\u001F\u007F]/g, "").replace(/\s+/g, " ").trim()).slice(0, 18).join("");
   return clean.length >= 2 ? clean : null;
 };
 
