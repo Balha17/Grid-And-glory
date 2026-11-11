@@ -927,7 +927,7 @@ func _show_question(view: Dictionary) -> void:
 	question_label.text = prompt
 	question_label.text_direction = Control.TEXT_DIRECTION_AUTO
 	question_label.layout_direction = Control.LAYOUT_DIRECTION_RTL if locale == "ar" else Control.LAYOUT_DIRECTION_LTR
-	options_box.columns = 2 if incoming_options.size() >= 4 and get_viewport_rect().size.x >= 600.0 else 1
+	options_box.columns = 2 if incoming_options.size() >= 4 and get_viewport().get_visible_rect().size.x >= 600.0 else 1
 	options_box.layout_direction = Control.LAYOUT_DIRECTION_RTL if locale == "ar" else Control.LAYOUT_DIRECTION_LTR
 	clue_label.layout_direction = Control.LAYOUT_DIRECTION_RTL if locale == "ar" else Control.LAYOUT_DIRECTION_LTR
 	selected_option_id = ""
