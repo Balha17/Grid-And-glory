@@ -768,6 +768,9 @@ export class MatchRoom {
         ? {
             windowEndsAt: this.live.windowEndsAt,
             waitingOnOpponent: viewer ? !this.live.answers.has(viewer) : true,
+            token: viewer ? this.live.tokens[viewer] : null,
+            view: viewer ? this.live.views[viewer] : null,
+            youAreShooting: this.phase === "shooting_chance" && this.live.shooterId === viewer,
           }
         : null,
     };
