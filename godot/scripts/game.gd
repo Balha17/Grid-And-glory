@@ -298,38 +298,46 @@ func _build_stadium() -> void:
 	_add_stadium_details()
 
 func _add_stands() -> void:
-	# Main side grandstands with layered roof canopies.
+	# Keep the stadium silhouette but batch all spectator seats into one mobile-friendly draw call.
 	for side in [-1, 1]:
 		_box("Stand", Vector3(float(side)*17.2, 2.0, 0), Vector3(5.2, 4.4, 58), Color(0.055, 0.09, 0.14))
 		_box("Stand_Roof", Vector3(float(side)*17.2, 6.0, 0), Vector3(6.2, 0.38, 59), Color(0.025, 0.055, 0.095))
 		_box("Stand_Fascia", Vector3(float(side)*17.2, 5.55, 0), Vector3(5.8, 0.16, 58), Color(0.08, 0.22, 0.36))
-		for row in range(4):
-			for col in range(20):
-				var seat := MeshInstance3D.new()
-				var m := BoxMesh.new()
-				m.size = Vector3(0.42, 0.35, 0.42)
-				seat.mesh = m
-				seat.position = Vector3(float(side)*17.2, 3.2 + float(row)*0.72, -25.0 + float(col)*2.6)
-				var mat := StandardMaterial3D.new()
-				mat.albedo_color = [Color(0.08,0.45,0.75), Color(0.9,0.28,0.17), Color(0.88,0.9,0.94)][(row+col)%3]
-				seat.material_override = mat
-				stadium_root.add_child(seat)
-
-	# End stands close the stadium bowl behind both goals.
 	for end in [-1, 1]:
 		_box("End_Stand", Vector3(0, 1.8, float(end)*27.3), Vector3(31, 3.8, 4.0), Color(0.045, 0.075, 0.12))
 		_box("End_Stand_Roof", Vector3(0, 4.1, float(end)*27.3), Vector3(32, 0.35, 5.0), Color(0.025, 0.055, 0.095))
+
+	var seat_mesh := BoxMesh.new()
+	seat_mesh.size = Vector3(0.42, 0.35, 0.42)
+	var seat_material := StandardMaterial3D.new()
+	seat_material.vertex_color_use_as_albedo = true
+	seat_material.roughness = 0.82
+	seat_mesh.material = seat_material
+	var positions: Array[Vector3] = []
+	var palette := [Color(0.08,0.45,0.75), Color(0.9,0.28,0.17), Color(0.88,0.9,0.94)]
+	var colors: Array[Color] = []
+	for side in [-1, 1]:
+		for row in range(4):
+			for col in range(20):
+				positions.append(Vector3(float(side)*17.2, 3.2 + float(row)*0.72, -25.0 + float(col)*2.6))
+				colors.append(palette[(row+col)%3])
+	for end in [-1, 1]:
 		for row in range(3):
 			for col in range(24):
-				var seat := MeshInstance3D.new()
-				var seat_mesh := BoxMesh.new()
-				seat_mesh.size = Vector3(0.48, 0.34, 0.38)
-				seat.mesh = seat_mesh
-				seat.position = Vector3(-14.0 + float(col)*1.22, 2.0 + float(row)*0.72, float(end)*25.4)
-				var seat_mat := StandardMaterial3D.new()
-				seat_mat.albedo_color = [Color(0.08,0.43,0.76), Color(0.92,0.30,0.16), Color(0.90,0.88,0.76)][(row*7+col)%3]
-				seat.material_override = seat_mat
-				stadium_root.add_child(seat)
+				positions.append(Vector3(-14.0 + float(col)*1.22, 2.0 + float(row)*0.72, float(end)*25.4))
+				colors.append(palette[(row*7+col)%3])
+	var batch := MultiMesh.new()
+	batch.transform_format = MultiMesh.TRANSFORM_3D
+	batch.use_colors = true
+	batch.mesh = seat_mesh
+	batch.instance_count = positions.size()
+	for i in range(positions.size()):
+		batch.set_instance_transform(i, Transform3D(Basis(), positions[i]))
+		batch.set_instance_color(i, colors[i])
+	var seats := MultiMeshInstance3D.new()
+	seats.name = "Batched_Stadium_Seats"
+	seats.multimesh = batch
+	stadium_root.add_child(seats)
 
 func _add_stadium_details() -> void:
 	# LED perimeter boards frame the pitch and separate the playing surface from the stands.
