@@ -111,7 +111,7 @@ class _PitchPainter extends CustomPainter {
       c.drawRect(Rect.fromLTWH(f.center.dx-sixW/2,top?f.top:f.bottom-sixH,sixW,sixH),p);
       final spot=Offset(f.center.dx,top?f.top+boxH*.70:f.bottom-boxH*.70);
       c.drawCircle(spot,2,Paint()..color=line);
-      c.drawArc(Rect.fromCircle(center:spot,radius:f.width*.145),top?.20:math.pi+.20,math.pi-.4,false,p);
+      c.drawArc(Rect.fromCircle(center:spot,radius:f.width*.145),top ? 0.20 : math.pi + 0.20,math.pi-.4,false,p);
     }
     for(final x in [f.left,f.right]) for(final y in [f.top,f.bottom]){
       final start=(x==f.left?0.0:math.pi/2)+(y==f.top?0:math.pi);
@@ -151,7 +151,7 @@ class _PitchPainter extends CustomPainter {
     final p=owner+const Offset(radius*.88,radius*.58);
     c.drawCircle(p+const Offset(0,2),6,Paint()..color=Colors.black38);
     c.drawCircle(p,5.2,Paint()..color=Colors.white);
-    c.drawCircle(p,5.2,Paint()..style=PaintingStyle.stroke..strokeWidth:1.1..color=const Color(0xFF1A2638));
+    c.drawCircle(p,5.2,Paint()..style=PaintingStyle.stroke..strokeWidth = 1.1..color=const Color(0xFF1A2638));
     c.drawLine(p+const Offset(-2,-1),p+const Offset(2,1),Paint()..color=const Color(0xFF1A2638)..strokeWidth=1);
   }
 
