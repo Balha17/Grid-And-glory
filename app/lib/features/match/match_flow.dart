@@ -106,6 +106,7 @@ class _MatchFlowScreenState extends ConsumerState<MatchFlowScreen> {
 
       case 'match.found':
         final opponent = (payload['opponent'] as Map?)?.cast<String, dynamic>();
+        if (!mounted) return;
         setState(() {
           _opponentName = opponent?['displayName'] as String?;
           _opponentLocale = opponent?['locale'] as String?;
@@ -117,7 +118,12 @@ class _MatchFlowScreenState extends ConsumerState<MatchFlowScreen> {
         });
 
       case 'error':
-        if (mounted) setState(() => _failure = String(payload['code']));
+        if (mounted) {
+          setState(() {
+            _failure = payload['code']?.toString() ?? 'unknown';
+            _stage = _Stage.failed;
+          });
+        }
     }
   }
 
