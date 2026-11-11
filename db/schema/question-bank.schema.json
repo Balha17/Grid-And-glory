@@ -211,6 +211,13 @@
             { "$ref": "#/$defs/dataStatHighLow" }
           ]
         },
+        "image_path": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 512,
+          "pattern": "^(res://|user://|https://|http://).+",
+          "description": "Optional client image source. Use res:// for bundled images or HTTPS for hosted images; do not use temporary asset:// placeholders."
+        },
         "media": {
           "type": "array",
           "maxItems": 2,
