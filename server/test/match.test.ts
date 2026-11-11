@@ -309,6 +309,35 @@ test("both answers resolve the round immediately without waiting for the deadlin
   assert.ok(now + 250 < deadline, "the deadline has not been reached");
 });
 
+test("the match keeps progressing past round three when both players answer early", () => {
+  const room = buildRoom(3_000_003);
+  let now = 10_000_000;
+  room.start(now);
+  for (let expectedRound = 1; expectedRound <= 4; expectedRound += 1) {
+    now += 1_000;
+    const opened = room.advance(now);
+    const a = opened.find((e) => e.type === "round.question" && e.to === ALICE.playerId);
+    const b = opened.find((e) => e.type === "round.question" && e.to === BOB.playerId);
+    assert.ok(a && b, `round ${expectedRound} must open for both players`);
+    const tokenA = (a!.payload as { token: string }).token;
+    const tokenB = (b!.payload as { token: string }).token;
+    const answerAt = now + 200;
+    const first = room.submitAnswer(ALICE.playerId, { token: tokenA, optionId: "deliberately_wrong" }, answerAt);
+    assert.equal(first.some((e) => e.type === "round.reveal"), false);
+    const second = room.submitAnswer(BOB.playerId, { token: tokenB, optionId: "deliberately_wrong" }, answerAt + 100);
+    assert.equal(second.filter((e) => e.type === "round.reveal").length, 2,
+      `round ${expectedRound} must reveal immediately after the second answer`);
+    now = answerAt + 100 + 1_400;
+    const intro = room.advance(now);
+    assert.equal(intro.filter((e) => e.type === "round.intro").length, 2,
+      `round ${expectedRound + 1} intro must follow its reveal`);
+  }
+  assert.equal(room.clock.roundNo, 5, "the engine has entered the fifth round");
+  now += 1_000;
+  const fifth = room.advance(now);
+  assert.ok(fifth.some((e) => e.type === "round.question"), "the fifth question opens instead of freezing");
+});
+
 test("both submitted answers resolve immediately and the following round opens normally", () => {
   const room = new MatchRoom({
     matchId: 'm_fast_answers',
