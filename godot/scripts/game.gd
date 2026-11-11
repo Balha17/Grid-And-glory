@@ -296,11 +296,12 @@ func _build_stadium() -> void:
 	var home_positions := [Vector3(0,0,21), Vector3(-10,0,14), Vector3(-3.3,0,15), Vector3(3.3,0,15), Vector3(10,0,14), Vector3(-7,0,5), Vector3(0,0,7), Vector3(7,0,5), Vector3(-8,0,-6), Vector3(0,0,-8), Vector3(8,0,-6)]
 	var away_positions := [Vector3(0,0,-21), Vector3(10,0,-14), Vector3(3.3,0,-15), Vector3(-3.3,0,-15), Vector3(-10,0,-14), Vector3(7,0,-5), Vector3(0,0,-7), Vector3(-7,0,-5), Vector3(8,0,6), Vector3(0,0,8), Vector3(-8,0,6)]
 	for i in range(11):
-		var h := _make_player("HOME_" + str(i+1), Color(0.12, 0.58, 1.0))
+		# Keep the two featured players detailed; reserve players use a low-draw-call model.
+		var h := _make_player("HOME_" + str(i+1), Color(0.12, 0.58, 1.0)) if i == 9 else _make_reserve_player("HOME_" + str(i+1), Color(0.12, 0.58, 1.0))
 		h.position = home_positions[i]
 		stadium_root.add_child(h)
 		home_team.append(h)
-		var a := _make_player("AWAY_" + str(i+1), Color(1.0, 0.34, 0.19))
+		var a := _make_player("AWAY_" + str(i+1), Color(1.0, 0.34, 0.19)) if i == 9 else _make_reserve_player("AWAY_" + str(i+1), Color(1.0, 0.34, 0.19))
 		a.position = away_positions[i]
 		stadium_root.add_child(a)
 		away_team.append(a)
@@ -397,6 +398,33 @@ func _build_goal(sign: int) -> void:
 		_line("NetVertical", Vector3(-3.1 + float(i)*0.88, 0.2, z + float(sign)*1.7), Vector3(0.035, 2.5, 0.035), Color(0.78,0.86,0.92,0.5))
 	for i in range(1, 4):
 		_line("NetHorizontal", Vector3(0, float(i)*0.65, z + float(sign)*1.7), Vector3(6.2, 0.025, 0.025), Color(0.78,0.86,0.92,0.5))
+
+func _make_reserve_player(label: String, color: Color) -> Node3D:
+	var root := Node3D.new()
+	root.name = label
+	var body := MeshInstance3D.new()
+	var body_mesh := CapsuleMesh.new()
+	body_mesh.radius = 0.43
+	body_mesh.height = 1.75
+	body.mesh = body_mesh
+	var body_material := StandardMaterial3D.new()
+	body_material.albedo_color = color
+	body_material.roughness = 0.9
+	body.material_override = body_material
+	body.position.y = 1.05
+	root.add_child(body)
+	var head := MeshInstance3D.new()
+	var head_mesh := SphereMesh.new()
+	head_mesh.radius = 0.25
+	head_mesh.height = 0.5
+	head.mesh = head_mesh
+	var head_material := StandardMaterial3D.new()
+	head_material.albedo_color = Color(0.67, 0.43, 0.30)
+	head_material.roughness = 0.95
+	head.material_override = head_material
+	head.position.y = 2.12
+	root.add_child(head)
+	return root
 
 func _make_player(label: String, color: Color) -> Node3D:
 	var root := Node3D.new()
