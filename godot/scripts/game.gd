@@ -41,10 +41,13 @@ var locale_button: Button
 var pitch_status: Label
 var countdown_deadline := 0
 var countdown_duration := 0
+var audio_players: Dictionary = {}
+var audio_requests: Dictionary = {}
 
 func _ready() -> void:
 	_build_stadium()
 	_build_hud()
+	_setup_audio()
 	_show_home()
 	set_process(true)
 
@@ -81,9 +84,9 @@ func _build_stadium() -> void:
 	add_child(world)
 
 	camera = Camera3D.new()
-	camera.position = Vector3(0, 39, 42)
-	camera.rotation_degrees = Vector3(-43, 0, 0)
-	camera.fov = 48
+	camera.position = Vector3(0, 34, 38)
+	camera.rotation_degrees = Vector3(-41, 0, 0)
+	camera.fov = 54
 	add_child(camera)
 	camera.current = true
 
@@ -171,28 +174,66 @@ func _build_goal(sign: int) -> void:
 func _make_player(label: String, color: Color) -> Node3D:
 	var root := Node3D.new()
 	root.name = label
-	var body := MeshInstance3D.new()
-	var capsule := CapsuleMesh.new()
-	capsule.radius = 0.62
-	capsule.height = 1.9
-	body.mesh = capsule
-	body.position.y = 1.0
-	var mat := StandardMaterial3D.new()
-	mat.albedo_color = color
-	mat.metallic = 0.12
-	mat.roughness = 0.42
-	body.material_override = mat
-	root.add_child(body)
-	var head := MeshInstance3D.new()
-	var sphere := SphereMesh.new()
-	sphere.radius = 0.42
-	head.mesh = sphere
-	head.position.y = 2.12
 	var skin := StandardMaterial3D.new()
-	skin.albedo_color = Color(0.88,0.68,0.52)
-	head.material_override = skin
-	root.add_child(head)
+	skin.albedo_color = Color(0.67, 0.43, 0.30)
+	root.add_child(_player_capsule("Shirt", 0.43, 1.18, color, Vector3(0, 1.48, 0)))
+	root.add_child(_player_capsule("Shorts", 0.38, 0.55, Color(0.055,0.075,0.11), Vector3(0, 0.82, 0)))
+	root.add_child(_player_sphere("Head", 0.29, skin, Vector3(0, 2.32, 0)))
+	var hair := StandardMaterial3D.new()
+	hair.albedo_color = Color(0.045,0.035,0.03)
+	root.add_child(_player_sphere("Hair", 0.30, hair, Vector3(0, 2.51, -0.015)))
+	for side in [-1, 1]:
+		var arm := Node3D.new()
+		arm.name = "ArmL" if side < 0 else "ArmR"
+		arm.position = Vector3(float(side)*0.48, 1.86, 0)
+		root.add_child(arm)
+		arm.add_child(_player_capsule("Sleeve", 0.16, 0.72, color, Vector3(0, -0.30, 0)))
+		arm.add_child(_player_sphere("Hand", 0.14, skin, Vector3(0, -0.68, 0)))
+		var leg := Node3D.new()
+		leg.name = "LegL" if side < 0 else "LegR"
+		leg.position = Vector3(float(side)*0.20, 0.72, 0)
+		root.add_child(leg)
+		leg.add_child(_player_capsule("Sock", 0.14, 0.74, Color(0.91,0.92,0.94), Vector3(0, -0.35, 0)))
+		leg.add_child(_player_box("Boot", Vector3(0.26,0.15,0.48), Color(0.035,0.04,0.045), Vector3(0,-0.73,-0.13)))
 	return root
+
+func _player_capsule(label: String, radius: float, height: float, color: Color, pos: Vector3) -> MeshInstance3D:
+	var node := MeshInstance3D.new()
+	node.name = label
+	var mesh := CapsuleMesh.new()
+	mesh.radius = radius
+	mesh.height = height
+	node.mesh = mesh
+	node.position = pos
+	var material := StandardMaterial3D.new()
+	material.albedo_color = color
+	material.roughness = 0.68
+	node.material_override = material
+	return node
+
+func _player_sphere(label: String, radius: float, material: Material, pos: Vector3) -> MeshInstance3D:
+	var node := MeshInstance3D.new()
+	node.name = label
+	var mesh := SphereMesh.new()
+	mesh.radius = radius
+	mesh.height = radius * 2.0
+	node.mesh = mesh
+	node.position = pos
+	node.material_override = material
+	return node
+
+func _player_box(label: String, size: Vector3, color: Color, pos: Vector3) -> MeshInstance3D:
+	var node := MeshInstance3D.new()
+	node.name = label
+	var mesh := BoxMesh.new()
+	mesh.size = size
+	node.mesh = mesh
+	node.position = pos
+	var material := StandardMaterial3D.new()
+	material.albedo_color = color
+	material.roughness = 0.55
+	node.material_override = material
+	return node
 
 func _box(label: String, pos: Vector3, size: Vector3, color: Color, wire := false) -> void:
 	var node := MeshInstance3D.new()
@@ -237,8 +278,14 @@ func _build_hud() -> void:
 	root.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	hud.add_child(root)
 	var top := PanelContainer.new()
-	top.position = Vector2(18, 22)
-	top.size = Vector2(684, 116)
+	top.anchor_left = 0.025
+	top.anchor_right = 0.975
+	top.anchor_top = 0.012
+	top.anchor_bottom = 0.105
+	top.offset_left = 0
+	top.offset_right = 0
+	top.offset_top = 0
+	top.offset_bottom = 0
 	root.add_child(top)
 	var topbox := VBoxContainer.new()
 	top.add_child(topbox)
@@ -261,10 +308,10 @@ func _build_hud() -> void:
 	bottom.anchor_right = 1
 	bottom.anchor_top = 1
 	bottom.anchor_bottom = 1
-	bottom.offset_left = 18
-	bottom.offset_right = -18
-	bottom.offset_top = -440
-	bottom.offset_bottom = -18
+	bottom.offset_left = 12
+	bottom.offset_right = -12
+	bottom.offset_top = -330
+	bottom.offset_bottom = -10
 	root.add_child(bottom)
 	var content := VBoxContainer.new()
 	content.add_theme_constant_override("separation", 10)
@@ -358,6 +405,7 @@ func _handle_frame(frame: Dictionary) -> void:
 			question_label.text = "OPPONENT FOUND"
 			status_label.text = "KICK-OFF INCOMING"
 		"match.start", "match.second_half":
+			_play_sfx("whistle")
 			phase = "round_intro"
 			_read_scores(p)
 			status_label.text = "KICK OFF • HALF " + str(p.get("half", 1))
@@ -380,6 +428,7 @@ func _handle_frame(frame: Dictionary) -> void:
 			countdown_deadline = Time.get_ticks_msec() + countdown_duration
 			status_label.text = "SHOOTING CHANCE!" if phase == "shooting_chance" else "ANSWER FAST TO WIN THE BALL"
 			animate_attack(you_are_shooting)
+			_play_sfx("kick")
 		"round.answer_ack":
 			status_label.text = "ANSWER LOCKED • WAIT FOR REFEREE"
 		"round.opponent_answered":
@@ -401,6 +450,7 @@ func _handle_frame(frame: Dictionary) -> void:
 			question_label.text = str(p.get("explainer", ""))
 			_clear_options()
 			animate_shot(scored)
+			_play_sfx("cheer" if scored else "kick")
 		"match.half":
 			phase = "half_time"
 			_read_scores(p)
@@ -498,12 +548,15 @@ func _update_pitch_state() -> void:
 	var away_shift := float(rival_zone) * 2.1
 	var home_base := [Vector3(0,0,21),Vector3(-10,0,14),Vector3(-3.3,0,15),Vector3(3.3,0,15),Vector3(10,0,14),Vector3(-7,0,5),Vector3(0,0,7),Vector3(7,0,5),Vector3(-8,0,-6),Vector3(0,0,-8),Vector3(8,0,-6)]
 	var away_base := [Vector3(0,0,-21),Vector3(10,0,-14),Vector3(3.3,0,-15),Vector3(-3.3,0,-15),Vector3(-10,0,-14),Vector3(7,0,-5),Vector3(0,0,-7),Vector3(-7,0,-5),Vector3(8,0,6),Vector3(0,0,8),Vector3(-8,0,6)]
+	var gait := float(Time.get_ticks_msec()) * 0.012
 	for i in range(home_team.size()):
 		var target: Vector3 = home_base[i] + Vector3(0,0,-home_shift)
 		home_team[i].position = home_team[i].position.lerp(target, 0.025)
+		_animate_player(home_team[i], gait + float(i)*0.55)
 	for i in range(away_team.size()):
 		var target: Vector3 = away_base[i] + Vector3(0,0,away_shift)
 		away_team[i].position = away_team[i].position.lerp(target, 0.025)
+		_animate_player(away_team[i], -gait + float(i)*0.55)
 	pitch_status.text = "ATTACKING • ZONE " + str(my_zone) if my_zone > rival_zone else "DEFENDING • WIN THE BALL"
 
 func animate_kickoff() -> void:
@@ -537,3 +590,75 @@ func animate_shot(scored: bool) -> void:
 	if scored:
 		tween.parallel().tween_property(camera, "fov", 54.0, 0.35)
 		tween.tween_property(camera, "fov", 48.0, 0.35)
+
+func _animate_player(player: Node3D, gait: float) -> void:
+	var moving := phase in ["round_intro", "question_open", "shooting_chance", "round_reveal", "shot_reveal"]
+	var amount := 0.22 if moving else 0.035
+	for limb_name in ["LegL", "LegR", "ArmL", "ArmR"]:
+		var limb := player.get_node_or_null(limb_name) as Node3D
+		if limb:
+			var side := -1.0 if limb_name.ends_with("L") else 1.0
+			var multiplier := 1.0 if limb_name.begins_with("Leg") else -0.72
+			limb.rotation.x = sin(gait) * amount * side * multiplier
+
+func _setup_audio() -> void:
+	DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path("user://audio"))
+	_create_audio_player("ambience", true, -18.0)
+	_create_audio_player("cheer", false, -4.0)
+	_create_audio_player("whistle", false, -7.0)
+	_create_audio_player("kick", false, -9.0)
+	_load_or_download_audio("ambience", "stadium-crowd-03.mp3", "https://sfxmint.com/dl/stadium-crowd-03.mp3")
+	_load_or_download_audio("cheer", "stadium-crowd-02.mp3", "https://sfxmint.com/dl/stadium-crowd-02.mp3")
+	_load_or_download_audio("whistle", "instrument-whistle-11.mp3", "https://sfxmint.com/dl/instrument-whistle-11.mp3")
+	_load_or_download_audio("kick", "impact-thud-42.mp3", "https://sfxmint.com/dl/impact-thud-42.mp3")
+
+func _create_audio_player(key: String, looping: bool, volume_db: float) -> void:
+	var player := AudioStreamPlayer.new()
+	player.name = "Audio_" + key
+	player.volume_db = volume_db
+	add_child(player)
+	audio_players[key] = player
+	player.set_meta("looping", looping)
+
+func _load_or_download_audio(key: String, filename: String, url: String) -> void:
+	var path := "user://audio/" + filename
+	if FileAccess.file_exists(path):
+		_apply_audio_data(key, FileAccess.get_file_as_bytes(path))
+		return
+	var request := HTTPRequest.new()
+	request.timeout = 20.0
+	add_child(request)
+	audio_requests[key] = request
+	request.request_completed.connect(_on_audio_download_completed.bind(key, path))
+	var error := request.request(url)
+	if error != OK:
+		push_warning("Audio download could not start: " + key)
+
+func _on_audio_download_completed(result: int, response_code: int, _headers: PackedStringArray, body: PackedByteArray, key: String, path: String) -> void:
+	if result != HTTPRequest.RESULT_SUCCESS or response_code != 200 or body.is_empty():
+		push_warning("Audio download failed: " + key)
+		return
+	var file := FileAccess.open(path, FileAccess.WRITE)
+	if file:
+		file.store_buffer(body)
+	_apply_audio_data(key, body)
+
+func _apply_audio_data(key: String, bytes: PackedByteArray) -> void:
+	var stream := AudioStreamMP3.new()
+	stream.data = bytes
+	stream.loop = bool(audio_players[key].get_meta("looping", false))
+	var player: AudioStreamPlayer = audio_players[key]
+	player.stream = stream
+	if key == "ambience":
+		player.play()
+
+func _play_sfx(key: String) -> void:
+	if audio_players.has(key):
+		var player: AudioStreamPlayer = audio_players[key]
+		if player.stream:
+			player.play()
+
+func _exit_tree() -> void:
+	for request in audio_requests.values():
+		if is_instance_valid(request):
+			request.cancel_request()
