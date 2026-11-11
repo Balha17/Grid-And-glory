@@ -385,8 +385,10 @@ func _build_hud() -> void:
 	home_layer = Control.new()
 	home_layer.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	root.add_child(home_layer)
-	var backdrop := ColorRect.new()
-	backdrop.color = Color(0.012,0.025,0.075)
+	var backdrop := TextureRect.new()
+	backdrop.texture = load("res://assets/menu_stadium_bg.svg")
+	backdrop.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	backdrop.stretch_mode = TextureRect.STRETCH_SCALE
 	backdrop.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	home_layer.add_child(backdrop)
 	var glow := ColorRect.new()
