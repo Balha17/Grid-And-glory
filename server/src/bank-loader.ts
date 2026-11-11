@@ -47,9 +47,14 @@ export const loadBank = async (path = DEFAULT_BANK): Promise<LoadedBank> => {
   // Never publish a visual clue unless its real image is hosted and available.
   // The current bank still contains placeholder asset:// references, so exclude
   // every media-dependent question from live matches and Shooting Chances.
-  const playableQuestions = raw.questions.filter(
-    (q) => q.format !== "blur_reveal" && !(q.media?.length),
-  );
+  const playableQuestions = raw.questions.filter((q) => {
+    // Image questions are playable only when a real client image source is supplied.
+    // Legacy asset:// placeholders are intentionally not treated as playable media.
+    if (q.format === "blur_reveal" || (q.media?.length ?? 0) > 0) {
+      return typeof q.image_path === "string" && /^(res:\/\/|user:\/\/|https?:\/\/)/.test(q.image_path);
+    }
+    return true;
+  });
 
   return {
     catalog,
