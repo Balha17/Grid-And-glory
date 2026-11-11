@@ -269,6 +269,25 @@ test("every career-path question renders its complete chronological club sequenc
   }
 });
 
+test("a stronger player beats a weaker one over a full match", () => {
+  const goals = strongVsWeak.room.result.goals;
+  assert.ok(
+    goals[ALICE.playerId] > goals[BOB.playerId],
+    `expected the 92% player to outscore the 35% player, got ${JSON.stringify(goals)}`,
+  );
+});
+
+/* -------------------------------------------------------- connection handling */
+
+const buildRoom = (seed: number): MatchRoom =>
+  new MatchRoom({
+    matchId: `m_conn_${seed}`,
+    players: [ALICE, BOB],
+    pool: drawPool(bank.questions, 18, seed),
+    shotPool: bank.shotQuestions,
+    catalog: bank.catalog,
+  });
+
 test("both submitted answers resolve immediately and the following round opens normally", () => {
   const room = buildRoom(20261111);
   let now = 9_500_000;
@@ -300,24 +319,6 @@ test("both submitted answers resolve immediately and the following round opens n
   assert.equal(room.clock.roundNo, 2);
 });
 
-test("a stronger player beats a weaker one over a full match", () => {
-  const goals = strongVsWeak.room.result.goals;
-  assert.ok(
-    goals[ALICE.playerId] > goals[BOB.playerId],
-    `expected the 92% player to outscore the 35% player, got ${JSON.stringify(goals)}`,
-  );
-});
-
-/* -------------------------------------------------------- connection handling */
-
-const buildRoom = (seed: number): MatchRoom =>
-  new MatchRoom({
-    matchId: `m_conn_${seed}`,
-    players: [ALICE, BOB],
-    pool: drawPool(bank.questions, 18, seed),
-    shotPool: bank.shotQuestions,
-    catalog: bank.catalog,
-  });
 
 test("disconnect past the grace period forfeits the match", () => {
   const room = buildRoom(7);
