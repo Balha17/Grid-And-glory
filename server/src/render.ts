@@ -152,6 +152,7 @@ export const renderQuestion = (doc: QuestionDoc, locale: Locale, ctx: RenderCont
       url: ctx.assetUrl(m.assetId),
       alt: "",
     })),
+    ...(doc.image_path ? { imagePath: doc.image_path } : {}),
   };
 };
 
