@@ -307,6 +307,23 @@ test("disconnect past the grace period forfeits the match", () => {
   assert.equal((endForBob!.payload as { decidedBy: string }).decidedBy, "forfeit");
 });
 
+test("a player who lets the question timer expire receives a wrong verdict", () => {
+  const room = buildRoom(71);
+  let now = 5_500_000;
+  const opening = room.start(now);
+  now += 1_100;
+  const questionFrames = room.advance(now);
+  const question = questionFrames.find((e) => e.type === "round.question" && e.to === ALICE.playerId);
+  assert.ok(question, "the question opens");
+  const deadline = (question!.payload as { windowEndsAt: number }).windowEndsAt;
+  const reveal = room.advance(deadline);
+  const result = reveal.find((e) => e.type === "round.reveal" && e.to === ALICE.playerId);
+  assert.ok(result, "the deadline produces a reveal");
+  assert.equal((result!.payload as { outcome: string }).outcome, "wrong");
+  assert.equal(room.players[ALICE.playerId].wrong, 1, "timeout is included in incorrect answers");
+  assert.equal(room.players[ALICE.playerId].noAnswer, 1, "timeout is still tracked separately");
+});
+
 test("a reconnect inside the grace period resumes instead of forfeiting", () => {
   const room = buildRoom(8);
   let now = 6_000_000;
