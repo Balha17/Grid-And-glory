@@ -126,10 +126,10 @@ v31.mkdir(parents=True, exist_ok=True)
 (v31 / "styles.xml").write_text(
     '<?xml version="1.0" encoding="utf-8"?>\n'
     '<resources>\n'
-    '  <style name="LaunchTheme" parent="@android:style/Theme.SplashScreen">\n'
-    '    <item name="android:windowSplashScreenBackground">#0B1220</item>\n'
-    '    <item name="android:windowSplashScreenAnimatedIcon">@drawable/gg_splash_icon</item>\n'
-    '    <item name="android:windowSplashScreenIconBackgroundColor">#172B40</item>\n'
+    '  <style name="LaunchTheme" parent="Theme.SplashScreen">\n'
+    '    <item name="windowSplashScreenBackground">#0B1220</item>\n'
+    '    <item name="windowSplashScreenAnimatedIcon">@drawable/gg_splash_icon</item>\n'
+    '    <item name="windowSplashScreenIconBackgroundColor">#172B40</item>\n'
     '    <item name="postSplashScreenTheme">@style/NormalTheme</item>\n'
     '  </style>\n'
     '  <style name="NormalTheme" parent="@android:style/Theme.Light.NoTitleBar">\n'
@@ -190,6 +190,14 @@ for gradle in list(app_dir.glob("android/app/build.gradle*")):
             "signingConfig = if (hasReleaseKey) signingConfigs.getByName(\"release\") "
             "else signingConfigs.getByName(\"debug\")",
         )
+
+    # AndroidX supplies the compatibility SplashScreen theme and its attributes.
+    dependency = 'implementation("androidx.core:core-splashscreen:1.0.1")' if gradle.suffix == ".kts" else "implementation 'androidx.core:core-splashscreen:1.0.1'"
+    if "core-splashscreen" not in s:
+        if re.search(r"(?m)^dependencies\\s*\\{", s):
+            s = re.sub(r"(?m)^dependencies\\s*\\{", lambda m: m.group(0) + "\\n    " + dependency, s, count=1)
+        else:
+            s += "\\n\\ndependencies {\\n    " + dependency + "\\n}\\n"
 
     gradle.write_text(s)
 
