@@ -115,7 +115,30 @@ class HomeScreen extends ConsumerWidget {
                           color: AppColors.textSecondary,
                         ),
                       ),
-                      const SizedBox(height: 30),
+                      const SizedBox(height: 22),
+                      Wrap(
+                        alignment: WrapAlignment.center,
+                        spacing: 8,
+                        runSpacing: 8,
+                        children: [
+                          _FeatureChip(
+                            icon: Icons.bolt_rounded,
+                            label: isArabic ? 'تحديات سريعة' : 'FAST DUELS',
+                            locale: locale,
+                          ),
+                          _FeatureChip(
+                            icon: Icons.smart_toy_rounded,
+                            label: isArabic ? 'خصم ذكي' : 'AI RIVAL',
+                            locale: locale,
+                          ),
+                          _FeatureChip(
+                            icon: Icons.translate_rounded,
+                            label: isArabic ? 'عربي • English' : 'ARABIC • ENGLISH',
+                            locale: locale,
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 28),
                       _SectionEyebrow(
                         locale: locale,
                         text: isArabic ? 'اختر ساحة المنافسة' : 'CHOOSE YOUR ARENA',
@@ -125,8 +148,8 @@ class HomeScreen extends ConsumerWidget {
                         locale: locale,
                         title: l10n.playOnline,
                         subtitle: isArabic
-                            ? 'واجه لاعبين من حول العالم'
-                            : 'Challenge players around the world',
+                            ? 'ابحث عن لاعب، وسينضم الذكاء الاصطناعي عند الانتظار'
+                            : 'Find a player — AI joins if matchmaking takes too long',
                         icon: Icons.public_rounded,
                         primary: true,
                         onTap: () => Navigator.of(context).push(
@@ -140,8 +163,8 @@ class HomeScreen extends ConsumerWidget {
                         locale: locale,
                         title: l10n.playVsAi,
                         subtitle: isArabic
-                            ? 'تدرّب وتحدَّ الذكاء الاصطناعي'
-                            : 'Train and test your skills against AI',
+                            ? 'ابدأ مباراة فوراً ضد خصم ذكي'
+                            : 'Start instantly against an AI opponent',
                         icon: Icons.smart_toy_rounded,
                         primary: false,
                         onTap: () => Navigator.of(context).push(
@@ -364,6 +387,44 @@ class _HeroEmblem extends StatelessWidget {
           ],
         ),
         child: const Center(child: _BrandMark(size: 104)),
+      );
+}
+
+class _FeatureChip extends StatelessWidget {
+  const _FeatureChip({
+    required this.icon,
+    required this.label,
+    required this.locale,
+  });
+
+  final IconData icon;
+  final String label;
+  final Locale locale;
+
+  @override
+  Widget build(BuildContext context) => Container(
+        padding: const EdgeInsetsDirectional.symmetric(horizontal: 11, vertical: 8),
+        decoration: BoxDecoration(
+          color: AppColors.bgRaised.withValues(alpha: 0.72),
+          borderRadius: const BorderRadius.all(AppRadii.pill),
+          border: Border.all(color: AppColors.border.withValues(alpha: 0.9)),
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(icon, size: 14, color: AppColors.accent),
+            const SizedBox(width: 6),
+            Text(
+              label,
+              style: AppType.label(locale).copyWith(
+                color: AppColors.textSecondary,
+                fontSize: 9,
+                fontWeight: FontWeight.w900,
+                letterSpacing: locale.languageCode == 'ar' ? 0 : 0.7,
+              ),
+            ),
+          ],
+        ),
       );
 }
 
