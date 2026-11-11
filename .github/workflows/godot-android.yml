@@ -56,7 +56,12 @@ jobs:
       - name: Validate project and scripts
         run: |
           godot --version
-          godot --headless --editor --path godot --quit
+          set -o pipefail
+          godot --headless --editor --path godot --quit --verbose 2>&1 | tee /tmp/godot-import.log
+          if grep -E "SCRIPT ERROR:|Parse Error:|ERROR: Failed to load script" /tmp/godot-import.log; then
+            echo "Godot script validation failed."
+            exit 1
+          fi
 
       - name: Validate bilingual question bank
         run: |
