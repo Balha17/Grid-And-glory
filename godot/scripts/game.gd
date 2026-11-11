@@ -198,6 +198,7 @@ func _build_stadium() -> void:
 	ball.material_override = ball_mat
 	stadium_root.add_child(ball)
 	_add_stands()
+	_add_stadium_details()
 
 func _add_stands() -> void:
 	for side in [-1, 1]:
@@ -213,6 +214,39 @@ func _add_stands() -> void:
 				mat.albedo_color = [Color(0.08,0.45,0.75), Color(0.9,0.28,0.17), Color(0.88,0.9,0.94)][(row+col)%3]
 				seat.material_override = mat
 				stadium_root.add_child(seat)
+
+func _add_stadium_details() -> void:
+	# LED perimeter boards frame the pitch and separate the playing surface from the stands.
+	for side in [-1, 1]:
+		_box("LED_Perimeter", Vector3(float(side) * 14.65, 0.58, 0), Vector3(0.22, 1.05, 48), Color(0.018, 0.12, 0.24))
+		_box("LED_Gold_Trim", Vector3(float(side) * 14.79, 0.58, 0), Vector3(0.035, 0.08, 47.5), Color(0.96, 0.58, 0.12))
+		_box("End_Perimeter", Vector3(0, 0.58, float(side) * 24.55), Vector3(28.5, 1.05, 0.22), Color(0.018, 0.12, 0.24))
+		_box("End_Gold_Trim", Vector3(0, 0.58, float(side) * 24.69), Vector3(28.2, 0.08, 0.035), Color(0.96, 0.58, 0.12))
+	# Four floodlight masts give the stadium a night-match silhouette and real light sources.
+	for side in [-1, 1]:
+		for end in [-1, 1]:
+			var x := float(side) * 19.0
+			var z := float(end) * 26.0
+			_box("Floodlight_Mast", Vector3(x, 6.8, z), Vector3(0.34, 13.6, 0.34), Color(0.12, 0.17, 0.24))
+			_box("Floodlight_Beam", Vector3(x, 13.35, z), Vector3(3.4, 0.24, 0.34), Color(0.16, 0.22, 0.30))
+			for lamp_index in range(4):
+				var lamp_x := x - 1.2 + float(lamp_index) * 0.8
+				_box("Floodlight_Lamp", Vector3(lamp_x, 13.15, z), Vector3(0.48, 0.34, 0.16), Color(0.82, 0.91, 1.0))
+			var glow := OmniLight3D.new()
+			glow.name = "Floodlight_Glow"
+			glow.position = Vector3(x, 12.9, z)
+			glow.light_color = Color(0.76, 0.86, 1.0)
+			glow.light_energy = 1.15
+			glow.omni_range = 30.0
+			glow.shadow_enabled = false
+			stadium_root.add_child(glow)
+	# Corner flags make the field markings read like a complete football ground.
+	for side in [-1, 1]:
+		for end in [-1, 1]:
+			var flag_x := float(side) * 13.8
+			var flag_z := float(end) * 23.8
+			_box("Corner_Flag_Pole", Vector3(flag_x, 1.05, flag_z), Vector3(0.055, 2.1, 0.055), Color(0.92, 0.94, 0.98))
+			_box("Corner_Flag", Vector3(flag_x + float(side) * 0.28, 1.75, flag_z), Vector3(0.55, 0.34, 0.035), Color(0.96, 0.58, 0.12))
 
 func _build_goal(sign: int) -> void:
 	var z := float(sign) * (FIELD_LENGTH/2.0 + 0.45)
