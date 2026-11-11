@@ -445,7 +445,11 @@ class _QuizPanel extends StatelessWidget {
                   Text(l10n.opponentAnswered, style: AppType.label(locale)),
               ],
               const SizedBox(width: AppSpacing.sm),
-              _TimerChip(seconds: state.remainingSeconds, locale: locale),
+              _TimerChip(
+                key: ValueKey('${state.half}:${state.roundNo}:${state.phase == 'shoot' ? 'shoot' : 'normal'}'),
+                seconds: state.remainingSeconds,
+                locale: locale,
+              ),
             ],
           ),
           const SizedBox(height: AppSpacing.sm),
