@@ -1,7 +1,0 @@
-{
-  "dependencies": {
-    "com.unity.ugui": "1.0.0",
-    "com.endel.nativewebsocket": "https://github.com/endel/NativeWebSocket.git#upm",
-    "com.unity.nuget.newtonsoft-json": "3.2.1"
-  }
-}
