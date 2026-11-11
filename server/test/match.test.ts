@@ -338,43 +338,50 @@ test("the match keeps progressing past round three when both players answer earl
   assert.ok(fifth.some((e) => e.type === "round.question"), "the fifth question opens instead of freezing");
 });
 
-test("both submitted answers resolve immediately and the following round opens normally", () => {
+test("both answers advance immediately through the third round without a stuck phase", () => {
   const room = new MatchRoom({
-    matchId: 'm_fast_answers',
+    matchId: "m_fast_answers",
     players: [ALICE, BOB],
     pool: drawPool(bank.questions, 18, 20261111),
     shotPool: bank.shotQuestions,
     catalog: bank.catalog,
   });
   let now = 9_500_000;
-  const start = room.start(now);
-  assert.ok(start.some((e) => e.type === "round.intro"));
-  now += 1_000;
-  const opened = room.advance(now);
-  const qa = opened.find((e) => e.type === "round.question" && e.to === ALICE.playerId);
-  const qb = opened.find((e) => e.type === "round.question" && e.to === BOB.playerId);
-  assert.ok(qa && qb, "both players receive the same live round");
-  const tokenA = (qa!.payload as { token: string }).token;
-  const tokenB = (qb!.payload as { token: string }).token;
-  const audit = room.audit!;
-  const a = room.submitAnswer(ALICE.playerId, { token: tokenA, optionId: audit.answerOptionId }, now + 250);
-  assert.ok(a.some((e) => e.type === "round.answer_ack"));
-  assert.equal(a.some((e) => e.type === "round.reveal"), false, "wait for the second answer");
-  const b = room.submitAnswer(BOB.playerId, { token: tokenB, optionId: audit.answerOptionId }, now + 500);
-  assert.equal(b.filter((e) => e.type === "round.reveal").length, 2,
-    "the second answer immediately reveals to both players");
-  assert.equal(room.phaseName, "round_reveal");
-  now += 500 + 1_400;
-  const nextIntro = room.advance(now);
-  assert.equal(room.phaseName, "round_intro");
-  assert.ok(nextIntro.some((e) => e.type === "round.intro"), "round 2 intro is emitted");
-  now += 1_000;
-  const nextQuestion = room.advance(now);
-  assert.equal(room.phaseName, "question_open");
-  assert.ok(nextQuestion.some((e) => e.type === "round.question"), "round 2 question opens");
-  assert.equal(room.clock.roundNo, 2);
-});
+  assert.ok(room.start(now).some((e) => e.type === "round.intro"));
 
+  for (let round = 1; round <= 3; round++) {
+    now += 1_000;
+    const opened = room.advance(now);
+    const qa = opened.find((e) => e.type === "round.question" && e.to === ALICE.playerId);
+    const qb = opened.find((e) => e.type === "round.question" && e.to === BOB.playerId);
+    assert.ok(qa && qb, `both players receive round ${round}`);
+    const tokenA = (qa!.payload as { token: string }).token;
+    const tokenB = (qb!.payload as { token: string }).token;
+    const answerId = room.audit!.answerOptionId;
+
+    const a = room.submitAnswer(ALICE.playerId, { token: tokenA, optionId: answerId }, now + 250);
+    assert.ok(a.some((e) => e.type === "round.answer_ack"));
+    assert.equal(a.some((e) => e.type === "round.reveal"), false, "first answer waits for opponent");
+    const b = room.submitAnswer(BOB.playerId, { token: tokenB, optionId: answerId }, now + 500);
+    assert.equal(b.filter((e) => e.type === "round.reveal").length, 2,
+      "second answer reveals immediately to both players");
+    assert.equal(room.phaseName, "round_reveal");
+    assert.equal(room.clock.roundNo, round);
+
+    now += 500 + 1_400;
+    const nextIntro = room.advance(now);
+    assert.equal(room.phaseName, "round_intro", `round ${round} must not leave the room stuck`);
+    assert.ok(nextIntro.some((e) => e.type === "round.intro"),
+      `round ${round + 1} intro must be emitted`);
+  }
+
+  now += 1_000;
+  const fourthQuestion = room.advance(now);
+  assert.equal(room.phaseName, "question_open");
+  assert.ok(fourthQuestion.some((e) => e.type === "round.question"),
+    "the match continues after round 3 and opens round 4");
+  assert.equal(room.clock.roundNo, 4);
+});
 
 test("disconnect past the grace period forfeits the match", () => {
   const room = buildRoom(7);
