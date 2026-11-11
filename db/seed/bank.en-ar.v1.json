@@ -3665,9 +3665,9 @@
     {
       "schemaVersion": "1.0.0",
       "localization": {
-        "enChars": 63,
-        "arChars": 52,
-        "parityRatio": 0.825,
+        "enChars": 72,
+        "arChars": 57,
+        "parityRatio": 0.792,
         "verifiedBy": "ar-linguist-01"
       },
       "authoring": {
