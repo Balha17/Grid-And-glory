@@ -67,8 +67,9 @@ jobs:
           GODOT_ANDROID_KEYSTORE_DEBUG_USER: androiddebugkey
           GODOT_ANDROID_KEYSTORE_DEBUG_PASSWORD: android
         run: |
-          mkdir -p build/godot
+          mkdir -p godot/build/godot
           godot --headless --verbose --path godot --export-debug "Android" build/godot/grid-and-glory-debug.apk
+          test -s godot/build/godot/grid-and-glory-debug.apk
 
       - name: Upload Godot APK
         uses: actions/upload-artifact@v4
