@@ -42,6 +42,7 @@ var sound_muted := false
 var title_label: Label
 var status_label: Label
 var question_label: Label
+	var clue_label: Label
 var score_label: Label
 var timer_label: Label
 var options_box: VBoxContainer
@@ -359,6 +360,15 @@ func _build_hud() -> void:
 	pitch_status.add_theme_color_override("font_color", Color(0.48,0.85,1.0))
 	pitch_status.add_theme_font_size_override("font_size", 15)
 	content.add_child(pitch_status)
+	clue_label = Label.new()
+	clue_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	clue_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	clue_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	clue_label.custom_minimum_size = Vector2(0, 76)
+	clue_label.add_theme_color_override("font_color", Color(1.0,0.82,0.35))
+	clue_label.add_theme_font_size_override("font_size", 34)
+	clue_label.visible = false
+	content.add_child(clue_label)
 	question_label = Label.new()
 	question_label.text = "Get ready for the next challenge"
 	question_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
@@ -522,6 +532,8 @@ func _show_home() -> void:
 	home_primary_button.text = "PLAY ONLINE"
 	home_secondary_button.text = "PLAY VS AI"
 	question_label.text = "Choose your arena / اختر ساحة المنافسة"
+	clue_label.text = ""
+	clue_label.visible = false
 	_clear_options()
 	action_box.visible = true
 	status_label.text = "READY FOR KICK-OFF"
@@ -691,6 +703,29 @@ func _show_question(view: Dictionary) -> void:
 			return
 	question_label.text = prompt
 	question_label.text_direction = Control.TEXT_DIRECTION_AUTO
+	# Render format-specific clues: the old client showed only the prompt and
+	# answer buttons, silently dropping emoji, career-path and statistics data.
+	var format_data: Dictionary = view.get("formatData", {})
+	var format_type := str(format_data.get("type", view.get("format", "mc")))
+	clue_label.text = ""
+	clue_label.visible = false
+	if format_type == "emoji_story":
+		clue_label.text = str(format_data.get("emoji", ""))
+		clue_label.add_theme_font_size_override("font_size", 48)
+		clue_label.visible = not clue_label.text.strip_edges().is_empty()
+	elif format_type == "career_path":
+		var career_clubs: Array = format_data.get("clubs", [])
+		var club_names: Array[String] = []
+		for club in career_clubs:
+			if club is Dictionary and not str(club.get("name", "")).is_empty():
+				club_names.append(str(club.get("name", "")))
+		clue_label.text = "  →  ".join(club_names)
+		clue_label.add_theme_font_size_override("font_size", 22)
+		clue_label.visible = not club_names.is_empty()
+	elif format_type == "stat_highlow":
+		clue_label.text = str(format_data.get("statLabel", ""))
+		clue_label.add_theme_font_size_override("font_size", 24)
+		clue_label.visible = not clue_label.text.is_empty()
 	_clear_options()
 	current_options = incoming_options
 	for index in range(current_options.size()):
