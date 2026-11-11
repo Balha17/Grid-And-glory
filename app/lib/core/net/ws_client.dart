@@ -36,6 +36,7 @@ class GameSocket {
     required String locale,
     required String region,
     String? sessionToken,
+    String? displayName,
   }) async {
     _channel = WebSocketChannel.connect(Uri.parse(url));
     await _channel!.ready;
@@ -52,6 +53,7 @@ class GameSocket {
       'locale': locale,
       'region': region,
       if (sessionToken != null) 'sessionToken': sessionToken,
+      if (displayName != null && displayName.trim().isNotEmpty) 'displayName': displayName.trim(),
     });
 
     _pingTimer = Timer.periodic(const Duration(seconds: 10), (_) {
