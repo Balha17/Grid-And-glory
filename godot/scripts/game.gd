@@ -890,11 +890,10 @@ func _show_question(view: Dictionary) -> void:
 	current_options = incoming_options
 	for index in range(current_options.size()):
 		var option: Dictionary = current_options[index]
-		var letter := char(65 + index)
+		var letter := ["A", "B", "C", "D"][index % 4]
 		var b := _make_button(letter + "   " + str(option.get("text", "")), Color(0.035,0.12,0.24), Color(0.18,0.43,0.68), 58)
 		b.add_theme_font_size_override("font_size", 16)
-		b.text_alignment = HORIZONTAL_ALIGNMENT_CENTER
-		b.clip_text = true
+		b.alignment = HORIZONTAL_ALIGNMENT_CENTER
 		b.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		b.text_direction = Control.TEXT_DIRECTION_AUTO
 		var option_id := str(option.get("id", ""))
