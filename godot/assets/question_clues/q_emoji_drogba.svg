@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="320" height="112" viewBox="0 0 320 220">
+<title>Ivory Coast • Legend</title><defs><linearGradient id="bg" x2="1" y2="1"><stop stop-color="#12365b"/><stop offset="1" stop-color="#061426"/></linearGradient><linearGradient id="edge"><stop stop-color="#f5c45a"/><stop offset="1" stop-color="#fff0a8"/></linearGradient></defs>
+<rect x="3" y="3" width="314" height="214" rx="26" fill="url(#bg)" stroke="url(#edge)" stroke-width="5"/>
+<circle cx="94" cy="110" r="58" fill="#ffffff" opacity=".08"/><circle cx="225" cy="110" r="58" fill="#ffffff" opacity=".05"/>
+<g><path d="M48 66h92v88H48z" fill="#fff"/><path d="M48 66h31v88H48z" fill="#f77f00"/><path d="M109 66h31v88h-31z" fill="#009e60"/></g><g><path d="M192 90q12-20 39-12 23 6 25 31l-8 24h-15l-3-20-9 20h-28l-8-21q-13-12-3-22z" fill="#8db5d0"/><path d="M250 105q22 4 12 27-4 9-12 4" fill="none" stroke="#8db5d0" stroke-width="10" stroke-linecap="round"/><circle cx="239" cy="96" r="3" fill="#0b2540"/></g><g transform="translate(0 0)"><path d="M225 145s-49-30-49-59c0-28 36-37 49-12 13-25 49-16 49 12 0 29-49 59-49 59z" fill="#ef5270"/></g>
+<path d="M158 43v134" stroke="#78b9ed" stroke-width="2" opacity=".45"/>
+<circle cx="94" cy="110" r="49" fill="none" stroke="#d9eaff" stroke-width="2" opacity=".45"/>
+</svg>
