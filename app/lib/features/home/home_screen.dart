@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../core/locale/locale_controller.dart';
 import '../../core/theme/tokens.dart';
@@ -77,6 +78,12 @@ class HomeScreen extends ConsumerWidget {
                                 ),
                               ],
                             ),
+                          ),
+                          const SizedBox(width: 4),
+                          IconButton(
+                            tooltip: isArabic ? 'اسم اللاعب' : 'Player nickname',
+                            onPressed: () => _editPlayerName(context, ref, locale),
+                            icon: const Icon(Icons.edit_rounded, color: AppColors.accent),
                           ),
                         ],
                       ),
@@ -202,6 +209,47 @@ class HomeScreen extends ConsumerWidget {
       ),
     );
   }
+}
+
+
+Future<void> _editPlayerName(BuildContext context, WidgetRef ref, Locale locale) async {
+  final prefs = ref.read(sharedPreferencesProvider);
+  final controller = TextEditingController(text: prefs.getString('player_nickname') ?? '');
+  final isArabic = locale.languageCode == 'ar';
+  final value = await showDialog<String>(
+    context: context,
+    builder: (dialogContext) => AlertDialog(
+      backgroundColor: AppColors.bgRaised,
+      title: Text(isArabic ? 'اختر لقبك' : 'Choose your nickname',
+          style: AppType.title(locale).copyWith(color: AppColors.textPrimary)),
+      content: TextField(
+        controller: controller,
+        autofocus: true,
+        maxLength: 18,
+        textDirection: isArabic ? TextDirection.rtl : TextDirection.ltr,
+        style: AppType.body(locale).copyWith(color: AppColors.textPrimary),
+        decoration: InputDecoration(
+          hintText: isArabic ? 'لقب يظهر للمنافس' : 'Shown to your opponent',
+          hintStyle: AppType.label(locale).copyWith(color: AppColors.textSecondary),
+        ),
+      ),
+      actions: [
+        TextButton(
+          onPressed: () => Navigator.pop(dialogContext),
+          child: Text(isArabic ? 'إلغاء' : 'Cancel'),
+        ),
+        FilledButton(
+          onPressed: () => Navigator.pop(dialogContext, controller.text.trim()),
+          child: Text(isArabic ? 'حفظ' : 'Save'),
+        ),
+      ],
+    ),
+  );
+  controller.dispose();
+  if (value == null) return;
+  final clean = value.replaceAll(RegExp(r'[\\u0000-\\u001F\\u007F]'), '').trim();
+  if (clean.length < 2) return;
+  await prefs.setString('player_nickname', clean.characters.take(18).toString());
 }
 
 class _HomeAtmosphere extends StatelessWidget {
