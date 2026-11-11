@@ -7,6 +7,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../core/l10n/bidi.dart';
+import '../../core/audio/game_audio.dart';
 import '../../core/locale/locale_controller.dart';
 import '../../core/net/ws_client.dart';
 import '../../core/theme/tokens.dart';
@@ -119,7 +120,7 @@ class _MatchFlowScreenState extends ConsumerState<MatchFlowScreen> {
           _stage = _Stage.found;
         });
         // Let the player read who they are facing; it is the only social beat in the game.
-        SystemSound.play(SystemSoundType.alert);
+        GameAudio.play('whistle');
         HapticFeedback.mediumImpact();
         Timer(const Duration(milliseconds: 850), () {
           if (mounted) setState(() => _stage = _Stage.playing);
@@ -143,14 +144,16 @@ class _MatchFlowScreenState extends ConsumerState<MatchFlowScreen> {
     _stateSub = transport.states.listen((next) {
       if (!mounted) return;
       if (next.phase == 'open' && _state.phase != 'open') {
-        SystemSound.play(SystemSoundType.click);
+        GameAudio.play('kick');
       }
+      if (next.phase == 'shoot' && _state.phase != 'shoot') GameAudio.play('whistle', volume: .58);
       if (next.phase == 'reveal' && _state.phase != 'reveal') {
-        SystemSound.play(next.goalFlash ? SystemSoundType.alert : SystemSoundType.click);
-        if (next.goalFlash) HapticFeedback.heavyImpact();
+        if (next.goalFlash) { GameAudio.play('goal', volume: .95); HapticFeedback.heavyImpact(); }
+        else if (_state.phase == 'shoot') { GameAudio.play('wrong'); }
+        else { GameAudio.play(next.outcome == 'correct' ? 'correct' : 'wrong'); }
       }
       if (next.phase == 'ended' && _state.phase != 'ended') {
-        SystemSound.play(SystemSoundType.alert);
+        GameAudio.play('whistle', volume: .9);
         HapticFeedback.heavyImpact();
       }
       setState(() {
@@ -206,6 +209,7 @@ class _MatchFlowScreenState extends ConsumerState<MatchFlowScreen> {
     _stateSub?.cancel();
     _transport?.dispose();
     _socket.dispose();
+    GameAudio.dispose();
     super.dispose();
   }
 
