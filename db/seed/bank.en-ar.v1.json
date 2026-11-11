@@ -10426,12 +10426,14 @@
       }
     },
     {
-      "id": "q_expert_bosman",
+      "id": "q_mc_expert_bosman",
       "schemaVersion": "1.0.0",
       "format": "mc",
       "difficulty": 5,
       "region": "EUROPE",
-      "competitions": [],
+      "competitions": [
+        "FIFA_WC"
+      ],
       "tags": [
         "advanced",
         "expert",
@@ -10444,27 +10446,27 @@
       },
       "options": [
         {
-          "id": "q_expert_bosman_o0",
+          "id": "opt_expert_bosman_1",
           "en": "Bosman ruling",
           "ar": "حكم بوسمان"
         },
         {
-          "id": "q_expert_bosman_o1",
+          "id": "opt_expert_bosman_2",
           "en": "Webster ruling",
           "ar": "حكم ويبستر"
         },
         {
-          "id": "q_expert_bosman_o2",
+          "id": "opt_expert_bosman_3",
           "en": "Kolpak ruling",
           "ar": "حكم كولباك"
         },
         {
-          "id": "q_expert_bosman_o3",
+          "id": "opt_expert_bosman_4",
           "en": "Di Stéfano ruling",
           "ar": "حكم دي ستيفانو"
         }
       ],
-      "answerOptionId": "q_expert_bosman_o0",
+      "answerOptionId": "opt_expert_bosman_1",
       "explainer": {
         "en": "This is a specialist football-history question. Check the match record and tournament archive.",
         "ar": "هذا سؤال متخصص في تاريخ كرة القدم، ويمكن مراجعة سجل المباراة وأرشيف البطولة للتحقق."
@@ -10484,12 +10486,14 @@
       }
     },
     {
-      "id": "q_expert_euro88",
+      "id": "q_mc_expert_euro88",
       "schemaVersion": "1.0.0",
       "format": "mc",
       "difficulty": 5,
       "region": "EUROPE",
-      "competitions": [],
+      "competitions": [
+        "UEFA_CL"
+      ],
       "tags": [
         "advanced",
         "expert",
@@ -10502,27 +10506,27 @@
       },
       "options": [
         {
-          "id": "q_expert_euro88_o0",
+          "id": "opt_expert_euro88_1",
           "en": "Ruud Gullit",
           "ar": "رود خوليت"
         },
         {
-          "id": "q_expert_euro88_o1",
+          "id": "opt_expert_euro88_2",
           "en": "Frank Rijkaard",
           "ar": "فرانك ريكارد"
         },
         {
-          "id": "q_expert_euro88_o2",
+          "id": "opt_expert_euro88_3",
           "en": "Marco van Basten",
           "ar": "ماركو فان باستن"
         },
         {
-          "id": "q_expert_euro88_o3",
+          "id": "opt_expert_euro88_4",
           "en": "Ronald Koeman",
           "ar": "رونالد كومان"
         }
       ],
-      "answerOptionId": "q_expert_euro88_o2",
+      "answerOptionId": "opt_expert_euro88_3",
       "explainer": {
         "en": "This is a specialist football-history question. Check the match record and tournament archive.",
         "ar": "هذا سؤال متخصص في تاريخ كرة القدم، ويمكن مراجعة سجل المباراة وأرشيف البطولة للتحقق."
@@ -10542,12 +10546,14 @@
       }
     },
     {
-      "id": "q_expert_afcon04",
+      "id": "q_mc_expert_afcon04",
       "schemaVersion": "1.0.0",
       "format": "mc",
       "difficulty": 5,
       "region": "AFRICA",
-      "competitions": [],
+      "competitions": [
+        "AFCON"
+      ],
       "tags": [
         "advanced",
         "expert",
@@ -10560,27 +10566,27 @@
       },
       "options": [
         {
-          "id": "q_expert_afcon04_o0",
+          "id": "opt_expert_afcon04_1",
           "en": "Nigeria",
           "ar": "نيجيريا"
         },
         {
-          "id": "q_expert_afcon04_o1",
+          "id": "opt_expert_afcon04_2",
           "en": "Tunisia",
           "ar": "تونس"
         },
         {
-          "id": "q_expert_afcon04_o2",
+          "id": "opt_expert_afcon04_3",
           "en": "Morocco",
           "ar": "المغرب"
         },
         {
-          "id": "q_expert_afcon04_o3",
+          "id": "opt_expert_afcon04_4",
           "en": "Egypt",
           "ar": "مصر"
         }
       ],
-      "answerOptionId": "q_expert_afcon04_o1",
+      "answerOptionId": "opt_expert_afcon04_2",
       "explainer": {
         "en": "This is a specialist football-history question. Check the match record and tournament archive.",
         "ar": "هذا سؤال متخصص في تاريخ كرة القدم، ويمكن مراجعة سجل المباراة وأرشيف البطولة للتحقق."
@@ -10600,12 +10606,14 @@
       }
     },
     {
-      "id": "q_expert_ucl99",
+      "id": "q_mc_expert_ucl99",
       "schemaVersion": "1.0.0",
       "format": "mc",
       "difficulty": 5,
       "region": "EUROPE",
-      "competitions": [],
+      "competitions": [
+        "UEFA_CL"
+      ],
       "tags": [
         "advanced",
         "expert",
@@ -10618,27 +10626,27 @@
       },
       "options": [
         {
-          "id": "q_expert_ucl99_o0",
+          "id": "opt_expert_ucl99_1",
           "en": "Ole Gunnar Solskjær",
           "ar": "أولي غونار سولشاير"
         },
         {
-          "id": "q_expert_ucl99_o1",
+          "id": "opt_expert_ucl99_2",
           "en": "Teddy Sheringham",
           "ar": "تيدي شيرينغهام"
         },
         {
-          "id": "q_expert_ucl99_o2",
+          "id": "opt_expert_ucl99_3",
           "en": "David Beckham",
           "ar": "ديفيد بيكهام"
         },
         {
-          "id": "q_expert_ucl99_o3",
+          "id": "opt_expert_ucl99_4",
           "en": "Ryan Giggs",
           "ar": "ريان غيغز"
         }
       ],
-      "answerOptionId": "q_expert_ucl99_o1",
+      "answerOptionId": "opt_expert_ucl99_2",
       "explainer": {
         "en": "This is a specialist football-history question. Check the match record and tournament archive.",
         "ar": "هذا سؤال متخصص في تاريخ كرة القدم، ويمكن مراجعة سجل المباراة وأرشيف البطولة للتحقق."
@@ -10658,12 +10666,14 @@
       }
     },
     {
-      "id": "q_expert_wc14keeper",
+      "id": "q_mc_expert_wc14keeper",
       "schemaVersion": "1.0.0",
       "format": "mc",
       "difficulty": 5,
       "region": "GLOBAL",
-      "competitions": [],
+      "competitions": [
+        "FIFA_WC"
+      ],
       "tags": [
         "advanced",
         "expert",
@@ -10676,27 +10686,27 @@
       },
       "options": [
         {
-          "id": "q_expert_wc14keeper_o0",
+          "id": "opt_expert_wc14keeper_1",
           "en": "Manuel Neuer",
           "ar": "مانويل نوير"
         },
         {
-          "id": "q_expert_wc14keeper_o1",
+          "id": "opt_expert_wc14keeper_2",
           "en": "Sergio Romero",
           "ar": "سيرخيو روميرو"
         },
         {
-          "id": "q_expert_wc14keeper_o2",
+          "id": "opt_expert_wc14keeper_3",
           "en": "Keylor Navas",
           "ar": "كيلور نافاس"
         },
         {
-          "id": "q_expert_wc14keeper_o3",
+          "id": "opt_expert_wc14keeper_4",
           "en": "Thibaut Courtois",
           "ar": "تيبو كورتوا"
         }
       ],
-      "answerOptionId": "q_expert_wc14keeper_o0",
+      "answerOptionId": "opt_expert_wc14keeper_1",
       "explainer": {
         "en": "This is a specialist football-history question. Check the match record and tournament archive.",
         "ar": "هذا سؤال متخصص في تاريخ كرة القدم، ويمكن مراجعة سجل المباراة وأرشيف البطولة للتحقق."
@@ -10716,12 +10726,14 @@
       }
     },
     {
-      "id": "q_expert_copa11",
+      "id": "q_mc_expert_copa11",
       "schemaVersion": "1.0.0",
       "format": "mc",
       "difficulty": 5,
       "region": "SOUTH_AMERICA",
-      "competitions": [],
+      "competitions": [
+        "FIFA_WC"
+      ],
       "tags": [
         "advanced",
         "expert",
@@ -10734,27 +10746,27 @@
       },
       "options": [
         {
-          "id": "q_expert_copa11_o0",
+          "id": "opt_expert_copa11_1",
           "en": "Brazil",
           "ar": "البرازيل"
         },
         {
-          "id": "q_expert_copa11_o1",
+          "id": "opt_expert_copa11_2",
           "en": "Argentina",
           "ar": "الأرجنتين"
         },
         {
-          "id": "q_expert_copa11_o2",
+          "id": "opt_expert_copa11_3",
           "en": "Uruguay",
           "ar": "الأوروغواي"
         },
         {
-          "id": "q_expert_copa11_o3",
+          "id": "opt_expert_copa11_4",
           "en": "Paraguay",
           "ar": "الباراغواي"
         }
       ],
-      "answerOptionId": "q_expert_copa11_o2",
+      "answerOptionId": "opt_expert_copa11_3",
       "explainer": {
         "en": "This is a specialist football-history question. Check the match record and tournament archive.",
         "ar": "هذا سؤال متخصص في تاريخ كرة القدم، ويمكن مراجعة سجل المباراة وأرشيف البطولة للتحقق."
@@ -10774,12 +10786,14 @@
       }
     },
     {
-      "id": "q_expert_afcon12",
+      "id": "q_mc_expert_afcon12",
       "schemaVersion": "1.0.0",
       "format": "mc",
       "difficulty": 5,
       "region": "AFRICA",
-      "competitions": [],
+      "competitions": [
+        "AFCON"
+      ],
       "tags": [
         "advanced",
         "expert",
@@ -10792,27 +10806,27 @@
       },
       "options": [
         {
-          "id": "q_expert_afcon12_o0",
+          "id": "opt_expert_afcon12_1",
           "en": "Ghana",
           "ar": "غانا"
         },
         {
-          "id": "q_expert_afcon12_o1",
+          "id": "opt_expert_afcon12_2",
           "en": "Zambia",
           "ar": "زامبيا"
         },
         {
-          "id": "q_expert_afcon12_o2",
+          "id": "opt_expert_afcon12_3",
           "en": "Mali",
           "ar": "مالي"
         },
         {
-          "id": "q_expert_afcon12_o3",
+          "id": "opt_expert_afcon12_4",
           "en": "Nigeria",
           "ar": "نيجيريا"
         }
       ],
-      "answerOptionId": "q_expert_afcon12_o1",
+      "answerOptionId": "opt_expert_afcon12_2",
       "explainer": {
         "en": "This is a specialist football-history question. Check the match record and tournament archive.",
         "ar": "هذا سؤال متخصص في تاريخ كرة القدم، ويمكن مراجعة سجل المباراة وأرشيف البطولة للتحقق."
@@ -10832,12 +10846,14 @@
       }
     },
     {
-      "id": "q_expert_wc02senegal",
+      "id": "q_mc_expert_wc02senegal",
       "schemaVersion": "1.0.0",
       "format": "mc",
       "difficulty": 5,
       "region": "GLOBAL",
-      "competitions": [],
+      "competitions": [
+        "FIFA_WC"
+      ],
       "tags": [
         "advanced",
         "expert",
@@ -10850,27 +10866,27 @@
       },
       "options": [
         {
-          "id": "q_expert_wc02senegal_o0",
+          "id": "opt_expert_wc02senegal_1",
           "en": "El Hadji Diouf",
           "ar": "الحاجي ضيوف"
         },
         {
-          "id": "q_expert_wc02senegal_o1",
+          "id": "opt_expert_wc02senegal_2",
           "en": "Henri Camara",
           "ar": "هنري كامارا"
         },
         {
-          "id": "q_expert_wc02senegal_o2",
+          "id": "opt_expert_wc02senegal_3",
           "en": "Papa Bouba Diop",
           "ar": "بابا بوبا ديوب"
         },
         {
-          "id": "q_expert_wc02senegal_o3",
+          "id": "opt_expert_wc02senegal_4",
           "en": "Salif Diao",
           "ar": "ساليف دياو"
         }
       ],
-      "answerOptionId": "q_expert_wc02senegal_o1",
+      "answerOptionId": "opt_expert_wc02senegal_2",
       "explainer": {
         "en": "This is a specialist football-history question. Check the match record and tournament archive.",
         "ar": "هذا سؤال متخصص في تاريخ كرة القدم، ويمكن مراجعة سجل المباراة وأرشيف البطولة للتحقق."
@@ -10890,12 +10906,14 @@
       }
     },
     {
-      "id": "q_expert_euro16",
+      "id": "q_mc_expert_euro16",
       "schemaVersion": "1.0.0",
       "format": "mc",
       "difficulty": 5,
       "region": "EUROPE",
-      "competitions": [],
+      "competitions": [
+        "UEFA_CL"
+      ],
       "tags": [
         "advanced",
         "expert",
@@ -10908,27 +10926,27 @@
       },
       "options": [
         {
-          "id": "q_expert_euro16_o0",
+          "id": "opt_expert_euro16_1",
           "en": "Cristiano Ronaldo",
           "ar": "كريستيانو رونالدو"
         },
         {
-          "id": "q_expert_euro16_o1",
+          "id": "opt_expert_euro16_2",
           "en": "Nani",
           "ar": "ناني"
         },
         {
-          "id": "q_expert_euro16_o2",
+          "id": "opt_expert_euro16_3",
           "en": "Éder",
           "ar": "إيدر"
         },
         {
-          "id": "q_expert_euro16_o3",
+          "id": "opt_expert_euro16_4",
           "en": "Ricardo Quaresma",
           "ar": "ريكاردو كواريزما"
         }
       ],
-      "answerOptionId": "q_expert_euro16_o2",
+      "answerOptionId": "opt_expert_euro16_3",
       "explainer": {
         "en": "This is a specialist football-history question. Check the match record and tournament archive.",
         "ar": "هذا سؤال متخصص في تاريخ كرة القدم، ويمكن مراجعة سجل المباراة وأرشيف البطولة للتحقق."
@@ -10948,12 +10966,14 @@
       }
     },
     {
-      "id": "q_expert_ucl04",
+      "id": "q_mc_expert_ucl04",
       "schemaVersion": "1.0.0",
       "format": "mc",
       "difficulty": 5,
       "region": "EUROPE",
-      "competitions": [],
+      "competitions": [
+        "UEFA_CL"
+      ],
       "tags": [
         "advanced",
         "expert",
@@ -10966,27 +10986,27 @@
       },
       "options": [
         {
-          "id": "q_expert_ucl04_o0",
+          "id": "opt_expert_ucl04_1",
           "en": "Monaco",
           "ar": "موناكو"
         },
         {
-          "id": "q_expert_ucl04_o1",
+          "id": "opt_expert_ucl04_2",
           "en": "Deportivo La Coruña",
           "ar": "ديبورتيفو لاكورونيا"
         },
         {
-          "id": "q_expert_ucl04_o2",
+          "id": "opt_expert_ucl04_3",
           "en": "Chelsea",
           "ar": "تشيلسي"
         },
         {
-          "id": "q_expert_ucl04_o3",
+          "id": "opt_expert_ucl04_4",
           "en": "AC Milan",
           "ar": "ميلان"
         }
       ],
-      "answerOptionId": "q_expert_ucl04_o0",
+      "answerOptionId": "opt_expert_ucl04_1",
       "explainer": {
         "en": "This is a specialist football-history question. Check the match record and tournament archive.",
         "ar": "هذا سؤال متخصص في تاريخ كرة القدم، ويمكن مراجعة سجل المباراة وأرشيف البطولة للتحقق."
@@ -11006,12 +11026,14 @@
       }
     },
     {
-      "id": "q_expert_euro04",
+      "id": "q_mc_expert_euro04",
       "schemaVersion": "1.0.0",
       "format": "mc",
       "difficulty": 5,
       "region": "EUROPE",
-      "competitions": [],
+      "competitions": [
+        "UEFA_CL"
+      ],
       "tags": [
         "advanced",
         "expert",
@@ -11024,27 +11046,27 @@
       },
       "options": [
         {
-          "id": "q_expert_euro04_o0",
+          "id": "opt_expert_euro04_1",
           "en": "Angelos Charisteas",
           "ar": "أنجيلوس خاريستياس"
         },
         {
-          "id": "q_expert_euro04_o1",
+          "id": "opt_expert_euro04_2",
           "en": "Theodoros Zagorakis",
           "ar": "تيودوروس زاغوراكيس"
         },
         {
-          "id": "q_expert_euro04_o2",
+          "id": "opt_expert_euro04_3",
           "en": "Giorgos Karagounis",
           "ar": "يورغوس كاراغونيس"
         },
         {
-          "id": "q_expert_euro04_o3",
+          "id": "opt_expert_euro04_4",
           "en": "Zisis Vryzas",
           "ar": "زيسيس فريزاس"
         }
       ],
-      "answerOptionId": "q_expert_euro04_o0",
+      "answerOptionId": "opt_expert_euro04_1",
       "explainer": {
         "en": "This is a specialist football-history question. Check the match record and tournament archive.",
         "ar": "هذا سؤال متخصص في تاريخ كرة القدم، ويمكن مراجعة سجل المباراة وأرشيف البطولة للتحقق."
@@ -11064,12 +11086,14 @@
       }
     },
     {
-      "id": "q_expert_wc90",
+      "id": "q_mc_expert_wc90",
       "schemaVersion": "1.0.0",
       "format": "mc",
       "difficulty": 5,
       "region": "GLOBAL",
-      "competitions": [],
+      "competitions": [
+        "FIFA_WC"
+      ],
       "tags": [
         "advanced",
         "expert",
@@ -11082,27 +11106,27 @@
       },
       "options": [
         {
-          "id": "q_expert_wc90_o0",
+          "id": "opt_expert_wc90_1",
           "en": "Argentina",
           "ar": "الأرجنتين"
         },
         {
-          "id": "q_expert_wc90_o1",
+          "id": "opt_expert_wc90_2",
           "en": "Italy",
           "ar": "إيطاليا"
         },
         {
-          "id": "q_expert_wc90_o2",
+          "id": "opt_expert_wc90_3",
           "en": "West Germany",
           "ar": "ألمانيا الغربية"
         },
         {
-          "id": "q_expert_wc90_o3",
+          "id": "opt_expert_wc90_4",
           "en": "Czechoslovakia",
           "ar": "تشيكوسلوفاكيا"
         }
       ],
-      "answerOptionId": "q_expert_wc90_o0",
+      "answerOptionId": "opt_expert_wc90_1",
       "explainer": {
         "en": "This is a specialist football-history question. Check the match record and tournament archive.",
         "ar": "هذا سؤال متخصص في تاريخ كرة القدم، ويمكن مراجعة سجل المباراة وأرشيف البطولة للتحقق."
