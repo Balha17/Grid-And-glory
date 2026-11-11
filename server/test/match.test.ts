@@ -190,7 +190,7 @@ const strongVsWeak = simulate({ aliceAccuracy: 0.92, bobAccuracy: 0.35, seed: 20
 test("both answers resolve immediately without waiting for the question deadline", () => {
   const room = buildRoom(20261111);
   const start = 9_500_000;
-  const intro = room.start(start);
+  room.start(start);
   const opened = room.advance(start + 1_100);
   const aQuestion = opened.find((e) => e.type === "round.question" && e.to === ALICE.playerId);
   const bQuestion = opened.find((e) => e.type === "round.question" && e.to === BOB.playerId);
