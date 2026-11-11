@@ -78,9 +78,31 @@ class HomeScreen extends ConsumerWidget {
                     ),
                   ),
                   child: Text(
-                    l10n.play,
+                    l10n.playOnline,
                     style: AppType.title(locale)
                         .copyWith(fontSize: 20, fontWeight: FontWeight.w800),
+                  ),
+                ),
+              ),
+              const SizedBox(height: AppSpacing.md),
+              SizedBox(
+                height: 58,
+                child: OutlinedButton(
+                  onPressed: () => Navigator.of(context).push(
+                    MaterialPageRoute<void>(
+                      builder: (_) => const MatchFlowScreen(playVsAi: true),
+                    ),
+                  ),
+                  style: OutlinedButton.styleFrom(
+                    foregroundColor: AppColors.accent,
+                    side: const BorderSide(color: AppColors.accent),
+                    shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(AppRadii.md),
+                    ),
+                  ),
+                  child: Text(
+                    l10n.playVsAi,
+                    style: AppType.title(locale).copyWith(fontSize: 17),
                   ),
                 ),
               ),
