@@ -195,14 +195,59 @@ class _MatchHud extends StatelessWidget {
 
 /// The ring always sweeps clockwise. A counter-clockwise clock is a different
 /// metaphor, not a translated one — see docs/04-ui-ux-spec.md §5.2.
-class _TimerChip extends StatelessWidget {
+class _TimerChip extends StatefulWidget {
   const _TimerChip({required this.seconds, required this.locale});
 
   final int seconds;
   final Locale locale;
 
   @override
+  State<_TimerChip> createState() => _TimerChipState();
+}
+
+class _TimerChipState extends State<_TimerChip> {
+  Timer? _ticker;
+  late int _seconds;
+
+  @override
+  void initState() {
+    super.initState();
+    _seconds = widget.seconds;
+    _startTicker();
+  }
+
+  @override
+  void didUpdateWidget(covariant _TimerChip oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.seconds != widget.seconds) {
+      _seconds = widget.seconds;
+      _startTicker();
+    }
+  }
+
+  void _startTicker() {
+    _ticker?.cancel();
+    if (_seconds <= 0) return;
+    _ticker = Timer.periodic(const Duration(seconds: 1), (timer) {
+      if (!mounted || _seconds <= 1) {
+        timer.cancel();
+        if (mounted) setState(() => _seconds = 0);
+        return;
+      }
+      setState(() => _seconds -= 1);
+    });
+  }
+
+  @override
+  void dispose() {
+    _ticker?.cancel();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final seconds = _seconds;
+    final locale = widget.locale;
     final urgent = seconds <= 3;
     return Semantics(
       label: '$seconds',
@@ -442,11 +487,37 @@ class _QuestionCard extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
-              state.prompt,
+              state.prompt.isEmpty
+                  ? (locale.languageCode == 'ar' ? 'استعد للسؤال التالي…' : 'Get ready for the next question…')
+                  : state.prompt,
               style: AppType.title(locale),
               maxLines: 3,
               overflow: TextOverflow.ellipsis,
             ),
+            if (state.media.isNotEmpty && state.format != 'blur_reveal') ...[
+              const SizedBox(height: AppSpacing.md),
+              ClipRRect(
+                borderRadius: const BorderRadius.all(AppRadii.sm),
+                child: AspectRatio(
+                  aspectRatio: 16 / 9,
+                  child: Image.network(
+                    state.media.first['url'] ?? '',
+                    fit: BoxFit.contain,
+                    errorBuilder: (context, error, stack) => Container(
+                      color: AppColors.bgRaised,
+                      alignment: Alignment.center,
+                      padding: const EdgeInsets.all(AppSpacing.md),
+                      child: Text(
+                        locale.languageCode == 'ar'
+                            ? 'الصورة غير متاحة حالياً'
+                            : 'Image unavailable',
+                        style: AppType.label(locale),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
             if (state.format != 'mc') ...[
               const SizedBox(height: AppSpacing.md),
               _FormatBody(state: state, locale: locale),
