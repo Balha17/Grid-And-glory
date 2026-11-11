@@ -4586,19 +4586,19 @@
       ],
       "era": "ALL_TIME",
       "prompt": {
-        "en": "Which club won the CAF Champions League three times in a row from 2011 to 2013?",
-        "ar": "أي نادٍ فاز بدوري أبطال أفريقيا ثلاث مرات متتالية بين 2011 و2013؟"
+        "en": "Which club won the 2011 CAF Champions League?",
+        "ar": "أي نادٍ فاز بدوري أبطال أفريقيا عام 2011؟"
       },
       "options": [
-        {
-          "id": "opt_alahl",
-          "en": "Al Ahly",
-          "ar": "الأهلي"
-        },
         {
           "id": "opt_esperance",
           "en": "Espérance de Tunis",
           "ar": "الترجي الرياضي التونسي"
+        },
+        {
+          "id": "opt_alahl",
+          "en": "Al Ahly",
+          "ar": "الأهلي"
         },
         {
           "id": "opt_tpmazembe",
@@ -4611,15 +4611,15 @@
           "ar": "الوداد الرياضي"
         }
       ],
-      "answerOptionId": "opt_alahl",
+      "answerOptionId": "opt_esperance",
       "explainer": {
-        "en": "Al Ahly won the competition in 2012 and 2013, but not 2011.",
-        "ar": "Al Ahly did not win three in a row."
+        "en": "Espérance won the 2011 final against Wydad Casablanca.",
+        "ar": "فاز الترجي بنهائي 2011 أمام الوداد البيضاوي."
       },
       "localization": {
-        "enChars": 122,
-        "arChars": 120,
-        "parityRatio": 0.984,
+        "enChars": 88,
+        "arChars": 96,
+        "parityRatio": 1.091,
         "verifiedBy": "content-01"
       }
     },
