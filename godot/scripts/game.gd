@@ -23,6 +23,10 @@ var you_are_shooting := false
 var selected := false
 var selected_option_id := ""
 var option_buttons: Dictionary = {}
+var matchmaking_panel: PanelContainer
+var matchmaking_label: Label
+var matchmaking_cancel_button: Button
+var join_mode_ai := false
 
 var stadium_root: Node3D
 var camera: Camera3D
@@ -82,6 +86,16 @@ func _process(_delta: float) -> void:
 				_handle_frame(frame)
 	elif state == WebSocketPeer.STATE_CLOSED:
 		connected = false
+		if phase == "connecting" and connection_deadline > 0:
+			connection_deadline = 0
+			phase = "home"
+			_show_matchmaking(false)
+			home_primary_button.disabled = false
+			home_secondary_button.disabled = false
+			menu_subtitle.text = "CONNECTION FAILED • TAP TO RETRY"
+	if phase == "connecting" and connection_deadline > 0:
+		var wait_left := maxi(0, int(ceil(float(connection_deadline - Time.get_ticks_msec()) / 1000.0)))
+		matchmaking_label.text = "CONNECTING TO MATCH SERVER…\n" + str(wait_left) + "s"
 	if countdown_deadline > 0 and phase in ["question_open", "shooting_chance"]:
 		var left := maxi(0, int(ceil(float(countdown_deadline - Time.get_ticks_msec()) / 1000.0)))
 		timer_label.text = str(left)
@@ -94,6 +108,7 @@ func _process(_delta: float) -> void:
 		socket.close()
 		connected = false
 		phase = "home"
+		_show_matchmaking(false)
 		home_primary_button.disabled = false
 		home_secondary_button.disabled = false
 		menu_subtitle.text = "SERVER TIMEOUT • CHECK INTERNET AND RETRY"
@@ -491,6 +506,28 @@ func _build_hud() -> void:
 	locale_button.pressed.connect(_toggle_locale)
 	settings_row.add_child(locale_button)
 
+	matchmaking_panel = PanelContainer.new()
+	matchmaking_panel.anchor_left = 0.08
+	matchmaking_panel.anchor_right = 0.92
+	matchmaking_panel.anchor_top = 0.39
+	matchmaking_panel.anchor_bottom = 0.61
+	matchmaking_panel.add_theme_stylebox_override("panel", _panel_style(Color(0.012,0.035,0.085,0.98), Color(0.95,0.67,0.18), 3))
+	matchmaking_panel.visible = false
+	home_layer.add_child(matchmaking_panel)
+	var matchmaking_box := VBoxContainer.new()
+	matchmaking_box.add_theme_constant_override("separation", 10)
+	matchmaking_panel.add_child(matchmaking_box)
+	matchmaking_label = Label.new()
+	matchmaking_label.text = "CONNECTING TO MATCH SERVER…"
+	matchmaking_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	matchmaking_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	matchmaking_label.add_theme_font_size_override("font_size", 20)
+	matchmaking_label.add_theme_color_override("font_color", Color(0.96,0.84,0.53))
+	matchmaking_box.add_child(matchmaking_label)
+	matchmaking_cancel_button = _make_button("CANCEL", Color(0.34,0.09,0.12), Color(0.9,0.28,0.25), 48)
+	matchmaking_cancel_button.pressed.connect(_cancel_matchmaking)
+	matchmaking_box.add_child(matchmaking_cancel_button)
+
 	var footer := Label.new()
 	footer.text = "ONLINE DUELS  •  SMART AI  •  FOOTBALL KNOWLEDGE"
 	footer.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
@@ -500,6 +537,7 @@ func _build_hud() -> void:
 
 	match_layer.visible = false
 	home_layer.visible = true
+	matchmaking_panel.visible = false
 
 func _panel_style(fill: Color, edge: Color, border_width: int) -> StyleBoxFlat:
 	var style := StyleBoxFlat.new()
@@ -538,6 +576,7 @@ func _show_home() -> void:
 	stadium_root.visible = false
 	match_layer.visible = false
 	home_layer.visible = true
+	matchmaking_panel.visible = false
 	menu_title.text = "GRID & GLORY"
 	menu_subtitle.text = "THE ULTIMATE FOOTBALL QUIZ BATTLE"
 	home_primary_button.text = "PLAY ONLINE"
@@ -586,26 +625,61 @@ func _on_ai_pressed() -> void:
 	_start_connection(true)
 
 func _start_connection(vs_ai: bool) -> void:
-	if socket.get_ready_state() == WebSocketPeer.STATE_OPEN:
-		if vs_ai:
-			_send("bot.join", {})
-		else:
-			_send("queue.join", {})
-		return
+	join_mode_ai = vs_ai
+	set_meta("join_ai", vs_ai)
 	phase = "connecting"
-	connection_deadline = Time.get_ticks_msec() + 12000
-	menu_subtitle.text = "CONNECTING TO MATCH SERVER…"
+	connection_deadline = Time.get_ticks_msec() + 20000
 	home_primary_button.disabled = true
 	home_secondary_button.disabled = true
+	_show_matchmaking(true)
+	matchmaking_label.text = "CONNECTING TO MATCH SERVER…"
+	# A closed WebSocketPeer cannot be reused for a new connection attempt.
+	var socket_state := socket.get_ready_state()
+	if socket_state == WebSocketPeer.STATE_CLOSED:
+		socket = WebSocketPeer.new()
+		connected = false
+	elif socket_state == WebSocketPeer.STATE_OPEN:
+		if not player_id.is_empty() and not session_token.is_empty():
+			_send_join_request()
+			return
+		# Wait for the pending welcome/hello handshake; never send bot.join before hello. 
+		return
 	var err := socket.connect_to_url(SERVER_URL)
 	if err != OK:
 		connection_deadline = 0
 		phase = "home"
+		_show_matchmaking(false)
 		home_primary_button.disabled = false
 		home_secondary_button.disabled = false
 		menu_subtitle.text = "CONNECTION FAILED • TAP TO RETRY"
 		return
-	set_meta("join_ai", vs_ai)
+
+func _show_matchmaking(show: bool) -> void:
+	if matchmaking_panel:
+		matchmaking_panel.visible = show
+
+func _send_join_request() -> void:
+	if join_mode_ai:
+		matchmaking_label.text = "CREATING YOUR AI MATCH…"
+		_send("bot.join", {})
+	else:
+		matchmaking_label.text = "SEARCHING FOR AN OPPONENT…"
+		_send("queue.join", {})
+
+func _cancel_matchmaking() -> void:
+	if connected and not player_id.is_empty():
+		_send("queue.leave", {})
+	socket.close()
+	connected = false
+	connection_deadline = 0
+	phase = "home"
+	player_id = ""
+	session_token = ""
+	_show_matchmaking(false)
+	home_primary_button.disabled = false
+	home_secondary_button.disabled = false
+	menu_subtitle.text = "THE ULTIMATE FOOTBALL QUIZ BATTLE"
+
 
 func _handle_frame(frame: Dictionary) -> void:
 	var type := str(frame.get("type", ""))
@@ -614,19 +688,17 @@ func _handle_frame(frame: Dictionary) -> void:
 		"welcome":
 			_send("hello", {"deviceId": OS.get_unique_id(), "locale": locale, "region": "MENA", "displayName": display_name})
 		"hello.ack":
-			connection_deadline = 0
-			menu_subtitle.text = "CONNECTED • FINDING OPPONENT…"
 			player_id = str(p.get("playerId", ""))
 			session_token = str(p.get("sessionToken", ""))
-			if bool(get_meta("join_ai", false)):
-				_send("bot.join", {})
-			else:
-				_send("queue.join", {})
+			_send_join_request()
 		"queue.joined":
+			matchmaking_label.text = "SEARCHING FOR A PLAYER…\nAI BACKUP IN 15 SECONDS"
 			question_label.text = "Searching for an opponent…"
 			status_label.text = "MATCHMAKING • AI BACKUP AVAILABLE"
 		"match.found":
 			match_id = str(p.get("matchId", ""))
+			matchmaking_label.text = "OPPONENT FOUND • PREPARING KICK-OFF"
+			_show_matchmaking(false)
 			question_label.text = "OPPONENT FOUND"
 			status_label.text = "KICK-OFF INCOMING"
 		"match.start", "match.second_half":
@@ -701,6 +773,7 @@ func _handle_frame(frame: Dictionary) -> void:
 		"error":
 			connection_deadline = 0
 			phase = "home"
+			_show_matchmaking(false)
 			home_primary_button.disabled = false
 			home_secondary_button.disabled = false
 			menu_subtitle.text = "SERVER ERROR • " + str(p.get("code", "ERROR"))
