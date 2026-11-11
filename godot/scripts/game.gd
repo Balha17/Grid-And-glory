@@ -734,19 +734,19 @@ func _handle_frame(frame: Dictionary) -> void:
 			matchmaking_label.text = "OPPONENT FOUND • PREPARING KICK-OFF"
 			_show_matchmaking(false)
 			question_label.text = "OPPONENT FOUND"
-			status_label.text = "KICK-OFF INCOMING"
+			status_label.text = _tr("KICK-OFF INCOMING", "المباراة على وشك الانطلاق")
 		"match.start", "match.second_half":
 			_show_match()
 			_play_sfx("whistle")
 			phase = "round_intro"
 			_read_scores(p)
-			status_label.text = "KICK OFF • HALF " + str(p.get("half", 1))
-			question_label.text = "Get ready!"
+			status_label.text = _tr("KICK OFF • HALF ", "انطلاق • الشوط ") + str(p.get("half", 1))
+			question_label.text = _tr("Get ready!", "استعد!")
 			animate_kickoff()
 		"round.intro":
 			phase = "round_intro"
-			question_label.text = "ROUND " + str(p.get("roundNo", "")) + " • GET READY"
-			status_label.text = "THE NEXT QUESTION IS COMING"
+			question_label.text = _tr("ROUND ", "الجولة ") + str(p.get("roundNo", "")) + _tr(" • GET READY", " • استعد")
+			status_label.text = _tr("THE NEXT QUESTION IS COMING", "السؤال التالي قادم")
 		"round.question", "shoot.question":
 			phase = "shooting_chance" if type == "shoot.question" else "question_open"
 			current_token = str(p.get("token", ""))
@@ -759,13 +759,13 @@ func _handle_frame(frame: Dictionary) -> void:
 			countdown_duration = end_at - server_now
 			countdown_started = Time.get_ticks_msec()
 			countdown_deadline = countdown_started + countdown_duration
-			status_label.text = "SHOOTING CHANCE!" if phase == "shooting_chance" else "ANSWER FAST TO WIN THE BALL"
+			status_label.text = _tr("SHOOTING CHANCE!", "فرصة للتسجيل!") if phase == "shooting_chance" else _tr("ANSWER FAST TO WIN THE BALL", "أجب بسرعة للفوز بالكرة")
 			animate_attack(you_are_shooting)
 			_play_sfx("kick")
 		"round.answer_ack":
-			status_label.text = "ANSWER LOCKED • WAIT FOR REFEREE"
+			status_label.text = _tr("ANSWER LOCKED • WAIT FOR REFEREE", "تم تثبيت إجابتك • انتظر النتيجة")
 		"round.opponent_answered":
-			status_label.text = "RIVAL HAS ANSWERED"
+			status_label.text = _tr("RIVAL HAS ANSWERED", "الخصم أجاب")
 		"round.reveal":
 			phase = "round_reveal"
 			countdown_deadline = 0
@@ -823,7 +823,7 @@ func _show_question(view: Dictionary) -> void:
 	var prompt := str(view.get("prompt", "")).strip_edges()
 	var incoming_options: Array = view.get("options", [])
 	if prompt.is_empty() or incoming_options.size() < 2:
-		question_label.text = "Question unavailable. Waiting for the next round…"
+		question_label.text = _tr("Question unavailable. Waiting for the next round…", "السؤال غير متاح. ننتظر الجولة التالية…")
 		_clear_options()
 		action_box.visible = false
 		push_warning("Rejected incomplete question view from server.")
@@ -838,6 +838,8 @@ func _show_question(view: Dictionary) -> void:
 	question_label.text = prompt
 	question_label.text_direction = Control.TEXT_DIRECTION_AUTO
 	question_label.layout_direction = Control.LAYOUT_DIRECTION_RTL if locale == "ar" else Control.LAYOUT_DIRECTION_LTR
+	options_box.layout_direction = Control.LAYOUT_DIRECTION_RTL if locale == "ar" else Control.LAYOUT_DIRECTION_LTR
+	clue_label.layout_direction = Control.LAYOUT_DIRECTION_RTL if locale == "ar" else Control.LAYOUT_DIRECTION_LTR
 	selected_option_id = ""
 	status_label.add_theme_color_override("font_color", Color(0.65,0.82,1.0))
 	var difficulty := int(view.get("difficulty", 1))
@@ -876,8 +878,8 @@ func _show_question(view: Dictionary) -> void:
 		for club in career_clubs:
 			if club is Dictionary and not str(club.get("name", "")).is_empty():
 				club_names.append(str(club.get("name", "")))
-		clue_label.text = "   ›   ".join(club_names)
-		clue_label.add_theme_font_size_override("font_size", 16)
+		clue_label.text = "\n›   ".join(club_names)
+		clue_label.add_theme_font_size_override("font_size", 14)
 		clue_label.add_theme_color_override("font_color", Color(1.0, 0.84, 0.40))
 		clue_label.visible = not club_names.is_empty()
 	elif format_type == "stat_highlow":
@@ -933,7 +935,7 @@ func _submit_answer(option_id: String) -> void:
 	for child in options_box.get_children():
 		if child is Button:
 			child.disabled = true
-	status_label.text = "ANSWER SENT • WAITING FOR RESULT"
+	status_label.text = _tr("ANSWER SENT • WAITING FOR RESULT", "تم إرسال الإجابة • ننتظر النتيجة")
 
 func _show_answer_feedback(correct_id: String, was_correct: bool) -> void:
 	for option in current_options:
