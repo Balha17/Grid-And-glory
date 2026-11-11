@@ -815,7 +815,8 @@ func _handle_frame(frame: Dictionary) -> void:
 			var scored := bool(p.get("scored", false))
 			status_label.text = "GOOOOOAL!" if scored else "SAVED!"
 			status_label.add_theme_color_override("font_color", Color(0.20, 0.95, 0.43) if scored else Color(1.0, 0.25, 0.22))
-			_show_answer_feedback(str(p.get("correctOptionId", "")), scored)
+			var correct_shot_id := str(p.get("correctOptionId", ""))
+			_show_answer_feedback(correct_shot_id, not correct_shot_id.is_empty() and selected_option_id == correct_shot_id)
 			animate_shot(scored)
 			_play_sfx("cheer" if scored else "kick")
 		"match.half":
