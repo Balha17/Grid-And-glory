@@ -39,6 +39,7 @@ export interface QuestionDoc {
   explainer: Localized;
   formatData?: Record<string, unknown>;
   media?: Array<{ assetId: string; role: string }>;
+  image_path?: string;
 }
 
 export interface EntityCatalog {
@@ -143,6 +144,7 @@ export interface QuestionView {
   explainer: string;
   formatData: Record<string, unknown>;
   media: Array<{ assetId: string; url: string; alt: string }>;
+  imagePath?: string;
 }
 
 /* ---------------------------------------------------------------- outbound */
