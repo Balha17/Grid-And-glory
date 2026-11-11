@@ -351,7 +351,8 @@ export class Gateway {
       token: null,
       questionId: null,
       answerAt: 0,
-      accuracy: 0.64,
+      // Each match gets a reproducible but slightly different bot skill (58–78%).
+      accuracy: 0.58 + (seedFrom(`${matchId}:skill`) % 21) / 100,
     });
     this.matchesStarted += 1;
 
