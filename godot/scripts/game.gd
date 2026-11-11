@@ -22,7 +22,6 @@ var rival_goals := 0
 var you_are_shooting := false
 var selected := false
 var selected_option_id := ""
-var selected_option_id := ""
 var option_buttons: Dictionary = {}
 
 var stadium_root: Node3D
@@ -741,7 +740,7 @@ func _show_question(view: Dictionary) -> void:
 	clue_label.text = ""
 	clue_label.visible = false
 	if format_type == "emoji_story":
-		clue_label.text = str(format_data.get("emoji", "")).replace("⁦", "").replace("⁩", "")
+		clue_label.text = str(format_data.get("emoji", "")).replace("\u2066", "").replace("\u2069", "")
 		clue_label.add_theme_font_size_override("font_size", 42)
 		clue_label.visible = not clue_label.text.strip_edges().is_empty()
 	elif format_type == "career_path":
