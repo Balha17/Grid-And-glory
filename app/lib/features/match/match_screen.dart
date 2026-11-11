@@ -239,7 +239,12 @@ class _TimerChipState extends State<_TimerChip> {
       if (_seconds <= 5 && _seconds > 0) {
         SystemSound.play(_seconds <= 3 ? SystemSoundType.alert : SystemSoundType.click);
       }
-      if (_seconds <= 3 && _seconds > 0) HapticFeedback.mediumImpact();
+      if (_seconds <= 3 && _seconds > 0) HapticFeedback.heavyImpact();
+      if (_seconds <= 2 && _seconds > 0) {
+        Future<void>.delayed(const Duration(milliseconds: 180), () {
+          if (mounted && _seconds <= 2) SystemSound.play(SystemSoundType.alert);
+        });
+      }
     });
   }
 
