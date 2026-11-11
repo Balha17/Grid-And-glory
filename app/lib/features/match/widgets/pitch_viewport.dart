@@ -6,16 +6,19 @@ import '../../../core/theme/tokens.dart';
 /// only the two player lanes mirror for RTL.
 class PitchViewport extends StatelessWidget {
   const PitchViewport({super.key, required this.yourZone, required this.opponentZone,
-    required this.youHaveBall, required this.locale, this.goalFlash = false});
+    required this.youHaveBall, required this.locale, this.goalFlash = false, this.phase = 'open', this.youAreShooting});
   final int yourZone, opponentZone;
   final bool youHaveBall;
   final Locale locale;
   final bool goalFlash;
+  final String phase;
+  final bool? youAreShooting;
 
   @override
   Widget build(BuildContext context) {
     final rtl = Directionality.of(context) == TextDirection.rtl;
     final duration = AppMotion.respecting(context, AppMotion.zoneAdvance);
+    final attacking = phase == 'shoot' ? youAreShooting == true : youHaveBall;
     return TweenAnimationBuilder<double>(
       tween: Tween(begin: yourZone.toDouble(), end: yourZone.toDouble()),
       duration: duration, curve: Curves.easeOutCubic,
@@ -24,7 +27,7 @@ class PitchViewport extends StatelessWidget {
         duration: duration, curve: Curves.easeOutCubic,
         builder: (context, rival, _) => RepaintBoundary(
           child: CustomPaint(
-            painter: _PitchPainter(you: you, rival: rival, possession: youHaveBall, rtl: rtl, goalFlash: goalFlash),
+            painter: _PitchPainter(you: you, rival: rival, possession: attacking, rtl: rtl, goalFlash: goalFlash, shooting: phase == 'shoot', locale: locale),
             child: const SizedBox.expand(),
           ),
         ),
@@ -34,13 +37,14 @@ class PitchViewport extends StatelessWidget {
 }
 
 class _PitchPainter extends CustomPainter {
-  _PitchPainter({required this.you, required this.rival, required this.possession, required this.rtl, required this.goalFlash});
+  _PitchPainter({required this.you, required this.rival, required this.possession, required this.rtl, required this.goalFlash, required this.shooting, required this.locale});
   final double you, rival;
-  final bool possession, rtl, goalFlash;
+  final bool possession, rtl, goalFlash, shooting;
+  final Locale locale;
   static const blue = Color(0xFF38BDF8);
   static const red = Color(0xFFFF555F);
   static const line = Color(0xD9FFFFFF);
-  static const radius = 17.0;
+  static const radius = 10.5;
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -51,10 +55,12 @@ class _PitchPainter extends CustomPainter {
     _goals(canvas, f);
     final dx = f.width * 0.20 * (rtl ? -1 : 1);
     final pYou = Offset(f.center.dx + dx, _zoneY(you, f));
-    final pRival = Offset(f.center.dx - dx, _zoneY(rival, f));
-    _player(canvas, pYou, blue, possession, '10');
-    _player(canvas, pRival, red, !possession, '07');
-    _ball(canvas, possession ? pYou : pRival);
+    final pRival = Offset(f.center.dx - dx, _rivalZoneY(rival, f));
+    _team(canvas, f, pYou, blue, true, possession);
+    _team(canvas, f, pRival, red, false, !possession);
+    final owner = possession ? pYou : pRival;
+    _ball(canvas, owner, shooting);
+    _status(canvas, size);
     if (goalFlash) {
       final glow = Rect.fromLTWH(f.left, f.top, f.width, f.height * .17);
       canvas.drawRect(glow, Paint()..shader = LinearGradient(
@@ -134,6 +140,43 @@ class _PitchPainter extends CustomPainter {
   }
 
   double _zoneY(double z,Rect f)=>f.bottom-(z.clamp(0,5).toDouble()+.5)*(f.height/6);
+  double _rivalZoneY(double z, Rect f)=>f.top+(z.clamp(0,5).toDouble()+.5)*(f.height/6);
+
+  // A compact formation makes attack and defence visibly different: support players
+  // move behind the ball carrier, while the opposing team presses from its own half.
+  void _team(Canvas c, Rect f, Offset focus, Color color, bool isBlue, bool active) {
+    final dir = isBlue ? 1.0 : -1.0;
+    _player(c, Offset(f.center.dx, isBlue ? f.bottom - 8 : f.top + 8), color.withValues(alpha: .85), false, 'GK');
+    final offsets = <Offset>[
+      Offset(-f.width * .22, dir * f.height * .12),
+      Offset(-f.width * .09, dir * f.height * .18),
+      Offset(f.width * .09, dir * f.height * .18),
+      Offset(f.width * .22, dir * f.height * .12),
+    ];
+    for (var i = 0; i < offsets.length; i++) {
+      final point = Offset((focus.dx + offsets[i].dx).clamp(f.left + 11, f.right - 11),
+        (focus.dy + offsets[i].dy).clamp(f.top + 12, f.bottom - 12));
+      _player(c, point, color, active && i == 1, '${i + 2}');
+    }
+    _player(c, focus, color, active, isBlue ? '10' : '09');
+  }
+
+  void _status(Canvas c, Size s) {
+    final ar = locale.languageCode == 'ar';
+    final label = shooting ? (ar ? 'فرصة للتسجيل' : 'SHOOTING CHANCE')
+      : possession ? (ar ? 'هجومك • استحواذ' : 'YOUR ATTACK • IN POSSESSION')
+      : (ar ? 'دفاعك • استعد للافتكاك' : 'DEFENDING • WIN IT BACK');
+    final color = shooting ? const Color(0xFFFFD166) : possession ? blue : red;
+    final w = math.min(s.width - 24, shooting ? 142.0 : 174.0);
+    final rect = Rect.fromLTWH((s.width - w) / 2, s.height - 28, w, 16);
+    c.drawRRect(RRect.fromRectAndRadius(rect, const Radius.circular(9)),
+      Paint()..color = const Color(0xFF071321).withValues(alpha: .9));
+    c.drawRRect(RRect.fromRectAndRadius(rect, const Radius.circular(9)),
+      Paint()..style = PaintingStyle.stroke..strokeWidth = .8..color = color);
+    final text = TextPainter(text: TextSpan(text: label, style: TextStyle(color: color, fontSize: 6.2, fontWeight: FontWeight.w900)),
+      textDirection: TextDirection.ltr, maxLines: 1)..layout(maxWidth: w - 8);
+    text.paint(c, Offset(rect.center.dx - text.width / 2, rect.top + 4));
+  }
 
   void _player(Canvas c,Offset p,Color color,bool ball,String number){
     if(ball){
@@ -149,8 +192,12 @@ class _PitchPainter extends CustomPainter {
     t.paint(c,p-Offset(t.width/2,t.height/2));
   }
 
-  void _ball(Canvas c,Offset owner){
+  void _ball(Canvas c,Offset owner, bool dramatic){
     final p=owner+const Offset(radius*.88,radius*.58);
+    if (dramatic) {
+      c.drawLine(p + const Offset(-13, 7), p + const Offset(-4, 2), Paint()..color = const Color(0xFFFFD166)..strokeWidth = 2.1..strokeCap = StrokeCap.round);
+      c.drawCircle(p, radius * .8, Paint()..color = const Color(0xFFFFD166).withValues(alpha: .18));
+    }
     c.drawCircle(p+const Offset(0,2),6,Paint()..color=Colors.black38);
     c.drawCircle(p,5.2,Paint()..color=Colors.white);
     c.drawCircle(p,5.2,Paint()..style=PaintingStyle.stroke..strokeWidth = 1.1..color=const Color(0xFF1A2638));
@@ -158,5 +205,5 @@ class _PitchPainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(_PitchPainter old)=>old.you!=you||old.rival!=rival||old.possession!=possession||old.rtl!=rtl||old.goalFlash!=goalFlash;
+  bool shouldRepaint(_PitchPainter old)=>old.you!=you||old.rival!=rival||old.possession!=possession||old.rtl!=rtl||old.goalFlash!=goalFlash||old.shooting!=shooting||old.locale!=locale;
 }
