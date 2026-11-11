@@ -264,7 +264,6 @@ MatchUiState reduce(MatchUiState state, Map<String, dynamic> event) {
             .toList(growable: false),
         selectedOptionId: '',
         youAreShooting: payload['youAreShooting'] as bool?,
-        remainingSeconds: 5,
       );
 
     case 'shoot.reveal':
