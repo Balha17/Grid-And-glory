@@ -59,6 +59,14 @@ for locale, name in [("values", "Grid &amp; Glory"), ("values-ar", "التحدي
 # Branded Android 12+ launch screen. This is generated on every clean CI build.
 drawable_dir = res_dir / "drawable"
 drawable_dir.mkdir(parents=True, exist_ok=True)
+(drawable_dir / "launch_background.xml").write_text(
+    '<?xml version="1.0" encoding="utf-8"?>\n'
+    '<layer-list xmlns:android="http://schemas.android.com/apk/res/android">\n'
+    '  <item android:drawable="@color/gg_splash_background"/>\n'
+    '  <item android:drawable="@drawable/gg_splash_icon" android:gravity="center"/>\n'
+    '</layer-list>\n',
+    encoding="utf-8",
+)
 (drawable_dir / "gg_splash_icon.xml").write_text(
     '<?xml version="1.0" encoding="utf-8"?>\n'
     '<vector xmlns:android="http://schemas.android.com/apk/res/android" '
@@ -120,6 +128,21 @@ else:
         '<resources><color name="gg_icon_background">#10233A</color></resources>\n'
     )
 colors.write_text(color_xml, encoding="utf-8")
+
+base_values = res_dir / "values"
+base_values.mkdir(parents=True, exist_ok=True)
+(base_values / "styles.xml").write_text(
+    '<?xml version="1.0" encoding="utf-8"?>\\n'
+    '<resources>\\n'
+    '  <style name="LaunchTheme" parent="@android:style/Theme.Material.Light.NoActionBar">\\n'
+    '    <item name="android:windowBackground">@drawable/launch_background</item>\\n'
+    '  </style>\\n'
+    '  <style name="NormalTheme" parent="@android:style/Theme.Material.Light.NoActionBar">\\n'
+    '    <item name="android:windowBackground">?android:colorBackground</item>\\n'
+    '  </style>\\n'
+    '</resources>\\n',
+    encoding="utf-8",
+)
 
 v31 = res_dir / "values-v31"
 v31.mkdir(parents=True, exist_ok=True)
