@@ -45,15 +45,15 @@ const classify = (
   input: ResolveInput,
 ): PlayerRoundResult => {
   if (!answer) {
-    return { outcome: "no_answer", delta: SCORE.TURNOVER, late: false, elapsedMs: null, fastest: false };
+    return { outcome: "wrong", delta: SCORE.TURNOVER, late: false, elapsedMs: null, fastest: false };
   }
 
   const { windowOpensAt, windowEndsAt } = input.timing;
   const elapsedMs = answer.receivedAt - windowOpensAt;
 
-  // Outside the window + grace: the server never saw an answer in time.
-  if (answer.receivedAt > windowEndsAt + SCORE.LATE_GRACE_MS) {
-    return { outcome: "no_answer", delta: SCORE.TURNOVER, late: true, elapsedMs, fastest: false };
+  // The deadline is strict: a correct option received after zero is still wrong.
+  if (answer.receivedAt > windowEndsAt) {
+    return { outcome: "wrong", delta: SCORE.TURNOVER, late: true, elapsedMs, fastest: false };
   }
 
   const correct = answer.optionId === input.answerOptionId;
