@@ -15,6 +15,8 @@ dependencies:
   # State. Riverpod over Provider because the match state is fed by a stream of
   # server events and must be testable without a BuildContext.
   flutter_riverpod: ^2.6.1
+  audioplayers: ^6.1.0
+  flutter_svg: ^2.0.10
 
   # Locale persistence. Read synchronously at startup so the first frame is never
   # in the wrong language.
@@ -35,6 +37,8 @@ dev_dependencies:
 flutter:
   generate: true
   uses-material-design: true
+  assets:
+    - assets/images/
 
   # Fonts are deliberately NOT declared yet — drop the files in and uncomment.
   # Arabic needs a real Arabic face: synthetic bold smears the letter joins.
