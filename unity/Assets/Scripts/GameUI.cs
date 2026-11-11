@@ -127,7 +127,7 @@ namespace GridGlory
         }
         private void OnSocketOpen()
         {
-            Send("hello",new JObject{{"deviceId",SystemInfo.deviceUniqueIdentifier},{"locale","en"},{"region","MENA"},{"displayName","Striker"}});
+            // The server sends "welcome" first; hello is sent only in that handler.
         }
         private void OnSocketMessage(byte[] bytes)
         {
